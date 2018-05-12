@@ -1,5 +1,4 @@
 /*
- *
  * LanguageProvider
  *
  * this component connects the redux state language locale to the
@@ -7,22 +6,20 @@
  */
 
 import * as React from "react"
+import {IntlProvider} from "react-intl"
 import {connect} from "react-redux"
 import {createSelector} from "reselect"
-import {IntlProvider} from "react-intl"
-
 import {makeSelectLocale} from "./selectors"
 
-interface LanguageProviderProps {
+interface ILanguageProviderProps {
   locale: any
-  messages: any
+  messages: any[]
 }
 
 export class LanguageProvider extends React.PureComponent<
-  LanguageProviderProps
+  ILanguageProviderProps
 > {
-  // eslint-disable-line react/prefer-stateless-function
-  render() {
+  public render() {
     return (
       <IntlProvider
         locale={this.props.locale}
@@ -39,10 +36,8 @@ const mapStateToProps = createSelector(makeSelectLocale(), (locale: any) => ({
   locale,
 }))
 
-function mapDispatchToProps(dispatch: any) {
-  return {
-    dispatch,
-  }
-}
+const mapDispatchToProps = (dispatch: any) => ({
+  dispatch,
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(LanguageProvider)

@@ -2,11 +2,13 @@
  * Combine all reducers in this file and export the combined reducers.
  */
 
-import {combineReducers} from "redux-immutable"
 import {fromJS} from "immutable"
+import {combineReducers} from "redux-immutable"
+import languageProviderReducer from "./containers/LanguageProvider/reducer"
+
+// tslint:disable-next-line:no-var-requires
 const {LOCATION_CHANGE} = require("react-router-redux")
 
-import languageProviderReducer from "./containers/LanguageProvider/reducer"
 /*
  * routeReducer
  *
@@ -40,8 +42,8 @@ function routeReducer(state = routeInitialState, action: any) {
  */
 export default function createReducer(injectedReducers: any) {
   return combineReducers({
-    route: routeReducer,
     language: languageProviderReducer,
+    route: routeReducer,
     ...injectedReducers,
   })
 }

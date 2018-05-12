@@ -2,12 +2,15 @@
  * Create the store with dynamic reducers
  */
 
-import {createStore, applyMiddleware, compose} from "redux"
 import {fromJS} from "immutable"
-const {routerMiddleware} = require("react-router-redux")
-import thunk from "redux-thunk"
-import createReducer from "./reducers"
+import {applyMiddleware, compose, createStore} from "redux"
 import {loadState} from "./localStorage"
+import createReducer from "./reducers"
+
+// tslint:disable-next-line:no-var-requires
+const thunk = require("redux-thunk")
+// tslint:disable-next-line:no-var-requires
+const {routerMiddleware} = require("react-router-redux")
 
 export default function configureStore(initialState = {}, history: any) {
   const persistedState = loadState()
@@ -27,19 +30,21 @@ export default function configureStore(initialState = {}, history: any) {
   /* eslint-enable */
 
   const store = createStore(
-    createReducer(undefined),
+    createReducer({}),
     persistedState || fromJS(initialState),
     composeEnhancers(...enhancers)
   )
 
   // Extensions
-  store.injectedReducers = {} // Reducer registry
+  const storeWithInjectedReducers = {...store, injectedReducers: {}} // Reducer registry
 
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if ((module as any).hot) {
     ;(module as any).hot.accept("./reducers", () => {
-      store.replaceReducer(createReducer(store.injectedReducers))
+      store.replaceReducer(
+        createReducer(storeWithInjectedReducers.injectedReducers)
+      )
     })
   }
 
