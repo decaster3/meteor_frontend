@@ -11,9 +11,13 @@ const hoistNonReactStatics = require("hoist-non-react-statics")
  * @param {string} key A key of the reducer
  * @param {function} reducer A reducer that will be injected
  */
-export default ({key, reducer}: {key: any; reducer: any}) => (
-  WrappedComponent: any
-) => {
+export default ({
+  key,
+  reducer,
+}: {
+  key: string
+  reducer: (state: any) => any
+}) => (WrappedComponent: any) => {
   class ReducerInjector extends React.Component {
     public static WrappedComponent = WrappedComponent
     public static contextTypes = {

@@ -25,7 +25,7 @@ const routeInitialState = fromJS({
 /**
  * Merge route into the global application state
  */
-function routeReducer(state = routeInitialState, action: any) {
+const routeReducer = (state = routeInitialState, action: any) => {
   switch (action.type) {
     /* istanbul ignore next */
     case LOCATION_CHANGE:
@@ -40,10 +40,11 @@ function routeReducer(state = routeInitialState, action: any) {
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export default function createReducer(injectedReducers: any) {
-  return combineReducers({
+export const createReducer = (injectedReducers: any) =>
+  combineReducers({
     language: languageProviderReducer,
     route: routeReducer,
     ...injectedReducers,
   })
-}
+
+export default createReducer

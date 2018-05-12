@@ -12,7 +12,7 @@ import createReducer from "./reducers"
 // tslint:disable-next-line:no-var-requires
 const thunk = require("redux-thunk").default
 
-export default function configureStore(initialState = {}, history: any) {
+export const configureStore = (initialState = {}, history: any) => {
   const persistedState = loadState()
 
   const middlewares = [thunk, routerMiddleware(history)]
@@ -48,3 +48,5 @@ export default function configureStore(initialState = {}, history: any) {
 
   return store
 }
+
+export default configureStore

@@ -4,7 +4,7 @@ import {conformsTo, isFunction, isObject} from "lodash"
 /**
  * Validate the shape of redux store
  */
-export default function checkStore(store: any) {
+export const checkStore = (store: any) => {
   const shape = {
     dispatch: isFunction,
     getState: isFunction,
@@ -18,3 +18,5 @@ export default function checkStore(store: any) {
     "(app/utils...) injectors: Expected a valid redux store"
   )
 }
+
+export default checkStore
