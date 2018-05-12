@@ -1,34 +1,37 @@
-import hoistNonReactStatics from "hoist-non-react-statics"
-import PropTypes from "prop-types"
-import React from "react"
+import * as PropTypes from "prop-types"
+import * as React from "react"
 import getInjectors from "./reducerInjectors"
+
+// tslint:disable-next-line:no-var-requires
+const hoistNonReactStatics = require("hoist-non-react-statics")
 
 /**
  * Dynamically injects a reducer
  *
  * @param {string} key A key of the reducer
  * @param {function} reducer A reducer that will be injected
- *
  */
-export default ({key, reducer}) => WrappedComponent => {
+export default ({key, reducer}: {key: any; reducer: any}) => (
+  WrappedComponent: any
+) => {
   class ReducerInjector extends React.Component {
-    static WrappedComponent = WrappedComponent
-    static contextTypes = {
+    public static WrappedComponent = WrappedComponent
+    public static contextTypes = {
       store: PropTypes.object.isRequired,
     }
-    static displayName = `withReducer(${WrappedComponent.displayName ||
+    public static displayName = `withReducer(${WrappedComponent.displayName ||
       WrappedComponent.name ||
       "Component"})`
 
-    componentWillMount() {
+    public injectors = getInjectors(this.context.store)
+
+    public componentWillMount() {
       const {injectReducer} = this.injectors
 
       injectReducer(key, reducer)
     }
 
-    injectors = getInjectors(this.context.store)
-
-    render() {
+    public render() {
       return <WrappedComponent {...this.props} />
     }
   }

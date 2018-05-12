@@ -3,9 +3,7 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import {ConnectedRouter} from "react-router-redux"
-// Import root app
 import configureStore from "./configureStore"
-// eslint-disable-next-line
 import App from "./containers/App"
 import LanguageProvider from "./containers/LanguageProvider"
 import {translationMessages} from "./i18n"

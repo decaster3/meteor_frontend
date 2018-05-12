@@ -1,12 +1,10 @@
-import invariant from "invariant"
-import * as conformsTo from "lodash/conformsTo"
-import isFunction from "lodash/isFunction"
-import * as isObject from "lodash/isObject"
+import * as invariant from "invariant"
+import {conformsTo, isFunction, isObject} from "lodash"
 
 /**
  * Validate the shape of redux store
  */
-export default function checkStore(store) {
+export default function checkStore(store: any) {
   const shape = {
     dispatch: isFunction,
     getState: isFunction,
@@ -14,6 +12,7 @@ export default function checkStore(store) {
     replaceReducer: isFunction,
     subscribe: isFunction,
   }
+
   invariant(
     conformsTo(store, shape),
     "(app/utils...) injectors: Expected a valid redux store"

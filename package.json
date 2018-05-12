@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/invariant": "^2.2.29",
     "@types/lodash": "^4.14.108",
+    "@types/prop-types": "^15.5.2",
     "ajv": "^6.5.0",
     "immutable": "^3.8.2",
     "intl": "^1.2.5",
