@@ -1,0 +1,16 @@
+.container-wrapper {
+  height: 100%;
+  background-size: 300px;
+}
+
+.container-wrapper > .backdrop {
+  height: 100%;
+  width: 100%;
+  background-color: hsl(230, 60%, 5%, 0.7);
+}
+
+.container {
+  height: 100%;
+  background-color: hsla(226, 64%, 16%, 0.9);
+  box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
+}

@@ -2,6 +2,11 @@ import * as React from "react"
 import styled from "styled-components"
 import bg from "./pattern_1.svg"
 
+// @ts-ignore
+import styles from "./Main.module.css"
+
+console.log("styles", styles)
+
 enum Color {
   DarkBlue = "hsl(230, 60%, 5%)",
   Blue = "hsl(226, 54%, 13%)",
@@ -12,22 +17,7 @@ enum Color {
 }
 
 const StyledContainerWrapper = styled.div`
-  height: 100%;
-  /* background-color: hsl(230, 60%, 5%, 0.5); */
   background-image: url(${bg});
-  background-size: 300px;
-
-  > .backdrop {
-    height: 100%;
-    width: 100%;
-    background-color: hsl(230, 60%, 5%, 0.7);
-  }
-`
-
-const StyledContainer = styled.div`
-  height: 100%;
-  background-color: hsla(226, 64%, 16%, 0.9);
-  box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
 `
 
 const StyledBottomNavbar = styled.div`
@@ -157,9 +147,9 @@ const categories = [
 ]
 
 const Main = () => (
-  <StyledContainerWrapper>
-    <div className="backdrop">
-      <StyledContainer className="container">
+  <StyledContainerWrapper className={styles["container-wrapper"]}>
+    <div className={styles.backdrop}>
+      <div className={`container ${styles.container}`}>
         <StyledTopNavbar className="row">
           {pages.map((page, index) => (
             <React.Fragment key={index}>
@@ -232,7 +222,7 @@ const Main = () => (
             ))}
           </StyledSecondaryMenu>
         </StyledFooter>
-      </StyledContainer>
+      </div>
     </div>
   </StyledContainerWrapper>
 )
