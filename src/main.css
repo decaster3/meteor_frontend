@@ -2,4 +2,5 @@ html,
 body,
 #root {
   height: 100%;
+  background-color: hsl(230, 60%, 5%);
 }

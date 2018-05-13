@@ -3,7 +3,6 @@
  */
 
 import {fromJS} from "immutable"
-// tslint:disable-next-line:no-var-requires
 import {routerMiddleware} from "react-router-redux"
 import {applyMiddleware, compose, createStore} from "redux"
 import {loadState} from "./localStorage"
@@ -28,15 +27,15 @@ export const configureStore = (initialState = {}, history: any) => {
       : compose
 
   const store = createStore(
-    // @ts-ignore
-    createReducer(),
+    createReducer(undefined),
     persistedState || fromJS(initialState),
     composeEnhancers(...enhancers)
   )
 
   // Extensions
   // @ts-ignore
-  store.injectedReducers = {}
+  store.injectedReducers = {} // Reducer registry
+
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if ((module as any).hot) {
