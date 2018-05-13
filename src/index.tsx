@@ -3,12 +3,19 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import {ConnectedRouter} from "react-router-redux"
+import App from "./components/App"
+import LanguageProvider from "./components/LanguageProvider"
 import configureStore from "./configureStore"
-import App from "./containers/App"
-import LanguageProvider from "./containers/LanguageProvider"
 import {translationMessages} from "./i18n"
 import {saveState} from "./localStorage"
 import registerServiceWorker from "./registerServiceWorker"
+
+// Vendor styles
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css.map"
+
+// Styles
+import "./main.css"
 
 // Create redux store with history
 const initialState = {}
@@ -37,7 +44,7 @@ if ((module as any).hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  ;(module as any).hot.accept(["./i18n", "./containers/App"], () => {
+  ;(module as any).hot.accept(["./i18n", "./components/App"], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE as HTMLElement)
     render(translationMessages)
   })

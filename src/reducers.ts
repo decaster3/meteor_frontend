@@ -4,7 +4,7 @@
 
 import {fromJS} from "immutable"
 import {combineReducers} from "redux-immutable"
-import languageProviderReducer from "./containers/LanguageProvider/reducer"
+import languageProviderReducer from "./components/LanguageProvider/reducer"
 
 // tslint:disable-next-line:no-var-requires
 const {LOCATION_CHANGE} = require("react-router-redux")

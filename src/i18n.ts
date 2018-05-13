@@ -5,7 +5,7 @@
  */
 import {addLocaleData} from "react-intl"
 import * as enLocaleData from "react-intl/locale-data/en"
-import {DEFAULT_LOCALE} from "./containers/LanguageProvider/constants"
+import {DEFAULT_LOCALE} from "./components/LanguageProvider/constants"
 
 // tslint:disable-next-line:no-var-requires
 const enTranslationMessages = require("./translations/en.json")
