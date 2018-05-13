@@ -17,7 +17,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts-ts": "^2.15.1",
+    "react-scripts-ts": "^2.16.0",
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0",
@@ -45,7 +45,7 @@
     "@types/react-router-redux": "^5.0.14",
     "@types/redux-immutable": "^3.0.38",
     "eslint": "^4.19.1",
-    "eslint-plugin-react": "^7.8.1",
+    "eslint-plugin-react": "^7.8.2",
     "react-dev-utils": "^5.0.1",
     "typescript": "^2.8.3"
   }
