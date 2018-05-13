@@ -17,7 +17,7 @@ export default ({
   reducer,
 }: {
   key: string
-  reducer: (state: any, action: Action<any>) => any
+  reducer: (state: any, action: Action) => any
 }) => (WrappedComponent: any) => {
   class ReducerInjector extends React.Component {
     public static WrappedComponent = WrappedComponent
