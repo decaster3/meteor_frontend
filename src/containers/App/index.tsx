@@ -1,7 +1,12 @@
 import * as React from "react"
 import {connect} from "react-redux"
-import {withRouter} from "react-router-dom"
+import {Route, Switch, withRouter} from "react-router-dom"
+import Main from "../../pages/Main"
 
-const App = () => <div>hello</div>
+const App = () => (
+  <Switch>
+    <Route path="/" component={Main} />
+  </Switch>
+)
 
 export default withRouter(connect()(App) as any)
