@@ -24,7 +24,6 @@ export default ({key, reducer}: {key: any; reducer: any}) => (
       "Component"})`
 
     public injectors = getInjectors(this.context.store)
-
     public componentWillMount() {
       const {injectReducer} = this.injectors
 

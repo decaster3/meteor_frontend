@@ -40,7 +40,9 @@ function routeReducer(state = routeInitialState, action: any) {
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export default function createReducer(injectedReducers: any) {
+export const createReducer = (injectedReducers: any) => {
+  // tslint:disable-next-line:no-console
+  console.log(injectedReducers)
   return combineReducers({
     language: languageProviderReducer,
     route: routeReducer,

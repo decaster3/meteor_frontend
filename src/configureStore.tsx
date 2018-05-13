@@ -7,7 +7,7 @@ import {fromJS} from "immutable"
 import {routerMiddleware} from "react-router-redux"
 import {applyMiddleware, compose, createStore} from "redux"
 import {loadState} from "./localStorage"
-import createReducer from "./reducers"
+import {createReducer} from "./reducers"
 
 // tslint:disable-next-line:no-var-requires
 const thunk = require("redux-thunk").default
@@ -28,21 +28,21 @@ export default function configureStore(initialState = {}, history: any) {
       : compose
 
   const store = createStore(
-    createReducer({}),
+    // @ts-ignore
+    createReducer(),
     persistedState || fromJS(initialState),
     composeEnhancers(...enhancers)
   )
 
   // Extensions
-  const storeWithInjectedReducers = {...store, injectedReducers: {}} // Reducer registry
-
+  // @ts-ignore
+  store.injectedReducers = {}
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if ((module as any).hot) {
     ;(module as any).hot.accept("./reducers", () => {
-      store.replaceReducer(
-        createReducer(storeWithInjectedReducers.injectedReducers)
-      )
+      // @ts-ignore
+      store.replaceReducer(createReducer(store.injectedReducers))
     })
   }
 
