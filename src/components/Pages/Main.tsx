@@ -1,6 +1,6 @@
 import * as React from "react"
 import styled from "styled-components"
-import bg from "./bg.jpg"
+import bg from "./pattern_1.svg"
 
 enum Color {
   DarkBlue = "hsl(230, 60%, 5%)",
@@ -13,13 +13,21 @@ enum Color {
 
 const StyledContainerWrapper = styled.div`
   height: 100%;
-  background-color: ${Color.DarkBlue};
+  /* background-color: hsl(230, 60%, 5%, 0.5); */
   background-image: url(${bg});
+  background-size: 300px;
+
+  > .backdrop {
+    height: 100%;
+    width: 100%;
+    background-color: hsl(230, 60%, 5%, 0.7);
+  }
 `
 
 const StyledContainer = styled.div`
   height: 100%;
-  background-color: hsla(226, 54%, 13%, 0.8);
+  background-color: hsla(226, 64%, 16%, 0.9);
+  box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
 `
 
 const StyledBottomNavbar = styled.div`
@@ -30,7 +38,7 @@ const StyledBottomNavbar = styled.div`
   height: 5rem;
   text-transform: uppercase;
   font-weight: 700;
-  color: hsl(230, 60%, 5%);
+  color: hsl(230, 60%, 5%, 0);
   letter-spacing: 0.125rem;
 
   > .separator {
@@ -150,80 +158,82 @@ const categories = [
 
 const Main = () => (
   <StyledContainerWrapper>
-    <StyledContainer className="container">
-      <StyledTopNavbar className="row">
-        {pages.map((page, index) => (
-          <React.Fragment key={index}>
-            {index > 0 && <div className="separator" />}
-            <div>
-              <StyledLightLink href="#">{page}</StyledLightLink>
-            </div>
-          </React.Fragment>
-        ))}
-      </StyledTopNavbar>
-
-      <div className="row my-3">
-        <div className="col-4">
-          <StyledBanner style={{height: "20rem"}}>Ad Banner</StyledBanner>
-        </div>
-        <div className="col-8">
-          <StyledBanner style={{height: "20rem"}}>Image</StyledBanner>
-        </div>
-      </div>
-
-      <div className="row my-3">
-        <div className="col">
-          <StyledBanner style={{height: "10rem"}}>How It Works</StyledBanner>
-        </div>
-      </div>
-
-      <StyledBottomNavbar className="row">
-        {categories.map((category, index) => (
-          <React.Fragment key={index}>
-            {index > 0 && <div className="separator" />}
-            <div>
-              <StyledDarkLink href="#">{category}</StyledDarkLink>
-            </div>
-          </React.Fragment>
-        ))}
-      </StyledBottomNavbar>
-
-      <StyledFooter className="row py-4 d-flex align-items-center">
-        <StyledMenu>
-          {categories.map(
-            (category, index) =>
-              index < categories.length / 2 && (
-                <div key={index}>
-                  <StyledLightLink href="#">{category}</StyledLightLink>
-                </div>
-              )
-          )}
-        </StyledMenu>
-
-        <div className="separator" />
-
-        <StyledMenu>
-          {categories.map(
-            (category, index) =>
-              index >= categories.length / 2 && (
-                <div key={index}>
-                  <StyledLightLink href="#">{category}</StyledLightLink>
-                </div>
-              )
-          )}
-        </StyledMenu>
-
-        <div className="separator" />
-
-        <StyledSecondaryMenu>
-          {secondaryPages.map((secondaryPage, index) => (
-            <div key={index}>
-              <StyledLightLink href="#">{secondaryPage}</StyledLightLink>
-            </div>
+    <div className="backdrop">
+      <StyledContainer className="container">
+        <StyledTopNavbar className="row">
+          {pages.map((page, index) => (
+            <React.Fragment key={index}>
+              {index > 0 && <div className="separator" />}
+              <div>
+                <StyledLightLink href="#">{page}</StyledLightLink>
+              </div>
+            </React.Fragment>
           ))}
-        </StyledSecondaryMenu>
-      </StyledFooter>
-    </StyledContainer>
+        </StyledTopNavbar>
+
+        <div className="row my-3">
+          <div className="col-4">
+            <StyledBanner style={{height: "20rem"}}>Ad Banner</StyledBanner>
+          </div>
+          <div className="col-8">
+            <StyledBanner style={{height: "20rem"}}>Image</StyledBanner>
+          </div>
+        </div>
+
+        <div className="row my-3">
+          <div className="col">
+            <StyledBanner style={{height: "10rem"}}>How It Works</StyledBanner>
+          </div>
+        </div>
+
+        <StyledBottomNavbar className="row">
+          {categories.map((category, index) => (
+            <React.Fragment key={index}>
+              {index > 0 && <div className="separator" />}
+              <div>
+                <StyledDarkLink href="#">{category}</StyledDarkLink>
+              </div>
+            </React.Fragment>
+          ))}
+        </StyledBottomNavbar>
+
+        <StyledFooter className="row py-4 d-flex align-items-center">
+          <StyledMenu>
+            {categories.map(
+              (category, index) =>
+                index < categories.length / 2 && (
+                  <div key={index}>
+                    <StyledLightLink href="#">{category}</StyledLightLink>
+                  </div>
+                )
+            )}
+          </StyledMenu>
+
+          <div className="separator" />
+
+          <StyledMenu>
+            {categories.map(
+              (category, index) =>
+                index >= categories.length / 2 && (
+                  <div key={index}>
+                    <StyledLightLink href="#">{category}</StyledLightLink>
+                  </div>
+                )
+            )}
+          </StyledMenu>
+
+          <div className="separator" />
+
+          <StyledSecondaryMenu>
+            {secondaryPages.map((secondaryPage, index) => (
+              <div key={index}>
+                <StyledLightLink href="#">{secondaryPage}</StyledLightLink>
+              </div>
+            ))}
+          </StyledSecondaryMenu>
+        </StyledFooter>
+      </StyledContainer>
+    </div>
   </StyledContainerWrapper>
 )
 
