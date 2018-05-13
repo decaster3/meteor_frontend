@@ -1,5 +1,6 @@
 import * as PropTypes from "prop-types"
 import * as React from "react"
+import {Action} from "redux"
 import getInjectors from "./reducerInjectors"
 
 // tslint:disable-next-line:no-var-requires
@@ -16,7 +17,7 @@ export default ({
   reducer,
 }: {
   key: string
-  reducer: (state: any) => any
+  reducer: (state: any, action: Action<any>) => any
 }) => (WrappedComponent: any) => {
   class ReducerInjector extends React.Component {
     public static WrappedComponent = WrappedComponent
