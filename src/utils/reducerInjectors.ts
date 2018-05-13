@@ -1,9 +1,11 @@
 import * as invariant from "invariant"
 import {isEmpty, isFunction, isString} from "lodash"
+import {Store} from "redux"
+// import {combineReducers} from "redux /-immutable"
 import createReducer from "../reducers"
 import checkStore from "./checkStore"
 
-export const injectReducerFactory = (store: any, isValid: any) => (
+export const injectReducerFactory = (store: Store<any>, isValid: any) => (
   key: any,
   reducer: any
 ) => {
@@ -19,13 +21,17 @@ export const injectReducerFactory = (store: any, isValid: any) => (
   // Check `store.injectedReducers[key] === reducer` for hot reloading
   // when a key is the same but a reducer is different
   if (
+    // @ts-ignore
     Reflect.has(store.injectedReducers, key) &&
+    // @ts-ignore
     store.injectedReducers[key] === reducer
   ) {
     return
   }
 
-  store.injectedReducers[key] = reducer // eslint-disable-line no-param-reassign
+  // @ts-ignore
+  store.injectedReducers[key] = reducer
+  // @ts-ignore
   store.replaceReducer(createReducer(store.injectedReducers))
 }
 

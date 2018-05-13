@@ -4,7 +4,7 @@
 
 import {fromJS} from "immutable"
 import {combineReducers} from "redux-immutable"
-import languageProviderReducer from "./components/LanguageProvider/reducer"
+import languageProviderReducer from "./containers/LanguageProvider/reducer"
 
 // tslint:disable-next-line:no-var-requires
 const {LOCATION_CHANGE} = require("react-router-redux")
@@ -40,11 +40,12 @@ const routeReducer = (state = routeInitialState, action: any) => {
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export const createReducer = (injectedReducers: any) =>
-  combineReducers({
+const createReducer = (injectedReducers: any) => {
+  // tslint:disable-next-line:no-console
+  return combineReducers({
     language: languageProviderReducer,
     route: routeReducer,
     ...injectedReducers,
   })
-
+}
 export default createReducer

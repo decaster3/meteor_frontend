@@ -28,21 +28,21 @@ export const configureStore = (initialState = {}, history: any) => {
       : compose
 
   const store = createStore(
-    createReducer({}),
+    // @ts-ignore
+    createReducer(),
     persistedState || fromJS(initialState),
     composeEnhancers(...enhancers)
   )
 
   // Extensions
-  const storeWithInjectedReducers = {...store, injectedReducers: {}} // Reducer registry
-
+  // @ts-ignore
+  store.injectedReducers = {}
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if ((module as any).hot) {
     ;(module as any).hot.accept("./reducers", () => {
-      store.replaceReducer(
-        createReducer(storeWithInjectedReducers.injectedReducers)
-      )
+      // @ts-ignore
+      store.replaceReducer(createReducer(store.injectedReducers))
     })
   }
 

@@ -28,7 +28,6 @@ export default ({
       "Component"})`
 
     public injectors = getInjectors(this.context.store)
-
     public componentWillMount() {
       const {injectReducer} = this.injectors
 
