@@ -1,7 +1,6 @@
 import * as classnames from "classnames"
 import * as React from "react"
 import styled from "styled-components"
-import bg from "./pattern_1.svg"
 
 // @ts-ignore
 import styles from "./Main.module.scss"
@@ -9,9 +8,9 @@ import styles from "./Main.module.scss"
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
 const secondaryPages = [
-  "Delivery & Payment",
-  "Sales & Offers",
   "Feedback",
+  "Sales & Offers",
+  "Delivery & Payment",
   "About",
 ]
 
@@ -27,7 +26,7 @@ const categories = [
 const Main = () => (
   <div className={styles.wrapper}>
     <div className={styles.backdrop}>
-      <div className={classnames("container", styles.container)}>
+      <div className="container">
         <div className={classnames(styles.topNavbar, "row")}>
           {pages.map((page, index) => (
             <React.Fragment key={index}>
@@ -38,8 +37,10 @@ const Main = () => (
             </React.Fragment>
           ))}
         </div>
+      </div>
 
-        <div className="row my-3">
+      <div className={classnames("container", styles.container)}>
+        <div className="row pt-3 mb-3">
           <div className="col-4">
             <div className={styles.banner} style={{height: "20rem"}}>
               Ad Banner
@@ -54,7 +55,7 @@ const Main = () => (
 
         <div className="row my-3">
           <div className="col">
-            <div className={styles.banner} style={{height: "10rem"}}>
+            <div className={styles.banner} style={{height: "20rem"}}>
               How It Works
             </div>
           </div>
