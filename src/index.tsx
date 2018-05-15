@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import {ConnectedRouter} from "react-router-redux"
 import configureStore from "./configureStore"
-import App from "./containers/App"
+import App from "./app"
 import LanguageProvider from "./containers/LanguageProvider"
 import {translationMessages} from "./i18n"
 import {saveState} from "./localStorage"
@@ -50,7 +50,7 @@ if ((module as any).hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  ;(module as any).hot.accept(["./i18n", "./containers/App"], () => {
+  ;(module as any).hot.accept(["./i18n", "./app"], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE as HTMLElement)
     render(translationMessages)
   })

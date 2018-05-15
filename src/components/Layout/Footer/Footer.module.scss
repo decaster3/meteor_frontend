@@ -1,0 +1,177 @@
+$darkBlue: hsl(230, 60%, 5%);
+$blue: hsl(226, 54%, 13%);
+$orange: hsl(33, 99%, 50%);
+$darkGrey: hsl(199, 20%, 15.5%);
+$grey: hsl(200, 23%, 23.5%);
+$lightGrey: hsl(199, 28%, 31.5%);
+.backdrop {
+  height: 100%;
+  width: 100%;
+  background-color: fade-out($darkBlue, 0.3);
+}
+
+.container {
+  height: 100%;
+  background-color: fade-out($blue, 0.1);
+  background: linear-gradient( fade-out($blue, 0.1), fade-out($blue, 0.1) 50%, fade-out(darken($blue, 10%), 0.3));
+  box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
+}
+
+.bottomNavbar {
+  display: flex;
+  background-color: $orange; // background-image: linear-gradient(
+  //   adjust-hue($orange, -10deg),
+  //   $orange 25%,
+  //   $orange 75%,
+  //   adjust-hue($orange, -10deg)
+  // );
+  background-image: radial-gradient( $orange, $orange 25%, adjust-hue($orange, -10deg));
+  justify-content: space-evenly;
+  align-items: center;
+  height: 5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: $darkBlue;
+  letter-spacing: 0.125rem;
+  a {
+    @extend .darkLink;
+    &:hover,
+    &:focus {
+      text-shadow: 0 0 2em white;
+    }
+  }
+}
+
+.bottomNavbarSeparator {
+  height: 3rem;
+  width: 0.125rem;
+  background-color: $darkBlue;
+}
+
+.topNavbar {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.125rem;
+  a {
+    @extend .lightLink;
+    &:hover,
+    &:focus {
+      text-shadow: 0 0 3em $orange;
+    }
+  }
+}
+
+.topNavbarSeparator {
+  height: 3rem;
+  width: 0.125rem;
+  background-color: $darkGrey;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.footerSeparator {
+  width: 0.25rem;
+  height: 11rem;
+  background-color: $grey;
+}
+
+.menu {
+  padding: 0.5rem 2rem;
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: 0.125rem;
+  font-weight: 500;
+  >div {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  a {
+    @extend .lightLink;
+    &:hover,
+    &:focus {
+      text-shadow: 0 0 3em $orange;
+    }
+  }
+}
+
+.secondaryMenu {
+  @extend .menu;
+  text-transform: none;
+}
+
+.banner {
+  color: $lightGrey;
+  border: 0.25rem solid $lightGrey;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  font-size: 2rem;
+  margin: 1rem;
+  padding: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.lightLink {
+  color: white;
+  &:hover,
+  &:focus {
+    color: $orange;
+    text-decoration: none;
+  }
+}
+
+.darkLink {
+  color: $darkBlue;
+  &:hover,
+  &:focus {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.logo {
+  >img {
+    display: block;
+    max-width: 100%;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+}
+
+.call {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  color: lighten($lightGrey, 20%);
+  font-weight: 700;
+  height: 100%;
+  >button {
+    background-color: $darkBlue;
+    background-color: fade-out($darkBlue, 0.5);
+    border: 0.125rem solid $lightGrey;
+    color: lighten($lightGrey, 20%);
+    font-weight: 700;
+    margin-top: 0.25rem;
+    padding: 0.125rem;
+    text-transform: uppercase;
+    width: 100%;
+    &:hover,
+    &:focus {
+      outline: none;
+      color: lighten($lightGrey, 30%);
+      border-color: lighten($lightGrey, 30%);
+    }
+  }
+}
