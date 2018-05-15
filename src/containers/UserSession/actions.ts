@@ -33,10 +33,12 @@ export const login = (credentials: {
   phone: string
 }) => (dispatch: Dispatch<State>) => {
   dispatch(changeUserState(C.LOGGING_IN))
-  Requests.post("auth/sign_in", {body: {user: credentials}}).then(data => {
-    dispatch(changeUserState(C.LOGED_IN))
-    dispatch(setUserInformation(data))
-  })
+  Requests.post("auth/sign_in", {body: {user: credentials}})
+    .then(data => {
+      dispatch(changeUserState(C.LOGED_IN))
+      dispatch(setUserInformation(data))
+    })
+    .catch(() => dispatch(changeUserState(C.ANONYMOUS)))
 }
 
 export const logout = () => (dispatch: Dispatch<State>) => {
