@@ -5,7 +5,7 @@
 import {fromJS} from "immutable"
 import {combineReducers} from "redux-immutable"
 import languageProviderReducer from "./containers/LanguageProvider/reducer"
-
+import userSessionReducer from "./containers/UserSession/reducer"
 // tslint:disable-next-line:no-var-requires
 const {LOCATION_CHANGE} = require("react-router-redux")
 
@@ -45,6 +45,7 @@ const createReducer = (injectedReducers: any) => {
   return combineReducers({
     language: languageProviderReducer,
     route: routeReducer,
+    userSession: userSessionReducer,
     ...injectedReducers,
   })
 }

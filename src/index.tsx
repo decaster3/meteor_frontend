@@ -18,13 +18,19 @@ import "bootstrap/dist/css/bootstrap.min.css.map"
 import "./main.css"
 
 // Create redux store with history
+export interface State {
+  userSession: object
+}
 const initialState = {}
 const history = createHistory()
 const store = configureStore(initialState, history)
 const MOUNT_NODE = document.getElementById("root")
 
 store.subscribe(() => {
-  saveState({})
+  saveState({
+    userSession: store.getState().get("userSession"),
+    language: store.getState().get("language"),
+  })
 })
 
 const render = (messages: any) => {
