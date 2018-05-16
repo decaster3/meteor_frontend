@@ -23,6 +23,8 @@ import {
 import {setCities, setCategories, City, Category} from "./actions"
 import {User} from "../UserSession/actions"
 import {Status} from "../../constants"
+import MainContentPlaceholder from "../../views/MainContentPlaceholder"
+import {Switch, Route} from "react-router"
 
 export class Layout extends React.Component<
   LayoutPropsStateProps & LayoutPropsDispatchProps
@@ -41,7 +43,9 @@ export class Layout extends React.Component<
         categories={this.props.categories}
         categoriesStatus={this.props.categoriesStatus}
       >
-        {this.props.children}
+        <Switch>
+          <Route path="/" component={MainContentPlaceholder} />
+        </Switch>
       </Wrapper>
     )
   }
