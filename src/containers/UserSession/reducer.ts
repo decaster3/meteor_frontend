@@ -1,15 +1,13 @@
 /*
- *
  * User reducer
- *
  */
 
 import {fromJS} from "immutable"
 
-import C from "./constants"
+import {Action, UserStatus} from "./constants"
 
 const initialState = fromJS({
-  userState: C.ANONYMOUS,
+  userState: UserStatus.ANONYMOUS,
   userInformation: {
     registrationStep: 0,
   },
@@ -20,11 +18,11 @@ const userSessionReducer = (
   action: {payload: object; type: string}
 ) => {
   switch (action.type) {
-    case C.CHANGE_USER_STATE:
+    case Action.CHANGE_USER_STATE:
       return state.set("userState", fromJS(action.payload))
-    case C.UPDATE_USER_INFORMATION:
+    case Action.UPDATE_USER_INFORMATION:
       return state.set("userInformation", fromJS(action.payload))
-    case C.NEXT_REGISTRATION_STEP: {
+    case Action.NEXT_REGISTRATION_STEP: {
       const userInfo = state.get("userInformation").toJS()
       userInfo.registrationStep += 1
       return state.set("userInformation", fromJS(userInfo))

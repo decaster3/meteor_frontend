@@ -1,13 +1,16 @@
-enum Constants {
-  // actions
+/*
+ * User constants
+ */
+export enum Action {
   CHANGE_USER_STATE = "CHANGE_USER_STATE",
   UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION",
   COMPLETE_REGISTRATION = "COMPLETE_REGISTRATION",
   NEXT_REGISTRATION_STEP = "NEXT_REGISTRATION_STEP",
-  // states
+}
+
+export enum UserStatus {
   ANONYMOUS = "ANONYMOUS",
   WAITING_FOR_CODE = "WAITING_FOR_CODE",
   LOGGING_IN = "LOGGING_IN",
   LOGED_IN = "LOGED_IN",
 }
-export default Constants

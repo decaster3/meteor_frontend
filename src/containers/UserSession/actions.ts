@@ -1,12 +1,10 @@
 /*
- *
  * User actions
- *
  */
 import {Dispatch} from "redux"
 import {State} from "../../"
 import Requests from "../../services/Requests"
-import C from "./constants"
+import {Action, UserStatus} from "./constants"
 
 export interface User {
   email: string
@@ -15,15 +13,15 @@ export interface User {
   role: string
 }
 
-const nextRegistrationStep = () => ({type: C.NEXT_REGISTRATION_STEP})
+const nextRegistrationStep = () => ({type: Action.NEXT_REGISTRATION_STEP})
 
-const changeUserState = (userState: string) => ({
-  payload: userState,
-  type: C.CHANGE_USER_STATE,
+const changeUserStatus = (userStatus: UserStatus) => ({
+  type: Action.CHANGE_USER_STATE,
+  payload: userStatus,
 })
 
-const setUserInformation = (userInfo: User) => ({
-  type: C.UPDATE_USER_INFORMATION,
+const setUserInfo = (userInfo: User) => ({
+  type: Action.UPDATE_USER_INFORMATION,
   payload: userInfo,
 })
 
@@ -32,17 +30,18 @@ export const login = (credentials: {
   password: string
   phone: string
 }) => (dispatch: Dispatch<State>) => {
-  dispatch(changeUserState(C.LOGGING_IN))
+  dispatch(changeUserStatus(UserStatus.LOGGING_IN))
   Requests.post("auth/sign_in", {body: {user: credentials}})
     .then(data => {
-      dispatch(changeUserState(C.LOGED_IN))
-      dispatch(setUserInformation(data))
+      dispatch(changeUserStatus(UserStatus.LOGED_IN))
+      dispatch(setUserInfo(data))
     })
-    .catch(() => dispatch(changeUserState(C.ANONYMOUS)))
+    .catch(() => dispatch(changeUserStatus(UserStatus.ANONYMOUS)))
 }
 
 export const logout = () => (dispatch: Dispatch<State>) => {
-  Requests.delete("auth/sign_out").then(() => {
-    dispatch(changeUserState(C.ANONYMOUS))
+  dispatch(changeUserStatus(UserStatus.LOGGING_IN))
+  Requests.delete("auth/sign_in").then(() => {
+    dispatch(changeUserStatus(UserStatus.ANONYMOUS))
   })
 }
