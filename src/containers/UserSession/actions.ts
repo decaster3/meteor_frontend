@@ -4,7 +4,7 @@
 import {Dispatch} from "redux"
 import {State} from "../../"
 import Requests from "../../services/requests"
-import {Action, UserStatus} from "./constants"
+import {ActionType, UserStatus} from "./constants"
 
 export interface User {
   email: string
@@ -13,15 +13,15 @@ export interface User {
   role: string
 }
 
-const nextRegistrationStep = () => ({type: Action.NEXT_REGISTRATION_STEP})
+const nextRegistrationStep = () => ({type: ActionType.NEXT_REGISTRATION_STEP})
 
 const changeUserStatus = (userStatus: UserStatus) => ({
-  type: Action.CHANGE_USER_STATE,
+  type: ActionType.CHANGE_USER_STATE,
   payload: userStatus,
 })
 
 const setUserInfo = (userInfo: User) => ({
-  type: Action.UPDATE_USER_INFORMATION,
+  type: ActionType.UPDATE_USER_INFORMATION,
   payload: userInfo,
 })
 

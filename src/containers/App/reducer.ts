@@ -6,8 +6,9 @@
 
 import {fromJS} from "immutable"
 
-import {Action} from "./constants"
+import {ActionType} from "./constants"
 import {Status} from "../../constants"
+import {AnyAction} from "redux"
 
 const initialState = fromJS({
   citiesState: Status.NOT_LOADED,
@@ -16,18 +17,15 @@ const initialState = fromJS({
   categories: [],
 })
 
-const LayoutReducer = (
-  state = initialState,
-  action: {payload: object; type: string}
-) => {
+const LayoutReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case Action.SET_CATEGORIES:
+    case ActionType.SET_CATEGORIES:
       return state.set("categories", fromJS(action.payload))
-    case Action.SET_CITIES:
+    case ActionType.SET_CITIES:
       return state.set("cities", fromJS(action.payload))
-    case Action.SET_CATEGORIES_STATE:
+    case ActionType.SET_CATEGORIES_STATE:
       return state.set("categoriesState", fromJS(action.payload))
-    case Action.SET_CITIES_STATE:
+    case ActionType.SET_CITIES_STATE:
       return state.set("citiesState", fromJS(action.payload))
     default:
       return state

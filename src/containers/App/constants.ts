@@ -1,4 +1,4 @@
-export enum Action {
+export enum ActionType {
   SET_CITIES = "SET_CITIES",
   SET_CITIES_STATE = "SET_CITIES_STATE",
   SET_CATEGORIES = "SET_CATEGORIES",

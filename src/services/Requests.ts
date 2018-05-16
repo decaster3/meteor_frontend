@@ -24,18 +24,19 @@ const handleNetworkError = (error: Error) => {
 }
 
 const request = (
-  methodType: string,
+  method: string,
   path: string,
   options?: RequestInit | {body: any}
 ) => {
   const token = localStorage.getItem("token")
   const fetchOptions = {
     ...options,
-    method: methodType,
+    method,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: token ? token : "",
+      "X-Key-Inflection": "camel",
+      ...(token ? {Authorization: token} : {}),
     },
   }
   return fetch(`${BASEURL}/${path}`, fetchOptions).then(

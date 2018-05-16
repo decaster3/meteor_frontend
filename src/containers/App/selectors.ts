@@ -6,9 +6,8 @@ const selectLayoutDomain = (state: any) => state.get("layout")
 export const selectUserState = createSelector(selectUserDomain, userState =>
   userState.get("userState")
 )
-export const selectUserInformation = createSelector(
-  selectUserDomain,
-  userState => userState.get("userInformation")
+export const selectUserInfo = createSelector(selectUserDomain, userState =>
+  userState.get("userInfo")
 )
 export const selectCitiesState = createSelector(
   selectLayoutDomain,

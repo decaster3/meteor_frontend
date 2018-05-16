@@ -4,28 +4,26 @@
 
 import {fromJS} from "immutable"
 
-import {Action, UserStatus} from "./constants"
+import {ActionType, UserStatus} from "./constants"
+import {AnyAction} from "redux"
 
 const initialState = fromJS({
   userState: UserStatus.ANONYMOUS,
-  userInformation: {
+  userInfo: {
     registrationStep: 0,
   },
 })
 
-const userSessionReducer = (
-  state = initialState,
-  action: {payload: object; type: string}
-) => {
+const userSessionReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case Action.CHANGE_USER_STATE:
+    case ActionType.CHANGE_USER_STATE:
       return state.set("userState", fromJS(action.payload))
-    case Action.UPDATE_USER_INFORMATION:
-      return state.set("userInformation", fromJS(action.payload))
-    case Action.NEXT_REGISTRATION_STEP: {
-      const userInfo = state.get("userInformation").toJS()
+    case ActionType.UPDATE_USER_INFORMATION:
+      return state.set("userInfo", fromJS(action.payload))
+    case ActionType.NEXT_REGISTRATION_STEP: {
+      const userInfo = state.get("userInfo").toJS()
       userInfo.registrationStep += 1
-      return state.set("userInformation", fromJS(userInfo))
+      return state.set("userInfo", fromJS(userInfo))
     }
     default:
       return state

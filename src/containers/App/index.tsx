@@ -18,7 +18,7 @@ import {
   selectCategoriesState,
   selectCities,
   selectCategories,
-  selectUserInformation,
+  selectUserInfo,
 } from "./selectors"
 import {setCities, setCategories, City, Category} from "./actions"
 import {User} from "../UserSession/actions"
@@ -54,18 +54,18 @@ interface LayoutPropsStateProps {
   categoriesStatus: Status
   cities: City[]
   categories: Category[]
-  userInformation: User
+  userInfo: User
 }
 
 function mapStateToProps(state: State): LayoutPropsStateProps {
   return {
     user: selectUserState(state),
-    userStatus: selectUserInformation(state),
+    userStatus: selectUserInfo(state),
     citiesStatus: selectCitiesState(state),
     categoriesStatus: selectCategoriesState(state),
     cities: selectCities(state),
     categories: selectCategories(state),
-    userInformation: selectUserInformation(state),
+    userInfo: selectUserInfo(state),
   }
 }
 

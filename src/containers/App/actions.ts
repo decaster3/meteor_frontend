@@ -5,7 +5,7 @@
  */
 import {Dispatch} from "redux"
 import {State} from "../../"
-import {Action} from "./constants"
+import {ActionType} from "./constants"
 import {Status} from "../../constants"
 import requests from "../../services/requests"
 
@@ -28,11 +28,11 @@ export interface Category {
 }
 
 const changeCitiesState = (state: string) => ({
-  type: Action.SET_CITIES_STATE,
+  type: ActionType.SET_CITIES_STATE,
   payload: state,
 })
 const changeCategoriesState = (state: string) => ({
-  type: Action.SET_CATEGORIES_STATE,
+  type: ActionType.SET_CATEGORIES_STATE,
   payload: state,
 })
 
@@ -42,7 +42,7 @@ export const setCities = () => (dispatch: Dispatch<State>) => {
     .get("cities")
     .then(data => {
       dispatch({
-        type: Action.SET_CITIES,
+        type: ActionType.SET_CITIES,
         payload: data,
       })
       dispatch(changeCitiesState(Status.LOADED))
@@ -56,7 +56,7 @@ export const setCategories = () => (dispatch: Dispatch<State>) => {
     .get("categories")
     .then(data => {
       dispatch({
-        type: Action.SET_CATEGORIES,
+        type: ActionType.SET_CATEGORIES,
         payload: data,
       })
     })

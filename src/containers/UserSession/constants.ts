@@ -1,7 +1,7 @@
 /*
  * User constants
  */
-export enum Action {
+export enum ActionType {
   CHANGE_USER_STATE = "CHANGE_USER_STATE",
   UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION",
   COMPLETE_REGISTRATION = "COMPLETE_REGISTRATION",
