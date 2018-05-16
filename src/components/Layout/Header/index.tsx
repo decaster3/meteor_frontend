@@ -5,10 +5,17 @@ import Icon from "react-fa"
 // @ts-ignore
 import * as styles from "./Header.module.scss"
 import logo from "./logo1.svg"
+import {City} from "../../../containers/Layout/actions"
+import {User} from "../../../containers/UserSession/actions"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
-const Main = () => (
+const Main = (props: {
+  userState: string
+  citiesState: string
+  cities: City[]
+  userInformation: User
+}) => (
   <div className={styles.wrapper}>
     <div className={styles.backdrop}>
       <div className="container">

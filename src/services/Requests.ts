@@ -39,6 +39,7 @@ const request = (
       Authorization: token,
     },
   }
+  console.log(fetchOptions)
   return fetch(`${C.BASEURL}/${path}`, fetchOptions).then(
     handleResponse,
     handleNetworkError

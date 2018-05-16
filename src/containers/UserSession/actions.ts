@@ -8,7 +8,7 @@ import {State} from "../../"
 import Requests from "../../services/Requests"
 import C from "./constants"
 
-interface User {
+export interface User {
   email: string
   phone: string
   id: number
@@ -42,8 +42,7 @@ export const login = (credentials: {
 }
 
 export const logout = () => (dispatch: Dispatch<State>) => {
-  dispatch(changeUserState(C.LOGGING_IN))
-  Requests.delete("auth/sign_in").then(() => {
+  Requests.delete("auth/sign_out").then(() => {
     dispatch(changeUserState(C.ANONYMOUS))
   })
 }
