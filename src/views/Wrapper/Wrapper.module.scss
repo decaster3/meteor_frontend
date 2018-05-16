@@ -1,0 +1,36 @@
+@import "../../main.scss";
+
+.wrapper {
+  height: 100%;
+  background-size: 300px;
+  background-image: url("./pattern.svg");
+}
+
+.backdrop {
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  background-color: fade-out($darkBlue, 0.25);
+  background: linear-gradient(
+    darken(fade-out($darkBlue, 0.05), 100%),
+    fade-out($darkBlue, 0.25),
+    darken(fade-out($darkBlue, 0.05), 100%)
+  );
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+}
+
+.content {
+  flex: 1;
+  background-color: fade-out($blue, 0.1);
+  background: linear-gradient(
+    fade-out($blue, 0.1),
+    fade-out($blue, 0.1) 50%,
+    fade-out(darken($blue, 10%), 0.3)
+  );
+  box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
+}

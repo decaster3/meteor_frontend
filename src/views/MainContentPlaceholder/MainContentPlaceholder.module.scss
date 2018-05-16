@@ -1,0 +1,16 @@
+@import "../../main.scss";
+
+.banner {
+  color: $lightGrey;
+  border: 0.25rem solid $lightGrey;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  font-size: 2rem;
+  margin: 1rem;
+  padding: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

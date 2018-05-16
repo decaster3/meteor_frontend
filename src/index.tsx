@@ -3,8 +3,9 @@ import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import {ConnectedRouter} from "react-router-redux"
+
 import configureStore from "./configureStore"
-import App from "./app"
+import App from "./containers/App"
 import LanguageProvider from "./containers/LanguageProvider"
 import {translationMessages} from "./i18n"
 import {saveState} from "./localStorage"
@@ -14,13 +15,11 @@ import registerServiceWorker from "./registerServiceWorker"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/css/bootstrap.min.css.map"
 
-// Styles
-import "./main.css"
-
 // Create redux store with history
 export interface State {
   userSession: object
 }
+
 const initialState = {}
 const history = createHistory()
 const store = configureStore(initialState, history)
@@ -50,22 +49,18 @@ if ((module as any).hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  ;(module as any).hot.accept(["./i18n", "./app"], () => {
+  ;(module as any).hot.accept(["./i18n", "./containers/App"], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE as HTMLElement)
     render(translationMessages)
   })
 }
+
 // Chunked polyfill for browsers without Intl support
 if (!(window as any).Intl) {
-  new Promise(resolve => {
-    resolve(import("intl"))
-  })
+  import("intl")
     // @ts-ignore
     .then(() => Promise.all([import("intl/locale-data/jsonp/en")]))
     .then(() => render(translationMessages))
-    .catch(err => {
-      throw err
-    })
 } else {
   render(translationMessages)
 }

@@ -3,7 +3,7 @@
  */
 import {Dispatch} from "redux"
 import {State} from "../../"
-import Requests from "../../services/Requests"
+import Requests from "../../services/requests"
 import {Action, UserStatus} from "./constants"
 
 export interface User {

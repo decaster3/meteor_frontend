@@ -5,8 +5,9 @@
  */
 import {Dispatch} from "redux"
 import {State} from "../../"
-import Requests from "../../services/Requests"
-import {AC, SC} from "./constants"
+import {Action} from "./constants"
+import {Status} from "../../constants"
+import requests from "../../services/requests"
 
 const mockCities = [
   {name: "KG", phone: "12313123", id: 1},
@@ -27,36 +28,38 @@ export interface Category {
 }
 
 const changeCitiesState = (state: string) => ({
-  type: AC.SET_CITIES_STATE,
+  type: Action.SET_CITIES_STATE,
   payload: state,
 })
 const changeCategoriesState = (state: string) => ({
-  type: AC.SET_CATEGORIES_STATE,
+  type: Action.SET_CATEGORIES_STATE,
   payload: state,
 })
 
 export const setCities = () => (dispatch: Dispatch<State>) => {
-  dispatch(changeCitiesState(SC.LOADING))
-  Requests.get("cities")
+  dispatch(changeCitiesState(Status.LOADING))
+  requests
+    .get("cities")
     .then(data => {
       dispatch({
-        type: AC.SET_CITIES,
+        type: Action.SET_CITIES,
         payload: data,
       })
-      dispatch(changeCitiesState(SC.LOADED))
+      dispatch(changeCitiesState(Status.LOADED))
     })
-    .catch(() => dispatch(changeCitiesState(SC.LOADING_ERROR)))
+    .catch(() => dispatch(changeCitiesState(Status.LOADING_ERROR)))
 }
 
 export const setCategories = () => (dispatch: Dispatch<State>) => {
-  dispatch(changeCategoriesState(SC.LOADING))
-  Requests.get("categories")
+  dispatch(changeCategoriesState(Status.LOADING))
+  requests
+    .get("categories")
     .then(data => {
       dispatch({
-        type: AC.SET_CATEGORIES,
+        type: Action.SET_CATEGORIES,
         payload: data,
       })
     })
-    .catch(() => dispatch(changeCategoriesState(SC.LOADING_ERROR)))
-  dispatch(changeCategoriesState(SC.LOADED))
+    .catch(() => dispatch(changeCategoriesState(Status.LOADING_ERROR)))
+  dispatch(changeCategoriesState(Status.LOADED))
 }

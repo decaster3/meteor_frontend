@@ -1,9 +1,8 @@
-import C from "../global-constants"
+import {BASEURL} from "../constants"
 
 const setToken = (token: string | null) => {
   if (token) {
-    const serializedJwt = JSON.stringify(token)
-    localStorage.setItem("token", serializedJwt)
+    localStorage.setItem("token", token)
   }
 }
 
@@ -29,18 +28,17 @@ const request = (
   path: string,
   options?: RequestInit | {body: any}
 ) => {
-  const token = JSON.parse(localStorage.getItem("token") || "")
+  const token = localStorage.getItem("token")
   const fetchOptions = {
     ...options,
     method: methodType,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: token,
+      Authorization: token ? token : "",
     },
   }
-  console.log(fetchOptions)
-  return fetch(`${C.BASEURL}/${path}`, fetchOptions).then(
+  return fetch(`${BASEURL}/${path}`, fetchOptions).then(
     handleResponse,
     handleNetworkError
   )
