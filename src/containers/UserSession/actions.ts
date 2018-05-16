@@ -3,13 +3,13 @@
  */
 import {Dispatch} from "redux"
 import {State} from "../../"
-import Requests from "../../services/requests"
+import requests from "../../services/requests"
 import {ActionType, UserStatus} from "./constants"
 
 export interface User {
+  id: number
   email: string
   phone: string
-  id: number
   role: string
 }
 
@@ -31,7 +31,8 @@ export const login = (credentials: {
   phone: string
 }) => (dispatch: Dispatch<State>) => {
   dispatch(changeUserStatus(UserStatus.LOGGING_IN))
-  Requests.post("auth/sign_in", {body: {user: credentials}})
+  requests
+    .post("auth/sign_in", {body: {user: credentials}})
     .then(data => {
       dispatch(changeUserStatus(UserStatus.LOGED_IN))
       dispatch(setUserInfo(data))
@@ -41,7 +42,7 @@ export const login = (credentials: {
 
 export const logout = () => (dispatch: Dispatch<State>) => {
   dispatch(changeUserStatus(UserStatus.LOGGING_IN))
-  Requests.delete("auth/sign_in").then(() => {
+  requests.delete("auth/sign_in").then(() => {
     dispatch(changeUserStatus(UserStatus.ANONYMOUS))
   })
 }

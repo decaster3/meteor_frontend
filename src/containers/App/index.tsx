@@ -25,6 +25,7 @@ import {User} from "../UserSession/actions"
 import {Status} from "../../constants"
 import MainContentPlaceholder from "../../views/MainContentPlaceholder"
 import {Switch, Route} from "react-router"
+import {UserSession} from "../UserSession"
 
 export class Layout extends React.Component<
   LayoutPropsStateProps & LayoutPropsDispatchProps
@@ -44,7 +45,9 @@ export class Layout extends React.Component<
         categoriesStatus={this.props.categoriesStatus}
       >
         <Switch>
-          <Route path="/" component={MainContentPlaceholder} />
+          <Route path="/" exact={true} component={MainContentPlaceholder} />
+          <Route path="/empty" />
+          <Route path="/test" component={UserSession} />
         </Switch>
       </Wrapper>
     )

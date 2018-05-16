@@ -6,17 +6,11 @@ $grey: hsl(200, 23%, 23.5%);
 $lightGrey: hsl(199, 28%, 31.5%);
 
 :global {
-  html,
-  body,
-  #root {
-    height: 100%;
-    background-color: $darkBlue;
+  // Font-Awesome icons
+  .fa {
+    min-width: 1rem;
+    text-align: center;
   }
-}
-
-.fa {
-  min-width: 1rem;
-  text-align: center;
 }
 
 .lightLink {

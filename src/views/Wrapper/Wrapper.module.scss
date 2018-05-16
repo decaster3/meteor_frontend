@@ -1,15 +1,32 @@
 @import "../../main.scss";
 
-.wrapper {
-  height: 100%;
-  background-size: 300px;
-  background-image: url("./pattern.svg");
+:global {
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    display: flex;
+    flex-flow: column;
+  }
+
+  #root {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+  }
+
+  html,
+  body {
+    background-size: 200px;
+    background-image: url("./pattern.svg");
+    background-color: $darkBlue;
+  }
 }
 
 .backdrop {
-  height: 100%;
-  width: 100%;
-  overflow: scroll;
+  flex: 1;
   background-color: fade-out($darkBlue, 0.25);
   background: linear-gradient(
     darken(fade-out($darkBlue, 0.05), 100%),

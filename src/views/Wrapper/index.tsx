@@ -19,23 +19,21 @@ const Wrapper = (props: {
   categoriesStatus: Status
   categories: Category[]
 }) => (
-  <div className={styles.wrapper}>
-    <div className={styles.backdrop}>
-      <div className={classnames(styles.container, "container")}>
-        <Header
-          cities={props.cities}
-          citiesStatus={props.citiesStatus}
-          userStatus={props.userStatus}
-          user={props.user}
-        />
-        <div className={classnames(styles.content, "row")}>
-          <div className="container-fluid">{props.children}</div>
-        </div>
-        <Footer
-          categoriesStatus={props.categoriesStatus}
-          categories={props.categories}
-        />
+  <div className={styles.backdrop}>
+    <div className={classnames(styles.container, "container")}>
+      <Header
+        cities={props.cities}
+        citiesStatus={props.citiesStatus}
+        userStatus={props.userStatus}
+        user={props.user}
+      />
+      <div className={classnames(styles.content, "row")}>
+        <div className="container-fluid">{props.children}</div>
       </div>
+      <Footer
+        categoriesStatus={props.categoriesStatus}
+        categories={props.categories}
+      />
     </div>
   </div>
 )
