@@ -36,12 +36,16 @@
 }
 
 .container {
+  @extend .container;
+
   display: flex;
   flex-flow: column;
   min-height: 100%;
 }
 
 .content {
+  @extend .row;
+
   flex: 1;
   background-color: fade-out($blue, 0.1);
   background: linear-gradient(

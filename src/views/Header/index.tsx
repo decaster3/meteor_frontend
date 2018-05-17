@@ -3,7 +3,7 @@ import * as React from "react"
 import Icon from "react-fa"
 
 // @ts-ignore
-import * as styles from "./Header.module.scss"
+import * as styles from "./index.module.scss"
 import logo from "./logo.svg"
 import {City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"

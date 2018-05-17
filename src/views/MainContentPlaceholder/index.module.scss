@@ -1,0 +1,83 @@
+@import "../../main.scss";
+
+.banner {
+  color: $lightGrey;
+  border: 0.25rem solid $lightGrey;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  font-size: 2rem;
+  margin: 1rem;
+  padding: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+$lightGreen: hsl(78, 69%, 35%);
+$darkGreen: hsl(91, 71%, 27%);
+
+.productCard {
+  display: flex;
+  flex-flow: column;
+  // align-items: center;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+  border-left: 0.125rem solid $darkGrey;
+  border-right: 0.125rem solid $darkGrey;
+
+  > * {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  > button {
+    color: white;
+    background-color: $lightGreen;
+    background: linear-gradient(
+      $lightGreen,
+      $lightGreen 50%,
+      $darkGreen 50%,
+      $darkGreen
+    );
+    border-radius: 2.5rem/2rem;
+    border: none;
+    text-transform: uppercase;
+    letter-spacing: 0.125em;
+    font-weight: 500;
+    padding: 0.5rem;
+    width: 75%;
+    align-self: center;
+  }
+}
+
+.productCard::after {
+  content: "";
+  height: 100%;
+  width: 0.125rem;
+}
+
+.productCard:first-child {
+  border-left: none;
+}
+
+.productCard:last-child {
+  border-right: none;
+}
+
+.name {
+  font-weight: 700;
+  letter-spacing: 0.125em;
+}
+
+.ingridients {
+  font-size: 0.75rem;
+  color: lighten($lightGrey, 25%);
+  font-weight: 700;
+}
+
+.weight {
+  color: $lightGreen;
+}

@@ -6,10 +6,9 @@ import {fromJS} from "immutable"
 import {routerMiddleware} from "react-router-redux"
 import {applyMiddleware, compose, createStore} from "redux"
 import {loadState} from "./localStorage"
-import createReducer from "./reducers"
+import thunk from "redux-thunk"
 
-// tslint:disable-next-line:no-var-requires
-const thunk = require("redux-thunk").default
+import createReducer from "./reducers"
 
 export const configureStore = (initialState = {}, history: any) => {
   const persistedState = loadState()

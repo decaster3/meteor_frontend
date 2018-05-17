@@ -3,7 +3,7 @@ import * as React from "react"
 import Icon from "react-fa"
 
 // @ts-ignore
-import * as styles from "./Footer.module.scss"
+import * as styles from "./index.module.scss"
 import {Category} from "../../containers/App/actions"
 import {Status} from "../../constants"
 
@@ -16,7 +16,7 @@ const secondaryPages = [
 
 const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
   <>
-    <div className={classnames(styles.bottomNavbar, "row")}>
+    <div className={styles.bottomNavbar}>
       {props.categories.map((category, index) => (
         <React.Fragment key={index}>
           {index > 0 && <div className={styles.bottomNavbarSeparator} />}
@@ -26,12 +26,7 @@ const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
         </React.Fragment>
       ))}
     </div>
-    <div
-      className={classnames(
-        styles.footer,
-        "row py-4 d-flex align-items-center"
-      )}
-    >
+    <div className={classnames(styles.footer, "")}>
       <div className={styles.secondaryMenu}>
         {secondaryPages.map((secondaryPage, index) => (
           <div key={index}>

@@ -1,6 +1,8 @@
 @import "../../main.scss";
 
 .bottomNavbar {
+  @extend .row;
+
   display: flex;
   background-color: $orange; // background-image: linear-gradient(
   //   adjust-hue($orange, -10deg),
@@ -37,6 +39,8 @@
 }
 
 .footer {
+  @extend .row, .py-4, .d-flex, .align-items-center;
+
   display: flex;
   align-items: center;
   justify-content: space-evenly;
