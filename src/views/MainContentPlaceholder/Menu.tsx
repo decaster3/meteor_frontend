@@ -1,4 +1,3 @@
-import * as cn from "classnames"
 import * as React from "react"
 import Icon from "react-fa"
 import * as classnames from "classnames"
@@ -40,7 +39,7 @@ const Menu = () => (
           style={{height: "20rem"}}
         >
           <div className={styles.textBanner}>
-            <button className={classnames(styles.registerButton)}>
+            <button className={styles.registerButton}>
               Зарегестрироваться
             </button>
             <div style={{fontSize: "1rem"}}>и получи</div>

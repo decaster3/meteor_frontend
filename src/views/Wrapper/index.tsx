@@ -1,6 +1,5 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as classnames from "classnames"
 
 // @ts-ignore
 import * as styles from "./index.module.scss"

@@ -1,4 +1,3 @@
-import * as classnames from "classnames"
 import * as React from "react"
 import Icon from "react-fa"
 
@@ -26,7 +25,7 @@ const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
         </React.Fragment>
       ))}
     </div>
-    <div className={classnames(styles.footer, "")}>
+    <div className={styles.footer}>
       <div className={styles.secondaryMenu}>
         {secondaryPages.map((secondaryPage, index) => (
           <div key={index}>

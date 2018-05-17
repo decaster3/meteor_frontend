@@ -1,4 +1,3 @@
-import * as cn from "classnames"
 import * as React from "react"
 import Icon from "react-fa"
 
@@ -33,7 +32,7 @@ const Header = (props: {
       </div>
     </div>
 
-    <div className={cn(styles.topNavbar, "col")}>
+    <div className={styles.topNavbar}>
       {pages.map((page, index) => (
         <React.Fragment key={index}>
           {index > 0 && <div className={styles.topNavbarSeparator} />}

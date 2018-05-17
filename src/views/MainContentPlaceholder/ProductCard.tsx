@@ -1,4 +1,3 @@
-import * as classnames from "classnames"
 import * as React from "react"
 
 // @ts-ignore
