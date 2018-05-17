@@ -19,31 +19,6 @@ $darkGreen: hsl(91, 71%, 27%);
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
-
-  > button {
-    color: white;
-    background-color: $lightGreen;
-    background: linear-gradient(
-      $lightGreen,
-      $lightGreen 50%,
-      $darkGreen 50%,
-      $darkGreen
-    );
-    border-radius: 2.5rem/2rem;
-    border: none;
-    text-transform: uppercase;
-    letter-spacing: 0.125em;
-    font-weight: 500;
-    padding: 0.5rem;
-    width: 75%;
-    align-self: center;
-  }
-}
-
-.productCard::after {
-  content: "";
-  height: 100%;
-  width: 0.125rem;
 }
 
 .productCard:first-child {
@@ -52,6 +27,15 @@ $darkGreen: hsl(91, 71%, 27%);
 
 .productCard:last-child {
   border-right: none;
+}
+
+.imgContainer {
+  align-self: center;
+
+  > img {
+    display: block;
+    max-width: 100%;
+  }
 }
 
 .name {
@@ -67,4 +51,25 @@ $darkGreen: hsl(91, 71%, 27%);
 
 .weight {
   color: $lightGreen;
+}
+
+.order {
+  color: white;
+  display: block;
+  width: 75%;
+  background-color: $lightGreen;
+  background: linear-gradient(
+    $lightGreen,
+    $lightGreen 50%,
+    $darkGreen 50%,
+    $darkGreen
+  );
+  border-radius: 2.25rem/2rem;
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  font-weight: 500;
+  padding: 0.5rem;
+  // width: 75%;
+  align-self: center;
 }

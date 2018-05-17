@@ -3,8 +3,8 @@ import * as React from "react"
 import Icon from "react-fa"
 import * as classnames from "classnames"
 import {Carousel} from "react-responsive-carousel"
-import symbol from "./er.png"
-// import style from "../../../node_modules/react-responsive-carousel/lib/styles/carousel.min.css"
+import symbol from "./logo_meteor.png"
+
 // @ts-ignore
 import * as styles from "./Menu.module.scss"
 

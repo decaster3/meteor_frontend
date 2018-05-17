@@ -29,7 +29,7 @@ const MainContentPlaceholder = () => (
       </div>
     </div> */}
 
-    <div className="row mt-3 mb-5">
+    <div className="row mt-3 mb-5 px-3">
       {_.range(4).map(index => <ProductCard key={index} />)}
     </div>
   </>
