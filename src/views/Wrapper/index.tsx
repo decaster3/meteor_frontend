@@ -1,9 +1,8 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as classnames from "classnames"
 
 // @ts-ignore
-import * as styles from "./Wrapper.module.scss"
+import * as styles from "./index.module.scss"
 import Header from "../Header"
 import Footer from "../Footer"
 import {Status} from "../../constants"
@@ -20,14 +19,14 @@ const Wrapper = (props: {
   categories: Category[]
 }) => (
   <div className={styles.backdrop}>
-    <div className={classnames(styles.container, "container")}>
+    <div className={styles.container}>
       <Header
         cities={props.cities}
         citiesStatus={props.citiesStatus}
         userStatus={props.userStatus}
         user={props.user}
       />
-      <div className={classnames(styles.content, "row")}>
+      <div className={styles.content}>
         <div className="container-fluid">{props.children}</div>
       </div>
       <Footer

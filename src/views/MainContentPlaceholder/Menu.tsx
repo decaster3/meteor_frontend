@@ -1,10 +1,9 @@
-import * as cn from "classnames"
 import * as React from "react"
 import Icon from "react-fa"
 import * as classnames from "classnames"
 import {Carousel} from "react-responsive-carousel"
-import symbol from "./er.png"
-// import style from "../../../node_modules/react-responsive-carousel/lib/styles/carousel.min.css"
+import symbol from "./logo_meteor.png"
+
 // @ts-ignore
 import * as styles from "./Menu.module.scss"
 
@@ -40,7 +39,7 @@ const Menu = () => (
           style={{height: "20rem"}}
         >
           <div className={styles.textBanner}>
-            <button className={classnames(styles.registerButton)}>
+            <button className={styles.registerButton}>
               Зарегестрироваться
             </button>
             <div style={{fontSize: "1rem"}}>и получи</div>

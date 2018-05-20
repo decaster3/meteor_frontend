@@ -7,12 +7,13 @@ import {addLocaleData} from "react-intl"
 import * as enLocaleData from "react-intl/locale-data/en"
 import {DEFAULT_LOCALE} from "./containers/LanguageProvider/constants"
 
-// tslint:disable-next-line:no-var-requires
-const enTranslationMessages = require("./translations/en.json")
+// @ts-ignore
+import enTranslationMessages from "./translations/en.json"
 
 export const appLocales = ["en"]
 
 addLocaleData(enLocaleData)
+
 export const formatTranslationMessages = (locale: any, messages: any) => {
   const defaultFormattedMessages =
     locale !== DEFAULT_LOCALE
