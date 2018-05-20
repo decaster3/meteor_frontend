@@ -23,6 +23,7 @@ import {User} from "../UserSession/actions"
 import {Status} from "../../constants"
 import MainContentPlaceholder from "../../views/MainContentPlaceholder"
 import Menu from "../../views/MainContentPlaceholder/Menu"
+import MainPage from "../../views/MainPage"
 import Test from "../../containers/UserSession/"
 import {Switch, Route} from "react-router"
 import {UserSession} from "../UserSession"
@@ -39,7 +40,7 @@ export class Layout extends React.Component<
     return (
       <Wrapper {...this.props}>
         <Switch>
-          <Route path="/" exact={true} component={MainContentPlaceholder} />
+          <Route path="/" exact={true} component={MainPage} />
           <Route path="/empty" />
           <Route path="/test" component={UserSession} />
           <Route path="/menu" component={Menu} />
