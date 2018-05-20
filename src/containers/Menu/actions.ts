@@ -9,14 +9,14 @@ import {ActionType} from "./constants"
 
 const mockProducts = [
   {
-    name: "Margarita",
+    name: "sdkhsdhksfdjkkjdsfg",
     id: 1,
     description: "Awesome pizza",
     options: [
       {
         name: "size",
         id: 1,
-        ifBelongs: true,
+        isBelongs: true,
         values: [
           {value: "28", id: 1},
           {value: "32", id: 2},
@@ -24,9 +24,15 @@ const mockProducts = [
         ],
       },
       {
+        name: "testo",
+        id: 3,
+        isBelongs: true,
+        values: [{value: "120", id: 7}, {value: "150", id: 8}],
+      },
+      {
         name: "weight",
         id: 2,
-        ifBelongs: false,
+        isBelongs: false,
         values: [
           {value: "100", id: 4},
           {value: "200", id: 5},
@@ -37,42 +43,39 @@ const mockProducts = [
     instances: [
       {
         id: 1,
-        prices: {currency: "euro", value: "200", id: 1},
-        options: [{option_id: 1, value_id: 1}, {option_id: 2, value_id: 4}],
-      },
-    ],
-  },
-  {
-    name: "Dolce vita",
-    id: 1,
-    description: "Awesome pizza2",
-    options: [
-      {
-        name: "size",
-        id: 1,
-        ifBelongs: true,
-        values: [
-          {value: "28", id: 1},
-          {value: "32", id: 2},
-          {value: "42", id: 3},
-        ],
+        price: {currency: "euro", value: "100", id: 1},
+        options: [{option_id: 1, value_id: 1}, {option_id: 3, value_id: 7}],
+        notBelongsOptions: [{option_id: 2, value_id: 4}],
       },
       {
-        name: "weight",
         id: 2,
-        ifBelongs: false,
-        values: [
-          {value: "100", id: 4},
-          {value: "200", id: 5},
-          {value: "300", id: 6},
-        ],
+        price: {currency: "euro", value: "200", id: 2},
+        options: [{option_id: 1, value_id: 1}, {option_id: 3, value_id: 8}],
+        notBelongsOptions: [{option_id: 2, value_id: 5}],
       },
-    ],
-    instances: [
       {
-        id: 1,
-        prices: {currency: "euro", value: "200", id: 1},
-        options: [{option_id: 1, value_id: 1}, {option_id: 2, value_id: 4}],
+        id: 3,
+        price: {currency: "euro", value: "300", id: 3},
+        options: [{option_id: 1, value_id: 2}, {option_id: 3, value_id: 7}],
+        notBelongsOptions: [{option_id: 2, value_id: 6}],
+      },
+      {
+        id: 4,
+        price: {currency: "euro", value: "400", id: 4},
+        options: [{option_id: 1, value_id: 2}, {option_id: 3, value_id: 8}],
+        notBelongsOptions: [{option_id: 2, value_id: 4}],
+      },
+      {
+        id: 5,
+        price: {currency: "euro", value: "500", id: 5},
+        options: [{option_id: 1, value_id: 3}, {option_id: 3, value_id: 7}],
+        notBelongsOptions: [{option_id: 2, value_id: 5}],
+      },
+      {
+        id: 6,
+        price: {currency: "euro", value: "600", id: 6},
+        options: [{option_id: 1, value_id: 3}, {option_id: 3, value_id: 8}],
+        notBelongsOptions: [{option_id: 2, value_id: 6}],
       },
     ],
   },
@@ -90,20 +93,21 @@ export interface Product {
   options: Option[]
   instances: ProductInstance[]
 }
-interface Option {
+export interface Option {
   name: string
   id: number
   isBelongs: boolean
   values: Array<{value: string; id: number}>
 }
 
-interface ProductInstance {
+export interface ProductInstance {
   id: number
   price: {currency: string; value: string; id: number}
   options: OptionConcat[]
+  notBelongsOptions: OptionConcat[]
 }
 
-interface OptionConcat {
+export interface OptionConcat {
   option_id: number
   value_id: number
 }

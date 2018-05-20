@@ -24,20 +24,22 @@ const handleNetworkError = (error: Error) => {
 }
 
 const request = (
-  method: string,
+  method: "get" | "post" | "delete" | "put",
   path: string,
-  options?: RequestInit | {body: any}
+  options?: RequestInit | {body?: any}
 ) => {
   const token = localStorage.getItem("token")
-  const fetchOptions = {
+  const fetchOptions: RequestInit = {
     ...options,
     method,
+    mode: "cors",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       "X-Key-Inflection": "camel",
       ...(token ? {Authorization: token} : {}),
     },
+    ...(options && options.body ? {body: JSON.stringify(options.body)} : {}),
   }
   return fetch(`${BASEURL}/${path}`, fetchOptions).then(
     handleResponse,
