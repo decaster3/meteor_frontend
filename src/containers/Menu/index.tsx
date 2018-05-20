@@ -6,51 +6,53 @@ import {connect} from "react-redux"
 import {compose, Dispatch} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
-import {login, logout} from "./actions"
+import {
+  configureCategoriesProducts,
+  getProductsAfterCategoryClick,
+} from "./actions"
 import reducer from "./reducer"
-import {selectUserState} from "./selectors"
+import {selectCategories, selectCategoriesStatus} from "./selectors"
+import {Category} from "./actions"
+import MenuView from "../../views/Menu"
 
-interface UserSessionProps {
-  userState: string
-  login(params: {email: string; password: string; phone: string}): void
-  logout(): void
+interface MenuProps {
+  categories: Category[]
+  categoriesStatus: string
+  configureCategoriesProducts(): void
+  getProductsAfterCategoryClick(category: Category): void
 }
-export class UserSession extends React.Component<UserSessionProps> {
-  handleClick = (evt: React.SyntheticEvent<HTMLButtonElement>) => {
-    this.props.login({
-      email: "tiran678@icloud.com",
-      password: "qwerty",
-      phone: "89991571024",
-    })
-  }
-  handleClickLogout = (evt: React.SyntheticEvent<HTMLButtonElement>) => {
-    this.props.logout()
+
+export class Menu extends React.Component<MenuProps> {
+  componentDidMount() {
+    this.props.configureCategoriesProducts()
   }
   render() {
     return (
-      <div>
-        <button onClick={this.handleClick}>{this.props.userState}</button>
-        <button onClick={this.handleClickLogout}>logout</button>
-      </div>
+      <MenuView
+        categories={this.props.categories}
+        categoriesStatus={this.props.categoriesStatus}
+        getProductsAfterCategoryClick={this.props.getProductsAfterCategoryClick}
+      />
     )
   }
 }
 
 function mapStateToProps(state: State) {
   return {
-    userState: selectUserState(state),
+    categories: selectCategories(state),
+    categoriesStatus: selectCategoriesStatus(state),
   }
 }
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    login: (ev: {email: string; password: string; phone: string}) =>
-      dispatch(login(ev)),
-    logout: () => dispatch(logout()),
+    configureCategoriesProducts: () => dispatch(configureCategoriesProducts()),
+    getProductsAfterCategoryClick: (category: Category) =>
+      dispatch(getProductsAfterCategoryClick(category)),
   }
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)
-const withReducer = injectReducer({key: "userSession", reducer})
+const withReducer = injectReducer({key: "menu", reducer})
 
-export default compose(withReducer, withConnect)(UserSession)
+export default compose(withReducer, withConnect)(Menu)

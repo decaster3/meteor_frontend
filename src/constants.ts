@@ -1,4 +1,4 @@
-export const BASEURL = "http://192.168.0.105:3001"
+export const BASEURL = "http://192.168.0.104:3001"
 
 export enum Status {
   NOT_LOADED = "NOT_LOADED",
