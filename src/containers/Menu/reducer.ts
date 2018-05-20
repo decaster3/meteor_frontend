@@ -26,7 +26,6 @@ const menuReducer = (state = initialState, action: AnyAction) => {
       const injectingCategoryPos = categories
         .map((x: Category) => x.id)
         .indexOf(action.payload.category.id)
-
       categories[injectingCategoryPos].products = action.payload.products
       return state.set("categories", fromJS(categories))
     }

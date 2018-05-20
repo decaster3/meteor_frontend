@@ -2,6 +2,8 @@ import * as React from "react"
 import {Category} from "../../containers/Menu/actions"
 import CategoryView from "../Category"
 import {Status} from "../../constants"
+import ProductView from "../Product"
+import {Product} from "../../containers/Menu/actions"
 
 interface MenuProps {
   categories: Category[]
@@ -69,7 +71,9 @@ export class Menu extends React.Component<MenuProps, MenuState> {
       this.state.currentCategory.productsStatus === Status.LOADED &&
       this.state.currentCategory.products
     ) {
-      return <p>{this.state.currentCategory.products[0].name}</p>
+      return this.state.currentCategory.products.map(product => (
+        <ProductView key={product.id} product={product} />
+      ))
     }
     return <p>Loading</p>
   }
