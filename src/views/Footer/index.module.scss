@@ -3,7 +3,6 @@
 .bottomNavbar {
   @extend .row;
 
-  display: flex;
   background-color: $orange; // background-image: linear-gradient(
   //   adjust-hue($orange, -10deg),
   //   $orange 25%,

@@ -1,7 +1,5 @@
-/**
- *
+/*
  * User
- *
  */
 import * as React from "react"
 import {connect} from "react-redux"
@@ -23,11 +21,12 @@ import {
 import {setCities, setCategories, City, Category} from "./actions"
 import {User} from "../UserSession/actions"
 import {Status} from "../../constants"
-import MainContentPlaceholder from "../../views/MainContentPlaceholder/Main"
-import Menu from "../../containers/Menu"
+import MainContentPlaceholder from "../../views/MainContentPlaceholder"
+import Menu from "../../views/MainContentPlaceholder/Menu"
 import Test from "../../containers/UserSession/"
 import {Switch, Route} from "react-router"
 import {UserSession} from "../UserSession"
+import {UserStatus} from "../UserSession/constants"
 
 export class Layout extends React.Component<
   LayoutPropsStateProps & LayoutPropsDispatchProps
@@ -38,14 +37,7 @@ export class Layout extends React.Component<
   }
   render() {
     return (
-      <Wrapper
-        cities={this.props.cities}
-        citiesStatus={this.props.citiesStatus}
-        user={this.props.user}
-        userStatus={this.props.userStatus}
-        categories={this.props.categories}
-        categoriesStatus={this.props.categoriesStatus}
-      >
+      <Wrapper {...this.props}>
         <Switch>
           <Route path="/" exact={true} component={MainContentPlaceholder} />
           <Route path="/empty" />
@@ -59,7 +51,7 @@ export class Layout extends React.Component<
 
 interface LayoutPropsStateProps {
   user: User
-  userStatus: Status
+  userStatus: UserStatus
   citiesStatus: Status
   categoriesStatus: Status
   cities: City[]
@@ -67,7 +59,7 @@ interface LayoutPropsStateProps {
   userInfo: User
 }
 
-function mapStateToProps(state: State): LayoutPropsStateProps {
+const mapStateToProps = (state: State): LayoutPropsStateProps => {
   return {
     user: selectUserState(state),
     userStatus: selectUserInfo(state),
@@ -84,7 +76,7 @@ interface LayoutPropsDispatchProps {
   setCategories: () => void
 }
 
-function mapDispatchToProps(dispatch: any): LayoutPropsDispatchProps {
+const mapDispatchToProps = (dispatch: any): LayoutPropsDispatchProps => {
   return {
     setCities: () => dispatch(setCities()),
     setCategories: () => dispatch(setCategories()),

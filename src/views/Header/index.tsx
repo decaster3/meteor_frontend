@@ -7,13 +7,14 @@ import logo from "./logo.svg"
 import {City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
+import {UserStatus} from "../../containers/UserSession/constants"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
 const Header = (props: {
   citiesStatus: Status
   cities: City[]
-  userStatus: Status
+  userStatus: UserStatus
   user: User
 }) => (
   <div className="row align-items-center">
@@ -27,7 +28,7 @@ const Header = (props: {
       <div className={styles.call}>
         <div>+7 727 321-22-21</div>
         <button>
-          <Icon name="phone" /> Call me back
+          <Icon name="phone" /> Call me
         </button>
       </div>
     </div>

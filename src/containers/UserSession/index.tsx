@@ -36,13 +36,13 @@ export class UserSession extends React.Component<UserSessionProps> {
   }
 }
 
-function mapStateToProps(state: State) {
+const mapStateToProps = (state: State) => {
   return {
     userState: selectUserState(state),
   }
 }
 
-function mapDispatchToProps(dispatch: any) {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     login: (ev: {email: string; password: string; phone: string}) =>
       dispatch(login(ev)),

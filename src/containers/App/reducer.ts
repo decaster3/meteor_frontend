@@ -1,7 +1,5 @@
 /*
- *
  * User reducer
- *
  */
 
 import {fromJS} from "immutable"

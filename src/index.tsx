@@ -14,8 +14,10 @@ import registerServiceWorker from "./registerServiceWorker"
 // Vendor styles
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/css/bootstrap.min.css.map"
-import "bootstrap/dist/css/bootstrap.min.css.map"
-import "react-responsive-carousel/lib/styles/carousel.min.css"
+
+// Vendor JS
+import "bootstrap/dist/js/bootstrap.bundle"
+
 // Create redux store with history
 export interface State {
   userSession: object

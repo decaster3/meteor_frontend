@@ -8,12 +8,13 @@ import Footer from "../Footer"
 import {Status} from "../../constants"
 import {City, Category} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
+import {UserStatus} from "../../containers/UserSession/constants"
 
 const Wrapper = (props: {
   children?: React.ReactNode
   citiesStatus: Status
   cities: City[]
-  userStatus: Status
+  userStatus: UserStatus
   user: User
   categoriesStatus: Status
   categories: Category[]

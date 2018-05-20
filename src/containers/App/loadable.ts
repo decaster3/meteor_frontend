@@ -1,7 +1,5 @@
-/**
- *
+/*
  * Asynchronously loads the component for User
- *
  */
 
 import * as Loadable from "react-loadable"

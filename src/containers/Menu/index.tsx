@@ -26,6 +26,7 @@ export class Menu extends React.Component<MenuProps> {
   componentDidMount() {
     this.props.configureCategoriesProducts()
   }
+
   render() {
     return (
       <MenuView
@@ -37,14 +38,14 @@ export class Menu extends React.Component<MenuProps> {
   }
 }
 
-function mapStateToProps(state: State) {
+const mapStateToProps = (state: State) => {
   return {
     categories: selectCategories(state),
     categoriesStatus: selectCategoriesStatus(state),
   }
 }
 
-function mapDispatchToProps(dispatch: any) {
+const mapDispatchToProps = (dispatch: any) => {
   return {
     configureCategoriesProducts: () => dispatch(configureCategoriesProducts()),
     getProductsAfterCategoryClick: (category: Category) =>

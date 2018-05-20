@@ -70,6 +70,24 @@ $darkGreen: hsl(91, 71%, 27%);
   letter-spacing: 0.125em;
   font-weight: 500;
   padding: 0.5rem;
-  // width: 75%;
   align-self: center;
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(
+      darken($lightGreen, 5%),
+      darken($lightGreen, 5%) 50%,
+      darken($darkGreen, 5%) 50%,
+      darken($darkGreen, 5%)
+    );
+  }
+
+  &:active {
+    background: linear-gradient(
+      darken($lightGreen, 10%),
+      darken($lightGreen, 10%) 50%,
+      darken($darkGreen, 10%) 50%,
+      darken($darkGreen, 10%)
+    );
+  }
 }

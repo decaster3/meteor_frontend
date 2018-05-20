@@ -1,55 +1,84 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as classnames from "classnames"
-import {Carousel} from "react-responsive-carousel"
+import * as cn from "classnames"
+// import {Carousel} from "react-responsive-carousel"
 import symbol from "./logo_meteor.png"
 
 // @ts-ignore
 import * as styles from "./Menu.module.scss"
 
+const carouselId = "carousel"
+
 const Menu = () => (
   <>
     <div className="row pt-3 mb-3">
-      <div className="col-7">
-        <div className={styles.banner} style={{height: "20rem"}}>
-          <Carousel
-            className={styles.carousel}
-            showStatus={false}
-            showIndicators={false}
-            showThumbs={false}
-            autoPlay={true}
-            stopOnHover={true}
-            infiniteLoop={true}
-          >
-            <div className={styles.carousel}>
-              <img src="http://via.placeholder.com/410x270" />
+      <div className={cn("col-auto", styles.carouselWrapper)}>
+        <div className={styles.carousel}>
+          <div id={carouselId} className="carousel slide" data-ride="carousel">
+            <ol className="carousel-indicators">
+              <li
+                data-target={`#${carouselId}`}
+                data-slide-to="0"
+                className="active"
+              />
+              <li data-target={`#${carouselId}`} data-slide-to="1" />
+              <li data-target={`#${carouselId}`} data-slide-to="2" />
+            </ol>
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <img
+                  className="d-block w-100"
+                  src="http://via.placeholder.com/800x600"
+                  alt="First slide"
+                />
+              </div>
+              <div className="carousel-item">
+                <img
+                  className="d-block w-100"
+                  src="http://via.placeholder.com/800x600"
+                  alt="Second slide"
+                />
+              </div>
+              <div className="carousel-item">
+                <img
+                  className="d-block w-100"
+                  src="http://via.placeholder.com/800x600"
+                  alt="Third slide"
+                />
+              </div>
             </div>
-            <div className={styles.carousel}>
-              <img src="http://via.placeholder.com/410x270" />
-            </div>
-            <div className={styles.carousel}>
-              <img src="http://via.placeholder.com/410x270" />
-            </div>
-          </Carousel>
+            <a
+              className="carousel-control-prev"
+              href={`#${carouselId}`}
+              role="button"
+              data-slide="prev"
+            >
+              <span className="carousel-control-prev-icon" aria-hidden="true" />
+              <span className="sr-only">Previous</span>
+            </a>
+            <a
+              className="carousel-control-next"
+              href={`#${carouselId}`}
+              role="button"
+              data-slide="next"
+            >
+              <span className="carousel-control-next-icon" aria-hidden="true" />
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
         </div>
       </div>
-      <div className="col-5">
-        <div
-          className={classnames(styles.banner, styles.registerBanner)}
-          style={{height: "20rem"}}
-        >
-          <div className={styles.textBanner}>
-            <button className={styles.registerButton}>
-              Зарегестрироваться
-            </button>
-            <div style={{fontSize: "1rem"}}>и получи</div>
-            <div className={styles.meteorsCount}>500</div>
-            <div className={styles.meteor}>метеоров</div>
-            <div style={{fontSize: "0.9rem", color: "#white"}}>
-              чтобы обменять их на еду
-            </div>
+
+      <div className={cn("col", styles.signupBannerWrapper)}>
+        <div className={cn("row align-items-center", styles.signupBanner)}>
+          <div className={cn("col", styles.textBanner)}>
+            <button className={styles.signupButton}>Зарегестрируйся</button>
+            <div>и получи</div>
+            <div className={styles.meteorValue}>500</div>
+            <div className={styles.meteorCurrency}>метеоров</div>
+            <div>Чтобы обменять их на еду</div>
           </div>
-          <div className={styles.imageBanner}>
+          <div className={cn("col-auto")}>
             <img src={symbol} />
           </div>
         </div>

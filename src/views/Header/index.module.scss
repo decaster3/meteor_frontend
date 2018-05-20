@@ -60,7 +60,6 @@
 
     &:hover,
     &:focus {
-      outline: none;
       color: lighten($lightGrey, 30%);
       border-color: lighten($lightGrey, 30%);
     }

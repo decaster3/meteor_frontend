@@ -6,56 +6,64 @@
   text-transform: uppercase;
   letter-spacing: 0.125em;
   font-size: 2rem;
+  margin: 1rem;
+  padding: 1rem;
   font-weight: 700;
-  display: flex;
-  text-align: center;
-  position: relative;
-}
-
-.imageBanner {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.meteorsCount {
-  padding-bottom: 0;
-  font-size: 3.3rem;
-  color: #fd6f09;
-}
-
-.meteor {
-  padding-bottom: 1.1rem;
-  padding-top: 0;
-  font-size: 1.1rem;
-  color: #fd6f09;
-}
-
-.textBanner {
-  justify-content: left;
-  align-items: left;
-  text-align: left;
-}
-
-.registerBanner {
-  padding: 2rem;
-}
-
-.registerButton {
-  background-color: #40a801;
-  font-size: 1rem;
-  color: white;
   text-align: center;
-  border: none;
-  padding: 15px 25px;
 }
 
-.registerButton:hover {
-  background-color: #358801;
-  color: white;
+.carouselWrapper {
+  flex: 1 1;
 }
 
 .carousel {
-  width: 100%;
-  height: 20rem;
+  max-width: 100%;
+  padding: 1rem;
+}
+
+.signupBannerWrapper {
+  display: flex;
+  flex-flow: column;
+  min-width: 30rem;
+}
+
+.signupBanner {
+  padding: 1rem;
+  flex: 1;
+  color: lighten($lightGrey, 20%);
+  font-weight: 500;
+  line-height: 2;
+  font-size: 1.25rem;
+}
+
+.signupButton {
+  background-color: $lightGreen;
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.125rem;
+
+  &:focus,
+  &:hover {
+    background-color: $darkGreen;
+  }
+}
+
+.meteorValue {
+  font-size: 4rem;
+  line-height: 4.5rem;
+  font-weight: 700;
+  color: $orange;
+}
+
+.meteorCurrency {
+  color: $orange;
+  font-size: 2rem;
+  line-height: 3rem;
 }
