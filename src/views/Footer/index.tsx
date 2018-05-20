@@ -1,5 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
+import * as cn from "classnames"
 
 // @ts-ignore
 import * as styles from "./index.module.scss"
@@ -15,7 +16,7 @@ const secondaryPages = [
 
 const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
   <>
-    <div className={styles.bottomNavbar}>
+    <div className={cn("row", styles.bottomNavbar)}>
       {props.categories.map((category, index) => (
         <React.Fragment key={index}>
           {index > 0 && <div className={styles.bottomNavbarSeparator} />}
@@ -25,7 +26,7 @@ const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
         </React.Fragment>
       ))}
     </div>
-    <div className={styles.footer}>
+    <div className={cn("row py-4 d-flex align-items-center", styles.footer)}>
       <div className={styles.secondaryMenu}>
         {secondaryPages.map((secondaryPage, index) => (
           <div key={index}>
