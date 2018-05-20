@@ -1,7 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
 import * as cn from "classnames"
-// import {Carousel} from "react-responsive-carousel"
 import symbol from "./logo_meteor.png"
 
 // @ts-ignore
