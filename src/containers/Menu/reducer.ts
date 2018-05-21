@@ -17,6 +17,7 @@ const initialState = fromJS({
 const menuReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_CATEGORIES:
+      console.log(action.payload)
       return state.set("categories", fromJS(action.payload))
     case ActionType.SET_CATEGORIES_STATUS:
       return state.set("categoriesStatus", fromJS(action.payload))

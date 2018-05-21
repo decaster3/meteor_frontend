@@ -17,7 +17,7 @@ const mockProducts = [
         name: "size",
         id: 1,
         isBelongs: true,
-        values: [
+        optionValues: [
           {value: "28", id: 1},
           {value: "32", id: 2},
           {value: "42", id: 3},
@@ -27,13 +27,13 @@ const mockProducts = [
         name: "testo",
         id: 3,
         isBelongs: true,
-        values: [{value: "120", id: 7}, {value: "150", id: 8}],
+        optionValues: [{value: "120", id: 7}, {value: "150", id: 8}],
       },
       {
         name: "weight",
         id: 2,
         isBelongs: false,
-        values: [
+        optionValues: [
           {value: "100", id: 4},
           {value: "200", id: 5},
           {value: "300", id: 6},
@@ -97,19 +97,19 @@ export interface Option {
   name: string
   id: number
   isBelongs: boolean
-  values: Array<{value: string; id: number}>
+  optionValues: Array<{value: string; id: number}>
 }
 
 export interface ProductInstance {
   id: number
   price: {currency: string; value: string; id: number}
-  options: OptionConcat[]
-  notBelongsOptions: OptionConcat[]
+  belongingOptions: OptionConcat[]
+  notBelongingOptions: OptionConcat[]
 }
 
 export interface OptionConcat {
-  option_id: number
-  value_id: number
+  optionId: number
+  valueId: number
 }
 const setCategoriesStatus = (categoriesStatus: string) => ({
   type: ActionType.SET_CATEGORIES_STATUS,
@@ -133,7 +133,7 @@ const getProducts = (category: Category) => (dispatch: Dispatch<State>) => {
         type: ActionType.SET_PRODUCTS,
         payload: {
           category,
-          products: mockProducts,
+          products: data,
         },
       })
       dispatch(setProductsStatus(category, Status.LOADED))
@@ -162,6 +162,7 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
         name: category.name,
         productsStatus: Status.NOT_LOADED,
       }))
+      console.log(newData)
       dispatch({
         type: ActionType.SET_CATEGORIES,
         payload: newData,

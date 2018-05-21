@@ -25,14 +25,14 @@ class ProductView extends React.Component<ProductProps, ProductState> {
   }
   changeCurrentProduct = (optionConcat: OptionConcat) => {
     const newState = _.cloneDeep(this.state.currentProductState)
-    const valueForChangeId = newState.options.findIndex(
-      (el: OptionConcat) => optionConcat.option_id === el.option_id
+    const valueForChangeId = newState.belongingOptions.findIndex(
+      (el: OptionConcat) => optionConcat.optionId === el.optionId
     )
-    newState.options[valueForChangeId] = optionConcat
+    newState.belongingOptions[valueForChangeId] = optionConcat
     const newProductInstance =
       this.props.product.instances.find((instance: ProductInstance) => {
-        return _(instance.options)
-          .differenceWith(newState.options, _.isEqual)
+        return _(instance.belongingOptions)
+          .differenceWith(newState.belongingOptions, _.isEqual)
           .isEmpty()
       }) || this.state.currentProductState
     this.setState({currentProductState: newProductInstance})
@@ -40,15 +40,15 @@ class ProductView extends React.Component<ProductProps, ProductState> {
 
   renderBelongsOptions = () => {
     return this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.options.find(
-        (currentOption: OptionConcat) => currentOption.option_id === option.id
+      const currentOptionValue = this.state.currentProductState.belongingOptions.find(
+        (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
       if (currentOptionValue && option.isBelongs) {
-        const row = option.values.map(
+        const row = option.optionValues.map(
           (optionName: {value: string; id: number}) => {
             return (
               <div key={optionName.id}>
-                {currentOptionValue.value_id === optionName.id ? (
+                {currentOptionValue.valueId === optionName.id ? (
                   <p>current</p>
                 ) : (
                   <p>not current</p>
@@ -57,8 +57,8 @@ class ProductView extends React.Component<ProductProps, ProductState> {
                   onClick={
                     /*tslint:disable-next-line:jsx-no-lambda*/ () =>
                       this.changeCurrentProduct({
-                        option_id: option.id,
-                        value_id: optionName.id,
+                        optionId: option.id,
+                        valueId: optionName.id,
                       })
                   }
                 >
@@ -76,13 +76,13 @@ class ProductView extends React.Component<ProductProps, ProductState> {
   }
   renderNotBelongsOptions = () => {
     return this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.notBelongsOptions.find(
-        (currentOption: OptionConcat) => currentOption.option_id === option.id
+      const currentOptionValue = this.state.currentProductState.notBelongingOptions.find(
+        (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
       if (currentOptionValue && !option.isBelongs) {
-        const item = option.values.map(
+        const item = option.optionValues.map(
           (optionName: {value: string; id: number}) => {
-            if (currentOptionValue.value_id === optionName.id) {
+            if (currentOptionValue.valueId === optionName.id) {
               return <div>{optionName.value}</div>
             }
             return null

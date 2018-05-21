@@ -14,15 +14,15 @@ const setBannersStatus = (bannersStatus: string) => ({
 
 export const getBanners = () => (dispatch: Dispatch<State>) => {
   dispatch(setBannersStatus(Status.LOADING))
-  return requests
-    .get("banners")
-    .then(data => {
-      dispatch({
-        type: ActionType.SET_BANNERS,
-        payload: data,
-      })
-      dispatch(setBannersStatus(Status.LOADED))
-      return data
-    })
-    .catch(() => dispatch(setBannersStatus(Status.LOADING_ERROR)))
+  // return requests
+  //   .get("banners")
+  //   .then(data => {
+  //     dispatch({
+  //       type: ActionType.SET_BANNERS,
+  //       payload: data,
+  //     })
+  //     dispatch(setBannersStatus(Status.LOADED))
+  //     return data
+  //   })
+  //   .catch(() => dispatch(setBannersStatus(Status.LOADING_ERROR)))
 }
