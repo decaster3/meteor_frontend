@@ -52,7 +52,7 @@ export class Layout extends React.Component<
 
 interface LayoutPropsStateProps {
   user: User
-  userStatus: UserStatus
+  userStatus: Status
   citiesStatus: Status
   categoriesStatus: Status
   cities: City[]
