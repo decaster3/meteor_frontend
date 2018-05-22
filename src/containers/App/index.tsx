@@ -28,6 +28,7 @@ import Test from "../../containers/UserSession/"
 import {Switch, Route} from "react-router"
 import {UserSession} from "../UserSession"
 import {UserStatus} from "../UserSession/constants"
+import SignupAndLogin from "../../views/SignupAndLogin"
 
 export class Layout extends React.Component<
   LayoutPropsStateProps & LayoutPropsDispatchProps
@@ -44,6 +45,8 @@ export class Layout extends React.Component<
           <Route path="/empty" />
           <Route path="/test" component={UserSession} />
           <Route path="/menu" component={Menu} />
+          <Route path="/login" component={SignupAndLogin} />
+          <Route path="/signup" component={SignupAndLogin} />
         </Switch>
       </Wrapper>
     )

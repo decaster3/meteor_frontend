@@ -8,7 +8,7 @@ import ProductCard from "./ProductCard"
 
 const MainContentPlaceholder = () => (
   <>
-    <div className="row pt-3 mb-3">
+    <div className="row">
       <div className="col-4">
         <div className={styles.banner} style={{height: "20rem"}}>
           Ad Banner

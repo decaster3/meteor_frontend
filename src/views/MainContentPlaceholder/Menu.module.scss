@@ -16,7 +16,7 @@
 }
 
 .carouselWrapper {
-  flex: 1 1 !important;
+  flex: 1 1;
 }
 
 .carousel {
@@ -52,6 +52,14 @@
   &:focus,
   &:hover {
     background-color: $darkGreen;
+  }
+}
+
+.signupBannerImageWrapper {
+  flex: 1 1;
+
+  > img {
+    max-width: 100%;
   }
 }
 

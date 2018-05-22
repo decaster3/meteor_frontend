@@ -4,19 +4,19 @@ import * as ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import {ConnectedRouter} from "react-router-redux"
 
-import configureStore from "./configureStore"
-import App from "./containers/App"
-import LanguageProvider from "./containers/LanguageProvider"
-import {translationMessages} from "./i18n"
-import {saveState} from "./localStorage"
-import registerServiceWorker from "./registerServiceWorker"
-
 // Vendor styles
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/css/bootstrap.min.css.map"
 
 // Vendor JS
 import "bootstrap/dist/js/bootstrap.bundle"
+
+import configureStore from "./configureStore"
+import App from "./containers/App"
+import LanguageProvider from "./containers/LanguageProvider"
+import {translationMessages} from "./i18n"
+import {saveState} from "./localStorage"
+import registerServiceWorker from "./registerServiceWorker"
 
 // Create redux store with history
 export interface State {

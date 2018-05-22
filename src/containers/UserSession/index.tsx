@@ -16,16 +16,18 @@ interface UserSessionProps {
   logout(): void
 }
 export class UserSession extends React.Component<UserSessionProps> {
-  handleClick = (evt: React.SyntheticEvent<HTMLButtonElement>) => {
+  handleClick = (event: React.SyntheticEvent<HTMLButtonElement>) => {
     this.props.login({
       email: "tiran678@icloud.com",
       password: "qwerty",
       phone: "89991571024",
     })
   }
+
   handleClickLogout = (evt: React.SyntheticEvent<HTMLButtonElement>) => {
     this.props.logout()
   }
+
   render() {
     return (
       <div>
@@ -44,8 +46,8 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    login: (ev: {email: string; password: string; phone: string}) =>
-      dispatch(login(ev)),
+    login: (params: {email: string; password: string; phone: string}) =>
+      dispatch(login(params)),
     logout: () => dispatch(logout()),
   }
 }

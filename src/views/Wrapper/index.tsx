@@ -1,5 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
+import * as cn from "classnames"
 
 // @ts-ignore
 import * as styles from "./index.module.scss"
@@ -20,15 +21,15 @@ const Wrapper = (props: {
   categories: Category[]
 }) => (
   <div className={styles.backdrop}>
-    <div className={styles.container}>
+    <div className={cn("container", styles.container)}>
       <Header
         cities={props.cities}
         citiesStatus={props.citiesStatus}
         userStatus={props.userStatus}
         user={props.user}
       />
-      <div className={styles.content}>
-        <div className="container-fluid">{props.children}</div>
+      <div className={cn("row", styles.content)}>
+        <div className="container-fluid py-3">{props.children}</div>
       </div>
       <Footer
         categoriesStatus={props.categoriesStatus}
