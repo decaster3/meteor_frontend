@@ -14,11 +14,13 @@ import reducer from "./reducer"
 import {selectCategories, selectCategoriesStatus} from "./selectors"
 import {Category} from "./actions"
 import MenuView from "../../views/Menu"
+import {addProductToCart, CartProduct} from "../Cart/actions"
 
 interface MenuProps {
   categories: Category[]
   categoriesStatus: string
   configureCategoriesProducts(): void
+  addProductToCart(product: CartProduct): void
   getProductsAfterCategoryClick(category: Category): void
 }
 
@@ -33,6 +35,7 @@ export class Menu extends React.Component<MenuProps> {
         categories={this.props.categories}
         categoriesStatus={this.props.categoriesStatus}
         getProductsAfterCategoryClick={this.props.getProductsAfterCategoryClick}
+        addProductToCart={this.props.addProductToCart}
       />
     )
   }
@@ -47,6 +50,8 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
+    addProductToCart: (product: CartProduct) =>
+      dispatch(addProductToCart(product)),
     configureCategoriesProducts: () => dispatch(configureCategoriesProducts()),
     getProductsAfterCategoryClick: (category: Category) =>
       dispatch(getProductsAfterCategoryClick(category)),

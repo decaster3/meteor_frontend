@@ -83,7 +83,7 @@ const mockProducts = [
 export interface Category {
   name: string
   id: number
-  products?: Product[]
+  products: Product[]
   productsStatus: string
 }
 export interface Product {
@@ -157,25 +157,28 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
   return requests
     .get("categories")
     .then(data => {
-      const newData = data.map((category: {name: string; id: number}) => ({
-        id: category.id,
-        name: category.name,
-        productsStatus: Status.NOT_LOADED,
-      }))
-      console.log(newData)
       dispatch({
         type: ActionType.SET_CATEGORIES,
-        payload: newData,
+        payload: data.map((category: {name: string; id: number}) => ({
+          id: category.id,
+          name: category.name,
+          productsStatus: Status.NOT_LOADED,
+          products: [],
+        })),
       })
       dispatch(setCategoriesStatus(Status.LOADED))
       return data
     })
-    .catch(() => dispatch(setCategoriesStatus(Status.LOADING_ERROR)))
+    .catch(() => {
+      dispatch(setCategoriesStatus(Status.LOADING_ERROR))
+      return Promise.reject(Error(Status.LOADING_ERROR))
+    })
 }
 
 export const configureCategoriesProducts = () => (dispatch: any) => {
   dispatch(getCategories())
     .then((data: Category[]) => {
+      console.log(data)
       dispatch(getProducts(data[0]))
       return data
     })
@@ -184,4 +187,5 @@ export const configureCategoriesProducts = () => (dispatch: any) => {
         data.slice(1).map(category => dispatch(getProducts(category)))
       )
     })
+    .catch(() => console.log(Status.LOADING_ERROR))
 }

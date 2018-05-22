@@ -1,6 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
-
+import {Link} from "react-router-dom"
 // @ts-ignore
 import * as styles from "./index.module.scss"
 import Header from "../Header"
@@ -21,6 +21,7 @@ const Wrapper = (props: {
 }) => (
   <div className={styles.backdrop}>
     <div className={styles.container}>
+      <Link to="cart">CARTTEST</Link>
       <Header
         cities={props.cities}
         citiesStatus={props.citiesStatus}

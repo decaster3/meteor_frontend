@@ -25,7 +25,8 @@ import MainContentPlaceholder from "../../views/MainContentPlaceholder"
 import Menu from "../../views/MainContentPlaceholder/Menu"
 import MainPage from "../../views/MainPage"
 import Test from "../../containers/UserSession/"
-import {Switch, Route} from "react-router"
+import Cart from "../../containers/Cart"
+import {Switch, Route, withRouter} from "react-router-dom"
 import {UserSession} from "../UserSession"
 import {UserStatus} from "../UserSession/constants"
 
@@ -44,6 +45,7 @@ export class Layout extends React.Component<
           <Route path="/empty" />
           <Route path="/test" component={UserSession} />
           <Route path="/menu" component={Menu} />
+          <Route path="/cart" component={Cart} />
         </Switch>
       </Wrapper>
     )
@@ -87,4 +89,4 @@ const mapDispatchToProps = (dispatch: any): LayoutPropsDispatchProps => {
 const withConnect = connect(mapStateToProps, mapDispatchToProps)
 const withReducer = injectReducer({key: "layout", reducer})
 
-export default compose(withReducer, withConnect)(Layout)
+export default withRouter(compose(withReducer, withConnect)(Layout))

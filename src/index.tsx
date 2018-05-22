@@ -32,6 +32,7 @@ store.subscribe(() => {
   saveState({
     userSession: store.getState().get("userSession"),
     language: store.getState().get("language"),
+    cart: store.getState().get("cart"),
   })
 })
 

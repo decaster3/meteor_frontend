@@ -8,9 +8,11 @@ import {
 } from "../../containers/Menu/actions"
 // @ts-ignore
 import styles from "./ProductCard.module.scss"
+import {CartProduct} from "../../containers/Cart/actions"
 
 interface ProductProps {
   product: Product
+  addProductToCart(product: CartProduct): void
 }
 interface ProductState {
   currentProductState: ProductInstance
@@ -25,25 +27,35 @@ class ProductView extends React.Component<ProductProps, ProductState> {
   }
   changeCurrentProduct = (optionConcat: OptionConcat) => {
     const newState = _.cloneDeep(this.state.currentProductState)
-    const valueForChangeId = newState.belongingOptions.findIndex(
+    const valueForChangeId = newState.notBelongingOptions.findIndex(
       (el: OptionConcat) => optionConcat.optionId === el.optionId
     )
-    newState.belongingOptions[valueForChangeId] = optionConcat
+    newState.notBelongingOptions[valueForChangeId] = optionConcat
     const newProductInstance =
       this.props.product.instances.find((instance: ProductInstance) => {
-        return _(instance.belongingOptions)
-          .differenceWith(newState.belongingOptions, _.isEqual)
+        return _(instance.notBelongingOptions)
+          .differenceWith(newState.notBelongingOptions, _.isEqual)
           .isEmpty()
       }) || this.state.currentProductState
     this.setState({currentProductState: newProductInstance})
   }
+  handleAddProductToCart = () => {
+    this.props.addProductToCart({
+      id: this.props.product.id,
+      name: this.props.product.name,
+      description: this.props.product.description,
+      options: this.props.product.options,
+      instance: this.state.currentProductState,
+      count: 1,
+    })
+  }
 
   renderBelongsOptions = () => {
     return this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.belongingOptions.find(
+      const currentOptionValue = this.state.currentProductState.notBelongingOptions.find(
         (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
-      if (currentOptionValue && option.isBelongs) {
+      if (currentOptionValue && !option.isBelongs) {
         const row = option.optionValues.map(
           (optionName: {value: string; id: number}) => {
             return (
@@ -76,14 +88,14 @@ class ProductView extends React.Component<ProductProps, ProductState> {
   }
   renderNotBelongsOptions = () => {
     return this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.notBelongingOptions.find(
+      const currentOptionValue = this.state.currentProductState.belongingOptions.find(
         (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
-      if (currentOptionValue && !option.isBelongs) {
+      if (currentOptionValue && option.isBelongs) {
         const item = option.optionValues.map(
           (optionName: {value: string; id: number}) => {
             if (currentOptionValue.valueId === optionName.id) {
-              return <div>{optionName.value}</div>
+              return <div key={optionName.id}>{optionName.value}</div>
             }
             return null
           }
@@ -112,7 +124,9 @@ class ProductView extends React.Component<ProductProps, ProductState> {
           {this.state.currentProductState.price.value}
           <small>{this.state.currentProductState.price.currency}</small>
         </div>
-        <button className={styles.order}>Order</button>
+        <button onClick={this.handleAddProductToCart} className={styles.order}>
+          Order
+        </button>
       </div>
     )
   }
