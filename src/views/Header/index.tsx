@@ -1,5 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
+import * as cn from "classnames"
 
 // @ts-ignore
 import * as styles from "./index.module.scss"
@@ -33,7 +34,7 @@ const Header = (props: {
       </div>
     </div>
 
-    <div className={styles.topNavbar}>
+    <div className={cn("col", styles.topNavbar)}>
       {pages.map((page, index) => (
         <React.Fragment key={index}>
           {index > 0 && <div className={styles.topNavbarSeparator} />}

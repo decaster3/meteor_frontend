@@ -10,7 +10,7 @@ const carouselId = "carousel"
 
 const Menu = () => (
   <>
-    <div className="row pt-3 mb-3">
+    <div className="row align-items-center">
       <div className={cn("col-auto", styles.carouselWrapper)}>
         <div className={styles.carousel}>
           <div id={carouselId} className="carousel slide" data-ride="carousel">
@@ -77,7 +77,7 @@ const Menu = () => (
             <div className={styles.meteorCurrency}>метеоров</div>
             <div>Чтобы обменять их на еду</div>
           </div>
-          <div className={cn("col-auto")}>
+          <div className={cn("col-auto", styles.signupBannerImageWrapper)}>
             <img src={symbol} />
           </div>
         </div>
@@ -85,7 +85,7 @@ const Menu = () => (
     </div>
 
     <div className="row my-3">
-      <div className="col">
+      <div className={"col"}>
         <div className={styles.banner} style={{height: "20rem"}}>
           How It Works
         </div>

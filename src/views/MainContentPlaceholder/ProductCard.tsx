@@ -1,10 +1,11 @@
 import * as React from "react"
+import * as cn from "classnames"
 
 // @ts-ignore
 import styles from "./ProductCard.module.scss"
 
 const ProductCard = () => (
-  <div className={styles.productCard}>
+  <div className={cn("col", styles.productCard)}>
     <div className={styles.imgContainer}>
       <img src="http://placekitten.com/300/200" />
     </div>

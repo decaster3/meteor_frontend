@@ -19,8 +19,8 @@
 
   html,
   body {
-    background-size: 200px;
-    background-image: url("./pattern.svg");
+    background-size: 300px;
+    background-image: url("./pattern.png");
     background-color: $darkBlue;
   }
 }
@@ -36,16 +36,12 @@
 }
 
 .container {
-  @extend .container;
-
   display: flex;
   flex-flow: column;
   min-height: 100%;
 }
 
 .content {
-  @extend .row;
-
   flex: 1;
   background-color: fade-out($blue, 0.1);
   background: linear-gradient(

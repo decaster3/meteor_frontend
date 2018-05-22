@@ -29,6 +29,7 @@ import Cart from "../../containers/Cart"
 import {Switch, Route, withRouter} from "react-router-dom"
 import {UserSession} from "../UserSession"
 import {UserStatus} from "../UserSession/constants"
+import SignupAndLogin from "../../views/SignupAndLogin"
 
 export class Layout extends React.Component<
   LayoutPropsStateProps & LayoutPropsDispatchProps
@@ -46,6 +47,8 @@ export class Layout extends React.Component<
           <Route path="/test" component={UserSession} />
           <Route path="/menu" component={Menu} />
           <Route path="/cart" component={Cart} />
+          <Route path="/login" component={SignupAndLogin} />
+          <Route path="/signup" component={SignupAndLogin} />
         </Switch>
       </Wrapper>
     )
