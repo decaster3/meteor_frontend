@@ -4,8 +4,6 @@ $lightGreen: hsl(78, 69%, 35%);
 $darkGreen: hsl(91, 71%, 27%);
 
 .productCard {
-  @extend .col;
-
   display: flex;
   flex-flow: column;
   // align-items: center;
