@@ -1,41 +1,63 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as cn from "classnames"
+import * as classnames from "classnames"
+
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
-// @ts-ignore
-import * as styles from "./Menu.module.scss"
+import * as styles from "./index.module.scss"
 import defaultImage from "./default_banner.png"
 
 const carouselId = "carousel"
 
-const PromotionBanner = (props: {banners: any[]; bannersStatus: string}) => {
-  let bannersView: any = (
-    <div className="carousel-item active">
-      <img className="d-block w-100" src={defaultImage} alt="First slide" />
-    </div>
-  )
-  if (props.bannersStatus === Status.LOADED) {
-    bannersView = props.banners.map((img: any) => (
-      <div className="carousel-item active">
-        <img className="d-block w-100" src={img.src} alt="First slide" />
-      </div>
-    ))
-  }
-  return (
-    <div className={cn("col-auto", styles.carouselWrapper)}>
-      <div className={styles.carousel}>
-        <div id={carouselId} className="carousel slide" data-ride="carousel">
-          <ol className="carousel-indicators">
+const PromotionBanner = (props: {
+  banners: Array<{src: string}>
+  bannersStatus: Status
+}) => {
+  const {carouselItems, carouselIndicators} =
+    props.bannersStatus === Status.LOADED
+      ? {
+          carouselItems: props.banners.map((img, index) => (
+            <div className={classnames("carousel-item", {active: index === 0})}>
+              <img
+                className="d-block w-100"
+                src={img.src}
+                alt="Promotion slide"
+              />
+            </div>
+          )),
+          carouselIndicators: props.banners.map((img, index) => (
             <li
               data-target={`#${carouselId}`}
-              data-slide-to="0"
-              className="active"
+              data-slide-to={index}
+              className={classnames({active: index === 0})}
             />
-            <li data-target={`#${carouselId}`} data-slide-to="1" />
-            <li data-target={`#${carouselId}`} data-slide-to="2" />
-          </ol>
-          <div className="carousel-inner">{bannersView}</div>
+          )),
+        }
+      : {
+          carouselItems: [
+            <div key={0} className="carousel-item active">
+              <img
+                className="d-block w-100"
+                src={defaultImage}
+                alt="Default promotion slide"
+              />
+            </div>,
+          ],
+          carouselIndicators: [
+            <li
+              key={0}
+              data-target={`#${carouselId}`}
+              data-slide-to={0}
+              className="active"
+            />,
+          ],
+        }
+  return (
+    <div className={styles.carouselWrapper}>
+      <div className={styles.carousel}>
+        <div id={carouselId} className="carousel slide" data-ride="carousel">
+          <ol className="carousel-indicators">{carouselIndicators}</ol>
+          <div className="carousel-inner">{carouselItems}</div>
           <a
             className="carousel-control-prev"
             href={`#${carouselId}`}

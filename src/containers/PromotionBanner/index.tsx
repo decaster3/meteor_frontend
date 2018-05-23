@@ -10,10 +10,11 @@ import {getBanners} from "./actions"
 import reducer from "./reducer"
 import {selectBanners, selectBannersStatus} from "./selectors"
 import PromotionBannerView from "../../views/PromotionBanner"
+import {Status} from "../../constants"
 
 interface PromotionBannerProps {
   banners: any[]
-  bannersStatus: string
+  bannersStatus: Status
   getBanners(): void
 }
 

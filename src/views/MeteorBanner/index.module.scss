@@ -1,33 +1,10 @@
 @import "../../main.scss";
 
-.banner {
-  color: $lightGrey;
-  border: 0.25rem solid $lightGrey;
-  text-transform: uppercase;
-  letter-spacing: 0.125em;
-  font-size: 2rem;
-  margin: 1rem;
-  padding: 1rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-
-.carouselWrapper {
-  flex: 1 1 !important;
-}
-
-.carousel {
-  max-width: 100%;
-  padding: 1rem;
-}
-
 .signupBannerWrapper {
   display: flex;
   flex-flow: column;
   min-width: 30rem;
+  height: 100%;
 }
 
 .signupBanner {
@@ -66,4 +43,12 @@
   color: $orange;
   font-size: 2rem;
   line-height: 3rem;
+}
+
+.imageWrapper {
+  flex: 1 1;
+
+  > img {
+    max-width: 100%;
+  }
 }

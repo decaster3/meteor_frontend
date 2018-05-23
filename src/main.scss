@@ -9,6 +9,10 @@ $lightGrey: hsl(199, 28%, 31.5%);
 $lightGreen: hsl(78, 69%, 35%);
 $darkGreen: hsl(91, 71%, 27%);
 
+body {
+  color: lightgray;
+}
+
 :global {
   // Font-Awesome icons
   .fa {
