@@ -5,13 +5,14 @@ import symbol from "./logo_meteor.png"
 
 // @ts-ignore
 import * as styles from "./Menu.module.scss"
+import {Row, Col} from "reactstrap"
 
 const carouselId = "carousel"
 
 const Menu = () => (
   <>
-    <div className="row align-items-center">
-      <div className={cn("col-auto", styles.carouselWrapper)}>
+    <Row className="align-items-center">
+      <Col xs="auto" className={styles.carouselWrapper}>
         <div className={styles.carousel}>
           <div id={carouselId} className="carousel slide" data-ride="carousel">
             <ol className="carousel-indicators">
@@ -66,31 +67,31 @@ const Menu = () => (
             </a>
           </div>
         </div>
-      </div>
+      </Col>
 
-      <div className={cn("col", styles.signupBannerWrapper)}>
-        <div className={cn("row align-items-center", styles.signupBanner)}>
-          <div className={cn("col", styles.textBanner)}>
+      <Col className={styles.signupBannerWrapper}>
+        <Row className={cn("align-items-center", styles.signupBanner)}>
+          <Col className={styles.textBanner}>
             <button className={styles.signupButton}>Зарегестрируйся</button>
             <div>и получи</div>
             <div className={styles.meteorValue}>500</div>
             <div className={styles.meteorCurrency}>метеоров</div>
             <div>Чтобы обменять их на еду</div>
-          </div>
-          <div className={cn("col-auto", styles.signupBannerImageWrapper)}>
+          </Col>
+          <Col xs="auto" className={styles.signupBannerImageWrapper}>
             <img src={symbol} />
-          </div>
-        </div>
-      </div>
-    </div>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
 
-    <div className="row my-3">
-      <div className={"col"}>
+    <Row className="my-3">
+      <Col>
         <div className={styles.banner} style={{height: "20rem"}}>
           How It Works
         </div>
-      </div>
-    </div>
+      </Col>
+    </Row>
   </>
 )
 

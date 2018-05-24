@@ -178,7 +178,7 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
 export const configureCategoriesProducts = () => (dispatch: any) => {
   dispatch(getCategories())
     .then((data: Category[]) => {
-      console.log(data)
+      // console.log(data)
       dispatch(getProducts(data[0]))
       return data
     })

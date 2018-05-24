@@ -12,16 +12,16 @@ import * as styles from "./index.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Row, Col} from "reactstrap"
 
-interface ProductProps {
+interface ProductCardProps {
   product: Product
   addProductToCart(product: CartProduct): void
 }
-interface ProductState {
+interface ProductCardState {
   currentProductState: ProductInstance
 }
 
-class ProductView extends React.Component<ProductProps, ProductState> {
-  constructor(props: ProductProps) {
+class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
+  constructor(props: ProductCardProps) {
     super(props)
     this.state = {
       currentProductState: _.cloneDeep(this.props.product.instances[0]),
@@ -96,7 +96,7 @@ class ProductView extends React.Component<ProductProps, ProductState> {
       )
       if (currentOptionValue && option.isBelongs) {
         return (
-          <Row className={styles.dependentOption}>
+          <Row key={option.id} className={styles.dependentOption}>
             <Col>
               <small>{option.name}</small>
             </Col>
@@ -104,7 +104,11 @@ class ProductView extends React.Component<ProductProps, ProductState> {
               (optionName: {value: string; id: number}) => {
                 if (currentOptionValue.valueId === optionName.id) {
                   return (
-                    <Col xs="auto" key={optionName.id}>
+                    <Col
+                      key={optionName.id}
+                      xs="auto"
+                      className="font-weight-bold"
+                    >
                       {optionName.value}
                     </Col>
                   )
@@ -145,4 +149,4 @@ class ProductView extends React.Component<ProductProps, ProductState> {
     )
   }
 }
-export default ProductView
+export default ProductCard

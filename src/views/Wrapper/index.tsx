@@ -1,6 +1,5 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as cn from "classnames"
 
 // @ts-ignore
 import * as styles from "./index.module.scss"
@@ -10,6 +9,7 @@ import {Status} from "../../constants"
 import {City, Category} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
 import {UserStatus} from "../../containers/UserSession/constants"
+import {Container, Row} from "reactstrap"
 
 const Wrapper = (props: {
   children?: React.ReactNode
@@ -21,21 +21,23 @@ const Wrapper = (props: {
   categories: Category[]
 }) => (
   <div className={styles.backdrop}>
-    <div className={cn("container", styles.container)}>
+    <Container className={styles.container}>
       <Header
         cities={props.cities}
         citiesStatus={props.citiesStatus}
         userStatus={props.userStatus}
         user={props.user}
       />
-      <div className={cn("row", styles.content)}>
-        <div className="container-fluid py-3">{props.children}</div>
-      </div>
+      <Row className={styles.content}>
+        <Container fluid={true} className="py-3">
+          {props.children}
+        </Container>
+      </Row>
       <Footer
         categoriesStatus={props.categoriesStatus}
         categories={props.categories}
       />
-    </div>
+    </Container>
   </div>
 )
 

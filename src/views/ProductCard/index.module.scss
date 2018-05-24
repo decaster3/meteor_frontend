@@ -66,9 +66,28 @@ $lighterGrey: lighten($lightGrey, 25%);
   border: none;
   letter-spacing: 0.125em;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.5rem;
   align-self: center;
   text-transform: uppercase;
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(
+      darken($lightGreen, 5%),
+      darken($lightGreen, 5%) 50%,
+      darken($darkGreen, 5%) 50%,
+      darken($darkGreen, 5%)
+    );
+  }
+
+  &:active {
+    background: linear-gradient(
+      darken($lightGreen, 10%),
+      darken($lightGreen, 10%) 50%,
+      darken($darkGreen, 10%) 50%,
+      darken($darkGreen, 10%)
+    );
+  }
 }
 
 .option {
@@ -78,6 +97,7 @@ $lighterGrey: lighten($lightGrey, 25%);
   color: $lighterGrey;
   line-height: 2rem;
   padding: 0;
+  transition: all 0.25s;
 
   &:focus {
     outline: none;
@@ -88,7 +108,7 @@ $lighterGrey: lighten($lightGrey, 25%);
 .option::after {
   content: "";
   display: block;
-  background: $lighterGrey;
+  background: fade-out($lighterGrey, 0.5);
   border-radius: 0.125rem;
   height: 0.25rem;
   width: 100%;

@@ -1,11 +1,11 @@
 import * as React from "react"
-import * as cn from "classnames"
 
 // @ts-ignore
 import styles from "./ProductCard.module.scss"
+import {Col} from "reactstrap"
 
 const ProductCard = () => (
-  <div className={cn("col", styles.productCard)}>
+  <Col className={styles.productCard}>
     <div className={styles.imgContainer}>
       <img src="http://placekitten.com/300/200" />
     </div>
@@ -20,7 +20,7 @@ const ProductCard = () => (
       150 <small>KZT</small>
     </div>
     <button className={styles.order}>Order</button>
-  </div>
+  </Col>
 )
 
 export default ProductCard

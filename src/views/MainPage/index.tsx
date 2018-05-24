@@ -13,7 +13,7 @@ const MainPage = () => (
       <Col>
         <PromotionBanner />
       </Col>
-      <Col xs="auto">
+      <Col sm="auto">
         <MeteorBanner />
       </Col>
     </div>

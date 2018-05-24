@@ -1,5 +1,8 @@
 import * as React from "react"
 import {Button, Modal} from "reactstrap"
+import {WrappedFieldProps, Field, reduxForm} from "redux-form"
+import {Link, Switch, Route} from "react-router-dom"
+
 import * as styles from "./index.module.scss"
 
 import Login from "../Login"

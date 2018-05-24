@@ -1,6 +1,5 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as cn from "classnames"
 
 // @ts-ignore
 import * as styles from "./index.module.scss"
@@ -9,6 +8,7 @@ import {City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserStatus} from "../../containers/UserSession/constants"
+import {Col, Row} from "reactstrap"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
@@ -18,23 +18,23 @@ const Header = (props: {
   userStatus: UserStatus
   user: User
 }) => (
-  <div className="row align-items-center">
-    <div className="col-3">
+  <Row className="align-items-center pt-3">
+    <Col xs="6" md="3">
       <div className={styles.logo}>
         <img src={logo} />
       </div>
-    </div>
+    </Col>
 
-    <div className="col-2">
+    <Col xs="6" md="2">
       <div className={styles.call}>
         <div>+7 727 321-22-21</div>
         <button>
           <Icon name="phone" /> Call me
         </button>
       </div>
-    </div>
+    </Col>
 
-    <div className={cn("col", styles.topNavbar)}>
+    <Col className={styles.topNavbar}>
       {pages.map((page, index) => (
         <React.Fragment key={index}>
           {index > 0 && <div className={styles.topNavbarSeparator} />}
@@ -43,8 +43,8 @@ const Header = (props: {
           </div>
         </React.Fragment>
       ))}
-    </div>
-  </div>
+    </Col>
+  </Row>
 )
 
 export default Header

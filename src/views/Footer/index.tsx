@@ -1,11 +1,10 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as cn from "classnames"
 
-// @ts-ignore
 import * as styles from "./index.module.scss"
 import {Category} from "../../containers/App/actions"
 import {Status} from "../../constants"
+import {Row} from "reactstrap"
 
 const secondaryPages = [
   "Feedback",
@@ -16,7 +15,7 @@ const secondaryPages = [
 
 const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
   <>
-    <div className={cn("row", styles.bottomNavbar)}>
+    <Row className={styles.bottomNavbar}>
       {props.categories.map((category, index) => (
         <React.Fragment key={index}>
           {index > 0 && <div className={styles.bottomNavbarSeparator} />}
@@ -25,8 +24,9 @@ const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
           </div>
         </React.Fragment>
       ))}
-    </div>
-    <div className={cn("row py-4 d-flex align-items-center", styles.footer)}>
+    </Row>
+
+    <div className={styles.footer}>
       <div className={styles.secondaryMenu}>
         {secondaryPages.map((secondaryPage, index) => (
           <div key={index}>
