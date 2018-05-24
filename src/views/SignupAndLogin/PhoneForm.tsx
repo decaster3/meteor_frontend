@@ -6,17 +6,20 @@ import {Link} from "react-router-dom"
 
 import * as styles from "./index.module.scss"
 import CustomInput from "./CustomInput"
+import {PulseLoader} from "react-spinners"
 
-const LoginForm = ({
+const PhoneForm = ({
   handleSubmit,
   handleChangeTab,
+  isPhonePending,
 }: {
-  handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
+  isPhonePending: boolean
   handleChangeTab(): void
+  handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
 }) => (
   <div>
     <div className={styles.modalTitle}>
-      <h4 className="text-center mb-3 font-weight-bold">Вход</h4>
+      <h4 className="text-center mb-3 font-weight-bold">Регистрация</h4>
     </div>
     <form onSubmit={handleSubmit}>
       <div className="form-group row">
@@ -37,50 +40,39 @@ const LoginForm = ({
         </div>
       </div>
       <div className="form-group row">
-        <label className="col-4 col-form-label" htmlFor="password">
-          Пароль
-        </label>
-        <div className="col-8">
-          <Field
-            component={CustomInput}
-            name="password"
-            props={{
-              id: "password",
-              type: "password",
-              placeholder: "Пароль",
-              autoComplete: "current-password",
-            }}
-          />
-        </div>
-      </div>
-      <div className="row form-group">
         <div className="col">
-          <button className="btn btn-block btn-success" type="submit">
-            Войти
+          <button
+            className="btn btn-block btn-success"
+            type="submit"
+            disabled={isPhonePending}
+          >
+            {isPhonePending ? (
+              <PulseLoader color={"#ffffff"} size={8} />
+            ) : (
+              <span>Отправить код</span>
+            )}
           </button>
         </div>
       </div>
     </form>
     <div className="row">
       <div className={classnames(styles.miniLabel, "col")}>
-        Нет аккаунта?
-        <button onClick={handleChangeTab}>Зарегистрироваться</button>
+        Есть аккаунт?
+        <button onClick={handleChangeTab}>Войти</button>
       </div>
     </div>
   </div>
 )
 
-export interface LoginFormValues {
+export interface PhoneFormValues {
   phone: string
-  password: string
 }
 
-const validateLoginFrom = (values: LoginFormValues) => ({
-  phone: values.phone ? undefined : "Required",
-  password: values.password ? undefined : "Required",
+const validatePhoneFrom = (values: any) => ({
+  phone: values.get("phone") ? undefined : "Required",
 })
 
 export default reduxForm({
-  form: "login",
-  validate: validateLoginFrom,
-})(LoginForm as any)
+  form: "registrationPhone",
+  validate: validatePhoneFrom,
+})(PhoneForm as any)

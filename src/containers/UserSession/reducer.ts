@@ -9,9 +9,14 @@ import {AnyAction} from "redux"
 
 const initialState = fromJS({
   userState: UserStatus.ANONYMOUS,
-  userInfo: {
+  registration: {
     registrationStep: 0,
+    codeSent: null,
+    isPhonePending: false,
+    isCodePending: false,
+    phone: "",
   },
+  userInfo: {},
 })
 
 const userSessionReducer = (state = initialState, action: AnyAction) => {
@@ -20,10 +25,34 @@ const userSessionReducer = (state = initialState, action: AnyAction) => {
       return state.set("userState", fromJS(action.payload))
     case ActionType.UPDATE_USER_INFORMATION:
       return state.set("userInfo", fromJS(action.payload))
+    case ActionType.SET_PHONE: {
+      const registration = state.get("registration").toJS()
+      registration.phone = action.payload.phone
+      registration.codeSent = action.payload.codeSent
+      if (action.payload.registrationStep !== undefined) {
+        registration.registrationStep = action.payload.registrationStep
+      }
+      return state.set("registration", fromJS(registration))
+    }
+    case ActionType.CHANGE_PHONE_PENDING_STATE: {
+      const registration = state.get("registration").toJS()
+      registration.isPhonePending = action.payload
+      return state.set("registration", fromJS(registration))
+    }
+    case ActionType.CHANGE_CODE_PENDING_STATE: {
+      const registration = state.get("registration").toJS()
+      registration.isCodePending = action.payload
+      return state.set("registration", fromJS(registration))
+    }
     case ActionType.NEXT_REGISTRATION_STEP: {
-      const userInfo = state.get("userInfo").toJS()
-      userInfo.registrationStep += 1
-      return state.set("userInfo", fromJS(userInfo))
+      const registration = state.get("registration").toJS()
+      registration.registrationStep += 1
+      return state.set("registration", fromJS(registration))
+    }
+    case ActionType.PREVIOUS_REGISTRATION_STEP: {
+      const registration = state.get("registration").toJS()
+      registration.registrationStep -= 1
+      return state.set("registration", fromJS(registration))
     }
     default:
       return state

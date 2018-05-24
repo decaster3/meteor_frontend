@@ -8,6 +8,7 @@ interface CustomInputProps {
   id?: string
   placeholder?: string
   autoComplete?: string
+  readOnly?: boolean
   prepend?: React.ReactNode
   append?: React.ReactNode
 }
@@ -27,6 +28,7 @@ export const CustomInput = ({
   autoComplete,
   prepend,
   append,
+  readOnly,
 }: CustomInputProps & WrappedFieldProps) => (
   <div className="input-group">
     {prepend && (
@@ -40,6 +42,7 @@ export const CustomInput = ({
         {"is-invalid": touched && error},
         className
       )}
+      readOnly={readOnly}
       id={id}
       type={type}
       placeholder={placeholder}

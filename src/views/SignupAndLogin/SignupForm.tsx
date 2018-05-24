@@ -1,6 +1,5 @@
 import * as React from "react"
 import {reduxForm} from "redux-form/immutable"
-import * as classnames from "classnames"
 import {Field} from "redux-form/immutable"
 import {Link} from "react-router-dom"
 
@@ -9,14 +8,12 @@ import CustomInput from "./CustomInput"
 
 const LoginForm = ({
   handleSubmit,
-  handleChangeTab,
 }: {
   handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
-  handleChangeTab(): void
 }) => (
   <div>
     <div className={styles.modalTitle}>
-      <h4 className="text-center mb-3 font-weight-bold">Вход</h4>
+      <h4 className="text-center mb-3 font-weight-bold">Регистрация</h4>
     </div>
     <form onSubmit={handleSubmit}>
       <div className="form-group row">
@@ -53,7 +50,7 @@ const LoginForm = ({
           />
         </div>
       </div>
-      <div className="row form-group">
+      <div className="row">
         <div className="col">
           <button className="btn btn-block btn-success" type="submit">
             Войти
@@ -62,9 +59,10 @@ const LoginForm = ({
       </div>
     </form>
     <div className="row">
-      <div className={classnames(styles.miniLabel, "col")}>
-        Нет аккаунта?
-        <button onClick={handleChangeTab}>Зарегистрироваться</button>
+      <div className="col">
+        <Link className="btn btn-block btn-outline-success mt-3" to="/login">
+          Зарегистрироваться
+        </Link>
       </div>
     </div>
   </div>
@@ -83,4 +81,4 @@ const validateLoginFrom = (values: LoginFormValues) => ({
 export default reduxForm({
   form: "login",
   validate: validateLoginFrom,
-})(LoginForm as any)
+})(LoginForm)

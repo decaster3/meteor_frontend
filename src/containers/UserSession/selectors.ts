@@ -5,14 +5,30 @@ import {createSelector} from "reselect"
  */
 export const selectUserDomain = (state: any) => state.get("userSession")
 
-/*
- * Other specific selectors
- */
-
-/*
- * Default selector used by User
- */
-
 export const selectUserState = createSelector(selectUserDomain, userState =>
   userState.get("userState")
+)
+
+export const selectUserRegistrationStep = createSelector(
+  selectUserDomain,
+  registrationStep =>
+    registrationStep.get("registration").get("registrationStep")
+)
+
+export const selectCodeSentTime = createSelector(selectUserDomain, codeSent =>
+  codeSent.get("registration").get("codeSent")
+)
+
+export const selectIsPhonePending = createSelector(
+  selectUserDomain,
+  isPhonePending => isPhonePending.get("registration").get("isPhonePending")
+)
+
+export const selectIsCodePending = createSelector(
+  selectUserDomain,
+  isCodePending => isCodePending.get("registration").get("isCodePending")
+)
+
+export const selectPhone = createSelector(selectUserDomain, phone =>
+  phone.get("registration").get("phone")
 )
