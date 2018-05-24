@@ -5,6 +5,7 @@ import {Dispatch} from "redux"
 import {State} from "../../"
 import requests from "../../services/requests"
 import {ActionType, UserStatus} from "./constants"
+import * as moment from "moment"
 
 export interface User {
   id: number
@@ -12,8 +13,15 @@ export interface User {
   phone: string
   role: string
 }
+const later = (delay: number) =>
+  new Promise(resolve => {
+    setTimeout(resolve, delay)
+  })
 
 const nextRegistrationStep = () => ({type: ActionType.NEXT_REGISTRATION_STEP})
+const previousRegistrationStep = () => ({
+  type: ActionType.PREVIOUS_REGISTRATION_STEP,
+})
 
 const changeUserStatus = (userStatus: UserStatus) => ({
   type: ActionType.CHANGE_USER_STATE,
@@ -44,5 +52,41 @@ export const logout = () => (dispatch: Dispatch<State>) => {
   dispatch(changeUserStatus(UserStatus.LOGGING_IN))
   requests.delete("auth/sign_in").then(() => {
     dispatch(changeUserStatus(UserStatus.ANONYMOUS))
+  })
+}
+
+export const sendPhone = (params: {phone: string}) => (
+  dispatch: Dispatch<State>
+) => {
+  later(5000).then(() => {
+    dispatch({
+      type: ActionType.SET_PHONE,
+      payload: {
+        phone: params.phone,
+        codeSent: moment(),
+      },
+    })
+    dispatch(nextRegistrationStep())
+    console.log(params)
+  })
+}
+
+export const sendCode = (params: {code: string}) => (
+  dispatch: Dispatch<State>
+) => {
+  later(5000).then(() => {
+    dispatch(nextRegistrationStep())
+    console.log(params)
+  })
+}
+
+export const reSendPhone = () => (dispatch: Dispatch<State>) => {
+  dispatch(previousRegistrationStep())
+  dispatch({
+    type: ActionType.SET_PHONE,
+    payload: {
+      phone: null,
+      codeSent: null,
+    },
   })
 }

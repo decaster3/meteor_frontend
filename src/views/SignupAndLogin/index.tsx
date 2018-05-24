@@ -1,30 +1,83 @@
 import * as React from "react"
 import * as cn from "classnames"
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap"
-import posed from "react-pose"
-import {styler, timeline, listen, easing, tween} from "popmotion"
 import {WrappedFieldProps, Field, reduxForm} from "redux-form"
-import {Link} from "react-router-dom"
+import {Link, Switch, Route} from "react-router-dom"
 
 import * as styles from "./index.module.scss"
 import CustomInput from "./CustomInput"
 import LoginForm, {LoginFormValues} from "./LoginForm"
+import PhoneForm, {PhoneFormValues} from "./PhoneForm"
+import CodeForm, {CodeFormValues} from "./CodeForm"
+import PasswordForm from "./PasswordForm"
 
-interface LoginState {
+interface AuthenticationState {
   modalShown: boolean
+  isLogin: boolean
+}
+interface AuthenticationProps {
+  codeSent: string
+  regsitrationStep: number
+  login(params: {password: string; phone: string}): void
+  sendPhone(params: {phone: string}): void
+  sendCode(params: {code: string}): void
+  reSendPhone(): void
 }
 
-class Login extends React.Component<{}, LoginState> {
-  state: LoginState = {
-    modalShown: true,
+class Authentication extends React.Component<
+  AuthenticationProps,
+  AuthenticationState
+> {
+  state: AuthenticationState = {
+    modalShown: false,
+    isLogin: true,
   }
 
-  toggleModal = () => {
+  toggleModal = () =>
     this.setState(prevState => ({modalShown: !prevState.modalShown}))
+
+  handleLoginSubmit = (values: LoginFormValues) => {
+    this.props.login(values)
+    console.log(values)
   }
 
-  handleLoginSubmit = (values: Partial<LoginFormValues>) => {
+  handleCodeSubmit = (values: CodeFormValues) => {
+    this.props.sendCode(values)
     console.log(values)
+  }
+
+  handlePhoneSubmit = (values: PhoneFormValues) => {
+    this.props.sendPhone(values)
+    console.log(values)
+  }
+
+  handleReSendPhone = () => {
+    this.props.reSendPhone()
+  }
+
+  handleChangeTab = () =>
+    this.setState(prevState => ({isLogin: !prevState.isLogin}))
+
+  setDefaultAuthState = () => this.setState(prevState => ({isLogin: true}))
+
+  renderRegsitration = () => {
+    switch (this.props.regsitrationStep) {
+      case 0:
+        return <PhoneForm onSubmit={this.handlePhoneSubmit} />
+      case 1:
+        return (
+          <CodeForm
+            onSubmit={this.handleCodeSubmit}
+            // @ts-ignore
+            codeSent={this.props.codeSent}
+            handleReSendPhone={this.handleReSendPhone}
+          />
+        )
+      case 2:
+        return <PasswordForm />
+      default:
+        return null
+    }
   }
 
   render() {
@@ -39,25 +92,21 @@ class Login extends React.Component<{}, LoginState> {
           isOpen={this.state.modalShown}
           toggle={this.toggleModal}
           contentClassName={styles.modalContent}
+          onClosed={this.setDefaultAuthState}
         >
-          <div className={styles.modalTitle}>
-            <h4 className="text-center mb-3 font-weight-bold">Войти</h4>
-          </div>
-          <LoginForm onSubmit={this.handleLoginSubmit} />
-          <div className="row">
-            <div className="col">
-              <Link
-                className="btn btn-block btn-outline-success mt-3"
-                to="/signup"
-              >
-                Зарегистрироваться
-              </Link>
-            </div>
-          </div>
+          {this.state.isLogin ? (
+            <LoginForm
+              onSubmit={this.handleLoginSubmit}
+              // @ts-ignore
+              handleChangeTab={this.handleChangeTab}
+            />
+          ) : (
+            this.renderRegsitration()
+          )}
         </Modal>
       </div>
     )
   }
 }
 
-export default Login
+export default Authentication

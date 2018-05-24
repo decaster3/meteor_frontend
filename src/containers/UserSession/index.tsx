@@ -6,34 +6,36 @@ import {connect} from "react-redux"
 import {compose, Dispatch} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
-import {login, logout} from "./actions"
+import {login, logout, sendPhone, reSendPhone, sendCode} from "./actions"
 import reducer from "./reducer"
-import {selectUserState} from "./selectors"
+import {
+  selectUserState,
+  selectUserRegistrationStep,
+  selectCodeSentTime,
+} from "./selectors"
+import LoginAndSignup from "../../views/SignupAndLogin"
 
 interface UserSessionProps {
+  codeSent: string
   userState: string
-  login(params: {email: string; password: string; phone: string}): void
+  regsitrationStep: number
+  login(params: {password: string; phone: string}): void
+  sendPhone(params: {phone: string}): void
+  sendCode(params: {code: string}): void
   logout(): void
+  reSendPhone(): void
 }
 export class UserSession extends React.Component<UserSessionProps> {
-  handleClick = (event: React.SyntheticEvent<HTMLButtonElement>) => {
-    this.props.login({
-      email: "tiran678@icloud.com",
-      password: "qwerty",
-      phone: "89991571024",
-    })
-  }
-
-  handleClickLogout = (evt: React.SyntheticEvent<HTMLButtonElement>) => {
-    this.props.logout()
-  }
-
   render() {
     return (
-      <div>
-        <button onClick={this.handleClick}>{this.props.userState}</button>
-        <button onClick={this.handleClickLogout}>logout</button>
-      </div>
+      <LoginAndSignup
+        login={this.props.login}
+        reSendPhone={this.props.reSendPhone}
+        sendPhone={this.props.sendPhone}
+        sendCode={this.props.sendCode}
+        regsitrationStep={this.props.regsitrationStep}
+        codeSent={this.props.codeSent}
+      />
     )
   }
 }
@@ -41,6 +43,8 @@ export class UserSession extends React.Component<UserSessionProps> {
 const mapStateToProps = (state: State) => {
   return {
     userState: selectUserState(state),
+    regsitrationStep: selectUserRegistrationStep(state),
+    codeSent: selectCodeSentTime(state),
   }
 }
 
@@ -48,7 +52,10 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     login: (params: {email: string; password: string; phone: string}) =>
       dispatch(login(params)),
+    sendPhone: (params: {phone: string}) => dispatch(sendPhone(params)),
+    sendCode: (params: {code: string}) => dispatch(sendCode(params)),
     logout: () => dispatch(logout()),
+    reSendPhone: () => dispatch(reSendPhone()),
   }
 }
 

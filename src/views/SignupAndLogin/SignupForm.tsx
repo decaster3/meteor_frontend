@@ -8,14 +8,12 @@ import CustomInput from "./CustomInput"
 
 const LoginForm = ({
   handleSubmit,
-  handleChangeTab,
 }: {
   handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
-  handleChangeTab(): void
 }) => (
   <div>
     <div className={styles.modalTitle}>
-      <h4 className="text-center mb-3 font-weight-bold">Вход</h4>
+      <h4 className="text-center mb-3 font-weight-bold">Регистрация</h4>
     </div>
     <form onSubmit={handleSubmit}>
       <div className="form-group row">
@@ -62,8 +60,9 @@ const LoginForm = ({
     </form>
     <div className="row">
       <div className="col">
-        Нет аккаунта?
-        <button onClick={handleChangeTab}>Зарегистрироваться</button>
+        <Link className="btn btn-block btn-outline-success mt-3" to="/login">
+          Зарегистрироваться
+        </Link>
       </div>
     </div>
   </div>
@@ -82,4 +81,4 @@ const validateLoginFrom = (values: LoginFormValues) => ({
 export default reduxForm({
   form: "login",
   validate: validateLoginFrom,
-})(LoginForm as any)
+})(LoginForm)
