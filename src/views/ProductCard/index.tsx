@@ -1,5 +1,6 @@
 import * as React from "react"
 import * as _ from "lodash"
+import * as classnames from "classnames"
 
 import {
   Product,
@@ -53,31 +54,31 @@ class ProductView extends React.Component<ProductProps, ProductState> {
     })
   }
 
-  renderBelongsOptions = () =>
+  renderIndependentOptions = () =>
     this.props.product.options.map((option: Option) => {
       const currentOptionValue = this.state.currentProductState.notBelongingOptions.find(
         (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
       if (currentOptionValue && !option.isBelongs) {
         return (
-          <Row key={option.id}>
+          <Row className={"my-2"} noGutters={true} key={option.id}>
             {option.optionValues.map(
               (optionName: {value: string; id: number}) => (
                 <Col className="text-center" key={optionName.id}>
                   <button
-                    className="btn"
+                    type="button"
+                    // htmlFor={optionName.value}
                     onClick={this.changeCurrentProduct({
                       optionId: option.id,
                       valueId: optionName.id,
                     })}
+                    className={classnames(styles.option, {
+                      [styles.optionActive]:
+                        currentOptionValue.valueId === optionName.id,
+                    })}
                   >
                     {optionName.value}
                   </button>
-                  {currentOptionValue.valueId === optionName.id ? (
-                    <p>Chosen</p>
-                  ) : (
-                    <p>Not chosen</p>
-                  )}
                 </Col>
               )
             )}
@@ -88,20 +89,31 @@ class ProductView extends React.Component<ProductProps, ProductState> {
       }
     })
 
-  renderNotBelongsOptions = () => {
+  renderDependentOptions = () => {
     return this.props.product.options.map((option: Option) => {
       const currentOptionValue = this.state.currentProductState.belongingOptions.find(
         (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
       if (currentOptionValue && option.isBelongs) {
-        return option.optionValues.map(
-          (optionName: {value: string; id: number}) => {
-            if (currentOptionValue.valueId === optionName.id) {
-              return <div key={optionName.id}>{optionName.value}</div>
-            } else {
-              return null
-            }
-          }
+        return (
+          <Row className={styles.dependentOption}>
+            <Col>
+              <small>{option.name}</small>
+            </Col>
+            {option.optionValues.map(
+              (optionName: {value: string; id: number}) => {
+                if (currentOptionValue.valueId === optionName.id) {
+                  return (
+                    <Col xs="auto" key={optionName.id}>
+                      {optionName.value}
+                    </Col>
+                  )
+                } else {
+                  return null
+                }
+              }
+            )}
+          </Row>
         )
       } else {
         return null
@@ -112,23 +124,22 @@ class ProductView extends React.Component<ProductProps, ProductState> {
   render() {
     return (
       <div className={styles.productCard}>
-        <div className={styles.imgContainer}>
+        <div className={styles.imageContainer}>
           <img src="http://placekitten.com/300/200" />
         </div>
         <div className={styles.name}>{this.props.product.name}</div>
         <div className={styles.ingridients}>
           {this.props.product.description}
         </div>
-        <div>
-          {this.renderBelongsOptions()}
-          {this.renderNotBelongsOptions()}
-        </div>
-        <div className={styles.price}>
+        {this.renderIndependentOptions()}
+        {this.renderDependentOptions()}
+        {/* <div className={styles.price}>
           {this.state.currentProductState.price.value}
           <small>{this.state.currentProductState.price.currency}</small>
-        </div>
+        </div> */}
         <button onClick={this.handleAddProductToCart} className={styles.order}>
-          Order
+          {this.state.currentProductState.price.value}
+          <small>{this.state.currentProductState.price.currency}</small> Order
         </button>
       </div>
     )

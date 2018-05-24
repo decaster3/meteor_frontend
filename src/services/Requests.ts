@@ -6,30 +6,13 @@ const setToken = (token: string | null) => {
   }
 }
 
-const handleResponse = (response: Response) => {
-  if (response.ok) {
-    setToken(response.headers.get("Authorization"))
-    return response.json()
-  } else {
-    return response.json().then((error: any) => {
-      throw new Error(error)
-    })
-  }
-}
-
-const handleNetworkError = (error: Error) => {
-  throw {
-    msg: error.message,
-  }
-}
-
 const request = (
-  method: "get" | "post" | "delete" | "put",
+  method: "GET" | "POST" | "DELETE" | "PUT" = "GET",
   path: string,
   options?: RequestInit | {body?: any}
 ) => {
   const token = localStorage.getItem("token")
-  const fetchOptions: RequestInit = {
+  return fetch(`${BASEURL}/${path}`, {
     ...options,
     method,
     mode: "cors",
@@ -40,22 +23,69 @@ const request = (
       ...(token ? {Authorization: token} : {}),
     },
     ...(options && options.body ? {body: JSON.stringify(options.body)} : {}),
-  }
-  return fetch(`${BASEURL}/${path}`, fetchOptions).then(
-    handleResponse,
-    handleNetworkError
-  )
+  })
+    .then((response: Response) => {
+      if (response.ok) {
+        setToken(response.headers.get("Authorization"))
+        return response.json()
+      } else {
+        return response.json().then((error: any) => {
+          throw new Error(error)
+        })
+      }
+    })
+    .catch((error: Error) => {
+      throw {
+        msg: error.message,
+      }
+    })
 }
+
+// const token2 = localStorage.getItem("token")
+
+// fetch("http://192.168.0.100:3001/cities", {
+//   mode: "cors",
+//   headers: {
+//     Accept: "application/json",
+//     "Content-Type": "application/json",
+//     "X-Key-Inflection": "camel",
+//     ...(token2 ? {Authorization: token2} : {}),
+//   },
+//   // ...(options && options.body ? {body: JSON.stringify(options.body)} : {}),
+// })
+//   .then(res => {
+//     console.log("res", res)
+//   })
+//   .catch(err => {
+//     console.log("err", err)
+//   })
+
+// fetch("http://192.168.0.100:3001/categories", {
+//   mode: "cors",
+//   headers: {
+//     Accept: "application/json",
+//     "Content-Type": "application/json",
+//     "X-Key-Inflection": "camel",
+//     ...(token2 ? {Authorization: token2} : {}),
+//   },
+//   // ...(options && options.body ? {body: JSON.stringify(options.body)} : {}),
+// })
+//   .then(res => {
+//     console.log("res", res)
+//   })
+//   .catch(err => {
+//     console.log("err", err)
+//   })
 
 const requests = {
   get: (path: string, options?: RequestInit | {body: any}) =>
-    request("get", path, options),
+    request("GET", path, options),
   post: (path: string, options?: RequestInit | {body: any}) =>
-    request("post", path, options),
+    request("POST", path, options),
   delete: (path: string, options?: RequestInit | {body: any}) =>
-    request("delete", path, options),
+    request("DELETE", path, options),
   put: (path: string, options?: RequestInit | {body: any}) =>
-    request("put", path, options),
+    request("PUT", path, options),
 }
 
 export default requests

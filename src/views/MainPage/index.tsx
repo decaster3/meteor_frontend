@@ -17,9 +17,7 @@ const MainPage = () => (
         <MeteorBanner />
       </Col>
     </div>
-    <div className="row my-3">
-      <Menu />
-    </div>
+    <Menu />
   </>
 )
 

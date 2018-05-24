@@ -2,6 +2,7 @@
 
 $lightGreen: hsl(78, 69%, 35%);
 $darkGreen: hsl(91, 71%, 27%);
+$lighterGrey: lighten($lightGrey, 25%);
 
 .productCard {
   display: flex;
@@ -27,7 +28,7 @@ $darkGreen: hsl(91, 71%, 27%);
   border-right: none;
 }
 
-.imgContainer {
+.imageContainer {
   align-self: center;
 
   > img {
@@ -43,18 +44,17 @@ $darkGreen: hsl(91, 71%, 27%);
 
 .ingridients {
   font-size: 0.75rem;
-  color: lighten($lightGrey, 25%);
+  color: $lighterGrey;
   font-weight: 700;
 }
 
-.weight {
+.dependentOption {
   color: $lightGreen;
 }
 
 .order {
   color: white;
   display: block;
-  width: 75%;
   background-color: $lightGreen;
   background: linear-gradient(
     $lightGreen,
@@ -64,10 +64,48 @@ $darkGreen: hsl(91, 71%, 27%);
   );
   border-radius: 2.25rem/2rem;
   border: none;
-  text-transform: uppercase;
   letter-spacing: 0.125em;
   font-weight: 500;
-  padding: 0.5rem;
-  // width: 75%;
+  padding: 0.5rem 1rem;
   align-self: center;
+  text-transform: uppercase;
+}
+
+.option {
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: $lighterGrey;
+  line-height: 2rem;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+    color: white;
+  }
+}
+
+.option::after {
+  content: "";
+  display: block;
+  background: $lighterGrey;
+  border-radius: 0.125rem;
+  height: 0.25rem;
+  width: 100%;
+}
+
+.optionActive {
+  color: white;
+  text-shadow: 0 0 0.5rem fade-out(white, 0.25);
+  font-size: 1.25rem;
+  line-height: 2rem;
+}
+
+.optionActive::after {
+  content: "";
+  display: block;
+  background: $lightGreen;
+  border-radius: 0.125rem;
+  height: 0.25rem;
+  width: 100%;
 }
