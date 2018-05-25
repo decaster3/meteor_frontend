@@ -51,7 +51,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
         return <p>Loading error.</p>
       case Status.LOADED:
         return (
-          <Row className="align-items-center justify-content-around">
+          <Row className="align-items-center justify-content-around py-3">
             {this.props.categories.map(category => (
               <div
                 className={classnames(styles.categoryLinkWrapper, {
@@ -61,7 +61,10 @@ export class Menu extends React.Component<MenuProps, MenuState> {
                 })}
                 key={category.id}
               >
-                <a href="#" onClick={this.handleCategoryClick(category)}>
+                <a
+                  href={"javascript:void(0);"}
+                  onClick={this.handleCategoryClick(category)}
+                >
                   <img src={meteorSymbol} />
                   <span>{category.name}</span>
                 </a>
@@ -86,7 +89,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
             <Row>
               {this.state.currentCategory.products.map(product => (
                 <React.Fragment key={product.id}>
-                  {_.range(8).map((value, index) => (
+                  {_.range(7).map((value, index) => (
                     <Col key={index} sm="6" md="4" lg="3" className="my-3">
                       <ProductCard
                         product={product}

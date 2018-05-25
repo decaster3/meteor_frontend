@@ -27,8 +27,8 @@ const MeteorBanner = (props: {userState: string; userInfo: User}) => {
           <div className={styles.meteorCurrency}>метеоров</div>
           <div>Чтобы обменять их на еду</div>
         </Col>
-        <Col xs="auto">
-          <img className={styles.image} src={symbol} />
+        <Col xs="auto" className={styles.imageWrapper}>
+          <img src={symbol} />
         </Col>
       </Row>
     </div>

@@ -40,7 +40,7 @@ export class Layout extends React.Component<
   render() {
     return (
       <Wrapper {...this.props}>
-        <UserSession />
+        {/* <UserSession /> */}
         <Switch>
           <Route path="/" exact={true} component={MainPage} />
           <Route path="/empty" />

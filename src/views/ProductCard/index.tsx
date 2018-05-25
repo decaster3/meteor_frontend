@@ -133,24 +133,23 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
         <div className={classnames(styles.name, "text-center")}>
           {this.props.product.name}
         </div>
+
         <div className={styles.imageContainer}>
           <img
-            width="300"
-            height="200"
             src={`https://picsum.photos/300/200/?blue&image=${
               this.state.currentProductState.id
             }`}
           />
         </div>
+
         <div className={classnames(styles.ingridients, "text-center")}>
           {this.props.product.description}
         </div>
+
         {this.renderIndependentOptions()}
+
         {this.renderDependentOptions()}
-        {/* <div className={styles.price}>
-          {this.state.currentProductState.price.value}
-          <small>{this.state.currentProductState.price.currency}</small>
-        </div> */}
+
         <button onClick={this.handleAddProductToCart} className={styles.order}>
           {this.state.currentProductState.price.value}
           <small>{this.state.currentProductState.price.currency}</small> Order

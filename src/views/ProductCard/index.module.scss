@@ -1,14 +1,16 @@
 @import "../../main.scss";
 
 .productCard {
-  display: flex;
-  flex-flow: column;
-  // align-items: center;
   color: white;
   text-transform: uppercase;
   font-weight: 500;
   border-left: 0.125rem solid $darkGrey;
   border-right: 0.125rem solid $darkGrey;
+  max-width: 20rem;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
 
   > * {
     margin-top: 0.5rem;
@@ -29,7 +31,7 @@
 
   > img {
     display: block;
-    max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -42,6 +44,7 @@
   font-size: 0.75rem;
   color: $lighterGrey;
   font-weight: 700;
+  flex: 1;
 }
 
 .dependentOption {
@@ -94,6 +97,7 @@
   line-height: 2rem;
   padding: 0;
   transition: all 0.25s;
+  // padding: 0 0.25rem;
 
   &:focus {
     outline: none;
@@ -112,7 +116,7 @@
 
 .optionActive {
   color: white;
-  text-shadow: 0 0 0.5rem fade-out(white, 0.25);
+  // text-shadow: 0 0 0.5rem fade-out(white, 0.25);
   font-size: 1.25rem;
   line-height: 2rem;
 }
