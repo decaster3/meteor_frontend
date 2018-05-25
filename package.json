@@ -27,7 +27,7 @@
     "react-loadable": "^5.4.0",
     "react-pose": "^1.6.4",
     "react-redux": "^5.0.7",
-    "react-responsive-carousel": "^3.1.38",
+    "react-responsive-carousel": "^3.1.39",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
     "react-scripts": "^1.1.4",
@@ -39,7 +39,7 @@
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "reselect": "^3.0.1",
-    "styled-components": "^3.2.6",
+    "styled-components": "^3.3.0",
     "thunk": "0.0.1"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "@types/jest": "^22.2.3",
     "@types/jquery": "^3.3.2",
     "@types/lodash": "^4.14.109",
-    "@types/node": "^6.0.111",
+    "@types/node": "^10.1.2",
     "@types/prop-types": "^15.5.3",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
@@ -70,6 +70,7 @@
     "react-app-rewired": "^1.5.2",
     "react-dev-utils": "^5.0.1",
     "sass-loader": "^7.0.1",
+    "tslint": "^5.10.0",
     "typescript": "^2.8.3"
   }
 }
