@@ -28,7 +28,11 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     }
   }
 
-  changeCurrentProduct = (optionConcat: OptionConcat) => () => {
+  changeCurrentProduct = (event: React.SyntheticEvent<HTMLButtonElement>) => {
+    const optionConcat: OptionConcat = {
+      optionId: parseInt(event.currentTarget.name, 10),
+      valueId: parseInt(event.currentTarget.value, 10),
+    }
     const newState = _.cloneDeep(this.state.currentProductState)
     const valueForChangeId = newState.notBelongingOptions.findIndex(
       (el: OptionConcat) => optionConcat.optionId === el.optionId
@@ -67,11 +71,9 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
                 <Col className="text-center" key={optionName.id}>
                   <button
                     type="button"
-                    // htmlFor={optionName.value}
-                    onClick={this.changeCurrentProduct({
-                      optionId: option.id,
-                      valueId: optionName.id,
-                    })}
+                    name={option.id.toString()}
+                    value={optionName.id}
+                    onClick={this.changeCurrentProduct}
                     className={classnames(styles.option, {
                       [styles.optionActive]:
                         currentOptionValue.valueId === optionName.id,
@@ -128,11 +130,19 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
   render() {
     return (
       <div className={styles.productCard}>
-        <div className={styles.imageContainer}>
-          <img src="http://placekitten.com/300/200" />
+        <div className={classnames(styles.name, "text-center")}>
+          {this.props.product.name}
         </div>
-        <div className={styles.name}>{this.props.product.name}</div>
-        <div className={styles.ingridients}>
+        <div className={styles.imageContainer}>
+          <img
+            width="300"
+            height="200"
+            src={`https://picsum.photos/300/200/?blue&image=${
+              this.state.currentProductState.id
+            }`}
+          />
+        </div>
+        <div className={classnames(styles.ingridients, "text-center")}>
           {this.props.product.description}
         </div>
         {this.renderIndependentOptions()}

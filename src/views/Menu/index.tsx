@@ -1,5 +1,7 @@
 import * as React from "react"
 import {Row, Col} from "reactstrap"
+import * as _ from "lodash"
+import * as classnames from "classnames"
 
 import {Category} from "../../containers/Menu/actions"
 import {Status} from "../../constants"
@@ -7,7 +9,7 @@ import ProductCard from "../ProductCard"
 import {Product} from "../../containers/Menu/actions"
 import {CartProduct} from "../../containers/Cart/actions"
 import * as styles from "./index.module.scss"
-import * as _ from "lodash"
+import meteorSymbol from "../MeteorBanner/logo_meteor.png"
 
 interface MenuProps {
   categories: Category[]
@@ -49,13 +51,23 @@ export class Menu extends React.Component<MenuProps, MenuState> {
         return <p>Loading error.</p>
       case Status.LOADED:
         return (
-          <div className={styles.categoriesBar}>
+          <Row className="align-items-center justify-content-around">
             {this.props.categories.map(category => (
-              <a key={category.id} onClick={this.handleCategoryClick(category)}>
-                {category.name}
-              </a>
+              <div
+                className={classnames(styles.categoryLinkWrapper, {
+                  [styles.active]:
+                    this.state.currentCategory &&
+                    category.id === this.state.currentCategory.id,
+                })}
+                key={category.id}
+              >
+                <a href="#" onClick={this.handleCategoryClick(category)}>
+                  <img src={meteorSymbol} />
+                  <span>{category.name}</span>
+                </a>
+              </div>
             ))}
-          </div>
+          </Row>
         )
       default:
         return <p>Something went wrong. Reload the page.</p>
@@ -75,7 +87,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
               {this.state.currentCategory.products.map(product => (
                 <React.Fragment key={product.id}>
                   {_.range(8).map((value, index) => (
-                    <Col key={index} sm="6" md="4" lg="3">
+                    <Col key={index} sm="6" md="4" lg="3" className="my-3">
                       <ProductCard
                         product={product}
                         addProductToCart={this.props.addProductToCart}
