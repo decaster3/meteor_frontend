@@ -8,7 +8,7 @@ import {City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserStatus} from "../../containers/UserSession/constants"
-import {Col, Row} from "reactstrap"
+import {Col, Row, Navbar, Container, NavbarBrand} from "reactstrap"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
@@ -18,33 +18,44 @@ const Header = (props: {
   userStatus: UserStatus
   user: User
 }) => (
-  <Row className="align-items-center pt-3">
-    <Col xs="6" md="3">
-      <div className={styles.logo}>
-        <img src={logo} />
-      </div>
-    </Col>
+  <Navbar fixed="top" expand="xl" className={styles.Navbar}>
+    <Container>
+      <Row className="w-100 align-items-center">
+        <Col xs="6" sm="auto">
+          <a href="/">
+            <img src={logo} className={styles.logo} />
+          </a>
+        </Col>
 
-    <Col xs="6" md="2">
-      <div className={styles.call}>
-        <div>+7 727 321-22-21</div>
-        <button>
-          <Icon name="phone" /> Call me
-        </button>
-      </div>
-    </Col>
+        <Col xs="6" sm="auto" className={styles.phoneBlock}>
+          <Row className="align-items-center justify-content-center">
+            <Col xs="auto" lg="6">
+              <div className={styles.phone}>+7 727 321-22-21</div>
+            </Col>
+            <div className="w-100 d-block d-lg-none" />
+            <Col xs="auto" lg="6">
+              <button className={styles.callMe}>
+                <Icon name="phone" /> Call me
+              </button>
+            </Col>
+          </Row>
+        </Col>
 
-    <Col className={styles.topNavbar}>
-      {pages.map((page, index) => (
-        <React.Fragment key={index}>
-          {index > 0 && <div className={styles.topNavbarSeparator} />}
-          <div>
-            <a href="#">{page}</a>
+        <Col>
+          <div className={styles.topNavbar}>
+            {pages.map((page, index) => (
+              <React.Fragment key={index}>
+                {index > 0 && <div className={styles.topNavbarSeparator} />}
+                <div>
+                  <a href="#">{page}</a>
+                </div>
+              </React.Fragment>
+            ))}
           </div>
-        </React.Fragment>
-      ))}
-    </Col>
-  </Row>
+        </Col>
+      </Row>
+    </Container>
+  </Navbar>
 )
 
 export default Header

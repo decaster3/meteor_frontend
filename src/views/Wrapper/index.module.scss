@@ -27,6 +27,7 @@
 
 .backdrop {
   flex: 1;
+  padding-top: 4rem;
   background-color: fade-out($darkBlue, 0.25);
   background: linear-gradient(
     darken(fade-out($darkBlue, 0.05), 100%),

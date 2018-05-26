@@ -21,13 +21,13 @@ const Wrapper = (props: {
   categories: Category[]
 }) => (
   <div className={styles.backdrop}>
+    <Header
+      cities={props.cities}
+      citiesStatus={props.citiesStatus}
+      userStatus={props.userStatus}
+      user={props.user}
+    />
     <Container className={styles.container}>
-      <Header
-        cities={props.cities}
-        citiesStatus={props.citiesStatus}
-        userStatus={props.userStatus}
-        user={props.user}
-      />
       <Row className={styles.content}>
         <Container fluid={true} className="py-3">
           {props.children}
