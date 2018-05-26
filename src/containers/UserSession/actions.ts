@@ -2,7 +2,7 @@
  * User actions
  */
 import {formatNumber} from "libphonenumber-js"
-
+import {SubmissionError} from "redux-form/immutable"
 import {Dispatch} from "redux"
 import {State} from "../../"
 import requests from "../../services/requests"
@@ -11,14 +11,10 @@ import * as moment from "moment"
 
 export interface User {
   id: number
-  email: string
   phone: string
   role: string
+  name: string
 }
-const later = (delay: number) =>
-  new Promise(resolve => {
-    setTimeout(resolve, delay)
-  })
 
 const nextRegistrationStep = () => ({type: ActionType.NEXT_REGISTRATION_STEP})
 
@@ -28,6 +24,11 @@ const previousRegistrationStep = () => ({
 
 const changePhonePendingState = (state: boolean) => ({
   type: ActionType.CHANGE_PHONE_PENDING_STATE,
+  payload: state,
+})
+
+const changeLoginPendingState = (state: boolean) => ({
+  type: ActionType.CHANGE_LOGIN_PENDING_STATE,
   payload: state,
 })
 
@@ -46,18 +47,30 @@ const setUserInfo = (userInfo: User) => ({
   payload: userInfo,
 })
 
+export const setInviterToken = (inviterToken: string) => ({
+  type: ActionType.SET_INVITER_TOKEN,
+  payload: inviterToken,
+})
+
 export const login = (password: string, phone: string) => (
   dispatch: Dispatch<State>
 ) => {
-  console.log(password, phone)
+  dispatch(changeLoginPendingState(true))
   dispatch(changeUserStatus(UserStatus.LOGGING_IN))
-  requests
+  return requests
     .post("auth/sign_in", {body: {user: phone, password}})
     .then(data => {
+      dispatch(changeLoginPendingState(false))
       dispatch(changeUserStatus(UserStatus.LOGED_IN))
       dispatch(setUserInfo(data))
     })
-    .catch(() => dispatch(changeUserStatus(UserStatus.ANONYMOUS)))
+    .catch(err => {
+      dispatch(changeUserStatus(UserStatus.ANONYMOUS))
+      dispatch(changeLoginPendingState(false))
+      if (err.msg) {
+        throw new SubmissionError({_error: "Неправильный формат данных"})
+      }
+    })
 }
 
 export const logout = () => (dispatch: Dispatch<State>) => {
@@ -68,19 +81,31 @@ export const logout = () => (dispatch: Dispatch<State>) => {
 }
 
 export const signUp = (
+  inviterToken: string,
+  name: string,
   phone: string,
   password: string,
   passwordConfirmation: string
 ) => (dispatch: Dispatch<State>) => {
   dispatch(changePhonePendingState(true))
-  requests
+  const user = inviterToken
+    ? {
+        phone: formatNumber(phone, "E.164"),
+        password,
+        name,
+        passwordConfirmation,
+        inviterToken,
+      }
+    : {
+        phone: formatNumber(phone, "E.164"),
+        password,
+        name,
+        passwordConfirmation,
+      }
+  return requests
     .post("auth", {
       body: {
-        user: {
-          phone: formatNumber(phone, "E.164"),
-          password,
-          passwordConfirmation,
-        },
+        user,
       },
     })
     .then(() => {
@@ -94,21 +119,32 @@ export const signUp = (
       dispatch(nextRegistrationStep())
       dispatch(changePhonePendingState(false))
     })
-    .catch(() => {
+    .catch(err => {
       dispatch(changePhonePendingState(false))
+      if (err.status === 422) {
+        if (err.body.error === "Invalid token.") {
+          dispatch(setInviterToken(""))
+          throw new SubmissionError({_error: err.body.error})
+        }
+        throw new SubmissionError({_error: "Неправильный формат"})
+      }
     })
 }
 
 export const sendCode = (code: string) => (dispatch: Dispatch<State>) => {
   dispatch(changeCodePendingState(true))
-  requests
+  return requests
     .get(`confirmation?confirmation_code=${code}`)
-    .then(() => {
-      dispatch(nextRegistrationStep())
+    .then(data => {
+      dispatch(changeUserStatus(UserStatus.LOGED_IN))
+      dispatch(setUserInfo(data))
       dispatch(changeCodePendingState(false))
     })
-    .catch(() => {
+    .catch(err => {
       dispatch(changeCodePendingState(false))
+      if (err.msg) {
+        throw new SubmissionError({_error: "Неправильный формат"})
+      }
     })
 }
 

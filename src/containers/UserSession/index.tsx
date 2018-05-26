@@ -15,19 +15,29 @@ import {
   selectIsPhonePending,
   selectIsCodePending,
   selectPhone,
+  selectIsLoginPending,
+  selectInviterToken,
 } from "./selectors"
 import AuthWrapper from "../../views/AuthWrapper"
 
 interface UserSessionProps {
   phone: string
+  inviterToken: string
   registrationFirst?: boolean
   codeSent: string
   userState: string
   regsitrationStep: number
+  isLoginPending: boolean
   isPhonePending: boolean
   isCodePending: boolean
   login(password: string, phone: string): void
-  signUp(phone: string, password: string, passwordConfirmation: string): void
+  signUp(
+    inviterToken: string,
+    name: string,
+    phone: string,
+    password: string,
+    passwordConfirmation: string
+  ): void
   sendCode(params: {code: string}): void
   logout(): void
   reSendPhone(): void
@@ -45,6 +55,8 @@ export class UserSession extends React.Component<UserSessionProps> {
         isPhonePending={this.props.isPhonePending}
         phone={this.props.phone}
         isCodePending={this.props.isCodePending}
+        isLoginPending={this.props.isLoginPending}
+        inviterToken={this.props.inviterToken}
         registrationFirst={this.props.registrationFirst}
       >
         {this.props.children}
@@ -60,7 +72,9 @@ const mapStateToProps = (state: State) => {
     codeSent: selectCodeSentTime(state),
     isPhonePending: selectIsPhonePending(state),
     isCodePending: selectIsCodePending(state),
+    isLoginPending: selectIsLoginPending(state),
     phone: selectPhone(state),
+    inviterToken: selectInviterToken(state),
   }
 }
 
@@ -68,8 +82,16 @@ const mapDispatchToProps = (dispatch: any) => {
   return {
     login: (password: string, phone: string) =>
       dispatch(login(password, phone)),
-    signUp: (phone: string, password: string, passwordConfirmation: string) =>
-      dispatch(signUp(phone, password, passwordConfirmation)),
+    signUp: (
+      inviterToken: string,
+      name: string,
+      phone: string,
+      password: string,
+      passwordConfirmation: string
+    ) =>
+      dispatch(
+        signUp(inviterToken, name, phone, password, passwordConfirmation)
+      ),
     sendCode: (code: string) => dispatch(sendCode(code)),
     logout: () => dispatch(logout()),
     reSendPhone: () => dispatch(reSendPhone()),

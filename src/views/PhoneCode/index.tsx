@@ -44,8 +44,7 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
   }
 
   handleCodeSubmit = (values: any) => {
-    this.props.sendCode(values.get("code"))
-    console.log(values.get("code"))
+    return this.props.sendCode(values.get("code"))
   }
 
   render() {
@@ -78,7 +77,7 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
         <PhoneCodeForm
           onSubmit={this.handleCodeSubmit}
           // @ts-ignore
-          isCodePending={this.isCodePending}
+          isCodePending={this.props.isCodePending}
           initialValues={fromJS({phone: this.props.phone})}
         />
         {sentCode}

@@ -7,7 +7,7 @@ import MeteorBanner from "../../containers/MeteorBanner"
 import Menu from "../../containers/Menu"
 import {Col} from "reactstrap"
 
-const MainPage = () => (
+const MainPage = (props: {match: any}) => (
   <>
     <div className="row">
       <Col>
@@ -17,7 +17,7 @@ const MainPage = () => (
         <MeteorBanner />
       </Col>
     </div>
-    <Menu />
+    <Menu inviterToken={props.match ? props.match.params.inviterToken : null} />
   </>
 )
 

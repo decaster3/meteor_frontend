@@ -29,6 +29,24 @@ export const selectIsCodePending = createSelector(
   isCodePending => isCodePending.get("registration").get("isCodePending")
 )
 
+export const selectIsLoginPending = createSelector(
+  selectUserDomain,
+  isCodePending => isCodePending.get("registration").get("isLoginPending")
+)
+
+export const selectInviterToken = createSelector(
+  selectUserDomain,
+  inviterToken => {
+    if (
+      inviterToken.get("registration").get("inviterToken") === "" ||
+      inviterToken.get("registration").get("inviterToken") === null
+    ) {
+      return undefined
+    }
+    return inviterToken.get("registration").get("inviterToken")
+  }
+)
+
 export const selectPhone = createSelector(selectUserDomain, phone =>
   phone.get("registration").get("phone")
 )

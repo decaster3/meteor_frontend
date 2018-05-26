@@ -16,13 +16,21 @@ interface AuthenticationState {
 
 interface AuthenticationProps {
   phone: string
+  inviterToken: string
   registrationFirst?: boolean
   codeSent: string
   regsitrationStep: number
   isCodePending: boolean
   isPhonePending: boolean
+  isLoginPending: boolean
   login(phone: string, password: string): void
-  signUp(phone: string, password: string, passwordConfirmation: string): void
+  signUp(
+    inviterToken: string,
+    name: string,
+    phone: string,
+    password: string,
+    passwordConfirmation: string
+  ): void
   sendCode(params: {code: string}): void
   reSendPhone(): void
 }
@@ -63,6 +71,7 @@ class Authentication extends React.Component<
             signUp={this.props.signUp}
             handleChangeTab={this.handleChangeTab}
             isPhonePending={this.props.isPhonePending}
+            inviterToken={this.props.inviterToken}
           />
         )
       case 1:
@@ -95,6 +104,7 @@ class Authentication extends React.Component<
             <Login
               login={this.props.login}
               handleChangeTab={this.handleChangeTab}
+              isLoginPending={this.props.isLoginPending}
             />
           ) : (
             this.renderRegsitration()

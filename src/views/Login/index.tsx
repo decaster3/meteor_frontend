@@ -9,11 +9,13 @@ import * as styles from "./index.module.scss"
 const Login = ({
   login,
   handleChangeTab,
+  isLoginPending,
 }: {
+  isLoginPending: boolean
   login(password: string, phone: string): void
   handleChangeTab(): void
 }) => {
-  const handleLoginSubmit = (values: any) => {
+  const handleLoginSubmittttttt = (values: any) => {
     login(values.get("phone"), values.get("password"))
   }
   return (
@@ -21,7 +23,11 @@ const Login = ({
       <div className={styles.modalTitle}>
         <h4 className="text-center mb-3 font-weight-bold">Вход</h4>
       </div>
-      <LoginForm onSubmit={handleLoginSubmit} />
+      <LoginForm
+        // @ts-ignore
+        isLoginPending={isLoginPending}
+        onSubmit={handleLoginSubmittttttt}
+      />
       <div className="row">
         <div className={classnames(styles.miniLabel, "col")}>
           Нет аккаунта?

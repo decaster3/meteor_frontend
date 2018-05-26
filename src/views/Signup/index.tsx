@@ -2,21 +2,32 @@ import * as React from "react"
 import * as classnames from "classnames"
 import * as styles from "./index.module.scss"
 import SignupForm from "./SignupForm"
+import {fromJS} from "immutable"
 
 const Signup = ({
   signUp,
   handleChangeTab,
   isPhonePending,
+  inviterToken,
 }: {
   isPhonePending: boolean
+  inviterToken: string
   handleChangeTab(): void
-  signUp(phone: string, password: string, passwordConfirmation: string): void
+  signUp(
+    inviterToken: string,
+    name: string,
+    phone: string,
+    password: string,
+    passwordConfirmation: string
+  ): void
 }) => {
   const handleSignUpSubmit = (values: any) => {
-    signUp(
+    return signUp(
+      values.get("inviterToken"),
+      values.get("name"),
       values.get("phone"),
       values.get("password"),
-      values.get("passwordConfirmation")
+      values.get("passwordConfirmation"),
     )
   }
 
@@ -29,6 +40,7 @@ const Signup = ({
       </div>
       <SignupForm
         onSubmit={handleSignUpSubmit}
+        initialValues={fromJS({inviterToken})}
         // @ts-ignore
         isPhonePending={isPhonePending}
       />

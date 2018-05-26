@@ -42,6 +42,11 @@ export class Layout extends React.Component<
       <Wrapper {...this.props}>
         {/* <UserSession /> */}
         <Switch>
+          <Route
+            path="/invite/:inviterToken"
+            exact={true}
+            component={MainPage}
+          />
           <Route path="/" exact={true} component={MainPage} />
           <Route path="/empty" />
           <Route path="/test" component={UserSession} />

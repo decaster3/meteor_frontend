@@ -3,6 +3,7 @@ import {reduxForm} from "redux-form/immutable"
 import * as classnames from "classnames"
 import {Field} from "redux-form/immutable"
 import {Link} from "react-router-dom"
+import {PulseLoader} from "react-spinners"
 import {
   normalizePhone,
   validatePhone,
@@ -13,7 +14,11 @@ import CustomInput from "../../forms/CustomInput"
 
 const LoginForm = ({
   handleSubmit,
+  error,
+  isLoginPending,
 }: {
+  isLoginPending: boolean
+  error: any
   handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
 }) => (
   <form onSubmit={handleSubmit}>
@@ -52,10 +57,21 @@ const LoginForm = ({
         />
       </div>
     </div>
+    <div style={{color: "red", textAlign: "center"}}>
+      {error && <strong>{error}</strong>}
+    </div>
     <div className="row form-group">
       <div className="col">
-        <button className="btn btn-block btn-success" type="submit">
-          Войти
+        <button
+          className="btn btn-block btn-success"
+          type="submit"
+          disabled={isLoginPending}
+        >
+          {isLoginPending ? (
+            <PulseLoader color={"#ffffff"} size={8} />
+          ) : (
+            <span>Отправить код</span>
+          )}
         </button>
       </div>
     </div>
@@ -70,4 +86,4 @@ const validateLoginFrom = (values: any) => ({
 export default reduxForm({
   form: "login",
   validate: validateLoginFrom,
-})(LoginForm)
+})(LoginForm as any)

@@ -17,11 +17,33 @@ import {PulseLoader} from "react-spinners"
 const SignupForm = ({
   handleSubmit,
   isPhonePending,
+  initialValues,
+  error,
 }: {
+  error: any
   isPhonePending: boolean
+  initialValues: any
   handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
 }) => (
   <form onSubmit={handleSubmit}>
+    <div className="form-group row">
+      <label className="col-4 col-form-label" htmlFor="phone">
+        Имя
+      </label>
+      <div className="col-8">
+        <Field
+          component={CustomInput}
+          name="name"
+          normalize={normalizePhone}
+          props={{
+            id: "name",
+            type: "tel",
+            placeholder: "Имя",
+            autoComplete: "name",
+          }}
+        />
+      </div>
+    </div>
     <div className="form-group row">
       <label className="col-4 col-form-label" htmlFor="phone">
         Телефон
@@ -36,6 +58,25 @@ const SignupForm = ({
             type: "tel",
             placeholder: "Телефон",
             autoComplete: "tel",
+          }}
+        />
+      </div>
+    </div>
+    <div className="form-group row">
+      <label className="col-4 col-form-label" htmlFor="phone">
+        Токен пригласителя
+      </label>
+      <div className="col-8">
+        <Field
+          component={CustomInput}
+          name="inviterToken"
+          normalize={normalizePhone}
+          props={{
+            id: "inviterToken",
+            type: "text",
+            placeholder: "Токен пригласителя",
+            autoComplete: "inviterToken",
+            readOnly: initialValues.get("inviterToken") ? true : false,
           }}
         />
       </div>
@@ -73,6 +114,9 @@ const SignupForm = ({
         />
       </div>
     </div>
+    <div style={{color: "red", textAlign: "center"}}>
+      {error && <strong>{error}</strong>}
+    </div>
     <div className="form-group row">
       <div className="col">
         <button
@@ -92,6 +136,7 @@ const SignupForm = ({
 )
 
 const validateSignUpForm = (values: any) => ({
+  name: values.get("name") ? undefined : "Обязательно",
   phone: validatePhone(values.get("phone")),
   password: passwordValidation(values.get("password")),
   passwordConfirmation: passwordConfirmationValidation(

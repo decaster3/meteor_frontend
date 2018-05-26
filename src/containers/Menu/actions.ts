@@ -157,6 +157,7 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
   return requests
     .get("categories")
     .then(data => {
+      console.log(data)
       dispatch({
         type: ActionType.SET_CATEGORIES,
         payload: data.map((category: {name: string; id: number}) => ({

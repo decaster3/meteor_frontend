@@ -11,12 +11,13 @@ const PhoneCodeForm = ({
   handleSubmit,
   isCodePending,
   initialValues,
+  error,
 }: {
   isCodePending: boolean
   initialValues: any
+  error: any
   handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
 }) => {
-  console.log(isCodePending)
   return (
     <form onSubmit={handleSubmit}>
       <div className="form-group row">
@@ -53,6 +54,9 @@ const PhoneCodeForm = ({
             }}
           />
         </div>
+      </div>
+      <div style={{color: "red", textAlign: "center"}}>
+        {error && <strong>{error}</strong>}
       </div>
       <div className="row">
         <div className="col">
