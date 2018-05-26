@@ -7,6 +7,7 @@ import {Status} from "../../constants"
 import * as styles from "./index.module.scss"
 import {User} from "../../containers/UserSession/actions"
 import {UserStatus} from "../../containers/UserSession/constants"
+import SignUp from "../../containers/UserSession"
 import {Col} from "reactstrap"
 
 const MeteorBanner = (props: {userState: string; userInfo: User}) => {
@@ -18,7 +19,9 @@ const MeteorBanner = (props: {userState: string; userInfo: User}) => {
     <div className={styles.signupBannerWrapper}>
       <div className={cn("row align-items-center", styles.signupBanner)}>
         <div className={cn("col", styles.textBanner)}>
-          <button className={styles.signupButton}>{text}</button>
+          <SignUp registrationFirst={true}>
+            <button className={styles.signupButton}>{text}</button>
+          </SignUp>
           <div>и получи</div>
           <div className={styles.meteorValue}>{amount}</div>
           <div className={styles.meteorCurrency}>метеоров</div>

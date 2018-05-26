@@ -1,6 +1,8 @@
 /*
  * User actions
  */
+import {formatNumber} from "libphonenumber-js"
+
 import {Dispatch} from "redux"
 import {State} from "../../"
 import requests from "../../services/requests"
@@ -44,14 +46,13 @@ const setUserInfo = (userInfo: User) => ({
   payload: userInfo,
 })
 
-export const login = (credentials: {
-  email: string
-  password: string
-  phone: string
-}) => (dispatch: Dispatch<State>) => {
+export const login = (password: string, phone: string) => (
+  dispatch: Dispatch<State>
+) => {
+  console.log(password, phone)
   dispatch(changeUserStatus(UserStatus.LOGGING_IN))
   requests
-    .post("auth/sign_in", {body: {user: credentials}})
+    .post("auth/sign_in", {body: {user: phone, password}})
     .then(data => {
       dispatch(changeUserStatus(UserStatus.LOGED_IN))
       dispatch(setUserInfo(data))
@@ -66,9 +67,22 @@ export const logout = () => (dispatch: Dispatch<State>) => {
   })
 }
 
-export const sendPhone = (phone: string) => (dispatch: Dispatch<State>) => {
+export const signUp = (
+  phone: string,
+  password: string,
+  passwordConfirmation: string
+) => (dispatch: Dispatch<State>) => {
   dispatch(changePhonePendingState(true))
-  later(5000)
+  requests
+    .post("auth", {
+      body: {
+        user: {
+          phone: formatNumber(phone, "E.164"),
+          password,
+          passwordConfirmation,
+        },
+      },
+    })
     .then(() => {
       dispatch({
         type: ActionType.SET_PHONE,
@@ -87,7 +101,8 @@ export const sendPhone = (phone: string) => (dispatch: Dispatch<State>) => {
 
 export const sendCode = (code: string) => (dispatch: Dispatch<State>) => {
   dispatch(changeCodePendingState(true))
-  later(5000)
+  requests
+    .get(`confirmation?confirmation_code=${code}`)
     .then(() => {
       dispatch(nextRegistrationStep())
       dispatch(changeCodePendingState(false))

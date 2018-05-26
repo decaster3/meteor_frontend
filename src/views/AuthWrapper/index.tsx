@@ -1,28 +1,25 @@
 import * as React from "react"
-import * as cn from "classnames"
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap"
-import {WrappedFieldProps, Field, reduxForm} from "redux-form"
-import {Link, Switch, Route} from "react-router-dom"
-
+import {Button, Modal} from "reactstrap"
 import * as styles from "./index.module.scss"
-import CustomInput from "./CustomInput"
-import LoginForm, {LoginFormValues} from "./LoginForm"
-import PhoneForm, {PhoneFormValues} from "./PhoneForm"
-import CodeForm, {CodeFormValues} from "./CodeForm"
-import PasswordForm from "./PasswordForm"
+
+import Login from "../Login"
+import SignUp from "../Signup"
+import PhoneCode from "../PhoneCode"
 
 interface AuthenticationState {
   modalShown: boolean
   isLogin: boolean
 }
+
 interface AuthenticationProps {
   phone: string
+  registrationFirst?: boolean
   codeSent: string
   regsitrationStep: number
   isCodePending: boolean
   isPhonePending: boolean
-  login(params: {password: string; phone: string}): void
-  sendPhone(params: {phone: string}): void
+  login(phone: string, password: string): void
+  signUp(phone: string, password: string, passwordConfirmation: string): void
   sendCode(params: {code: string}): void
   reSendPhone(): void
 }
@@ -31,27 +28,19 @@ class Authentication extends React.Component<
   AuthenticationProps,
   AuthenticationState
 > {
-  state: AuthenticationState = {
-    modalShown: false,
-    isLogin: true,
+  constructor(props: AuthenticationProps) {
+    super(props)
+    this.state = {
+      isLogin: true,
+      modalShown: false,
+    }
   }
 
-  toggleModal = () =>
+  toggleModal = () => {
+    if (this.props.registrationFirst) {
+      this.setState({isLogin: false})
+    }
     this.setState(prevState => ({modalShown: !prevState.modalShown}))
-
-  handleLoginSubmit = (values: LoginFormValues) => {
-    this.props.login(values)
-    console.log(values)
-  }
-
-  handleCodeSubmit = (values: any) => {
-    this.props.sendCode(values.get("code"))
-    console.log(values.get("code"))
-  }
-
-  handlePhoneSubmit = (values: any) => {
-    this.props.sendPhone(values.get("phone"))
-    console.log(values.get("phone"))
   }
 
   handleReSendPhone = () => {
@@ -67,30 +56,20 @@ class Authentication extends React.Component<
     switch (this.props.regsitrationStep) {
       case 0:
         return (
-          <PhoneForm
-            onSubmit={this.handlePhoneSubmit}
-            // @ts-ignore
+          <SignUp
+            signUp={this.props.signUp}
             handleChangeTab={this.handleChangeTab}
             isPhonePending={this.props.isPhonePending}
           />
         )
       case 1:
         return (
-          <CodeForm
-            onSubmit={this.handleCodeSubmit}
-            // @ts-ignore
+          <PhoneCode
+            sendCode={this.props.sendCode}
             codeSent={this.props.codeSent}
             phone={this.props.phone}
             isCodePending={this.props.isCodePending}
             handleReSendPhone={this.handleReSendPhone}
-          />
-        )
-      case 2:
-        return (
-          <PasswordForm
-            // @ts-ignore
-            handleReSendPhone={this.handleReSendPhone}
-            initialValues={{phone: this.props.phone}}
           />
         )
       default:
@@ -101,10 +80,7 @@ class Authentication extends React.Component<
   render() {
     return (
       <div>
-        <Button color="danger" onClick={this.toggleModal}>
-          Show login modal
-        </Button>
-
+        <div onClick={this.toggleModal}>{this.props.children}</div>
         <Modal
           centered={true}
           isOpen={this.state.modalShown}
@@ -113,9 +89,8 @@ class Authentication extends React.Component<
           onClosed={this.setDefaultAuthState}
         >
           {this.state.isLogin ? (
-            <LoginForm
-              onSubmit={this.handleLoginSubmit}
-              // @ts-ignore
+            <Login
+              login={this.props.login}
               handleChangeTab={this.handleChangeTab}
             />
           ) : (
