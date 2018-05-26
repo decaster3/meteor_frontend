@@ -2,7 +2,7 @@ import * as React from "react"
 import Icon from "react-fa"
 import * as cn from "classnames"
 
-import symbol from "./logo_meteor.png"
+import symbol from "../../assets/logo_meteor.png"
 import {Status} from "../../constants"
 import * as styles from "./index.module.scss"
 import {User} from "../../containers/UserSession/actions"

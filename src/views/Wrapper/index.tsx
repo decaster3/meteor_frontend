@@ -1,7 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
 
-// @ts-ignore
 import * as styles from "./index.module.scss"
 import Header from "../Header"
 import Footer from "../Footer"

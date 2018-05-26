@@ -9,7 +9,7 @@ import ProductCard from "../ProductCard"
 import {Product} from "../../containers/Menu/actions"
 import {CartProduct} from "../../containers/Cart/actions"
 import * as styles from "./index.module.scss"
-import meteorSymbol from "../MeteorBanner/logo_meteor.png"
+import meteorSymbol from "../../assets/logo_meteor.png"
 
 interface MenuProps {
   categories: Category[]
