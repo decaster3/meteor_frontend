@@ -1,13 +1,18 @@
 import * as React from "react"
+import {Col} from "reactstrap"
+import {match} from "react-router"
 
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
 import PromotionBanner from "../../containers/PromotionBanner"
 import MeteorBanner from "../../containers/MeteorBanner"
 import Menu from "../../containers/Menu"
-import {Col} from "reactstrap"
 
-const MainPage = (props: {match: any}) => (
+interface MainPageProps {
+  match: match<{inviterToken?: string}>
+}
+
+const MainPage: React.StatelessComponent<MainPageProps> = props => (
   <>
     <div className="row">
       <Col>

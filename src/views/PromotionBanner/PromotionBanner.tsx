@@ -9,10 +9,14 @@ import defaultImage from "../../assets/default_banner.png"
 
 const carouselId = "carousel"
 
-const PromotionBanner = (props: {
+interface PromotionBannerProps {
   banners: Array<{src: string}>
   bannersStatus: Status
-}) => {
+}
+
+const PromotionBanner: React.StatelessComponent<
+  PromotionBannerProps
+> = props => {
   const {carouselItems, carouselIndicators} =
     props.bannersStatus === Status.LOADED
       ? {

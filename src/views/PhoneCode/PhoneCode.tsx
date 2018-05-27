@@ -18,13 +18,11 @@ interface CodeFormState {
 }
 
 class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
-  constructor(props: CodeFormProps) {
-    super(props)
-    this.state = {
-      timer: null,
-      counter: 0,
-    }
+  state: CodeFormState = {
+    timer: null,
+    counter: 0,
   }
+
   componentWillMount() {
     this.setState({
       counter: 60 - moment().diff(moment(this.props.codeSent), "seconds"),

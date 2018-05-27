@@ -4,6 +4,8 @@ import * as classnames from "classnames"
 import {Field} from "redux-form/immutable"
 import {Link} from "react-router-dom"
 import {PulseLoader} from "react-spinners"
+import {InjectedFormProps} from "redux-form"
+
 import {
   normalizePhone,
   validatePhone,
@@ -12,16 +14,14 @@ import {
 import * as styles from "./index.module.scss"
 import CustomInput from "../../forms/CustomInput"
 
-const LoginForm = ({
-  handleSubmit,
-  error,
-  isLoginPending,
-}: {
+interface LoginFormProps {
   isLoginPending: boolean
-  error: any
-  handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
-}) => (
-  <form onSubmit={handleSubmit}>
+}
+
+const LoginForm: React.StatelessComponent<
+  LoginFormProps & InjectedFormProps
+> = props => (
+  <form onSubmit={props.handleSubmit}>
     <div className="form-group row">
       <label className="col-4 col-form-label" htmlFor="phone">
         Телефон
@@ -58,16 +58,16 @@ const LoginForm = ({
       </div>
     </div>
     <div style={{color: "red", textAlign: "center"}}>
-      {error && <strong>{error}</strong>}
+      {props.error && <strong>{props.error}</strong>}
     </div>
     <div className="row form-group">
       <div className="col">
         <button
           className="btn btn-block btn-success"
           type="submit"
-          disabled={isLoginPending}
+          disabled={props.isLoginPending}
         >
-          {isLoginPending ? (
+          {props.isLoginPending ? (
             <PulseLoader color={"#ffffff"} size={8} />
           ) : (
             <span>Отправить код</span>
@@ -86,4 +86,4 @@ const validateLoginFrom = (values: any) => ({
 export default reduxForm({
   form: "login",
   validate: validateLoginFrom,
-})(LoginForm as any)
+})(LoginForm)

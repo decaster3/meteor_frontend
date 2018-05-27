@@ -6,20 +6,17 @@ import {codeValidation} from "../../forms/validationsAndNormalizing"
 import * as styles from "./index.module.scss"
 import CustomInput from "../../forms/CustomInput"
 import {PulseLoader} from "react-spinners"
+import {InjectedFormProps} from "redux-form"
 
-const PhoneCodeForm = ({
-  handleSubmit,
-  isCodePending,
-  initialValues,
-  error,
-}: {
+interface PhoneCodeForm {
   isCodePending: boolean
-  initialValues: any
-  error: any
-  handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
-}) => {
+}
+
+const PhoneCodeForm: React.StatelessComponent<
+  PhoneCodeForm & InjectedFormProps
+> = props => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={props.handleSubmit}>
       <div className="form-group row">
         <label className="col-4 col-form-label" htmlFor="phone">
           Телефон
@@ -56,16 +53,16 @@ const PhoneCodeForm = ({
         </div>
       </div>
       <div style={{color: "red", textAlign: "center"}}>
-        {error && <strong>{error}</strong>}
+        {props.error && <strong>{props.error}</strong>}
       </div>
       <div className="row">
         <div className="col">
           <button
             className="btn btn-block btn-success"
             type="submit"
-            disabled={isCodePending}
+            disabled={props.isCodePending}
           >
-            {isCodePending ? (
+            {props.isCodePending ? (
               <PulseLoader color={"#ffffff"} size={8} />
             ) : (
               <span>Далее</span>
@@ -84,4 +81,4 @@ const validateCodeFrom = (values: any) => ({
 export default reduxForm({
   form: "registrationCode",
   validate: validateCodeFrom,
-})(PhoneCodeForm as any)
+})(PhoneCodeForm)

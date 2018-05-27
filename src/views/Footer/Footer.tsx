@@ -13,7 +13,12 @@ const secondaryPages = [
   "About",
 ]
 
-const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
+interface FooterProps {
+  categoriesStatus: Status
+  categories: Category[]
+}
+
+const Footer: React.StatelessComponent<FooterProps> = props => (
   <>
     <Row className={styles.bottomNavbar}>
       {props.categories.map((category, index) => (

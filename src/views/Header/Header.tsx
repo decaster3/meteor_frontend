@@ -11,13 +11,15 @@ import {Col, Row, Navbar, Container, NavbarBrand} from "reactstrap"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
-const Header = (props: {
+interface HeaderProps {
   citiesStatus: Status
   cities: City[]
   userInfoStatus: Status
   userInfo: User
   userState: UserState
-}) => (
+}
+
+const Header: React.StatelessComponent<HeaderProps> = props => (
   <Navbar fixed="top" expand="xl" className={styles.Navbar}>
     <Container>
       <Row className="w-100 align-items-center">

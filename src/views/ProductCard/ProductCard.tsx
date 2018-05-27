@@ -21,11 +21,8 @@ interface ProductCardState {
 }
 
 class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
-  constructor(props: ProductCardProps) {
-    super(props)
-    this.state = {
-      currentProductState: _.cloneDeep(this.props.product.instances[0]),
-    }
+  state: ProductCardState = {
+    currentProductState: _.cloneDeep(this.props.product.instances[0]),
   }
 
   changeCurrentProduct = (event: React.SyntheticEvent<HTMLButtonElement>) => {
