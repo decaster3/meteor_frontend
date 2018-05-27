@@ -3,7 +3,7 @@
  */
 import * as React from "react"
 import {connect} from "react-redux"
-import {Dispatch} from "redux"
+import {compose, Dispatch} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
 import reducer from "./reducer"
@@ -31,19 +31,11 @@ interface CartProps {
   updateTotalCart(): void
 }
 
-export class Cart extends React.Component<CartProps> {
-  render() {
-    return (
-      <CartView
-        meteors={this.props.meteors}
-        total={this.props.total}
-        products={this.props.products}
-        addProductToCart={this.props.addProductToCart}
-        removeProductFromCart={this.props.removeProductFromCart}
-        updateTotalCart={this.props.updateTotalCart}
-        possibleMeteors={this.props.possibleMeteors}
-      />
-    )
+const WithCart = (WrappedComponent: React.ComponentType) => {
+  return class WithCartContainer extends React.Component<CartProps> {
+    render() {
+      return <WrappedComponent {...this.props} />
+    }
   }
 }
 
@@ -68,4 +60,4 @@ const mapDispatchToProps = (dispatch: any) => {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default compose(connect(mapStateToProps, mapDispatchToProps), WithCart)

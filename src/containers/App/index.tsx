@@ -24,10 +24,8 @@ import {Status} from "../../constants"
 import MainContentPlaceholder from "../../views/MainContentPlaceholder"
 import Menu from "../../views/MainContentPlaceholder/Menu"
 import MainPage from "../../views/MainPage"
-import Test from "../../containers/UserSession/"
-import Cart from "../../containers/Cart"
+import Cart from "../../views/Cart"
 import {Switch, Route, withRouter} from "react-router-dom"
-import UserSession from "../UserSession"
 import {UserStatus} from "../UserSession/constants"
 
 export class Layout extends React.Component<
@@ -49,7 +47,6 @@ export class Layout extends React.Component<
           />
           <Route path="/" exact={true} component={MainPage} />
           <Route path="/empty" />
-          <Route path="/test" component={UserSession} />
           <Route path="/menu" component={Menu} />
           <Route path="/cart" component={Cart} />
         </Switch>

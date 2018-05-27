@@ -9,6 +9,10 @@ export const selectUserState = createSelector(selectUserDomain, userState =>
   userState.get("userState")
 )
 
+export const selectUserInfo = createSelector(selectUserDomain, userInfo =>
+  userInfo.get("userInfo")
+)
+
 export const selectUserRegistrationStep = createSelector(
   selectUserDomain,
   registrationStep =>

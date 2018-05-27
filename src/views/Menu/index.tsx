@@ -10,6 +10,8 @@ import {Product} from "../../containers/Menu/actions"
 import {CartProduct} from "../../containers/Cart/actions"
 import * as styles from "./index.module.scss"
 import meteorSymbol from "../MeteorBanner/logo_meteor.png"
+import {compose} from "redux"
+import {withProductsAndCategories} from "../../containers/Menu"
 
 interface MenuProps {
   categories: Category[]
@@ -118,4 +120,4 @@ export class Menu extends React.Component<MenuProps, MenuState> {
   }
 }
 
-export default Menu
+export default compose(withProductsAndCategories)(Menu)

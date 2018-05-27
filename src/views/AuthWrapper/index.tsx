@@ -8,6 +8,8 @@ import * as styles from "./index.module.scss"
 import Login from "../Login"
 import SignUp from "../Signup"
 import PhoneCode from "../PhoneCode"
+import {compose} from "redux"
+import {withRegistration, withUser} from "../../containers/UserSession"
 
 interface AuthenticationState {
   modalShown: boolean
@@ -115,4 +117,4 @@ class Authentication extends React.Component<
   }
 }
 
-export default Authentication
+export default compose(withRegistration, withUser)(Authentication)

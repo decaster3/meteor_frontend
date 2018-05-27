@@ -12,24 +12,17 @@ import {selectBanners, selectBannersStatus} from "./selectors"
 import PromotionBannerView from "../../views/PromotionBanner"
 import {Status} from "../../constants"
 
-interface PromotionBannerProps {
+interface PromotionProps {
   banners: any[]
   bannersStatus: Status
   getBanners(): void
 }
 
-export class PromotionBanner extends React.Component<PromotionBannerProps> {
-  componentDidMount() {
-    this.props.getBanners()
-  }
-
-  render() {
-    return (
-      <PromotionBannerView
-        banners={this.props.banners}
-        bannersStatus={this.props.bannersStatus}
-      />
-    )
+const WithPromotions = (WrappedComponent: React.ComponentType) => {
+  return class WithPromotionsContainer extends React.Component<PromotionProps> {
+    render() {
+      return <WrappedComponent {...this.props} />
+    }
   }
 }
 
@@ -46,7 +39,10 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps)
 const withReducer = injectReducer({key: "promotionBanner", reducer})
 
-export default compose(withReducer, withConnect)(PromotionBanner)
+export default compose(
+  withReducer,
+  connect(mapStateToProps, mapDispatchToProps),
+  WithPromotions
+)

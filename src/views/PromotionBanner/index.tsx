@@ -1,18 +1,16 @@
 import * as React from "react"
 import Icon from "react-fa"
 import * as classnames from "classnames"
-
+import {compose} from "redux"
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
 import * as styles from "./index.module.scss"
 import defaultImage from "./default_banner.png"
+import withPromotionBanner from "../../containers/PromotionBanner"
 
 const carouselId = "carousel"
 
-const PromotionBanner = (props: {
-  banners: Array<{src: string}>
-  bannersStatus: Status
-}) => {
+const PromotionBanner = (props: {banners: any[]; bannersStatus: Status}) => {
   const {carouselItems, carouselIndicators} =
     props.bannersStatus === Status.LOADED
       ? {
@@ -80,4 +78,4 @@ const PromotionBanner = (props: {
   )
 }
 
-export default PromotionBanner
+export default compose(withPromotionBanner)(PromotionBanner)

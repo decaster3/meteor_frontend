@@ -1,14 +1,15 @@
 import * as React from "react"
 import Icon from "react-fa"
 import * as cn from "classnames"
-
+import {compose} from "redux"
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
 import * as styles from "./index.module.scss"
 import {User} from "../../containers/UserSession/actions"
 import {UserStatus} from "../../containers/UserSession/constants"
-import SignUp from "../../containers/UserSession"
+import SignUp from "../AuthWrapper"
 import {Col, Row} from "reactstrap"
+import {withUser} from "../../containers/UserSession"
 
 const MeteorBanner = (props: {userState: string; userInfo: User}) => {
   const {text, amount} =
@@ -35,4 +36,4 @@ const MeteorBanner = (props: {userState: string; userInfo: User}) => {
   )
 }
 
-export default MeteorBanner
+export default compose(withUser)(MeteorBanner)

@@ -1,4 +1,6 @@
 import * as React from "react"
+import {compose} from "redux"
+import withCart from "../../containers/Cart"
 import {CartProduct} from "../../containers/Cart/actions"
 import CartProductView from "../CartProduct"
 
@@ -66,4 +68,4 @@ class Cart extends React.Component<CartProps, CartState> {
   }
 }
 
-export default Cart
+export default compose(withCart)(Cart)

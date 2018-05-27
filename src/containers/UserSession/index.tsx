@@ -17,6 +17,7 @@ import {
   selectPhone,
   selectIsLoginPending,
   selectInviterToken,
+  selectUserInfo,
 } from "./selectors"
 import AuthWrapper from "../../views/AuthWrapper"
 
@@ -42,32 +43,34 @@ interface UserSessionProps {
   logout(): void
   reSendPhone(): void
 }
-export class UserSession extends React.Component<UserSessionProps> {
-  render() {
-    return (
-      <AuthWrapper
-        login={this.props.login}
-        reSendPhone={this.props.reSendPhone}
-        signUp={this.props.signUp}
-        sendCode={this.props.sendCode}
-        regsitrationStep={this.props.regsitrationStep}
-        codeSent={this.props.codeSent}
-        isPhonePending={this.props.isPhonePending}
-        phone={this.props.phone}
-        isCodePending={this.props.isCodePending}
-        isLoginPending={this.props.isLoginPending}
-        inviterToken={this.props.inviterToken}
-        registrationFirst={this.props.registrationFirst}
-      >
-        {this.props.children}
-      </AuthWrapper>
-    )
+
+const WithRegistration = (WrappedComponent: React.ComponentType) => {
+  return class WithRegistrationContainer extends React.Component<
+    UserSessionProps
+  > {
+    render() {
+      return <WrappedComponent {...this.props} />
+    }
   }
 }
 
-const mapStateToProps = (state: State) => {
+const WithUser = (WrappedComponent: React.ComponentType) => {
+  return class WithUserContainer extends React.Component<UserSessionProps> {
+    render() {
+      return <WrappedComponent {...this.props} />
+    }
+  }
+}
+
+const mapStateToPropsUser = (state: State) => {
   return {
     userState: selectUserState(state),
+    userInfo: selectUserInfo(state),
+  }
+}
+
+const mapStateToPropsRegistration = (state: State) => {
+  return {
     regsitrationStep: selectUserRegistrationStep(state),
     codeSent: selectCodeSentTime(state),
     isPhonePending: selectIsPhonePending(state),
@@ -78,10 +81,16 @@ const mapStateToProps = (state: State) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToPropsSessionControl = (dispatch: any) => {
   return {
     login: (password: string, phone: string) =>
       dispatch(login(password, phone)),
+    logout: () => dispatch(logout()),
+  }
+}
+
+const mapDispatchToPropsRegistration = (dispatch: any) => {
+  return {
     signUp: (
       inviterToken: string,
       name: string,
@@ -93,12 +102,20 @@ const mapDispatchToProps = (dispatch: any) => {
         signUp(inviterToken, name, phone, password, passwordConfirmation)
       ),
     sendCode: (code: string) => dispatch(sendCode(code)),
-    logout: () => dispatch(logout()),
     reSendPhone: () => dispatch(reSendPhone()),
   }
 }
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps)
 const withReducer = injectReducer({key: "userSession", reducer})
 
-export default compose(withReducer, withConnect)(UserSession)
+export const withRegistration = compose(
+  withReducer,
+  WithRegistration,
+  connect(mapStateToPropsRegistration, mapDispatchToPropsRegistration)
+)
+
+export const withUser = compose(
+  withReducer,
+  WithUser,
+  connect(mapStateToPropsUser, mapDispatchToPropsSessionControl)
+)
