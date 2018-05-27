@@ -2,8 +2,7 @@ import * as React from "react"
 import Icon from "react-fa"
 import * as _ from "lodash"
 
-// @ts-ignore
-import * as styles from "./index.module.scss"
+import * as styles from "./MainContentPlaceholder.module.module.scss"
 import ProductCard from "./ProductCard"
 
 const MainContentPlaceholder = () => (

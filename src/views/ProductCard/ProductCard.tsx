@@ -8,7 +8,7 @@ import {
   ProductInstance,
   OptionConcat,
 } from "../../containers/Menu/actions"
-import * as styles from "./index.module.scss"
+import * as styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Row, Col} from "reactstrap"
 

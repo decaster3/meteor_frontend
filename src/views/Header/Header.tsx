@@ -1,7 +1,7 @@
 import * as React from "react"
 import Icon from "react-fa"
 
-import * as styles from "./index.module.scss"
+import * as styles from "./Header.module.scss"
 import logo from "../../assets/logo.svg"
 import {City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"

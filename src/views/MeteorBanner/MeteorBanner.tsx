@@ -4,7 +4,7 @@ import * as cn from "classnames"
 
 import symbol from "../../assets/logo_meteor.png"
 import {Status} from "../../constants"
-import * as styles from "./index.module.scss"
+import * as styles from "./MeteorBanner.module.scss"
 import {User} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import SignUp from "../../containers/UserSession"

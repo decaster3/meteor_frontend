@@ -1,6 +1,7 @@
 import * as React from "react"
 import * as classnames from "classnames"
-import * as styles from "./index.module.scss"
+
+import * as styles from "./Signup.module.scss"
 import SignupForm from "./SignupForm"
 import {fromJS} from "immutable"
 

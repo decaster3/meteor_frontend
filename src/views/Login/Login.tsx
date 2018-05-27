@@ -3,8 +3,9 @@ import {reduxForm} from "redux-form/immutable"
 import * as classnames from "classnames"
 import {Field} from "redux-form/immutable"
 import {Link} from "react-router-dom"
+
 import LoginForm from "./LoginForm"
-import * as styles from "./index.module.scss"
+import * as styles from "./Login.module.scss"
 
 const Login = ({
   login,

@@ -4,7 +4,7 @@ import * as classnames from "classnames"
 
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
-import * as styles from "./index.module.scss"
+import * as styles from "./PromotionBanner.module.scss"
 import defaultImage from "../../assets/default_banner.png"
 
 const carouselId = "carousel"

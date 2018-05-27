@@ -1,7 +1,7 @@
 import * as React from "react"
 import Icon from "react-fa"
 
-import * as styles from "./index.module.scss"
+import * as styles from "./Footer.module.scss"
 import {Category} from "../../containers/App/actions"
 import {Status} from "../../constants"
 import {Row} from "reactstrap"
