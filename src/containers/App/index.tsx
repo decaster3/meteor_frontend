@@ -7,7 +7,7 @@ import {compose, Dispatch} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
 import Header from "../../views/Header"
-import Wrapper from "../../views/Wrapper"
+import App from "../../views/App"
 import Footer from "../../views/Footer"
 import reducer from "./reducer"
 import {
@@ -40,7 +40,7 @@ export class Layout extends React.Component<
   }
   render() {
     return (
-      <Wrapper {...this.props}>
+      <App {...this.props}>
         {/* <UserSession /> */}
         <Switch>
           <Route
@@ -54,7 +54,7 @@ export class Layout extends React.Component<
           <Route path="/menu" component={Menu} />
           <Route path="/cart" component={Cart} />
         </Switch>
-      </Wrapper>
+      </App>
     )
   }
 }

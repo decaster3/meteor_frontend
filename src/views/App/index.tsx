@@ -15,7 +15,7 @@ const StyledDiv = styled.div`
   color: lighten(#000, 20%);
 `
 
-const Wrapper = (props: {
+const App = (props: {
   children?: React.ReactNode
 
   citiesStatus: Status
@@ -50,4 +50,4 @@ const Wrapper = (props: {
   </div>
 )
 
-export default Wrapper
+export default App
