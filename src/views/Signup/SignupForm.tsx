@@ -1,7 +1,6 @@
 import * as React from "react"
-import {reduxForm} from "redux-form/immutable"
+import {reduxForm, Field} from "redux-form/immutable"
 import * as classnames from "classnames"
-import {Field} from "redux-form/immutable"
 import {Link} from "react-router-dom"
 import {
   normalizePhone,
@@ -13,19 +12,28 @@ import {
 import * as styles from "./index.module.scss"
 import CustomInput from "../../forms/CustomInput"
 import {PulseLoader} from "react-spinners"
+import {InjectedFormProps} from "redux-form"
+import {Map as ImmutableMap, fromJS} from "immutable"
 
-const SignupForm = ({
-  handleSubmit,
-  isPhonePending,
-  initialValues,
-  error,
-}: {
-  error: any
+interface SignupFormProps {
   isPhonePending: boolean
-  initialValues: any
-  handleSubmit(event: React.SyntheticEvent<HTMLFormElement>): void
-}) => (
-  <form onSubmit={handleSubmit}>
+}
+
+interface SignupFormData {
+  inviterToken?: string
+  name?: string
+  phone?: string
+  password?: string
+  passwordConfirmation?: string
+}
+
+type ImmutableMapOfSignupFormData = ImmutableMap<keyof SignupFormData, string>
+
+const SignupForm: React.StatelessComponent<
+  SignupFormProps &
+    InjectedFormProps<ImmutableMapOfSignupFormData, SignupFormProps>
+> = props => (
+  <form onSubmit={props.handleSubmit}>
     <div className="form-group row">
       <label className="col-4 col-form-label" htmlFor="phone">
         Имя
@@ -76,7 +84,9 @@ const SignupForm = ({
             type: "text",
             placeholder: "Токен пригласителя",
             autoComplete: "inviterToken",
-            readOnly: initialValues.get("inviterToken") ? true : false,
+            readOnly: (props.initialValues as any).get("inviterToken")
+              ? true
+              : false,
           }}
         />
       </div>
@@ -115,16 +125,16 @@ const SignupForm = ({
       </div>
     </div>
     <div style={{color: "red", textAlign: "center"}}>
-      {error && <strong>{error}</strong>}
+      {props.error && <strong>{props.error}</strong>}
     </div>
     <div className="form-group row">
       <div className="col">
         <button
           className="btn btn-block btn-success"
           type="submit"
-          disabled={isPhonePending}
+          disabled={props.isPhonePending}
         >
-          {isPhonePending ? (
+          {props.isPhonePending ? (
             <PulseLoader color={"#ffffff"} size={8} />
           ) : (
             <span>Отправить код</span>
@@ -135,17 +145,18 @@ const SignupForm = ({
   </form>
 )
 
-const validateSignUpForm = (values: any) => ({
-  name: values.get("name") ? undefined : "Обязательно",
-  phone: validatePhone(values.get("phone")),
-  password: passwordValidation(values.get("password")),
-  passwordConfirmation: passwordConfirmationValidation(
-    values.get("password"),
-    values.get("passwordConfirmation")
-  ),
-})
+const validateSignUpForm = (values: ImmutableMapOfSignupFormData) =>
+  ({
+    name: values.get("name") ? undefined : "Обязательно",
+    phone: validatePhone(values.get("phone")),
+    password: passwordValidation(values.get("password")),
+    passwordConfirmation: passwordConfirmationValidation(
+      values.get("password"),
+      values.get("passwordConfirmation")
+    ),
+  } as any)
 
-export default reduxForm({
+export default reduxForm<ImmutableMapOfSignupFormData, SignupFormProps>({
   form: "signUp",
   validate: validateSignUpForm,
-})(SignupForm as any)
+})(SignupForm)

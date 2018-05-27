@@ -2,11 +2,13 @@ import * as React from "react"
 import {CartProduct, Option} from "../../containers/Cart/actions"
 import {OptionConcat} from "../../containers/Menu/actions"
 
-const CartProduct = (props: {
+interface CartProductProps {
   product: CartProduct
   removeProductFromCart(product: CartProduct): void
   addProductToCart(product: CartProduct): void
-}) => {
+}
+
+const CartProduct: React.StatelessComponent<CartProductProps> = props => {
   const getOptions = (product: CartProduct) => {
     let belongingOptions = ""
     let notBelongingOptions = ""

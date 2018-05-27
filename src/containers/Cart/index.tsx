@@ -58,6 +58,6 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps)
+// const withConnect = connect(mapStateToProps, mapDispatchToProps)
 
 export default compose(connect(mapStateToProps, mapDispatchToProps), WithCart)

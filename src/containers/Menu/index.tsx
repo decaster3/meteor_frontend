@@ -65,11 +65,10 @@ const WithInviterToken = (WrappedComponent: React.ComponentType) => {
   }
 }
 
-const mapStateToProps = (state: State) => {
-  return {
-    categories: selectCategories(state),
-    categoriesStatus: selectCategoriesStatus(state),
-  }
+interface MenuStateProps {
+  categories: Category[]
+  categoriesStatus: string
+  inviterToken?: string
 }
 
 const mapDispatchToPropsProductsAndCategories = (dispatch: any) => {
@@ -94,6 +93,11 @@ const mapDispatchToPropsCategories = (dispatch: any) => {
     getCategories: () => dispatch(getCategories()),
   }
 }
+
+const mapStateToProps = (state: State): MenuStateProps => ({
+  categories: selectCategories(state),
+  categoriesStatus: selectCategoriesStatus(state),
+})
 
 const withReducer = injectReducer({key: "menu", reducer})
 

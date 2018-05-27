@@ -1,15 +1,11 @@
 import * as React from "react"
 import * as classnames from "classnames"
-import * as styles from "./index.module.scss"
+
+import * as styles from "./Signup.module.scss"
 import SignupForm from "./SignupForm"
 import {fromJS} from "immutable"
 
-const Signup = ({
-  signUp,
-  handleChangeTab,
-  isPhonePending,
-  inviterToken,
-}: {
+interface SignupProps {
   isPhonePending: boolean
   inviterToken: string
   handleChangeTab(): void
@@ -20,16 +16,17 @@ const Signup = ({
     password: string,
     passwordConfirmation: string
   ): void
-}) => {
-  const handleSignUpSubmit = (values: any) => {
-    return signUp(
+}
+
+const Signup: React.StatelessComponent<SignupProps> = props => {
+  const handleSignUpSubmit = (values: any) =>
+    props.signUp(
       values.get("inviterToken"),
       values.get("name"),
       values.get("phone"),
       values.get("password"),
-      values.get("passwordConfirmation"),
+      values.get("passwordConfirmation")
     )
-  }
 
   return (
     <div>
@@ -40,14 +37,13 @@ const Signup = ({
       </div>
       <SignupForm
         onSubmit={handleSignUpSubmit}
-        initialValues={fromJS({inviterToken})}
-        // @ts-ignore
-        isPhonePending={isPhonePending}
+        initialValues={fromJS({inviterToken: props.inviterToken})}
+        isPhonePending={props.isPhonePending}
       />
       <div className="row">
         <div className={classnames(styles.miniLabel, "col")}>
           Есть аккаунт?
-          <button onClick={handleChangeTab}>Войти</button>
+          <button onClick={props.handleChangeTab}>Войти</button>
         </div>
       </div>
     </div>

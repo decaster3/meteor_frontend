@@ -1,23 +1,25 @@
 import * as React from "react"
 import Icon from "react-fa"
 
-// @ts-ignore
-import * as styles from "./index.module.scss"
-import logo from "./logo.svg"
+import * as styles from "./Header.module.scss"
+import logo from "../../assets/logo.svg"
 import {City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
-import {UserStatus} from "../../containers/UserSession/constants"
+import {UserState} from "../../containers/UserSession/constants"
 import {Col, Row, Navbar, Container, NavbarBrand} from "reactstrap"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
-const Header = (props: {
+interface HeaderProps {
   citiesStatus: Status
   cities: City[]
-  userStatus: UserStatus
-  user: User
-}) => (
+  userInfoStatus: Status
+  userInfo: User
+  userState: UserState
+}
+
+const Header: React.StatelessComponent<HeaderProps> = props => (
   <Navbar fixed="top" expand="xl" className={styles.Navbar}>
     <Container>
       <Row className="w-100 align-items-center">

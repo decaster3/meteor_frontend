@@ -8,7 +8,7 @@ import {
   ProductInstance,
   OptionConcat,
 } from "../../containers/Menu/actions"
-import * as styles from "./index.module.scss"
+import * as styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Row, Col} from "reactstrap"
 
@@ -21,11 +21,8 @@ interface ProductCardState {
 }
 
 class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
-  constructor(props: ProductCardProps) {
-    super(props)
-    this.state = {
-      currentProductState: _.cloneDeep(this.props.product.instances[0]),
-    }
+  state: ProductCardState = {
+    currentProductState: _.cloneDeep(this.props.product.instances[0]),
   }
 
   changeCurrentProduct = (event: React.SyntheticEvent<HTMLButtonElement>) => {

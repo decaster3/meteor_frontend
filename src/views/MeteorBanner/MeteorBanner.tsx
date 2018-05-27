@@ -2,18 +2,18 @@ import * as React from "react"
 import Icon from "react-fa"
 import * as cn from "classnames"
 import {compose} from "redux"
-import symbol from "./logo_meteor.png"
+import symbol from "../../assets/logo_meteor.png"
 import {Status} from "../../constants"
-import * as styles from "./index.module.scss"
+import * as styles from "./MeteorBanner.module.scss"
 import {User} from "../../containers/UserSession/actions"
-import {UserStatus} from "../../containers/UserSession/constants"
+import {UserState} from "../../containers/UserSession/constants"
 import SignUp from "../AuthWrapper"
 import {Col, Row} from "reactstrap"
 import {withUser} from "../../containers/UserSession"
 
-const MeteorBanner = (props: {userState: string; userInfo: User}) => {
+const MeteorBanner = (props: {UserState: string; userInfo: User}) => {
   const {text, amount} =
-    props.userState === UserStatus.ANONYMOUS
+    props.UserState === UserState.ANONYMOUS
       ? {text: "Зарегестрируйся", amount: 500}
       : {text: "Пригласи друга", amount: 200}
   return (

@@ -1,7 +1,7 @@
 import * as React from "react"
 import Icon from "react-fa"
 
-import * as styles from "./index.module.scss"
+import * as styles from "./Footer.module.scss"
 import {Category} from "../../containers/App/actions"
 import {Status} from "../../constants"
 import {Row} from "reactstrap"
@@ -13,7 +13,12 @@ const secondaryPages = [
   "About",
 ]
 
-const Footer = (props: {categoriesStatus: Status; categories: Category[]}) => (
+interface FooterProps {
+  categoriesStatus: Status
+  categories: Category[]
+}
+
+const Footer: React.StatelessComponent<FooterProps> = props => (
   <>
     <Row className={styles.bottomNavbar}>
       {props.categories.map((category, index) => (

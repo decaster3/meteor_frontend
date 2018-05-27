@@ -1,11 +1,12 @@
 import * as React from "react"
+import {Col} from "reactstrap"
+import {match} from "react-router"
 
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
-import PromotionBanner from "../../containers/PromotionBanner"
+import PromotionBanner from "../PromotionBanner"
 import MeteorBanner from "../MeteorBanner"
 import Menu from "../Menu"
-import {Col} from "reactstrap"
 import {compose} from "redux"
 import {withInviterToken} from "../../containers/Menu"
 

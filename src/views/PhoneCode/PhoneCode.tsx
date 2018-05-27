@@ -1,6 +1,6 @@
 import * as React from "react"
 import * as moment from "moment"
-import * as styles from "./index.module.scss"
+import * as styles from "./PhoneCode.module.scss"
 import PhoneCodeForm from "./PhoneCodeForm"
 import {fromJS} from "immutable"
 
@@ -18,13 +18,11 @@ interface CodeFormState {
 }
 
 class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
-  constructor(props: CodeFormProps) {
-    super(props)
-    this.state = {
-      timer: null,
-      counter: 0,
-    }
+  state: CodeFormState = {
+    timer: null,
+    counter: 0,
   }
+
   componentWillMount() {
     this.setState({
       counter: 60 - moment().diff(moment(this.props.codeSent), "seconds"),

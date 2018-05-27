@@ -2,7 +2,7 @@ import * as React from "react"
 import {compose} from "redux"
 import withCart from "../../containers/Cart"
 import {CartProduct} from "../../containers/Cart/actions"
-import CartProductView from "../CartProduct"
+import CartProductView from "./CartProduct"
 
 interface CartProps {
   meteors: number

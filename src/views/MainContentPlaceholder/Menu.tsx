@@ -1,7 +1,7 @@
 import * as React from "react"
 import Icon from "react-fa"
 import * as cn from "classnames"
-import symbol from "./logo_meteor.png"
+import symbol from "../../assets/logo_meteor.png"
 
 // @ts-ignore
 import * as styles from "./Menu.module.scss"

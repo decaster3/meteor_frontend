@@ -4,13 +4,20 @@ import * as classnames from "classnames"
 import {compose} from "redux"
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
-import * as styles from "./index.module.scss"
-import defaultImage from "./default_banner.png"
+import * as styles from "./PromotionBanner.module.scss"
+import defaultImage from "../../assets/default_banner.png"
 import withPromotionBanner from "../../containers/PromotionBanner"
 
 const carouselId = "carousel"
 
-const PromotionBanner = (props: {banners: any[]; bannersStatus: Status}) => {
+interface PromotionBannerProps {
+  banners: Array<{src: string}>
+  bannersStatus: Status
+}
+
+const PromotionBanner: React.StatelessComponent<
+  PromotionBannerProps
+> = props => {
   const {carouselItems, carouselIndicators} =
     props.bannersStatus === Status.LOADED
       ? {
