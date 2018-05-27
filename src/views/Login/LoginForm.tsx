@@ -5,6 +5,7 @@ import {Field} from "redux-form/immutable"
 import {Link} from "react-router-dom"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
+import {Map as ImmutableMap, fromJS} from "immutable"
 
 import {
   normalizePhone,
@@ -18,8 +19,16 @@ interface LoginFormProps {
   isLoginPending: boolean
 }
 
+interface LoginFormData {
+  phone?: string
+  password?: string
+}
+
+type ImmutableMapOfLoginFormData = ImmutableMap<keyof LoginFormData, string>
+
 const LoginForm: React.StatelessComponent<
-  LoginFormProps & InjectedFormProps
+  LoginFormProps &
+    InjectedFormProps<ImmutableMapOfLoginFormData, LoginFormProps>
 > = props => (
   <form onSubmit={props.handleSubmit}>
     <div className="form-group row">
@@ -78,12 +87,13 @@ const LoginForm: React.StatelessComponent<
   </form>
 )
 
-const validateLoginFrom = (values: any) => ({
-  phone: validatePhone(values.get("phone")),
-  password: passwordValidation(values.get("password")),
-})
+const validateLoginFrom = (values: ImmutableMapOfLoginFormData) =>
+  ({
+    phone: validatePhone(values.get("phone")),
+    password: passwordValidation(values.get("password")),
+  } as any)
 
-export default reduxForm({
+export default reduxForm<ImmutableMapOfLoginFormData, LoginFormProps>({
   form: "login",
   validate: validateLoginFrom,
 })(LoginForm)

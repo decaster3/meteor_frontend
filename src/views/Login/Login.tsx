@@ -25,8 +25,7 @@ class Login extends React.Component<LoginProps> {
           <h4 className="text-center mb-3 font-weight-bold">Вход</h4>
         </div>
         <LoginForm
-          // @ts-ignore
-          isLoginPending={isLoginPending}
+          isLoginPending={this.props.isLoginPending}
           onSubmit={this.handleLoginSubmittttttt}
         />
         <div className="row">

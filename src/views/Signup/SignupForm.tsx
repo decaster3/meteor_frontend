@@ -19,7 +19,7 @@ interface SignupFormProps {
   isPhonePending: boolean
 }
 
-interface SignupFormValues {
+interface SignupFormData {
   inviterToken?: string
   name?: string
   phone?: string
@@ -27,12 +27,11 @@ interface SignupFormValues {
   passwordConfirmation?: string
 }
 
+type ImmutableMapOfSignupFormData = ImmutableMap<keyof SignupFormData, string>
+
 const SignupForm: React.StatelessComponent<
   SignupFormProps &
-    InjectedFormProps<
-      ImmutableMap<keyof SignupFormValues, string>,
-      SignupFormProps
-    >
+    InjectedFormProps<ImmutableMapOfSignupFormData, SignupFormProps>
 > = props => (
   <form onSubmit={props.handleSubmit}>
     <div className="form-group row">
@@ -146,26 +145,18 @@ const SignupForm: React.StatelessComponent<
   </form>
 )
 
-const validateSignUpForm = (
-  // Hack since it takes and expects objects of the same shape,
-  // but gets an ImmutableJS object and returns plain one
-  values: ImmutableMap<keyof SignupFormValues, string> & SignupFormValues
-) => ({
-  name: values.get("name") ? undefined : "Обязательно",
-  phone: validatePhone(values.get("phone")),
-  password: passwordValidation(values.get("password")),
-  passwordConfirmation: passwordConfirmationValidation(
-    values.get("password"),
-    values.get("passwordConfirmation")
-  ),
-})
+const validateSignUpForm = (values: ImmutableMapOfSignupFormData) =>
+  ({
+    name: values.get("name") ? undefined : "Обязательно",
+    phone: validatePhone(values.get("phone")),
+    password: passwordValidation(values.get("password")),
+    passwordConfirmation: passwordConfirmationValidation(
+      values.get("password"),
+      values.get("passwordConfirmation")
+    ),
+  } as any)
 
-export default reduxForm<
-  // Hack since it takes and expects objects of the same shape,
-  // but gets an ImmutableJS object and returns plain one
-  ImmutableMap<keyof SignupFormValues, string> & SignupFormValues,
-  SignupFormProps
->({
+export default reduxForm<ImmutableMapOfSignupFormData, SignupFormProps>({
   form: "signUp",
   validate: validateSignUpForm,
 })(SignupForm)
