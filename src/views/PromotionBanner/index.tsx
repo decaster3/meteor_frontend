@@ -10,7 +10,14 @@ import withPromotionBanner from "../../containers/PromotionBanner"
 
 const carouselId = "carousel"
 
-const PromotionBanner = (props: {banners: any[]; bannersStatus: Status}) => {
+interface PromotionBannerProps {
+  banners: any[]
+  bannersStatus: Status
+}
+
+const PromotionBanner: React.StatelessComponent<
+  PromotionBannerProps
+> = props => {
   const {carouselItems, carouselIndicators} =
     props.bannersStatus === Status.LOADED
       ? {
