@@ -1,5 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
+import styled from "styled-components"
 
 import * as styles from "./index.module.scss"
 import Header from "../Header"
@@ -7,15 +8,23 @@ import Footer from "../Footer"
 import {Status} from "../../constants"
 import {City, Category} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
-import {UserStatus} from "../../containers/UserSession/constants"
+import {UserState} from "../../containers/UserSession/constants"
 import {Container, Row} from "reactstrap"
+
+const StyledDiv = styled.div`
+  color: lighten(#000, 20%);
+`
 
 const Wrapper = (props: {
   children?: React.ReactNode
+
   citiesStatus: Status
   cities: City[]
-  userStatus: UserStatus
-  user: User
+
+  userInfoStatus: Status
+  userInfo: User
+  userState: UserState
+
   categoriesStatus: Status
   categories: Category[]
 }) => (
@@ -23,8 +32,9 @@ const Wrapper = (props: {
     <Header
       cities={props.cities}
       citiesStatus={props.citiesStatus}
-      userStatus={props.userStatus}
-      user={props.user}
+      userInfoStatus={props.userInfoStatus}
+      userInfo={props.userInfo}
+      userState={props.userState}
     />
     <Container className={styles.container}>
       <Row className={styles.content}>

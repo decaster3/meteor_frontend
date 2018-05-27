@@ -14,7 +14,7 @@ export enum ActionType {
   SET_INVITER_TOKEN = "SET_INVITER_TOKEN",
 }
 
-export enum UserStatus {
+export enum UserState {
   ANONYMOUS = "ANONYMOUS",
   WAITING_FOR_CODE = "WAITING_FOR_CODE",
   LOGGING_IN = "LOGGING_IN",

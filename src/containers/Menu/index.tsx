@@ -17,17 +17,8 @@ import MenuView from "../../views/Menu"
 import {addProductToCart, CartProduct} from "../Cart/actions"
 import {setInviterToken} from "../UserSession/actions"
 
-interface MenuProps {
-  categories: Category[]
-  categoriesStatus: string
-  inviterToken?: string
-  configureCategoriesProducts(): void
-  addProductToCart(product: CartProduct): void
-  setInviterToken(inviterToken: string): void
-  getProductsAfterCategoryClick(category: Category): void
-}
-
-export class Menu extends React.Component<MenuProps> {
+// export class Menu extends React.Component<MenuProps> {
+export class Menu extends React.Component<MenuStateProps & MenuDispatchProps> {
   componentDidMount() {
     if (this.props.inviterToken) {
       this.props.setInviterToken(this.props.inviterToken)
@@ -47,24 +38,33 @@ export class Menu extends React.Component<MenuProps> {
   }
 }
 
-const mapStateToProps = (state: State) => {
-  return {
-    categories: selectCategories(state),
-    categoriesStatus: selectCategoriesStatus(state),
-  }
+interface MenuStateProps {
+  categories: Category[]
+  categoriesStatus: string
+  inviterToken?: string
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addProductToCart: (product: CartProduct) =>
-      dispatch(addProductToCart(product)),
-    setInviterToken: (inviterToken: string) =>
-      dispatch(setInviterToken(inviterToken)),
-    configureCategoriesProducts: () => dispatch(configureCategoriesProducts()),
-    getProductsAfterCategoryClick: (category: Category) =>
-      dispatch(getProductsAfterCategoryClick(category)),
-  }
+const mapStateToProps = (state: State): MenuStateProps => ({
+  categories: selectCategories(state),
+  categoriesStatus: selectCategoriesStatus(state),
+})
+
+interface MenuDispatchProps {
+  configureCategoriesProducts(): void
+  addProductToCart(product: CartProduct): void
+  setInviterToken(inviterToken: string): void
+  getProductsAfterCategoryClick(category: Category): void
 }
+
+const mapDispatchToProps = (dispatch: any): MenuDispatchProps => ({
+  addProductToCart: (product: CartProduct) =>
+    dispatch(addProductToCart(product)),
+  setInviterToken: (inviterToken: string) =>
+    dispatch(setInviterToken(inviterToken)),
+  configureCategoriesProducts: () => dispatch(configureCategoriesProducts()),
+  getProductsAfterCategoryClick: (category: Category) =>
+    dispatch(getProductsAfterCategoryClick(category)),
+})
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)
 const withReducer = injectReducer({key: "menu", reducer})

@@ -3,11 +3,11 @@
  */
 import {fromJS} from "immutable"
 
-import {ActionType, UserStatus} from "./constants"
+import {ActionType, UserState} from "./constants"
 import {AnyAction} from "redux"
 
 const initialState = fromJS({
-  userState: UserStatus.ANONYMOUS,
+  userState: UserState.ANONYMOUS,
   registration: {
     inviterToken: "",
     registrationStep: 0,

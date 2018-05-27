@@ -26,11 +26,46 @@ export class MeteorBanner extends React.Component<MeteorBannerProps> {
   }
 }
 
-const mapStateToProps = (state: State) => {
-  return {
-    userState: selectUserState(state),
-    userInfo: selectUserInfo(state),
-  }
-}
+const mapStateToProps = (state: State): MeteorBannerProps => ({
+  userState: selectUserState(state),
+  userInfo: selectUserInfo(state),
+})
 
-export default connect(mapStateToProps, null)(MeteorBanner)
+// // Container 1
+
+// interface Props1 {
+//   userState: string
+// }
+
+// const mapStateToProps1 = (state: State): Props1 => ({
+//   userState: selectUserState(state),
+// })
+
+// const withUserState = (WrappedComponent: React.ComponentType<Props>) =>
+//   connect(mapStateToProps1)(WrappedComponent)
+
+// // Container 2
+
+// interface Props2 {
+//   userInfo: User
+// }
+
+// const mapStateToProps2 = (state: State): Props2 => ({
+//   userInfo: selectUserInfo(state),
+// })
+
+// const withUserInfo = (WrappedComponent: React.ComponentType<Props>) =>
+//   connect(mapStateToProps)(WrappedComponent)
+
+// interface Props {
+//   userInfo: User
+//   userState: string
+// }
+
+// // View
+
+// const Menu = (props: Props1 & Props2) => <div>{props.userState} dwedewdw</div>
+
+// export default compose(withUserInfo, withUserState)(Menu)
+
+export default connect(mapStateToProps)(MeteorBanner)

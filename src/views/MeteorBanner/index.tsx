@@ -6,13 +6,13 @@ import symbol from "../../assets/logo_meteor.png"
 import {Status} from "../../constants"
 import * as styles from "./index.module.scss"
 import {User} from "../../containers/UserSession/actions"
-import {UserStatus} from "../../containers/UserSession/constants"
+import {UserState} from "../../containers/UserSession/constants"
 import SignUp from "../../containers/UserSession"
 import {Col, Row} from "reactstrap"
 
 const MeteorBanner = (props: {userState: string; userInfo: User}) => {
   const {text, amount} =
-    props.userState === UserStatus.ANONYMOUS
+    props.userState === UserState.ANONYMOUS
       ? {text: "Зарегестрируйся", amount: 500}
       : {text: "Пригласи друга", amount: 200}
   return (

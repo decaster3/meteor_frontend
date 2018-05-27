@@ -17,6 +17,7 @@ import {
   selectCities,
   selectCategories,
   selectUserInfo,
+  selectUserInfoState,
 } from "./selectors"
 import {setCities, setCategories, City, Category} from "./actions"
 import {User} from "../UserSession/actions"
@@ -28,7 +29,7 @@ import Test from "../../containers/UserSession/"
 import Cart from "../../containers/Cart"
 import {Switch, Route, withRouter} from "react-router-dom"
 import UserSession from "../UserSession"
-import {UserStatus} from "../UserSession/constants"
+import {UserState} from "../UserSession/constants"
 
 export class Layout extends React.Component<
   LayoutPropsStateProps & LayoutPropsDispatchProps
@@ -59,38 +60,40 @@ export class Layout extends React.Component<
 }
 
 interface LayoutPropsStateProps {
-  user: User
-  userStatus: UserStatus
-  citiesStatus: Status
-  categoriesStatus: Status
-  cities: City[]
-  categories: Category[]
+  userState: UserState
+
   userInfo: User
+  userInfoStatus: Status
+
+  citiesStatus: Status
+  cities: City[]
+
+  categoriesStatus: Status
+  categories: Category[]
 }
 
-const mapStateToProps = (state: State): LayoutPropsStateProps => {
-  return {
-    user: selectUserState(state),
-    userStatus: selectUserInfo(state),
-    citiesStatus: selectCitiesState(state),
-    categoriesStatus: selectCategoriesState(state),
-    cities: selectCities(state),
-    categories: selectCategories(state),
-    userInfo: selectUserInfo(state),
-  }
-}
+const mapStateToProps = (state: State): LayoutPropsStateProps => ({
+  userState: selectUserState(state),
+
+  userInfo: selectUserInfo(state),
+  userInfoStatus: selectUserInfoState(state),
+
+  citiesStatus: selectCitiesState(state),
+  cities: selectCities(state),
+
+  categoriesStatus: selectCategoriesState(state),
+  categories: selectCategories(state),
+})
 
 interface LayoutPropsDispatchProps {
   setCities: () => void
   setCategories: () => void
 }
 
-const mapDispatchToProps = (dispatch: any): LayoutPropsDispatchProps => {
-  return {
-    setCities: () => dispatch(setCities()),
-    setCategories: () => dispatch(setCategories()),
-  }
-}
+const mapDispatchToProps = (dispatch: any): LayoutPropsDispatchProps => ({
+  setCities: () => dispatch(setCities()),
+  setCategories: () => dispatch(setCategories()),
+})
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps)
 const withReducer = injectReducer({key: "layout", reducer})

@@ -4,7 +4,6 @@ import {WrappedFieldProps, Field, reduxForm} from "redux-form"
 import {Link, Switch, Route} from "react-router-dom"
 
 import * as styles from "./index.module.scss"
-
 import Login from "../Login"
 import SignUp from "../Signup"
 import PhoneCode from "../PhoneCode"
@@ -39,12 +38,9 @@ class Authentication extends React.Component<
   AuthenticationProps,
   AuthenticationState
 > {
-  constructor(props: AuthenticationProps) {
-    super(props)
-    this.state = {
-      isLogin: true,
-      modalShown: false,
-    }
+  state: AuthenticationState = {
+    isLogin: true,
+    modalShown: false,
   }
 
   toggleModal = () => {

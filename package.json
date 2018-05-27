@@ -12,6 +12,7 @@
     "ajv": "^6.5.0",
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.5",
+    "hoist-non-react-statics": "^2.5.0",
     "immutable": "^3.8.2",
     "intl": "^1.2.5",
     "jquery": "^3.3.1",

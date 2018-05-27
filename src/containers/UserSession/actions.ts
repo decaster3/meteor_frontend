@@ -6,7 +6,7 @@ import {SubmissionError} from "redux-form/immutable"
 import {Dispatch} from "redux"
 import {State} from "../../"
 import requests from "../../services/requests"
-import {ActionType, UserStatus} from "./constants"
+import {ActionType, UserState} from "./constants"
 import * as moment from "moment"
 
 export interface User {
@@ -37,7 +37,7 @@ const changeCodePendingState = (state: boolean) => ({
   payload: state,
 })
 
-const changeUserStatus = (userStatus: UserStatus) => ({
+const changeUserStatus = (userStatus: UserState) => ({
   type: ActionType.CHANGE_USER_STATE,
   payload: userStatus,
 })
@@ -56,16 +56,16 @@ export const login = (password: string, phone: string) => (
   dispatch: Dispatch<State>
 ) => {
   dispatch(changeLoginPendingState(true))
-  dispatch(changeUserStatus(UserStatus.LOGGING_IN))
+  dispatch(changeUserStatus(UserState.LOGGING_IN))
   return requests
     .post("auth/sign_in", {body: {user: phone, password}})
     .then(data => {
       dispatch(changeLoginPendingState(false))
-      dispatch(changeUserStatus(UserStatus.LOGED_IN))
+      dispatch(changeUserStatus(UserState.LOGED_IN))
       dispatch(setUserInfo(data))
     })
     .catch(err => {
-      dispatch(changeUserStatus(UserStatus.ANONYMOUS))
+      dispatch(changeUserStatus(UserState.ANONYMOUS))
       dispatch(changeLoginPendingState(false))
       if (err.msg) {
         throw new SubmissionError({_error: "Неправильный формат данных"})
@@ -74,9 +74,9 @@ export const login = (password: string, phone: string) => (
 }
 
 export const logout = () => (dispatch: Dispatch<State>) => {
-  dispatch(changeUserStatus(UserStatus.LOGGING_IN))
+  dispatch(changeUserStatus(UserState.LOGGING_IN))
   requests.delete("auth/sign_in").then(() => {
-    dispatch(changeUserStatus(UserStatus.ANONYMOUS))
+    dispatch(changeUserStatus(UserState.ANONYMOUS))
   })
 }
 
@@ -136,7 +136,7 @@ export const sendCode = (code: string) => (dispatch: Dispatch<State>) => {
   return requests
     .get(`confirmation?confirmation_code=${code}`)
     .then(data => {
-      dispatch(changeUserStatus(UserStatus.LOGED_IN))
+      dispatch(changeUserStatus(UserState.LOGED_IN))
       dispatch(setUserInfo(data))
       dispatch(changeCodePendingState(false))
     })

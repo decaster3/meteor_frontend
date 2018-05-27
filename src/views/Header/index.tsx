@@ -6,7 +6,7 @@ import logo from "../../assets/logo.svg"
 import {City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
-import {UserStatus} from "../../containers/UserSession/constants"
+import {UserState} from "../../containers/UserSession/constants"
 import {Col, Row, Navbar, Container, NavbarBrand} from "reactstrap"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
@@ -14,8 +14,9 @@ const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 const Header = (props: {
   citiesStatus: Status
   cities: City[]
-  userStatus: UserStatus
-  user: User
+  userInfoStatus: Status
+  userInfo: User
+  userState: UserState
 }) => (
   <Navbar fixed="top" expand="xl" className={styles.Navbar}>
     <Container>
