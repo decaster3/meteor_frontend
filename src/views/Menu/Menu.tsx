@@ -3,15 +3,15 @@ import {Row, Col} from "reactstrap"
 import * as _ from "lodash"
 import * as classnames from "classnames"
 
-import {Category} from "../../containers/Menu/actions"
+import {Category} from "../../containers/Product/actions"
 import {Status} from "../../constants"
 import ProductCard from "../ProductCard"
-import {Product} from "../../containers/Menu/actions"
+import {Product} from "../../containers/Product/actions"
 import {CartProduct} from "../../containers/Cart/actions"
 import * as styles from "./Menu.module.scss"
 import meteorSymbol from "../../assets/logo_meteor.png"
 import {compose} from "redux"
-import {withProductsAndCategories} from "../../containers/Menu"
+import {withProductsAndCategories} from "../../containers/Product"
 
 interface MenuProps {
   categories: Category[]

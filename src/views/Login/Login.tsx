@@ -14,8 +14,8 @@ interface LoginProps {
 }
 
 class Login extends React.Component<LoginProps> {
-  handleLoginSubmittttttt = (values: any) => {
-    this.props.login(values.get("phone"), values.get("password"))
+  handleLoginSubmit = (values: any) => {
+    this.props.login(values.get("password"), values.get("phone"))
   }
 
   render() {
@@ -26,7 +26,7 @@ class Login extends React.Component<LoginProps> {
         </div>
         <LoginForm
           isLoginPending={this.props.isLoginPending}
-          onSubmit={this.handleLoginSubmittttttt}
+          onSubmit={this.handleLoginSubmit}
         />
         <div className="row">
           <div className={classnames(styles.miniLabel, "col")}>

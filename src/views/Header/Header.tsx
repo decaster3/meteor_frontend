@@ -3,11 +3,14 @@ import Icon from "react-fa"
 
 import * as styles from "./Header.module.scss"
 import logo from "../../assets/logo.svg"
-import {City} from "../../containers/App/actions"
+import {compose} from "redux"
+import withGeolocation from "../../containers/Geolocation"
+import {withUser} from "../../containers/UserSession"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
 import {Col, Row, Navbar, Container, NavbarBrand} from "reactstrap"
+import {City} from "../../containers/Geolocation/actions"
 
 const pages = ["City", "Menu", "Sales", "Profile", "Cart"]
 
@@ -60,4 +63,4 @@ const Header: React.StatelessComponent<HeaderProps> = props => (
   </Navbar>
 )
 
-export default Header
+export default compose(withGeolocation, withUser)(Header)

@@ -37,6 +37,7 @@ export interface OptionConcat {
 }
 
 export const updateTotalCart = () => ({type: ActionType.UPDATE_TOTAL_CART})
+export const clearCart = () => ({type: ActionType.CLEAR_CART})
 
 export const addProductToCart = (product: CartProduct) => (
   dispatch: Dispatch<State>

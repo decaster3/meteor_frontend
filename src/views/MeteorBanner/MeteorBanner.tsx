@@ -11,9 +11,10 @@ import SignUp from "../AuthWrapper"
 import {Col, Row} from "reactstrap"
 import {withUser} from "../../containers/UserSession"
 
-const MeteorBanner = (props: {UserState: string; userInfo: User}) => {
+const MeteorBanner = (props: {userState: string; userInfo: User}) => {
+  console.log(props.userState)
   const {text, amount} =
-    props.UserState === UserState.ANONYMOUS
+    props.userState === UserState.ANONYMOUS
       ? {text: "Зарегестрируйся", amount: 500}
       : {text: "Пригласи друга", amount: 200}
   return (

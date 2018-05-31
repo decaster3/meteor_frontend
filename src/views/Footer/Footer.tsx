@@ -2,9 +2,11 @@ import * as React from "react"
 import Icon from "react-fa"
 
 import * as styles from "./Footer.module.scss"
-import {Category} from "../../containers/App/actions"
+import {compose} from "redux"
+import withCategories from "../../containers/Category"
 import {Status} from "../../constants"
 import {Row} from "reactstrap"
+import {Category} from "../../containers/Category/actions"
 
 const secondaryPages = [
   "Feedback",
@@ -53,4 +55,4 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
   </>
 )
 
-export default Footer
+export default compose(withCategories)(Footer)

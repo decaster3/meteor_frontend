@@ -3,6 +3,7 @@ import {compose} from "redux"
 import withCart from "../../containers/Cart"
 import {CartProduct} from "../../containers/Cart/actions"
 import CartProductView from "./CartProduct"
+import Checkout from "../Checkout"
 
 interface CartProps {
   meteors: number
@@ -63,6 +64,7 @@ class Cart extends React.Component<CartProps, CartState> {
             {this.props.total - this.state.choosenMeteors}
           </p>
         </div>
+        <Checkout />
       </div>
     )
   }

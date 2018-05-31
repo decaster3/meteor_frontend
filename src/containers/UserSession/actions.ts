@@ -58,7 +58,9 @@ export const login = (password: string, phone: string) => (
   dispatch(changeLoginPendingState(true))
   dispatch(changeUserStatus(UserState.LOGGING_IN))
   return requests
-    .post("auth/sign_in", {body: {user: phone, password}})
+    .post("auth/sign_in", {
+      body: {user: {phone: phone.replace(/\s/g, ""), password}},
+    })
     .then(data => {
       dispatch(changeLoginPendingState(false))
       dispatch(changeUserStatus(UserState.LOGED_IN))
@@ -67,8 +69,8 @@ export const login = (password: string, phone: string) => (
     .catch(err => {
       dispatch(changeUserStatus(UserState.ANONYMOUS))
       dispatch(changeLoginPendingState(false))
-      if (err.msg) {
-        throw new SubmissionError({_error: "Неправильный формат данных"})
+      if (err.body.error === "Invalid Phone or password.") {
+        throw new SubmissionError({_error: "Неправильный телефон или пароль"})
       }
     })
 }
@@ -90,14 +92,14 @@ export const signUp = (
   dispatch(changePhonePendingState(true))
   const user = inviterToken
     ? {
-        phone: formatNumber(phone, "E.164"),
+        phone: phone.replace(/\s/g, ""),
         password,
         name,
         passwordConfirmation,
         inviterToken,
       }
     : {
-        phone: formatNumber(phone, "E.164"),
+        phone: phone.replace(/\s/g, ""),
         password,
         name,
         passwordConfirmation,
