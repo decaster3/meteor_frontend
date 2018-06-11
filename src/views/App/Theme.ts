@@ -82,4 +82,4 @@ const customWithTheme = <Props>(
 
 export {customWithTheme as withTheme}
 
-export const jsHref = "javascript:void(0);"
+export const JS_HREF = "javascript:void(0);"

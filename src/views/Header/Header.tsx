@@ -18,6 +18,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap"
+import {Link} from "react-router-dom"
 
 import logo from "../../assets/logo.svg"
 import {City} from "../../containers/App/actions"
@@ -29,10 +30,10 @@ import {
   withTheme,
   ThemeProps,
   mediaBreakpointUp,
-  jsHref,
+  JS_HREF,
 } from "../App/Theme"
 
-const StyledLink = styled("a")`
+const StyledAnchor = styled("a")`
   color: white;
 
   &:hover,
@@ -42,6 +43,8 @@ const StyledLink = styled("a")`
     text-shadow: 0 0 3em ${props => props.theme.orange};
   }
 `
+
+const StyledLink = StyledAnchor.withComponent(Link)
 
 interface HeaderProps {
   citiesStatus: Status
@@ -84,7 +87,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
               padding-right: 1rem;
             `}
           >
-            <a href="/">
+            <Link to="/">
               <img
                 src={logo}
                 className={css`
@@ -94,7 +97,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                   margin: 0.25rem 0;
                 `}
               />
-            </a>
+            </Link>
           </div>
 
           <div
@@ -167,17 +170,17 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                 <Icon name="phone" />
               </GlowingLightLink> */}
 
-              <StyledLink href="#">
+              <StyledAnchor href={JS_HREF}>
                 <Icon name="phone" />
-              </StyledLink>
+              </StyledAnchor>
 
-              <StyledLink href="#">
+              <StyledLink to="/cart">
                 <Icon name="shopping-cart" />
               </StyledLink>
 
-              <StyledLink href={jsHref} onClick={this.toggle}>
+              <StyledAnchor href={JS_HREF} onClick={this.toggle}>
                 <Icon name="bars" />
-              </StyledLink>
+              </StyledAnchor>
             </div>
 
             {/* <StyledNavbarToggler  /> */}
