@@ -28,7 +28,7 @@ class MainPage extends React.Component<MainPage> {
           <Col>
             <PromotionBanner />
           </Col>
-          <Col sm="auto">
+          <Col xs={12} md="auto">
             <MeteorBanner />
           </Col>
         </div>

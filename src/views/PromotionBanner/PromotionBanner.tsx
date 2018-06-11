@@ -1,10 +1,10 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as classnames from "classnames"
 import {compose} from "redux"
+import {css, cx} from "emotion"
+
 import symbol from "./logo_meteor.png"
 import {Status} from "../../constants"
-import * as styles from "./PromotionBanner.module.scss"
 import defaultImage from "../../assets/default_banner.png"
 import withPromotionBanner from "../../containers/PromotionBanner"
 
@@ -22,7 +22,7 @@ const PromotionBanner: React.StatelessComponent<
     props.bannersStatus === Status.LOADED
       ? {
           carouselItems: props.banners.map((img, index) => (
-            <div className={classnames("carousel-item", {active: index === 0})}>
+            <div className={cx("carousel-item", {active: index === 0})}>
               <img
                 className="d-block w-100"
                 src={img.src}
@@ -34,7 +34,7 @@ const PromotionBanner: React.StatelessComponent<
             <li
               data-target={`#${carouselId}`}
               data-slide-to={index}
-              className={classnames({active: index === 0})}
+              className={cx({active: index === 0})}
             />
           )),
         }
@@ -58,7 +58,15 @@ const PromotionBanner: React.StatelessComponent<
           ],
         }
   return (
-    <div className={styles.carousel}>
+    <div
+      className={css`
+        height: 100%;
+        display: flex;
+        flex-flow: column;
+        align-items: center;
+        justify-content: center;
+      `}
+    >
       <div id={carouselId} className="carousel slide" data-ride="carousel">
         <ol className="carousel-indicators">{carouselIndicators}</ol>
         <div className="carousel-inner">{carouselItems}</div>

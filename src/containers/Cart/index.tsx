@@ -31,14 +31,6 @@ interface CartProps {
   updateTotalCart(): void
 }
 
-const WithCart = (WrappedComponent: React.ComponentType) => {
-  return class WithCartContainer extends React.Component<CartProps> {
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
-  }
-}
-
 const mapStateToProps = (state: State) => {
   return {
     meteors: selectMeteors(state),
@@ -58,6 +50,4 @@ const mapDispatchToProps = (dispatch: any) => {
   }
 }
 
-// const withConnect = connect(mapStateToProps, mapDispatchToProps)
-
-export default compose(connect(mapStateToProps, mapDispatchToProps), WithCart)
+export default connect(mapStateToProps, mapDispatchToProps)

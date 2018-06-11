@@ -17,12 +17,10 @@ interface CartState {
   choosenMeteors: number
 }
 class Cart extends React.Component<CartProps, CartState> {
-  constructor(props: CartProps) {
-    super(props)
-    this.state = {
-      choosenMeteors: 0,
-    }
+  state: CartState = {
+    choosenMeteors: 0,
   }
+
   renderProducts = () => {
     return this.props.products.map((product: CartProduct) => (
       <CartProductView
@@ -33,9 +31,11 @@ class Cart extends React.Component<CartProps, CartState> {
       />
     ))
   }
+
   handleChangeMeteors = (event: any) => {
     this.setState({choosenMeteors: event.target.value})
   }
+
   render() {
     return (
       <div>

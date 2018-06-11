@@ -12,6 +12,7 @@ import * as styles from "./Menu.module.scss"
 import meteorSymbol from "../../assets/logo_meteor.png"
 import {compose} from "redux"
 import {withProductsAndCategories} from "../../containers/Menu"
+import {jsHref} from "../App/Theme"
 
 interface MenuProps {
   categories: Category[]
@@ -63,10 +64,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
                 })}
                 key={category.id}
               >
-                <a
-                  href={"javascript:void(0);"}
-                  onClick={this.handleCategoryClick(category)}
-                >
+                <a href={jsHref} onClick={this.handleCategoryClick(category)}>
                   <img src={meteorSymbol} />
                   <span>{category.name}</span>
                 </a>

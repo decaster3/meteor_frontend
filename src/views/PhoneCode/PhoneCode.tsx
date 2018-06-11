@@ -1,14 +1,14 @@
 import * as React from "react"
 import * as moment from "moment"
 import * as styles from "./PhoneCode.module.scss"
-import PhoneCodeForm from "./PhoneCodeForm"
+import PhoneCodeForm, {ImmutablePhoneCodeFormData} from "./PhoneCodeForm"
 import {fromJS} from "immutable"
 
 interface CodeFormProps {
   phone: string
   codeSent: string
   isCodePending: boolean
-  sendCode(params: {code: string}): void
+  sendCode(code: string): void
   handleReSendPhone(): void
 }
 
@@ -23,7 +23,7 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
     counter: 0,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setState({
       counter: 60 - moment().diff(moment(this.props.codeSent), "seconds"),
     })
@@ -41,7 +41,7 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
     })
   }
 
-  handleCodeSubmit = (values: any) => {
+  handleCodeSubmit = (values: ImmutablePhoneCodeFormData) => {
     return this.props.sendCode(values.get("code"))
   }
 
@@ -74,7 +74,6 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
         </div>
         <PhoneCodeForm
           onSubmit={this.handleCodeSubmit}
-          // @ts-ignore
           isCodePending={this.props.isCodePending}
           initialValues={fromJS({phone: this.props.phone})}
         />

@@ -2,18 +2,30 @@ import * as React from "react"
 import {reduxForm} from "redux-form/immutable"
 import * as classnames from "classnames"
 import {Field} from "redux-form/immutable"
+import {PulseLoader} from "react-spinners"
+import {InjectedFormProps} from "redux-form"
+import {Map as ImmutableMap} from "immutable"
+
 import {codeValidation} from "../../forms/validationsAndNormalizing"
 import * as styles from "./index.module.scss"
 import CustomInput from "../../forms/CustomInput"
-import {PulseLoader} from "react-spinners"
-import {InjectedFormProps} from "redux-form"
 
-interface PhoneCodeForm {
+interface PhoneCodeFormProps {
   isCodePending: boolean
 }
 
+export interface PhoneCodeFormData {
+  code: string
+}
+
+export type ImmutablePhoneCodeFormData = ImmutableMap<
+  keyof PhoneCodeFormData,
+  string
+>
+
 const PhoneCodeForm: React.StatelessComponent<
-  PhoneCodeForm & InjectedFormProps
+  PhoneCodeFormProps &
+    InjectedFormProps<ImmutablePhoneCodeFormData, PhoneCodeFormProps>
 > = props => {
   return (
     <form onSubmit={props.handleSubmit}>
@@ -74,11 +86,12 @@ const PhoneCodeForm: React.StatelessComponent<
   )
 }
 
-const validateCodeFrom = (values: any) => ({
-  code: codeValidation(values.get("code")),
-})
+const validateCodeFrom = (values: ImmutablePhoneCodeFormData) =>
+  ({
+    code: codeValidation(values.get("code")),
+  } as any)
 
-export default reduxForm({
+export default reduxForm<ImmutablePhoneCodeFormData, PhoneCodeFormProps>({
   form: "registrationCode",
   validate: validateCodeFrom,
 })(PhoneCodeForm)

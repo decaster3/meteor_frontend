@@ -32,7 +32,7 @@ interface AuthenticationProps {
     password: string,
     passwordConfirmation: string
   ): void
-  sendCode(params: {code: string}): void
+  sendCode(code: string): void
   reSendPhone(): void
 }
 
