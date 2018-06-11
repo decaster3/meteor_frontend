@@ -3,7 +3,7 @@ import {createSelector} from "reselect"
 /*
  * Direct selector to the user state domain
  */
-export const selectMenuDomain = (state: any) => state.get("menu")
+export const selectMenuDomain = (state: any) => state.get("categories")
 
 /*
  * Other specific selectors

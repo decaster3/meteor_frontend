@@ -7,7 +7,7 @@ import {
   Option,
   ProductInstance,
   OptionConcat,
-} from "../../containers/Menu/actions"
+} from "../../containers/Product/actions"
 import * as styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Row, Col} from "reactstrap"

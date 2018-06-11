@@ -1,26 +1,39 @@
 import {ThemeProvider} from "emotion-theming"
 import * as React from "react"
+import {compose} from "redux"
+import {Switch, Route, withRouter} from "react-router-dom"
+
 import {Container, Row} from "reactstrap"
 
+import Menu from "../../views/MainContentPlaceholder/Menu"
+import MainPage from "../../views/MainPage"
+import Cart from "../../views/Cart"
+
 import {Status} from "../../constants"
-import {Category, City} from "../../containers/App/actions"
 import {User} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
 import * as styles from "./App.module.scss"
 import {theme} from "./Theme"
+import {Category} from "../../containers/Product/actions"
+
+import withGeolocation from "../../containers/Geolocation"
+import {withUser} from "../../containers/UserSession"
+import withCategories from "../../containers/Category"
+import {City} from "../../containers/Geolocation/actions"
 
 interface AppProps {
   citiesStatus: Status
   cities: City[]
 
-  userInfoStatus: Status
   userInfo: User
   userState: UserState
 
   categoriesStatus: Status
   categories: Category[]
+
+  children?: React.ReactNode
 }
 
 const App: React.StatelessComponent<AppProps> = props => (
@@ -29,14 +42,22 @@ const App: React.StatelessComponent<AppProps> = props => (
       <Header
         cities={props.cities}
         citiesStatus={props.citiesStatus}
-        userInfoStatus={props.userInfoStatus}
         userInfo={props.userInfo}
         userState={props.userState}
       />
       <Container className={styles.container}>
         <Row className={styles.content}>
           <Container fluid={true} className="py-3">
-            {props.children}
+            <Switch>
+              <Route
+                path="/invite/:inviterToken"
+                exact={true}
+                component={MainPage}
+              />
+              <Route path="/" component={MainPage} />
+              <Route path="/menu" component={Menu} />
+              <Route path="/cart" component={Cart} />
+            </Switch>
           </Container>
         </Row>
         <Footer
@@ -48,4 +69,8 @@ const App: React.StatelessComponent<AppProps> = props => (
   </ThemeProvider>
 )
 
-export default App
+export default compose<any>(
+  withGeolocation,
+  withUser,
+  withCategories
+)(App)

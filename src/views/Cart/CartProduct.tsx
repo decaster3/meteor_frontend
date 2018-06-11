@@ -1,6 +1,6 @@
 import * as React from "react"
 import {CartProduct, Option} from "../../containers/Cart/actions"
-import {OptionConcat} from "../../containers/Menu/actions"
+import {OptionConcat} from "../../containers/Product/actions"
 
 interface CartProductProps {
   product: CartProduct

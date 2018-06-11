@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css.map"
 import "bootstrap/dist/js/bootstrap.bundle"
 
 import configureStore from "./configureStore"
-import App from "./containers/App"
+import App from "./views/App"
 import LanguageProvider from "./containers/LanguageProvider"
 import {translationMessages} from "./i18n"
 import {saveState} from "./localStorage"
@@ -33,6 +33,7 @@ store.subscribe(() => {
     userSession: store.getState().get("userSession"),
     language: store.getState().get("language"),
     cart: store.getState().get("cart"),
+    geolocation: store.getState().get("geolocation"),
   })
 })
 
@@ -53,7 +54,7 @@ if ((module as any).hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  ;(module as any).hot.accept(["./i18n", "./containers/App"], () => {
+  ;(module as any).hot.accept(["./i18n", "./views/App"], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE as HTMLElement)
     render(translationMessages)
   })

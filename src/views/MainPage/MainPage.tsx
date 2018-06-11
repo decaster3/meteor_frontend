@@ -8,7 +8,7 @@ import PromotionBanner from "../PromotionBanner"
 import MeteorBanner from "../MeteorBanner"
 import Menu from "../Menu"
 import {compose} from "redux"
-import {withInviterToken} from "../../containers/Menu"
+import {withRegistration} from "../../containers/UserSession"
 
 interface MainPage {
   match: any
@@ -38,4 +38,4 @@ class MainPage extends React.Component<MainPage> {
   }
 }
 
-export default compose(withInviterToken)(MainPage)
+export default compose(withRegistration)(MainPage)

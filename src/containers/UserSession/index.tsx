@@ -6,7 +6,15 @@ import {connect} from "react-redux"
 import {compose, Dispatch} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
-import {login, logout, signUp, reSendPhone, sendCode} from "./actions"
+import {
+  login,
+  logout,
+  signUp,
+  reSendPhone,
+  sendCode,
+  setInviterToken,
+  User,
+} from "./actions"
 import reducer from "./reducer"
 import {
   selectUserState,
@@ -27,6 +35,7 @@ interface UserSessionProps {
   registrationFirst?: boolean
   codeSent: string
   userState: string
+  userInfo: User
   regsitrationStep: number
   isLoginPending: boolean
   isPhonePending: boolean
@@ -42,6 +51,7 @@ interface UserSessionProps {
   sendCode(params: {code: string}): void
   logout(): void
   reSendPhone(): void
+  setInviterToken(token: string): void
 }
 
 const WithRegistration = (WrappedComponent: React.ComponentType) => {
@@ -103,6 +113,7 @@ const mapDispatchToPropsRegistration = (dispatch: any) => {
       ),
     sendCode: (code: string) => dispatch(sendCode(code)),
     reSendPhone: () => dispatch(reSendPhone()),
+    setInviterToken: (token: string) => dispatch(setInviterToken(token)),
   }
 }
 
@@ -111,11 +122,17 @@ const withReducer = injectReducer({key: "userSession", reducer})
 export const withRegistration = compose(
   withReducer,
   WithRegistration,
-  connect(mapStateToPropsRegistration, mapDispatchToPropsRegistration)
+  connect(
+    mapStateToPropsRegistration,
+    mapDispatchToPropsRegistration
+  )
 )
 
 export const withUser = compose(
   withReducer,
   WithUser,
-  connect(mapStateToPropsUser, mapDispatchToPropsSessionControl)
+  connect(
+    mapStateToPropsUser,
+    mapDispatchToPropsSessionControl
+  )
 )

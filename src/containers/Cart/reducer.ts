@@ -63,6 +63,8 @@ const cartReducer = (state = initialState, action: AnyAction) => {
       }
       return state.set("products", fromJS(currentCartProducts))
     }
+    case ActionType.CLEAR_CART:
+      return initialState
     case ActionType.UPDATE_TOTAL_CART:
       return state.set("total", fromJS(getTotalCart(state)))
     default:

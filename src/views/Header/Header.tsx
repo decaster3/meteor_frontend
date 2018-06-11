@@ -21,7 +21,9 @@ import {
 import {Link, NavLink as ReactRouterNavLink} from "react-router-dom"
 
 import logo from "../../assets/logo.svg"
-import {City} from "../../containers/App/actions"
+import {compose} from "redux"
+import withGeolocation from "../../containers/Geolocation"
+import {withUser} from "../../containers/UserSession"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
@@ -32,6 +34,7 @@ import {
   mediaBreakpointUp,
   JS_HREF,
 } from "../App/Theme"
+import { City } from "../../containers/Geolocation/actions";
 
 const StyledAnchor = styled("a")`
   color: white;
@@ -50,7 +53,6 @@ interface HeaderProps {
   citiesStatus: Status
   cities: City[]
 
-  userInfoStatus: Status
   userInfo: User
   userState: UserState
 }
@@ -69,7 +71,9 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
 
   toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}))
 
+
   render() {
+    console.log(this.props)
     return (
       <Navbar
         fixed="top"

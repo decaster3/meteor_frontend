@@ -9,7 +9,7 @@ import {reducer as formReducer} from "redux-form/immutable"
 import languageProviderReducer from "./containers/LanguageProvider/reducer"
 import userSessionReducer from "./containers/UserSession/reducer"
 import cartReducer from "./containers/Cart/reducer"
-
+import geolocationReducer from "./containers/Geolocation/reducer"
 // tslint:disable-next-line:no-var-requires
 const {LOCATION_CHANGE} = require("react-router-redux")
 
@@ -52,6 +52,7 @@ const createReducer = (injectedReducers: any) => {
     userSession: userSessionReducer,
     cart: cartReducer,
     form: formReducer,
+    geolocation: geolocationReducer,
     ...injectedReducers,
   })
 }

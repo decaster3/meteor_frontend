@@ -54,3 +54,19 @@ export const codeValidation = (value: string) => {
   }
   return undefined
 }
+
+export const validatePresence = (value: string) => {
+  if (!value) {
+    return "Обязательно"
+  }
+  return undefined
+}
+
+export const validateIsUserPhone = (value1: string, value2: string) => {
+  console.log(value1, value2)
+  if (value1 !== value2) {
+    console.log(value1, value2)
+    return "Бонусные баллы будут начислены владельцу телефона"
+  }
+  return undefined
+}

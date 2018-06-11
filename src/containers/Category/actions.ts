@@ -1,6 +1,8 @@
 /*
  * User actions
  */
+// @ts-ignore
+import Geocode from "react-geocode"
 import {Dispatch} from "redux"
 import {State} from "../../"
 import requests from "../../services/requests"
@@ -116,48 +118,11 @@ const setCategoriesStatus = (categoriesStatus: string) => ({
   payload: categoriesStatus,
 })
 
-const setProductsStatus = (category: Category, productsStatus: string) => ({
-  type: ActionType.SET_PRODUCTS_STATUS,
-  payload: {
-    category,
-    productsStatus,
-  },
-})
-
-const getProducts = (category: Category) => (dispatch: Dispatch<State>) => {
-  dispatch(setProductsStatus(category, Status.LOADING))
-  return requests
-    .get(`products?category_id=${category.id}&city_id=1`)
-    .then(data => {
-      dispatch({
-        type: ActionType.SET_PRODUCTS,
-        payload: {
-          category,
-          products: data,
-        },
-      })
-      dispatch(setProductsStatus(category, Status.LOADED))
-    })
-    .catch(() => dispatch(setProductsStatus(category, Status.LOADING_ERROR)))
-}
-
-export const getProductsAfterCategoryClick = (category: Category) => (
-  dispatch: any
-) => {
-  if (
-    category.productsStatus === Status.NOT_LOADED ||
-    category.productsStatus === Status.LOADING_ERROR
-  ) {
-    dispatch(getProducts(category))
-  }
-}
-
 export const getCategories = () => (dispatch: Dispatch<State>) => {
   dispatch(setCategoriesStatus(Status.LOADING))
   return requests
     .get("categories")
     .then(data => {
-      console.log(data)
       dispatch({
         type: ActionType.SET_CATEGORIES,
         payload: data.map((category: {name: string; id: number}) => ({
@@ -172,21 +137,5 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
     })
     .catch(() => {
       dispatch(setCategoriesStatus(Status.LOADING_ERROR))
-      return Promise.reject(Error(Status.LOADING_ERROR))
     })
-}
-
-export const configureCategoriesProducts = () => (dispatch: any) => {
-  dispatch(getCategories())
-    .then((data: Category[]) => {
-      // console.log(data)
-      dispatch(getProducts(data[0]))
-      return data
-    })
-    .then((data: Category[]) => {
-      Promise.all(
-        data.slice(1).map(category => dispatch(getProducts(category)))
-      )
-    })
-    .catch(() => console.log(Status.LOADING_ERROR))
 }

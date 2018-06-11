@@ -29,33 +29,38 @@ export const CustomInput = ({
   prepend,
   append,
   readOnly,
-}: CustomInputProps & WrappedFieldProps) => (
-  <div className="input-group">
-    {prepend && (
-      <div className="input-group-prepend">
-        <span className="input-group-text">{prepend}</span>
-      </div>
-    )}
-    <input
-      className={classnames(
-        "form-control",
-        {"is-invalid": touched && error},
-        className
+}: CustomInputProps & WrappedFieldProps) => {
+  console.log("waring", warning)
+  console.log("error", error)
+  return (
+    <div className="input-group">
+      {prepend && (
+        <div className="input-group-prepend">
+          <span className="input-group-text">{prepend}</span>
+        </div>
       )}
-      readOnly={readOnly}
-      id={id}
-      type={type}
-      placeholder={placeholder}
-      autoComplete={autoComplete}
-      {...input}
-    />
-    {append && (
-      <div className="input-group-append">
-        <span className="input-group-text">{append}</span>
-      </div>
-    )}
-    {touched && error && <div className="invalid-tooltip">{error}</div>}
-  </div>
-)
+      <input
+        className={classnames(
+          "form-control",
+          {"is-invalid": touched && error},
+          className
+        )}
+        readOnly={readOnly}
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        {...input}
+      />
+      {append && (
+        <div className="input-group-append">
+          <span className="input-group-text">{append}</span>
+        </div>
+      )}
+      {touched && error && <div className="invalid-tooltip">{error}</div>}
+      {touched && warning && <div>{warning}</div>}
+    </div>
+  )
+}
 
 export default CustomInput

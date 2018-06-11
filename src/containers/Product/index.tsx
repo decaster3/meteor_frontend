@@ -45,26 +45,6 @@ const WithProductsAndCategories = (WrappedComponent: React.ComponentType) => {
   }
 }
 
-const WithCategories = (WrappedComponent: React.ComponentType) => {
-  return class WithCategoriesContainer extends React.Component<
-    CategoriesProps
-  > {
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
-  }
-}
-
-const WithInviterToken = (WrappedComponent: React.ComponentType) => {
-  return class WithInviterTokenContainer extends React.Component<
-    CategoriesProps
-  > {
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
-  }
-}
-
 interface MenuStateProps {
   categories: Category[]
   categoriesStatus: string
@@ -81,39 +61,15 @@ const mapDispatchToPropsProductsAndCategories = (dispatch: any) => {
   }
 }
 
-const mapDispatchToPropsInviterToken = (dispatch: any) => {
-  return {
-    setInviterToken: (inviterToken: string) =>
-      dispatch(setInviterToken(inviterToken)),
-  }
-}
-
-const mapDispatchToPropsCategories = (dispatch: any) => {
-  return {
-    getCategories: () => dispatch(getCategories()),
-  }
-}
-
 const mapStateToProps = (state: State): MenuStateProps => ({
   categories: selectCategories(state),
   categoriesStatus: selectCategoriesStatus(state),
 })
 
-const withReducer = injectReducer({key: "menu", reducer})
+const withReducer = injectReducer({key: "products", reducer})
 
 export const withProductsAndCategories = compose(
   withReducer,
   connect(mapStateToProps, mapDispatchToPropsProductsAndCategories),
   WithProductsAndCategories
-)
-
-export const withCategories = compose(
-  withReducer,
-  connect(mapStateToProps, mapDispatchToPropsCategories),
-  WithCategories
-)
-
-export const withInviterToken = compose(
-  connect(null, mapDispatchToPropsInviterToken),
-  WithInviterToken
 )

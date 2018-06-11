@@ -9,6 +9,7 @@ import SignUp from "../Signup"
 import PhoneCode from "../PhoneCode"
 import {compose} from "redux"
 import {withRegistration, withUser} from "../../containers/UserSession"
+import {UserState} from "../../containers/UserSession/constants"
 
 interface AuthenticationState {
   modalShown: boolean
@@ -16,6 +17,7 @@ interface AuthenticationState {
 }
 
 interface AuthenticationProps {
+  userState: string
   phone: string
   inviterToken: string
   registrationFirst?: boolean
@@ -24,7 +26,7 @@ interface AuthenticationProps {
   isCodePending: boolean
   isPhonePending: boolean
   isLoginPending: boolean
-  login(phone: string, password: string): void
+  login(password: string, phone: string): void
   signUp(
     inviterToken: string,
     name: string,
@@ -40,9 +42,26 @@ class Authentication extends React.Component<
   AuthenticationProps,
   AuthenticationState
 > {
-  state: AuthenticationState = {
-    isLogin: true,
-    modalShown: false,
+  static getDerivedStateFromProps(
+    nextProps: AuthenticationProps,
+    prevState: AuthenticationState
+  ) {
+    if (
+      nextProps.userState === UserState.LOGED_IN &&
+      prevState.modalShown === true
+    ) {
+      return {modalShown: false}
+    } else {
+      return null
+    }
+  }
+
+  constructor(props: AuthenticationProps) {
+    super(props)
+    this.state = {
+      isLogin: true,
+      modalShown: false,
+    }
   }
 
   toggleModal = () => {
