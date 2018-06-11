@@ -13,6 +13,7 @@ import {
   reSendPhone,
   sendCode,
   setInviterToken,
+  User,
 } from "./actions"
 import reducer from "./reducer"
 import {
@@ -34,6 +35,7 @@ interface UserSessionProps {
   registrationFirst?: boolean
   codeSent: string
   userState: string
+  userInfo: User
   regsitrationStep: number
   isLoginPending: boolean
   isPhonePending: boolean
@@ -120,11 +122,17 @@ const withReducer = injectReducer({key: "userSession", reducer})
 export const withRegistration = compose(
   withReducer,
   WithRegistration,
-  connect(mapStateToPropsRegistration, mapDispatchToPropsRegistration)
+  connect(
+    mapStateToPropsRegistration,
+    mapDispatchToPropsRegistration
+  )
 )
 
 export const withUser = compose(
   withReducer,
   WithUser,
-  connect(mapStateToPropsUser, mapDispatchToPropsSessionControl)
+  connect(
+    mapStateToPropsUser,
+    mapDispatchToPropsSessionControl
+  )
 )

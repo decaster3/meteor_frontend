@@ -1,0 +1,15 @@
+/*
+ * User constants
+ */
+export enum ActionType {
+  MAKE_ORDER = "MAKE_ORDER",
+  SET_STREETS = "SET_STREETS",
+  CHANGE_ORDER_STATUS = "CHANGE_ORDER_STATUS",
+  CHANGE_STREETS_STATUS = "CHANGE_STREETS_STATUS",
+}
+
+export enum OrderStatus {
+  NOT_DONE = "NOT_DONE",
+  PROCESSING = "PROCESSING",
+  DODE = "DODE",
+}
