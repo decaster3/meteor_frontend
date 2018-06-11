@@ -113,4 +113,7 @@ class Authentication extends React.Component<
   }
 }
 
-export default compose(withRegistration, withUser)(Authentication)
+export default compose(
+  withRegistration,
+  withUser
+)(Authentication)

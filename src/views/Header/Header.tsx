@@ -18,7 +18,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap"
-import {Link} from "react-router-dom"
+import {Link, NavLink as ReactRouterNavLink} from "react-router-dom"
 
 import logo from "../../assets/logo.svg"
 import {City} from "../../containers/App/actions"
@@ -44,7 +44,7 @@ const StyledAnchor = styled("a")`
   }
 `
 
-const StyledLink = StyledAnchor.withComponent(Link)
+const StyledNavLink = StyledAnchor.withComponent(ReactRouterNavLink)
 
 interface HeaderProps {
   citiesStatus: Status
@@ -73,7 +73,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
     return (
       <Navbar
         fixed="top"
-        expand="lg"
+        expand={"md"}
         dark={true}
         className={css`
           background: ${this.props.theme.darkBlue};
@@ -83,11 +83,14 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
           <div
             className={css`
               display: flex;
-              align-items: center;
-              padding-right: 1rem;
             `}
           >
-            <Link to="/">
+            <Link
+              to="/"
+              className={css`
+                margin-right: 1rem;
+              `}
+            >
               <img
                 src={logo}
                 className={css`
@@ -98,54 +101,72 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                 `}
               />
             </Link>
-          </div>
 
-          <div
-            className={cx(
-              "d-none d-lg-flex",
-              css`
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              `
-            )}
-          >
             <div
-              className={css`
-                color: ${this.props.theme.lighterGrey};
-                font-weight: 700;
-                white-space: nowrap;
-                margin: 0.25rem 0.5rem;
-              `}
-            >
-              +7 727 321-22-21
-            </div>
-            <button
-              className={css`
-                background-color: transparent;
-                border: 0.125rem solid ${this.props.theme.lighterGrey};
-                color: ${this.props.theme.lighterGrey};
-                font-weight: 700;
-                padding: 0 0.75rem;
-                border-radius: 0.25rem;
-                text-transform: uppercase;
-                margin: 0.25rem 0.5rem;
+              className={cx(
+                "d-none d-sm-flex",
+                css`
+                  display: flex;
+                  flex-flow: column;
+                  align-items: center;
+                  justify-content: center;
+                  margin-right: 1rem;
 
-                &:hover,
-                &:focus {
-                  color: ${this.props.theme.lightestGrey};
-                  border-color: ${this.props.theme.lightestGrey};
-                }
-              `}
+                  ${mediaBreakpointUp("lg")} {
+                    flex-flow: row;
+                  }
+                `
+              )}
             >
-              <Icon name="phone" /> Позвоните мне
-            </button>
+              <div
+                className={css`
+                  line-height: 1.25;
+                  color: ${this.props.theme.lighterGrey};
+                  font-weight: 700;
+                  white-space: nowrap;
+
+                  ${mediaBreakpointUp("lg")} {
+                    margin: 0.25rem 0.5rem;
+                  }
+                `}
+              >
+                +7 727 321-22-21
+              </div>
+              <button
+                className={css`
+                  background-color: transparent;
+                  color: ${this.props.theme.lighterGrey};
+                  font-weight: 700;
+                  text-transform: uppercase;
+                  border: 2px solid ${this.props.theme.lighterGrey};
+                  border-radius: 4px;
+                  white-space: nowrap;
+                  line-height: 1.25;
+                  font-size: 12px;
+                  padding: 0 2px;
+
+                  ${mediaBreakpointUp("lg")} {
+                    padding: 0 8px;
+                    margin: 4px 8px;
+                    font-size: 16px;
+
+                    &:hover,
+                    &:focus {
+                      color: ${this.props.theme.lightestGrey};
+                      border-color: ${this.props.theme.lightestGrey};
+                    }
+                  }
+                `}
+              >
+                <Icon name="phone" /> Позвоните мне
+              </button>
+            </div>
           </div>
 
           <div className="d-flex align-items-center justify-content-center">
             <div
               className={cx(
-                "d-block d-lg-none",
+                "d-block d-md-none",
                 css`
                   font-size: 1.5rem;
 
@@ -170,13 +191,13 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                 <Icon name="phone" />
               </GlowingLightLink> */}
 
-              <StyledAnchor href={JS_HREF}>
+              <StyledAnchor className="d-inline d-sm-none" href={JS_HREF}>
                 <Icon name="phone" />
               </StyledAnchor>
 
-              <StyledLink to="/cart">
+              <StyledNavLink to="/cart">
                 <Icon name="shopping-cart" />
-              </StyledLink>
+              </StyledNavLink>
 
               <StyledAnchor href={JS_HREF} onClick={this.toggle}>
                 <Icon name="bars" />
@@ -194,6 +215,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                 li {
                   text-transform: uppercase;
                   font-weight: 500;
+                  white-space: nowrap;
                 }
 
                 /* To increase specificity to override Bootstrap styles */
@@ -201,7 +223,8 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                   color: white;
 
                   &:hover,
-                  &:focus {
+                  &:focus,
+                  &.active {
                     color: ${this.props.theme.orange};
                     text-decoration: none;
                     text-shadow: 0 0 3em ${this.props.theme.orange};
@@ -225,19 +248,26 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
 
                 ${mediaBreakpointUp("lg")} {
                   justify-content: space-evenly;
-
-                  &&& a {
-                  }
                 }
               `}
               navbar={true}
             >
-              <NavItem>
-                <NavLink href="#">Аккаунт</NavLink>
+              <NavItem className="d-none d-md-block">
+                <NavLink tag={ReactRouterNavLink} to="/cart">
+                  Корзина
+                </NavLink>
               </NavItem>
 
               <NavItem>
-                <NavLink href="#">Акции</NavLink>
+                <NavLink tag={ReactRouterNavLink} to="/account">
+                  Аккаунт
+                </NavLink>
+              </NavItem>
+
+              <NavItem>
+                <NavLink tag={ReactRouterNavLink} to="/sales">
+                  Акции
+                </NavLink>
               </NavItem>
 
               {this.props.citiesStatus === Status.LOADED &&
