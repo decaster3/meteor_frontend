@@ -21,33 +21,37 @@ import {
   CartProduct,
 } from "./actions"
 
-interface CartProps {
+interface CartStateProps {
   products: CartProduct[]
   meteors: number
   total: number
   possibleMeteors: number
+}
+
+const mapStateToProps = (state: State): CartStateProps => ({
+  meteors: selectMeteors(state),
+  total: selectTotal(state),
+  products: selectProducts(state),
+  possibleMeteors: selectPossibleMeteors(state),
+})
+
+interface CartDispatchProps {
   removeProductFromCart(product: CartProduct): void
   addProductToCart(product: CartProduct): void
   updateTotalCart(): void
 }
 
-const mapStateToProps = (state: State) => {
-  return {
-    meteors: selectMeteors(state),
-    total: selectTotal(state),
-    products: selectProducts(state),
-    possibleMeteors: selectPossibleMeteors(state),
-  }
-}
+const mapDispatchToProps = (dispatch: any): CartDispatchProps => ({
+  addProductToCart: (product: CartProduct) =>
+    dispatch(addProductToCart(product)),
+  removeProductFromCart: (product: CartProduct) =>
+    dispatch(removeProductFromCart(product)),
+  updateTotalCart: () => dispatch(updateTotalCart()),
+})
 
-const mapDispatchToProps = (dispatch: any) => {
-  return {
-    addProductToCart: (product: CartProduct) =>
-      dispatch(addProductToCart(product)),
-    removeProductFromCart: (product: CartProduct) =>
-      dispatch(removeProductFromCart(product)),
-    updateTotalCart: () => dispatch(updateTotalCart()),
-  }
-}
+export interface CartProps extends CartStateProps, CartDispatchProps {}
 
-export default connect(mapStateToProps, mapDispatchToProps)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)

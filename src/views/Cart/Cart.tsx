@@ -1,19 +1,10 @@
 import * as React from "react"
 import {compose} from "redux"
-import withCart from "../../containers/Cart"
+import withCart, {CartProps} from "../../containers/Cart"
 import {CartProduct} from "../../containers/Cart/actions"
 import CartProductView from "./CartProduct"
 import Checkout from "../Checkout"
 
-interface CartProps {
-  meteors: number
-  possibleMeteors: number
-  total: number
-  products: CartProduct[]
-  removeProductFromCart(product: CartProduct): void
-  addProductToCart(product: CartProduct): void
-  updateTotalCart(): void
-}
 interface CartState {
   choosenMeteors: number
 }
@@ -22,26 +13,24 @@ class Cart extends React.Component<CartProps, CartState> {
     choosenMeteors: 0,
   }
 
-  renderProducts = () => {
-    return this.props.products.map((product: CartProduct) => (
-      <CartProductView
-        key={product.instance.id}
-        product={product}
-        addProductToCart={this.props.addProductToCart}
-        removeProductFromCart={this.props.removeProductFromCart}
-      />
-    ))
-  }
-
-  handleChangeMeteors = (event: any) => {
-    this.setState({choosenMeteors: event.target.value})
+  handleChangeMeteors = (event: React.SyntheticEvent<HTMLInputElement>) => {
+    this.setState({choosenMeteors: parseInt(event.currentTarget.value, 10)})
   }
 
   render() {
     return (
       <div>
         <div>{this.props.total - this.state.choosenMeteors}</div>
-        <div>{this.renderProducts()}</div>
+        <div>
+          {this.props.products.map(product => (
+            <CartProductView
+              key={product.instance.id}
+              product={product}
+              addProductToCart={this.props.addProductToCart}
+              removeProductFromCart={this.props.removeProductFromCart}
+            />
+          ))}
+        </div>
         <div>
           <p>Метеоры: </p>
           <p>
