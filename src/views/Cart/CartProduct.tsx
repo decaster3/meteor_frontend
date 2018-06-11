@@ -10,16 +10,17 @@ interface CartProductProps {
 
 const CartProduct: React.StatelessComponent<CartProductProps> = props => {
   const getOptions = (product: CartProduct) => {
-    let belongingOptions = ""
-    let notBelongingOptions = ""
-    product.instance.belongingOptions.forEach(
-      (belongingOption: OptionConcat) => {
+    let independentOptions = ""
+    let dependentOptions = ""
+
+    product.instance.independentOptions.forEach(
+      (independentOption: OptionConcat) => {
         product.options.forEach((option: Option) => {
-          if (option.id === belongingOption.optionId) {
+          if (option.id === independentOption.optionId) {
             option.optionValues.forEach(
               (optionValue: {value: string; id: number}) => {
-                if (optionValue.id === belongingOption.valueId) {
-                  belongingOptions += `${option.name} ${optionValue.value}`
+                if (optionValue.id === independentOption.valueId) {
+                  independentOptions += `${option.name} ${optionValue.value}`
                 }
               }
             )
@@ -27,16 +28,17 @@ const CartProduct: React.StatelessComponent<CartProductProps> = props => {
         })
       }
     )
-    product.instance.notBelongingOptions.forEach(
-      (notBelongingOption: OptionConcat) => {
+
+    product.instance.dependentOptions.forEach(
+      (dependentOption: OptionConcat) => {
         product.options.forEach((option: Option) => {
-          if (option.id === notBelongingOption.optionId) {
+          if (option.id === dependentOption.optionId) {
             option.optionValues.forEach(
               (optionValue: {value: string; id: number}) => {
-                if (optionValue.id === notBelongingOption.valueId) {
-                  notBelongingOptions = `${notBelongingOptions} ${
-                    option.name
-                  } ${optionValue.value}`
+                if (optionValue.id === dependentOption.valueId) {
+                  dependentOptions = `${dependentOptions} ${option.name} ${
+                    optionValue.value
+                  }`
                 }
               }
             )
@@ -44,7 +46,7 @@ const CartProduct: React.StatelessComponent<CartProductProps> = props => {
         })
       }
     )
-    return `${belongingOptions} ${notBelongingOptions}`
+    return `${independentOptions} ${dependentOptions}`
   }
   const handleAddProductClick = () => {
     props.addProductToCart(props.product)

@@ -16,7 +16,7 @@ const mockProducts = [
       {
         name: "size",
         id: 1,
-        isBelongs: true,
+        belongs: true,
         optionValues: [
           {value: "28", id: 1},
           {value: "32", id: 2},
@@ -26,13 +26,13 @@ const mockProducts = [
       {
         name: "testo",
         id: 3,
-        isBelongs: true,
+        belongs: true,
         optionValues: [{value: "120", id: 7}, {value: "150", id: 8}],
       },
       {
         name: "weight",
         id: 2,
-        isBelongs: false,
+        belongs: false,
         optionValues: [
           {value: "100", id: 4},
           {value: "200", id: 5},
@@ -45,37 +45,37 @@ const mockProducts = [
         id: 1,
         price: {currency: "euro", value: "100", id: 1},
         options: [{option_id: 1, value_id: 1}, {option_id: 3, value_id: 7}],
-        notBelongsOptions: [{option_id: 2, value_id: 4}],
+        dependentOptions: [{option_id: 2, value_id: 4}],
       },
       {
         id: 2,
         price: {currency: "euro", value: "200", id: 2},
         options: [{option_id: 1, value_id: 1}, {option_id: 3, value_id: 8}],
-        notBelongsOptions: [{option_id: 2, value_id: 5}],
+        dependentOptions: [{option_id: 2, value_id: 5}],
       },
       {
         id: 3,
         price: {currency: "euro", value: "300", id: 3},
         options: [{option_id: 1, value_id: 2}, {option_id: 3, value_id: 7}],
-        notBelongsOptions: [{option_id: 2, value_id: 6}],
+        dependentOptions: [{option_id: 2, value_id: 6}],
       },
       {
         id: 4,
         price: {currency: "euro", value: "400", id: 4},
         options: [{option_id: 1, value_id: 2}, {option_id: 3, value_id: 8}],
-        notBelongsOptions: [{option_id: 2, value_id: 4}],
+        dependentOptions: [{option_id: 2, value_id: 4}],
       },
       {
         id: 5,
         price: {currency: "euro", value: "500", id: 5},
         options: [{option_id: 1, value_id: 3}, {option_id: 3, value_id: 7}],
-        notBelongsOptions: [{option_id: 2, value_id: 5}],
+        dependentOptions: [{option_id: 2, value_id: 5}],
       },
       {
         id: 6,
         price: {currency: "euro", value: "600", id: 6},
         options: [{option_id: 1, value_id: 3}, {option_id: 3, value_id: 8}],
-        notBelongsOptions: [{option_id: 2, value_id: 6}],
+        dependentOptions: [{option_id: 2, value_id: 6}],
       },
     ],
   },
@@ -96,21 +96,22 @@ export interface Product {
 export interface Option {
   name: string
   id: number
-  isBelongs: boolean
+  belongs: boolean
   optionValues: Array<{value: string; id: number}>
 }
 
 export interface ProductInstance {
   id: number
   price: {currency: string; value: string; id: number}
-  belongingOptions: OptionConcat[]
-  notBelongingOptions: OptionConcat[]
+  independentOptions: OptionConcat[]
+  dependentOptions: OptionConcat[]
 }
 
 export interface OptionConcat {
   optionId: number
   valueId: number
 }
+
 const setCategoriesStatus = (categoriesStatus: string) => ({
   type: ActionType.SET_CATEGORIES_STATUS,
   payload: categoriesStatus,

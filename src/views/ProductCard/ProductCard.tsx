@@ -31,14 +31,14 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
       valueId: parseInt(event.currentTarget.value, 10),
     }
     const newState = _.cloneDeep(this.state.currentProductState)
-    const valueForChangeId = newState.notBelongingOptions.findIndex(
+    const valueForChangeId = newState.dependentOptions.findIndex(
       (el: OptionConcat) => optionConcat.optionId === el.optionId
     )
-    newState.notBelongingOptions[valueForChangeId] = optionConcat
+    newState.dependentOptions[valueForChangeId] = optionConcat
     const newProductInstance =
       this.props.product.instances.find((instance: ProductInstance) => {
-        return _(instance.notBelongingOptions)
-          .differenceWith(newState.notBelongingOptions, _.isEqual)
+        return _(instance.dependentOptions)
+          .differenceWith(newState.dependentOptions, _.isEqual)
           .isEmpty()
       }) || this.state.currentProductState
     this.setState({currentProductState: newProductInstance})
@@ -57,10 +57,10 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
 
   renderIndependentOptions = () =>
     this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.notBelongingOptions.find(
+      const currentOptionValue = this.state.currentProductState.dependentOptions.find(
         (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
-      if (currentOptionValue && !option.isBelongs) {
+      if (currentOptionValue && !option.belongs) {
         return (
           <Row className={"my-2"} noGutters={true} key={option.id}>
             {option.optionValues.map(
@@ -90,10 +90,10 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
 
   renderDependentOptions = () => {
     return this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.belongingOptions.find(
+      const currentOptionValue = this.state.currentProductState.independentOptions.find(
         (currentOption: OptionConcat) => currentOption.optionId === option.id
       )
-      if (currentOptionValue && option.isBelongs) {
+      if (currentOptionValue && option.belongs) {
         return (
           <Row key={option.id} className={styles.dependentOption}>
             <Col>

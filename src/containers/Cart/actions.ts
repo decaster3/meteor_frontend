@@ -14,21 +14,24 @@ export interface CartProduct {
   instance: ProductInstance
   count: number
 }
+
 export interface Option {
   name: string
   id: number
-  isBelongs: boolean
+  belongs: boolean
   optionValues: OptionValue[]
 }
+
 interface OptionValue {
   value: string
   id: number
 }
+
 export interface ProductInstance {
   id: number
   price: {currency: string; value: string; id: number}
-  belongingOptions: OptionConcat[]
-  notBelongingOptions: OptionConcat[]
+  independentOptions: OptionConcat[]
+  dependentOptions: OptionConcat[]
 }
 
 export interface OptionConcat {
