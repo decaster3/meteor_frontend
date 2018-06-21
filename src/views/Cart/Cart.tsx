@@ -20,7 +20,6 @@ class Cart extends React.Component<CartProps, CartState> {
   render() {
     return (
       <div>
-        <div>{this.props.total - this.state.choosenMeteors}</div>
         <div>
           {this.props.products.map(product => (
             <CartProductView
@@ -31,6 +30,7 @@ class Cart extends React.Component<CartProps, CartState> {
             />
           ))}
         </div>
+        <div>{this.props.total - this.state.choosenMeteors}</div>
         <div>
           <p>Метеоры: </p>
           <p>

@@ -1,14 +1,11 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as classnames from "classnames"
 import {css, cx} from "react-emotion"
 import {
   Col,
   Row,
   Navbar,
   Container,
-  NavbarBrand,
-  NavbarToggler,
   Collapse,
   Nav,
   NavItem,
@@ -23,7 +20,6 @@ import {Link, NavLink as ReactRouterNavLink} from "react-router-dom"
 import logo from "../../assets/logo.svg"
 import {compose} from "redux"
 import withGeolocation from "../../containers/Geolocation"
-import {withUser} from "../../containers/UserSession"
 import {User} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
@@ -71,9 +67,10 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
   }
 
   toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}))
+
   handleCityClick = (city: City) => this.props.setDefaultCity(city)
+
   render() {
-    console.log(this.props.defaultCity)
     return (
       <Navbar
         fixed="top"
@@ -84,17 +81,8 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
         `}
       >
         <Container>
-          <div
-            className={css`
-              display: flex;
-            `}
-          >
-            <Link
-              to="/"
-              className={css`
-                margin-right: 1rem;
-              `}
-            >
+          <div className="d-flex">
+            <Link to="/" className="mr-3">
               <img
                 src={logo}
                 className={css`
@@ -110,7 +98,6 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
               className={cx(
                 "d-none d-sm-flex",
                 css`
-                  display: flex;
                   flex-flow: column;
                   align-items: center;
                   justify-content: center;

@@ -1,6 +1,11 @@
 import * as React from "react"
 import {WrappedFieldProps} from "redux-form"
 import * as classnames from "classnames"
+import {css, cx} from "emotion"
+
+const inputGroupStyle = css`
+  margin-bottom: 32px;
+`
 
 interface CustomInputProps {
   type?: string
@@ -15,12 +20,7 @@ interface CustomInputProps {
 
 export const CustomInput = ({
   input,
-  meta: {touched, error, warning, autofilled} = {
-    touched: undefined,
-    error: undefined,
-    warning: undefined,
-    autofilled: undefined,
-  },
+  meta,
   className,
   id,
   type,
@@ -30,10 +30,9 @@ export const CustomInput = ({
   append,
   readOnly,
 }: CustomInputProps & WrappedFieldProps) => {
-  console.log("waring", warning)
-  console.log("error", error)
+  console.log("meta", meta)
   return (
-    <div className="input-group">
+    <div className={cx("input-group", inputGroupStyle)}>
       {prepend && (
         <div className="input-group-prepend">
           <span className="input-group-text">{prepend}</span>
@@ -42,7 +41,10 @@ export const CustomInput = ({
       <input
         className={classnames(
           "form-control",
-          {"is-invalid": touched && error},
+          {
+            "is-invalid": meta.touched && meta.invalid,
+            "is-valid": meta.touched && meta.valid,
+          },
           className
         )}
         readOnly={readOnly}
@@ -57,8 +59,10 @@ export const CustomInput = ({
           <span className="input-group-text">{append}</span>
         </div>
       )}
-      {touched && error && <div className="invalid-tooltip">{error}</div>}
-      {touched && warning && <div>{warning}</div>}
+      {meta.touched &&
+        meta.error && <div className="invalid-tooltip">{meta.error}</div>}
+      {meta.touched &&
+        meta.warning && <div className="valid-tooltip">{meta.warning}</div>}
     </div>
   )
 }
