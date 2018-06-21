@@ -9,6 +9,7 @@ import injectReducer from "../../utils/injectReducer"
 import {
   login,
   logout,
+  getUserInfo,
   signUp,
   reSendPhone,
   sendCode,
@@ -52,6 +53,7 @@ interface UserSessionProps {
   logout(): void
   reSendPhone(): void
   setInviterToken(token: string): void
+  getUserInfo(token: string): void
 }
 
 const WithRegistration = (WrappedComponent: React.ComponentType) => {
@@ -96,6 +98,7 @@ const mapDispatchToPropsSessionControl = (dispatch: any) => {
     login: (password: string, phone: string) =>
       dispatch(login(password, phone)),
     logout: () => dispatch(logout()),
+    getUserInfo: () => dispatch(getUserInfo()),
   }
 }
 

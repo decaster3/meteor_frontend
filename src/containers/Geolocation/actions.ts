@@ -72,7 +72,6 @@ export const tryToGuesProbableCity = (cities: City[]) => (
   dispatch(changeDeterminedCityStatus(Status.LOADING))
   console.log(navigator.geolocation)
   if (navigator.geolocation) {
-    console.log(123312)
     navigator.geolocation.getCurrentPosition(position => {
       let isCityFound = false
       Geocode.fromLatLng(
@@ -87,7 +86,6 @@ export const tryToGuesProbableCity = (cities: City[]) => (
             ) {
               cities.forEach((city: City) => {
                 if (city.key === address.long_name) {
-                  console.log(city)
                   dispatch(setDeterminedCity(city))
                   dispatch(changeDeterminedCityStatus(Status.LOADED))
                   isCityFound = true
@@ -101,7 +99,7 @@ export const tryToGuesProbableCity = (cities: City[]) => (
         }
       )
       if (!isCityFound) {
-        console.log("sdfsdfsdf")
+        console.log("RAZ")
         dispatch(changeDeterminedCityStatus(Status.LOADING_ERROR))
       }
     })
@@ -123,7 +121,10 @@ export const setCities = () => (dispatch: Dispatch<State>) => {
       dispatch(changeCitiesStatus(Status.LOADED))
       return data
     })
-    .catch(() => dispatch(changeCitiesStatus(Status.LOADING_ERROR)))
+    .catch(() => {
+      dispatch(changeCitiesStatus(Status.LOADING_ERROR))
+      return Promise.reject("error loading cities")
+    })
 }
 
 export const configureGeolocation = () => (dispatch: any, getState: any) => {

@@ -14,6 +14,12 @@ export interface User {
   phone: string
   role: string
   name: string
+  token: string
+  meteors: Meteor[]
+}
+export interface Meteor {
+  cityId: number
+  value: string
 }
 
 const nextRegistrationStep = () => ({type: ActionType.NEXT_REGISTRATION_STEP})
@@ -51,6 +57,11 @@ export const setInviterToken = (inviterToken: string) => ({
   type: ActionType.SET_INVITER_TOKEN,
   payload: inviterToken,
 })
+export const getUserInfo = () => (dispatch: Dispatch<State>) => {
+  return requests.get("users").then(data => {
+    dispatch(setUserInfo(data))
+  })
+}
 
 export const login = (password: string, phone: string) => (
   dispatch: Dispatch<State>

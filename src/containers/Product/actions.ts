@@ -109,13 +109,6 @@ export const configureCategoriesProducts = () => (
 ) => {
   dispatch(getCategories())
     .then((data: Category[]) => {
-      //
-      console.log(
-        getState()
-          .get("geolocation")
-          .get("cities")
-      )
-      //
       dispatch(getProducts(data[0]))
       return data
     })
