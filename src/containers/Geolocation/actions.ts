@@ -47,7 +47,7 @@ export const setDefaultCity = (city: City) => (
   if (
     getState()
       .get("geolocation")
-      .get("defaultCity") &&
+      .get("defaultCity") !== null &&
     getState()
       .get("geolocation")
       .get("defaultCity")
@@ -70,7 +70,9 @@ export const tryToGuesProbableCity = (cities: City[]) => (
   dispatch: Dispatch<State>
 ) => {
   dispatch(changeDeterminedCityStatus(Status.LOADING))
+  console.log(navigator.geolocation)
   if (navigator.geolocation) {
+    console.log(123312)
     navigator.geolocation.getCurrentPosition(position => {
       let isCityFound = false
       Geocode.fromLatLng(
@@ -99,6 +101,7 @@ export const tryToGuesProbableCity = (cities: City[]) => (
         }
       )
       if (!isCityFound) {
+        console.log("sdfsdfsdf")
         dispatch(changeDeterminedCityStatus(Status.LOADING_ERROR))
       }
     })
@@ -124,16 +127,22 @@ export const setCities = () => (dispatch: Dispatch<State>) => {
 }
 
 export const configureGeolocation = () => (dispatch: any, getState: any) => {
-  dispatch(setCities()).then((data: City[]) => {
-    console.log(data)
-    dispatch(setDefaultCity(data[0]))
-    if (
-      getState()
-        .get("geolocation")
-        .get("determinedCity") === null
-    ) {
-      console.log(123123123123123123)
-      dispatch(tryToGuesProbableCity(data))
-    }
-  })
+  dispatch(setCities())
+    .then((data: City[]) => {
+      if (
+        getState()
+          .get("geolocation")
+          .get("defaultCity") === null
+      ) {
+        dispatch(setDefaultCity(data[0]))
+      }
+      if (
+        getState()
+          .get("geolocation")
+          .get("determinedCity") === null
+      ) {
+        dispatch(tryToGuesProbableCity(data))
+      }
+    })
+    .catch(() => console.log("error loading in geolocation"))
 }

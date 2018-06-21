@@ -34,7 +34,7 @@ import {
   mediaBreakpointUp,
   JS_HREF,
 } from "../App/Theme"
-import { City } from "../../containers/Geolocation/actions";
+import {City} from "../../containers/Geolocation/actions"
 
 const StyledAnchor = styled("a")`
   color: white;
@@ -52,9 +52,10 @@ const StyledNavLink = StyledAnchor.withComponent(ReactRouterNavLink)
 interface HeaderProps {
   citiesStatus: Status
   cities: City[]
-
+  defaultCity: City
   userInfo: User
   userState: UserState
+  setDefaultCity(city: City): void
 }
 
 interface HeaderState {
@@ -70,10 +71,9 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
   }
 
   toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}))
-
-
+  handleCityClick = (city: City) => this.props.setDefaultCity(city)
   render() {
-    console.log(this.props)
+    console.log(this.props.defaultCity)
     return (
       <Navbar
         fixed="top"
@@ -280,13 +280,19 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                   <UncontrolledDropdown nav={true} inNavbar={true}>
                     <DropdownToggle nav={true} caret={true}>
                       {this.props.citiesStatus === Status.LOADED
-                        ? this.props.cities[0].name
+                        ? this.props.defaultCity.name
                         : "Город"}
                     </DropdownToggle>
                     <DropdownMenu right={true}>
                       {this.props.citiesStatus === Status.LOADED &&
                         this.props.cities.map(city => (
-                          <DropdownItem key={city.id}>{city.name}</DropdownItem>
+                          <DropdownItem
+                            // tslint:disable-next-line:jsx-no-lambda
+                            onClick={() => this.handleCityClick(city)}
+                            key={city.id}
+                          >
+                            {city.name}
+                          </DropdownItem>
                         ))}
                     </DropdownMenu>
                   </UncontrolledDropdown>
@@ -303,4 +309,4 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
   }
 }
 
-export default withTheme(Header)
+export default compose(withGeolocation)(withTheme(Header))

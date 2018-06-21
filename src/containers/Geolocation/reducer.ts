@@ -11,10 +11,10 @@ import {AnyAction} from "redux"
 const initialState = fromJS({
   citiesStatus: Status.NOT_LOADED,
   cities: [],
-  defaultCity: null,
   determinedCity: null,
   determinedCityStatus: Status.NOT_LOADED,
   isNavigationAllowed: false,
+  defaultCity: null,
 })
 
 const LayoutReducer = (state = initialState, action: AnyAction) => {

@@ -37,12 +37,7 @@ interface AppProps {
 const App: React.StatelessComponent<AppProps> = props => (
   <ThemeProvider theme={theme}>
     <div className={styles.backdrop}>
-      <Header
-        cities={props.cities}
-        citiesStatus={props.citiesStatus}
-        userInfo={props.userInfo}
-        userState={props.userState}
-      />
+      <Header />
       <Container className={styles.container}>
         <Row className={styles.content}>
           <Container fluid={true} className="py-3">

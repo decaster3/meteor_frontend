@@ -1,4 +1,5 @@
 import {createSelector} from "reselect"
+import {isNullOrUndefined} from "util"
 
 const selectLayoutDomain = (state: any) => state.get("geolocation")
 
@@ -13,7 +14,9 @@ export const selectCities = createSelector(selectLayoutDomain, cities =>
 
 export const selectDefaultCity = createSelector(
   selectLayoutDomain,
-  defaultCity => defaultCity.get("defaultCity")
+  defaultCity =>
+    defaultCity.get("defaultCity") !== null &&
+    defaultCity.get("defaultCity").toJS()
 )
 
 export const selectProbableCity = createSelector(

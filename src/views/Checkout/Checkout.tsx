@@ -25,7 +25,6 @@ class Login extends React.Component<LoginProps> {
       building: values.get("building"),
       apartment: values.get("apartment"),
       comment: values.get("comment"),
-      cityId: values.get("cityId"),
     }
     this.props.makeOrder(address, values.get("name"), values.get("phone"))
   }

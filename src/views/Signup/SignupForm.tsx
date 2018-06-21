@@ -72,7 +72,7 @@ const SignupForm: React.StatelessComponent<
     </div>
     <div className="form-group row">
       <label className="col-4 col-form-label" htmlFor="phone">
-        Токен пригласителя
+        Код пригласителя
       </label>
       <div className="col-8">
         <Field
@@ -108,22 +108,6 @@ const SignupForm: React.StatelessComponent<
         />
       </div>
     </div>
-    <div className="form-group row">
-      <label className="col-4 col-form-label" htmlFor="phone">
-        Подтверждение пароля
-      </label>
-      <div className="col-8">
-        <Field
-          component={CustomInput}
-          name="passwordConfirmation"
-          props={{
-            id: "passwordConfirmation",
-            type: "password",
-            placeholder: "Подтверждение пароля",
-          }}
-        />
-      </div>
-    </div>
     <div style={{color: "red", textAlign: "center"}}>
       {props.error && <strong>{props.error}</strong>}
     </div>
@@ -150,10 +134,6 @@ const validateSignUpForm = (values: ImmutableMapOfSignupFormData) =>
     name: values.get("name") ? undefined : "Обязательно",
     phone: validatePhone(values.get("phone")),
     password: passwordValidation(values.get("password")),
-    passwordConfirmation: passwordConfirmationValidation(
-      values.get("password"),
-      values.get("passwordConfirmation")
-    ),
   } as any)
 
 export default reduxForm<ImmutableMapOfSignupFormData, SignupFormProps>({

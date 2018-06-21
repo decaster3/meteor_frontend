@@ -20,7 +20,6 @@ export interface Address {
   building: string
   apartment: string
   comment: string
-  cityId: number
 }
 export interface ProductForOrder {
   quantity: number
@@ -38,7 +37,7 @@ const changeStreetsStatus = (streetsStatus: string) => ({
 })
 const mockStreets = [{value: "one", label: "One"}, {value: "two", label: "Two"}]
 
-export const getStreets = () => (dispatch: Dispatch<State>) => {
+export const getStreets = () => (dispatch: Dispatch<State>, getState: any) => {
   dispatch(changeStreetsStatus(Status.LOADING))
   // requests
   //   .get("streets/1")
@@ -61,18 +60,33 @@ export const makeOrder = (address: Address, name: string, phone: string) => (
   dispatch(changeOrderStatus(OrderStatus.PROCESSING))
   const orderProductsAttributes = getState()
     .get("cart")
-    .get("products").toJS()
+    .get("products")
+    .toJS()
     .map((product: CartProduct) => ({
       quantity: product.count,
       productInstanceId: product.instance.id,
     }))
-  console.log({orderProductsAttributes, address, name, phone})
-  // requests
-  //   .post("order", {body: {orderProductsAttributes, address, name, phone}})
-  //   .then(() => {
-  dispatch(changeOrderStatus(OrderStatus.DODE))
-  // })
-  // .catch(() => {
-  //   dispatch(changeOrderStatus(OrderStatus.NOT_DONE))
-  // })
+  const cityId =
+    getState()
+      .get("geolocation")
+      .get("defaultCity") !== null &&
+    getState()
+      .get("geolocation")
+      .get("defaultCity")
+      .get("id")
+  requests
+    .post("orders", {
+      body: {
+        orderProductsAttributes,
+        address: {...address, cityId},
+        name,
+        phone,
+      },
+    })
+    .then(() => {
+      dispatch(changeOrderStatus(OrderStatus.DODE))
+    })
+    .catch(() => {
+      dispatch(changeOrderStatus(OrderStatus.NOT_DONE))
+    })
 }
