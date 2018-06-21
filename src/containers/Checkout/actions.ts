@@ -79,8 +79,7 @@ export const makeOrder = (address: Address, name: string, phone: string) => (
       body: {
         orderProductsAttributes,
         address: {...address, cityId},
-        name,
-        phone,
+        user: {name, phone: phone.replace(/\s/g, "")},
       },
     })
     .then(() => {

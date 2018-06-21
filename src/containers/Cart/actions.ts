@@ -13,6 +13,7 @@ export interface CartProduct {
   options: Option[]
   instance: ProductInstance
   count: number
+  price: {currency: string; value: string; id: number}
 }
 
 export interface Option {
