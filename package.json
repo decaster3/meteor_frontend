@@ -9,10 +9,12 @@
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {
+    "@types/color": "^3.0.0",
     "@types/react-select": "^1.2.7",
     "ajv": "^6.5.1",
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.6",
+    "color": "^3.0.0",
     "emotion": "^9.2.3",
     "emotion-theming": "^9.2.3",
     "hoist-non-react-statics": "^2.5.0",
