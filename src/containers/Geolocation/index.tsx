@@ -17,7 +17,7 @@ import {
 import {configureGeolocation, setDefaultCity} from "./actions"
 import {City} from "./actions"
 
-interface CartProps {
+interface GeolocationStateProps {
   cities: City[]
   citiesStatus: string
   defaultCity: City
@@ -25,22 +25,32 @@ interface CartProps {
   probableCityStatus: string
   isNavigationAllowed: boolean
   showModal: boolean
+}
+
+interface GeolocationDispatchProps {
   configureGeolocation(): void
   setDefaultCity(city: City): void
 }
 
+interface GeolocationProps
+  extends GeolocationStateProps,
+    GeolocationDispatchProps {}
+
 const WithGeolocation = (WrappedComponent: React.ComponentType) => {
-  return class WithGeolocationContainer extends React.Component<CartProps> {
+  return class WithGeolocationContainer extends React.Component<
+    GeolocationProps
+  > {
     componentDidMount() {
       this.props.configureGeolocation()
     }
+
     render() {
       return <WrappedComponent {...this.props} />
     }
   }
 }
 
-const mapStateToProps = (state: State) => {
+const mapStateToProps = (state: State): GeolocationStateProps => {
   return {
     citiesStatus: selectCitiesStatus(state),
     cities: selectCities(state),
@@ -52,7 +62,7 @@ const mapStateToProps = (state: State) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): GeolocationDispatchProps => {
   return {
     configureGeolocation: () => dispatch(configureGeolocation()),
     setDefaultCity: (city: City) => dispatch(setDefaultCity(city)),

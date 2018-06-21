@@ -56,31 +56,29 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
   }
 
   renderIndependentOptions = () =>
-    this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.dependentOptions.find(
-        (currentOption: OptionConcat) => currentOption.optionId === option.id
+    this.props.product.options.map(option => {
+      const currentOptionValue = this.state.currentProductState.independentOptions.find(
+        currentOption => currentOption.optionId === option.id
       )
-      if (currentOptionValue && !option.belongs) {
+      if (currentOptionValue && !option.isCharacteristic) {
         return (
           <Row className={"my-2"} noGutters={true} key={option.id}>
-            {option.optionValues.map(
-              (optionName: {value: string; id: number}) => (
-                <Col className="text-center" key={optionName.id}>
-                  <button
-                    type="button"
-                    name={option.id.toString()}
-                    value={optionName.id}
-                    onClick={this.changeCurrentProduct}
-                    className={classnames(styles.option, {
-                      [styles.optionActive]:
-                        currentOptionValue.valueId === optionName.id,
-                    })}
-                  >
-                    {optionName.value}
-                  </button>
-                </Col>
-              )
-            )}
+            {option.optionValues.map(optionName => (
+              <Col className="text-center" key={optionName.id}>
+                <button
+                  type="button"
+                  name={option.id.toString()}
+                  value={optionName.id}
+                  onClick={this.changeCurrentProduct}
+                  className={classnames(styles.option, {
+                    [styles.optionActive]:
+                      currentOptionValue.valueId === optionName.id,
+                  })}
+                >
+                  {optionName.value}
+                </button>
+              </Col>
+            ))}
           </Row>
         )
       } else {
@@ -89,33 +87,31 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     })
 
   renderDependentOptions = () => {
-    return this.props.product.options.map((option: Option) => {
-      const currentOptionValue = this.state.currentProductState.independentOptions.find(
-        (currentOption: OptionConcat) => currentOption.optionId === option.id
+    return this.props.product.options.map(option => {
+      const currentOptionValue = this.state.currentProductState.dependentOptions.find(
+        currentOption => currentOption.optionId === option.id
       )
-      if (currentOptionValue && option.belongs) {
+      if (currentOptionValue && option.isCharacteristic) {
         return (
           <Row key={option.id} className={styles.dependentOption}>
             <Col>
               <small>{option.name}</small>
             </Col>
-            {option.optionValues.map(
-              (optionName: {value: string; id: number}) => {
-                if (currentOptionValue.valueId === optionName.id) {
-                  return (
-                    <Col
-                      key={optionName.id}
-                      xs="auto"
-                      className="font-weight-bold"
-                    >
-                      {optionName.value}
-                    </Col>
-                  )
-                } else {
-                  return null
-                }
+            {option.optionValues.map(optionName => {
+              if (currentOptionValue.valueId === optionName.id) {
+                return (
+                  <Col
+                    key={optionName.id}
+                    xs="auto"
+                    className="font-weight-bold"
+                  >
+                    {optionName.value}
+                  </Col>
+                )
+              } else {
+                return null
               }
-            )}
+            })}
           </Row>
         )
       } else {

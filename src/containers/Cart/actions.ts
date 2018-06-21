@@ -18,7 +18,7 @@ export interface CartProduct {
 export interface Option {
   name: string
   id: number
-  belongs: boolean
+  isCharacteristic: boolean
   optionValues: OptionValue[]
 }
 

@@ -7,79 +7,6 @@ import requests from "../../services/requests"
 import {Status} from "../../constants"
 import {ActionType} from "./constants"
 
-const mockProducts = [
-  {
-    name: "sdkhsdhksfdjkkjdsfg",
-    id: 1,
-    description: "Awesome pizza",
-    options: [
-      {
-        name: "size",
-        id: 1,
-        belongs: true,
-        optionValues: [
-          {value: "28", id: 1},
-          {value: "32", id: 2},
-          {value: "42", id: 3},
-        ],
-      },
-      {
-        name: "testo",
-        id: 3,
-        belongs: true,
-        optionValues: [{value: "120", id: 7}, {value: "150", id: 8}],
-      },
-      {
-        name: "weight",
-        id: 2,
-        belongs: false,
-        optionValues: [
-          {value: "100", id: 4},
-          {value: "200", id: 5},
-          {value: "300", id: 6},
-        ],
-      },
-    ],
-    instances: [
-      {
-        id: 1,
-        price: {currency: "euro", value: "100", id: 1},
-        options: [{option_id: 1, value_id: 1}, {option_id: 3, value_id: 7}],
-        dependentOptions: [{option_id: 2, value_id: 4}],
-      },
-      {
-        id: 2,
-        price: {currency: "euro", value: "200", id: 2},
-        options: [{option_id: 1, value_id: 1}, {option_id: 3, value_id: 8}],
-        dependentOptions: [{option_id: 2, value_id: 5}],
-      },
-      {
-        id: 3,
-        price: {currency: "euro", value: "300", id: 3},
-        options: [{option_id: 1, value_id: 2}, {option_id: 3, value_id: 7}],
-        dependentOptions: [{option_id: 2, value_id: 6}],
-      },
-      {
-        id: 4,
-        price: {currency: "euro", value: "400", id: 4},
-        options: [{option_id: 1, value_id: 2}, {option_id: 3, value_id: 8}],
-        dependentOptions: [{option_id: 2, value_id: 4}],
-      },
-      {
-        id: 5,
-        price: {currency: "euro", value: "500", id: 5},
-        options: [{option_id: 1, value_id: 3}, {option_id: 3, value_id: 7}],
-        dependentOptions: [{option_id: 2, value_id: 5}],
-      },
-      {
-        id: 6,
-        price: {currency: "euro", value: "600", id: 6},
-        options: [{option_id: 1, value_id: 3}, {option_id: 3, value_id: 8}],
-        dependentOptions: [{option_id: 2, value_id: 6}],
-      },
-    ],
-  },
-]
 export interface Category {
   name: string
   id: number
@@ -96,7 +23,7 @@ export interface Product {
 export interface Option {
   name: string
   id: number
-  belongs: boolean
+  isCharacteristic: boolean
   optionValues: Array<{value: string; id: number}>
 }
 
