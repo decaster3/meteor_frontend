@@ -32,8 +32,6 @@ interface AppProps {
 
   categoriesStatus: Status
   categories: Category[]
-
-  children?: React.ReactNode
 }
 
 const App: React.StatelessComponent<AppProps> = props => (
@@ -54,9 +52,10 @@ const App: React.StatelessComponent<AppProps> = props => (
                 exact={true}
                 component={MainPage}
               />
-              <Route path="/" component={MainPage} />
+              <Route path="/" exact={true} component={MainPage} />
               <Route path="/menu" component={Menu} />
               <Route path="/cart" component={Cart} />
+              <Route />
             </Switch>
           </Container>
         </Row>
@@ -69,7 +68,8 @@ const App: React.StatelessComponent<AppProps> = props => (
   </ThemeProvider>
 )
 
-export default compose<any>(
+export default compose<React.ComponentType>(
+  withRouter,
   withGeolocation,
   withUser,
   withCategories
