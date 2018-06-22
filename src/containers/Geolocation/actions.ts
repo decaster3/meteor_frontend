@@ -13,11 +13,6 @@ import {clearCart} from "../Cart/actions"
 Geocode.setApiKey("AIzaSyDeRt-ekVSI0anD_b1zE5Kl7WobsRGutvc")
 Geocode.enableDebug()
 
-const mockCities = [
-  {name: "KG", phone: "12313123", id: 1, key: "Innopolis"},
-  {name: "KZ", phone: "12313213123", id: 2, key: "Moscow"},
-]
-
 export interface City {
   name: string
   phone: string
@@ -70,7 +65,6 @@ export const tryToGuesProbableCity = (cities: City[]) => (
   dispatch: Dispatch<State>
 ) => {
   dispatch(changeDeterminedCityStatus(Status.LOADING))
-  console.log(navigator.geolocation)
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
       let isCityFound = false
@@ -99,7 +93,6 @@ export const tryToGuesProbableCity = (cities: City[]) => (
         }
       )
       if (!isCityFound) {
-        console.log("RAZ")
         dispatch(changeDeterminedCityStatus(Status.LOADING_ERROR))
       }
     })
