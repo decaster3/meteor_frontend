@@ -20,7 +20,12 @@ interface CheckoutProps {
   streetsStatus: string
   orderStatus: string
   isOrderPending: boolean
-  makeOrder(address: Address, name: string, phone: string): void
+  makeOrder(
+    address: Address,
+    name: string,
+    phone: string,
+    paymentMethod: string
+  ): void
   getStreets(): void
 }
 
@@ -46,8 +51,12 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    makeOrder: (address: Address, name: string, phone: string) =>
-      dispatch(makeOrder(address, name, phone)),
+    makeOrder: (
+      address: Address,
+      name: string,
+      phone: string,
+      paymentMethod: string
+    ) => dispatch(makeOrder(address, name, phone, paymentMethod)),
     getStreets: () => dispatch(getStreets()),
   }
 }
@@ -56,6 +65,9 @@ const withReducer = injectReducer({key: "checkout", reducer})
 
 export default compose(
   withReducer,
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   WithCheckout
 )

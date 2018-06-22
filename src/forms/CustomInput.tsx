@@ -16,6 +16,7 @@ interface CustomInputProps {
   readOnly?: boolean
   prepend?: React.ReactNode
   append?: React.ReactNode
+  value?: string
 }
 
 export const CustomInput = ({
@@ -30,7 +31,6 @@ export const CustomInput = ({
   append,
   readOnly,
 }: CustomInputProps & WrappedFieldProps) => {
-  console.log("meta", meta)
   return (
     <div className={cx("input-group", inputGroupStyle)}>
       {prepend && (

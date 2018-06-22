@@ -28,6 +28,7 @@ interface CheckoutFormData {
   street?: string
   building?: string
   apartment?: string
+  paymentMethod?: string
   comment?: string
 }
 
@@ -140,6 +141,29 @@ const CheckoutForm: React.StatelessComponent<
         />
       </div>
     </div>
+    <div className="form-group row">
+      <label className="col-4 col-form-label" htmlFor="password">
+        Метод оплаты
+      </label>
+      <label>
+        <Field
+          name="paymentMethod"
+          component={CustomInput}
+          type="radio"
+          value="cash"
+        />
+        Наличка
+      </label>
+      <label>
+        <Field
+          name="paymentMethod"
+          component={CustomInput}
+          type="radio"
+          value="cashless"
+        />
+        Карта
+      </label>
+    </div>
 
     <div style={{color: "red", textAlign: "center"}}>
       {props.error && <strong>{props.error}</strong>}
@@ -169,6 +193,7 @@ const validateCheckoutFrom = (values: ImmutableMapOfCheckoutFormData) =>
     street: validatePresence(values.get("street")),
     building: validatePresence(values.get("building")),
     apartment: validatePresence(values.get("apartment")),
+    paymentMethod: validatePresence(values.get("paymentMethod")),
   } as any)
 
 const warningCheckoutForm = (

@@ -53,10 +53,12 @@ export const getStreets = () => (dispatch: Dispatch<State>, getState: any) => {
   // })
 }
 
-export const makeOrder = (address: Address, name: string, phone: string) => (
-  dispatch: Dispatch<State>,
-  getState: any
-) => {
+export const makeOrder = (
+  address: Address,
+  name: string,
+  phone: string,
+  paymentMethod: string
+) => (dispatch: Dispatch<State>, getState: any) => {
   dispatch(changeOrderStatus(OrderStatus.PROCESSING))
   const orderProductsAttributes = getState()
     .get("cart")
@@ -80,6 +82,7 @@ export const makeOrder = (address: Address, name: string, phone: string) => (
         orderProductsAttributes,
         address: {...address, cityId},
         user: {name, phone: phone.replace(/\s/g, "")},
+        paymentMethod,
       },
     })
     .then(() => {

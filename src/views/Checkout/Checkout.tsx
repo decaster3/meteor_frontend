@@ -6,19 +6,24 @@ import {Link} from "react-router-dom"
 import {compose} from "redux"
 import withCheckout from "../../containers/Checkout"
 import CheckoutForm from "./CheckoutForm"
-import * as styles from "./Login.module.scss"
+import * as styles from "./Checkout.module.scss"
 import {Address} from "../../containers/Checkout/actions"
 import {withUser} from "../../containers/UserSession"
 import {fromJS} from "immutable"
 import {User} from "../../containers/UserSession/actions"
 
-interface LoginProps {
+interface CheckoutProps {
   isOrderPending: boolean
   userInfo: User
   streets: string[]
-  makeOrder(address: Address, name: string, phone: string): void
+  makeOrder(
+    address: Address,
+    name: string,
+    phone: string,
+    paymentMethod: string
+  ): void
 }
-class Login extends React.Component<LoginProps> {
+class Checkout extends React.Component<CheckoutProps> {
   handleOrderSubmit = (values: any) => {
     const address = {
       street: values.get("street").value,
@@ -26,7 +31,12 @@ class Login extends React.Component<LoginProps> {
       apartment: values.get("apartment"),
       comment: values.get("comment"),
     }
-    this.props.makeOrder(address, values.get("name"), values.get("phone"))
+    this.props.makeOrder(
+      address,
+      values.get("name"),
+      values.get("phone"),
+      values.get("paymentMethod")
+    )
   }
 
   render() {
@@ -50,4 +60,4 @@ class Login extends React.Component<LoginProps> {
 export default compose(
   withCheckout,
   withUser
-)(Login)
+)(Checkout)
