@@ -19,6 +19,7 @@ import {Category} from "../../containers/Product/actions"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
 import withCategories from "../../containers/Category"
+import Account from "../AccountMainInfo"
 import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
 
@@ -113,6 +114,9 @@ const App: React.StatelessComponent<AppProps> = props => (
               <Route path="/" exact={true} component={MainPage} />
               <Route path="/menu" component={Menu} />
               <Route path="/cart" component={Cart} />
+              {props.userState === UserState.LOGED_IN && (
+                <Route path="/account" component={Account} />
+              )}
               <Route />
             </Switch>
           </Container>
