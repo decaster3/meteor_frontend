@@ -10,11 +10,11 @@ import * as styles from "./Checkout.module.scss"
 import {Address} from "../../containers/Checkout/actions"
 import {withUser} from "../../containers/UserSession"
 import {fromJS} from "immutable"
-import {User} from "../../containers/UserSession/actions"
+import {UserInformation} from "../../containers/UserSession/actions"
 
 interface CheckoutProps {
   isOrderPending: boolean
-  userInfo: User
+  userInfo: UserInformation
   streets: string[]
   makeOrder(
     address: Address,

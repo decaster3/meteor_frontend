@@ -5,6 +5,7 @@ import {fromJS} from "immutable"
 
 import {ActionType, UserState} from "./constants"
 import {AnyAction} from "redux"
+import {Status} from "../../constants"
 
 const initialState = fromJS({
   userState: UserState.ANONYMOUS,
@@ -17,7 +18,16 @@ const initialState = fromJS({
     isLoginPending: false,
     phone: "",
   },
-  userInfo: {},
+  userInfo: {
+    name: "",
+    phone: "",
+    id: "",
+    role: "",
+    token: "",
+    meteors: [],
+    orders: [],
+    userInfoStatus: Status.NOT_LOADED,
+  },
 })
 
 const userSessionReducer = (state = initialState, action: AnyAction) => {
@@ -30,7 +40,19 @@ const userSessionReducer = (state = initialState, action: AnyAction) => {
       return state.set("registration", fromJS(registration))
     }
     case ActionType.UPDATE_USER_INFORMATION:
-      return state.set("userInfo", fromJS(action.payload))
+      const newUserInformation = {
+        ...action.payload,
+        userInfoStatus: state.get("userInfo").get("userInfoStatus"),
+      }
+      return state.set("userInfo", fromJS(newUserInformation))
+    case ActionType.UPDATE_USER_INFORMATION_STATUS:
+      return state.set(
+        "userInfo",
+        fromJS({
+          ...state.get("userInfo").toJS(),
+          userInfoStatus: action.payload,
+        })
+      )
     case ActionType.SET_PHONE: {
       const registration = state.get("registration").toJS()
       registration.phone = action.payload.phone

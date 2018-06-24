@@ -6,7 +6,7 @@ import {Col, Row} from "reactstrap"
 
 import symbol from "../../assets/logo_meteor.png"
 import {Status} from "../../constants"
-import {User} from "../../containers/UserSession/actions"
+import {UserInformation} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import SignUp from "../AuthWrapper"
 import {withUser} from "../../containers/UserSession"
@@ -15,7 +15,7 @@ import {ThemeProps, withTheme} from "../App/Theme"
 interface MeteorBannerProps {
   userState: UserState
   userInfoStatus: Status
-  userInfo: User
+  userInfo: UserInformation
 }
 
 const MeteorBanner = (props: MeteorBannerProps & ThemeProps) => {
@@ -96,4 +96,7 @@ const MeteorBanner = (props: MeteorBannerProps & ThemeProps) => {
   )
 }
 
-export default compose(withUser, withTheme)(MeteorBanner)
+export default compose(
+  withUser,
+  withTheme
+)(MeteorBanner)

@@ -10,7 +10,7 @@ import Menu from "../../views/MainContentPlaceholder/Menu"
 import MainPage from "../../views/MainPage"
 import Cart from "../../views/Cart"
 import {Status} from "../../constants"
-import {User} from "../../containers/UserSession/actions"
+import {UserInformation} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
@@ -19,7 +19,7 @@ import {Category} from "../../containers/Product/actions"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
 import withCategories from "../../containers/Category"
-import Account from "../AccountMainInfo"
+import Account from "../AccountWrapper"
 import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
 
@@ -53,7 +53,7 @@ interface AppProps {
   citiesStatus: Status
   cities: City[]
 
-  userInfo: User
+  userInfo: UserInformation
   userState: UserState
 
   categoriesStatus: Status

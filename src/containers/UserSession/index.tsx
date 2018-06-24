@@ -14,7 +14,7 @@ import {
   reSendPhone,
   sendCode,
   setInviterToken,
-  User,
+  UserInformation,
 } from "./actions"
 import reducer from "./reducer"
 import {
@@ -36,7 +36,7 @@ interface UserSessionProps {
   registrationFirst?: boolean
   codeSent: string
   userState: string
-  userInfo: User
+  userInfo: UserInformation
   regsitrationStep: number
   isLoginPending: boolean
   isPhonePending: boolean
