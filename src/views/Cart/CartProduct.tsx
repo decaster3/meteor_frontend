@@ -3,9 +3,16 @@ import {css, cx} from "emotion"
 
 import {CartProduct, Option} from "../../containers/Cart/actions"
 import {OptionConcat} from "../../containers/Product/actions"
-import {ThemeProps, withTheme} from "../App/Theme"
+import {ThemeProps, withTheme, styled} from "../App/Theme"
 import Icon from "react-fa"
 import {Col} from "reactstrap"
+
+const Button = styled("button")`
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  margin: 8px;
+`
 
 interface CartProductProps {
   product: CartProduct
@@ -125,23 +132,22 @@ const CartProduct: React.StatelessComponent<
         </div>
       </div>
 
-      <Col
-        xs="auto"
-        className={css`
-          font-size: 1.25em;
-        `}
-      >
+      <Col xs="auto" className="h4 text-center">
         {props.product.price.value}&nbsp;<small>
           {props.product.price.currency}
         </small>
       </Col>
 
-      <Col
-        xs={"auto"}
-        className={css`
-          font-size: 1.25em;
-        `}
-      >
+      <Col xs={1} className="text-center h5">
+        <Icon
+          name="times"
+          className={css`
+            color: ${props.theme.lighterGrey};
+          `}
+        />
+      </Col>
+
+      <Col xs={1} className="text-center h4">
         {props.product.count}
       </Col>
 
@@ -149,35 +155,19 @@ const CartProduct: React.StatelessComponent<
 
       <div className={"col-auto"}>
         <div className="d-flex flex-sm-column">
-          <button
-            className={cx(
-              "btn btn-block btn-outline-success p-2",
-              css`
-                line-height: 1;
-                width: 36px;
-                height: 36px;
-                margin: 8px;
-              `
-            )}
+          <Button
+            className="btn btn-block btn-outline-success p-2"
             onClick={handleAddProduct(props)}
           >
             <Icon name="plus" />
-          </button>
+          </Button>
 
-          <button
-            className={cx(
-              "btn btn-block btn-outline-danger p-2",
-              css`
-                line-height: 1;
-                width: 36px;
-                height: 36px;
-                margin: 8px;
-              `
-            )}
+          <Button
+            className="btn btn-block btn-outline-danger p-2"
             onClick={handleRemoveProduct(props)}
           >
             <Icon name="minus" />
-          </button>
+          </Button>
         </div>
       </div>
     </div>

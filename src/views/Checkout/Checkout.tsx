@@ -31,6 +31,7 @@ class Checkout extends React.Component<CheckoutProps> {
       apartment: values.get("apartment"),
       comment: values.get("comment"),
     }
+
     this.props.makeOrder(
       address,
       values.get("name"),
@@ -41,18 +42,16 @@ class Checkout extends React.Component<CheckoutProps> {
 
   render() {
     return (
-      <div>
-        <CheckoutForm
-          isOrderPending={this.props.isOrderPending}
-          streets={this.props.streets}
-          userPhone={this.props.userInfo.phone}
-          initialValues={fromJS({
-            phone: this.props.userInfo.phone ? this.props.userInfo.phone : "",
-            name: this.props.userInfo.name ? this.props.userInfo.name : "",
-          })}
-          onSubmit={this.handleOrderSubmit}
-        />
-      </div>
+      <CheckoutForm
+        isOrderPending={this.props.isOrderPending}
+        streets={this.props.streets}
+        userPhone={this.props.userInfo.phone}
+        initialValues={fromJS({
+          phone: this.props.userInfo.phone ? this.props.userInfo.phone : "",
+          name: this.props.userInfo.name ? this.props.userInfo.name : "",
+        })}
+        onSubmit={this.handleOrderSubmit}
+      />
     )
   }
 }
