@@ -61,18 +61,19 @@ const CartProduct: React.StatelessComponent<
   return (
     <div
       className={cx(
-        "row align-items-center mb-5",
+        "row align-items-center mb-3",
         css`
           text-transform: uppercase;
           font-weight: 500;
         `
       )}
     >
-      <div className="col-12 col-sm my-2 text-center">
+      <div className="col-12 col-sm-auto my-2 text-center">
         <img
           className={cx(
             css`
               max-width: 100%;
+              max-height: 64px;
             `
           )}
           src={`https://picsum.photos/300/200/?blue&image=${props.product.id}`}
@@ -80,8 +81,8 @@ const CartProduct: React.StatelessComponent<
       </div>
 
       <div className="col-12 col-sm my-2">
-        <div className="text-center">{props.product.name}</div>
-        <div
+        <div>{props.product.name}</div>
+        {/* <div
           className={cx(
             "mt-3",
             css`
@@ -92,83 +93,91 @@ const CartProduct: React.StatelessComponent<
           )}
         >
           {props.product.description}
-        </div>
-      </div>
-
-      <div
-        className={cx(
-          "col-12 col-sm my-2",
-          css`
+        </div> */}
+        <span
+          className={css`
             color: ${props.theme.lightGreen};
-          `
-        )}
-      >
-        <div>
+          `}
+        >
           {independentOptions.map(([name, value], index) => (
-            <div
-              className="d-flex justify-content-between align-items-center"
+            <span
               key={index}
+              className={cx(
+                "mr-3",
+                css`
+                  white-space: nowrap;
+                `
+              )}
             >
-              <div>
-                <small>{name}</small>
-              </div>
-              <div>{value}</div>
-            </div>
+              <small className="mr-2">{name}</small>
+              {value}
+            </span>
           ))}
-        </div>
 
-        <div className="mt-3">
           {dependentOptions.map(([name, value], index) => (
-            <div
-              className="d-flex justify-content-between  align-items-center"
+            <span
               key={index}
+              className={cx(
+                "mr-3",
+                css`
+                  white-space: nowrap;
+                `
+              )}
             >
-              <div>
-                <small>{name}</small>
-              </div>
-              <div>{value}</div>
-            </div>
+              <small className="mr-2">{name}</small>
+              {value}
+            </span>
           ))}
-        </div>
+        </span>
       </div>
 
-      <Col xs="auto" className="h4 text-center">
+      <div className="col-2 h4 mb-0 text-center">
         {props.product.price.value}&nbsp;<small>
           {props.product.price.currency}
         </small>
-      </Col>
+      </div>
 
-      <Col xs={1} className="text-center h5">
+      {/* <Col xs={1} className="text-center h5 mb-0">
         <Icon
           name="times"
           className={css`
             color: ${props.theme.lighterGrey};
           `}
         />
-      </Col>
+      </Col> */}
 
-      <Col xs={1} className="text-center h4">
+      {/* <Col xs={1} className="text-center h4 mb-0">
         {props.product.count}
-      </Col>
+      </Col> */}
 
       {/* <div className="col-1 text-center">{props.product.count}</div> */}
 
       <div className={"col-auto"}>
-        <div className="d-flex flex-sm-column">
-          <Button
-            className="btn btn-block btn-outline-success p-2"
-            onClick={handleAddProduct(props)}
-          >
-            <Icon name="plus" />
-          </Button>
+        <Button
+          className="btn btn-outline-danger p-2"
+          onClick={handleRemoveProduct(props)}
+        >
+          <Icon name="minus" />
+        </Button>
+      </div>
 
-          <Button
-            className="btn btn-block btn-outline-danger p-2"
-            onClick={handleRemoveProduct(props)}
-          >
-            <Icon name="minus" />
-          </Button>
-        </div>
+      <div className="col-1 text-center">
+        <span className="h4 mb-0">{props.product.count}</span>
+      </div>
+
+      <div className="col-auto">
+        <Button
+          className="btn btn-outline-success p-2"
+          onClick={handleAddProduct(props)}
+        >
+          <Icon name="plus" />
+        </Button>
+      </div>
+
+      <div className="col-1 text-center">
+        <span className="h5 mb-0 text-danger">
+          <Icon name="times" />
+        </span>
       </div>
     </div>
   )
