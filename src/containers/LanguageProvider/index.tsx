@@ -19,7 +19,7 @@ interface ILanguageProviderProps {
 export class LanguageProvider extends React.PureComponent<
   ILanguageProviderProps
 > {
-  public render() {
+  render() {
     return (
       <IntlProvider
         locale={this.props.locale}
@@ -40,4 +40,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   dispatch,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LanguageProvider)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LanguageProvider)

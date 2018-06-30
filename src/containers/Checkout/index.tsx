@@ -29,8 +29,12 @@ interface CheckoutProps {
   getStreets(): void
 }
 
-const WithCheckout = (WrappedComponent: React.ComponentType) => {
-  return class WithCheckoutContainer extends React.Component<CheckoutProps> {
+const withCheckout = <P extends object>(
+  WrappedComponent: React.ComponentType<P>
+) => {
+  return class WithCheckoutContainer extends React.Component<
+    CheckoutProps & P
+  > {
     componentDidMount() {
       this.props.getStreets()
     }
@@ -69,5 +73,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  WithCheckout
+  withCheckout
 )

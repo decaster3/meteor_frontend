@@ -76,9 +76,9 @@ const customStyled = styled as ThemedReactEmotionInterface<Theme>
 
 export {customStyled as styled}
 
-const customWithTheme = <Props>(
-  WrappedComponent: React.ComponentType<Props & ThemeProps>
-): React.ComponentType<Props> => withTheme(WrappedComponent)
+const customWithTheme = <P extends object>(
+  WrappedComponent: React.ComponentType<P & ThemeProps>
+): React.ComponentType<P> => withTheme(WrappedComponent)
 
 export {customWithTheme as withTheme}
 
