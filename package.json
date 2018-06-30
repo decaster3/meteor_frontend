@@ -9,8 +9,6 @@
     "eject": "react-scripts-ts eject"
   },
   "dependencies": {
-    "@types/color": "^3.0.0",
-    "@types/react-select": "^1.2.7",
     "ajv": "^6.5.1",
     "bootstrap": "^4.1.1",
     "classnames": "^2.2.6",
@@ -43,6 +41,7 @@
     "react-select": "^1.2.1",
     "react-spinners": "^0.3.2",
     "reactstrap": "^6.1.0",
+    "recompose": "^0.27.1",
     "redux": "^3.7.2",
     "redux-form": "^7.3.0",
     "redux-immutable": "^4.0.0",
@@ -52,6 +51,9 @@
     "thunk": "0.0.1"
   },
   "devDependencies": {
+    "@types/color": "^3.0.0",
+    "@types/react-select": "^1.2.7",
+    "@types/recompose": "^0.26.1",
     "@types/classnames": "^2.2.4",
     "@types/history": "^4.6.2",
     "@types/intl": "^1.2.0",

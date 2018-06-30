@@ -1,9 +1,9 @@
 import * as React from "react"
 import {css, cx} from "emotion"
+import Icon from "react-fa"
 
 import {CartProduct} from "../../containers/Cart/actions"
 import {ThemeProps, withTheme, styled} from "../App/Theme"
-import Icon from "react-fa"
 
 interface CartProductProps {
   product: CartProduct
@@ -21,9 +21,9 @@ const handleRemoveProduct = (props: CartProductProps) => () => {
 
 const Button = styled("button")`
   line-height: 1;
+  padding: 8px;
   width: 36px;
   height: 36px;
-  margin: 8px;
 `
 
 interface OptionProps {
@@ -76,8 +76,8 @@ const CartProduct: React.StatelessComponent<
   })
 
   return (
-    <div className="row align-items-center mb-3 text-uppercase font-weight-bold">
-      <div className="col-4 col-sm-auto my-2 text-center">
+    <div className="row align-items-center mb-4 text-uppercase font-weight-bold">
+      <div className="col-4 col-md-auto my-2 text-center">
         <img
           className={cx(
             css`
@@ -89,7 +89,7 @@ const CartProduct: React.StatelessComponent<
         />
       </div>
 
-      <div className="col-8 col-sm my-2">
+      <div className="col-8 col-md mb-2 mb-md-0">
         <div>{props.product.name}</div>
         <div
           className={css`
@@ -108,41 +108,45 @@ const CartProduct: React.StatelessComponent<
         </div>
       </div>
 
-      <div className="col-3 col-sm-2 h4 mb-0 text-center">
+      <div className="col-4 col-md-2 h4 mb-0 text-center">
         {props.product.price.value}&nbsp;<small>
           {props.product.price.currency}
         </small>
       </div>
 
-      <div className={"col-auto"}>
-        <Button
-          className="btn btn-outline-danger p-2"
-          onClick={handleRemoveProduct(props)}
-        >
-          <Icon name="minus" />
-        </Button>
-      </div>
+      <div className="col-6 col-md-3">
+        <div className="row no-gutters align-items-center text-center">
+          <div className={"col"}>
+            <Button
+              className="btn btn-outline-danger"
+              onClick={handleRemoveProduct(props)}
+            >
+              <Icon name="minus" />
+            </Button>
+          </div>
 
-      <div className="col-auto col-sm-1 text-center">
-        <div
-          className={css`
-            min-width: 2em;
-          `}
-        >
-          <span className="h4 mb-0">{props.product.count}</span>
+          <div className="col">
+            <div
+              className={css`
+                min-width: 2em;
+              `}
+            >
+              <span className="h4 mb-0">{props.product.count}</span>
+            </div>
+          </div>
+
+          <div className="col">
+            <Button
+              className="btn btn-outline-success"
+              onClick={handleAddProduct(props)}
+            >
+              <Icon name="plus" />
+            </Button>
+          </div>
         </div>
       </div>
 
-      <div className="col-auto">
-        <Button
-          className="btn btn-outline-success p-2"
-          onClick={handleAddProduct(props)}
-        >
-          <Icon name="plus" />
-        </Button>
-      </div>
-
-      <div className="col-1 text-center">
+      <div className="col-2 col-md-1 text-center">
         <span className="h5 mb-0 text-danger">
           <Icon name="times" />
         </span>
