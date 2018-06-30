@@ -48,7 +48,7 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
           </span>
         </div>
 
-        <Row className="my-3 px-3">
+        <Row className="my-3 px-sm-3">
           <Col xs="auto">
             <span className="h5 mb-0">0</span>
           </Col>
