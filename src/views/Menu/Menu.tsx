@@ -115,11 +115,13 @@ export class Menu extends React.Component<MenuProps, MenuState> {
       isTopping: false,
       categoryId: this.state.currentCategory && this.state.currentCategory.id,
       productInstancesAttributes,
-      citiesAttributes,
-      subcategoriesAttributes: [],
     }
     console.log(product)
-    this.props.createProduct(values.get("photo"), product)
+    this.props.createProduct(values.get("photo"), {
+      product,
+      citiesAttributes,
+      subcategoriesAttributes: [],
+    })
   }
 
   renderProductCreation = () => {
