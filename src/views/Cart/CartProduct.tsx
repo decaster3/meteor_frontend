@@ -3,7 +3,16 @@ import {css, cx} from "emotion"
 
 import {CartProduct, Option} from "../../containers/Cart/actions"
 import {OptionConcat} from "../../containers/Product/actions"
-import {ThemeProps, withTheme} from "../App/Theme"
+import {ThemeProps, withTheme, styled} from "../App/Theme"
+import Icon from "react-fa"
+import {Col} from "reactstrap"
+
+const Button = styled("button")`
+  line-height: 1;
+  width: 36px;
+  height: 36px;
+  margin: 8px;
+`
 
 interface CartProductProps {
   product: CartProduct
@@ -52,17 +61,16 @@ const CartProduct: React.StatelessComponent<
   return (
     <div
       className={cx(
-        "row align-items-center my-3",
+        "row align-items-center mb-5",
         css`
           text-transform: uppercase;
           font-weight: 500;
         `
       )}
     >
-      <div className="col">
+      <div className="col-12 col-sm my-2 text-center">
         <img
           className={cx(
-            "m-2",
             css`
               max-width: 100%;
             `
@@ -70,7 +78,8 @@ const CartProduct: React.StatelessComponent<
           src={`https://picsum.photos/300/200/?blue&image=${props.product.id}`}
         />
       </div>
-      <div className="col">
+
+      <div className="col-12 col-sm my-2">
         <div className="text-center">{props.product.name}</div>
         <div
           className={cx(
@@ -85,9 +94,10 @@ const CartProduct: React.StatelessComponent<
           {props.product.description}
         </div>
       </div>
+
       <div
         className={cx(
-          "col",
+          "col-12 col-sm my-2",
           css`
             color: ${props.theme.lightGreen};
           `
@@ -106,6 +116,7 @@ const CartProduct: React.StatelessComponent<
             </div>
           ))}
         </div>
+
         <div className="mt-3">
           {dependentOptions.map(([name, value], index) => (
             <div
@@ -120,20 +131,44 @@ const CartProduct: React.StatelessComponent<
           ))}
         </div>
       </div>
-      <div className="col-1 text-center">{props.product.count}</div>
-      <div className="col-1">
-        <button
-          className="btn btn-block btn-outline-success"
-          onClick={handleAddProduct(props)}
-        >
-          +
-        </button>
-        <button
-          className="btn btn-block btn-outline-danger"
-          onClick={handleRemoveProduct(props)}
-        >
-          -
-        </button>
+
+      <Col xs="auto" className="h4 text-center">
+        {props.product.price.value}&nbsp;<small>
+          {props.product.price.currency}
+        </small>
+      </Col>
+
+      <Col xs={1} className="text-center h5">
+        <Icon
+          name="times"
+          className={css`
+            color: ${props.theme.lighterGrey};
+          `}
+        />
+      </Col>
+
+      <Col xs={1} className="text-center h4">
+        {props.product.count}
+      </Col>
+
+      {/* <div className="col-1 text-center">{props.product.count}</div> */}
+
+      <div className={"col-auto"}>
+        <div className="d-flex flex-sm-column">
+          <Button
+            className="btn btn-block btn-outline-success p-2"
+            onClick={handleAddProduct(props)}
+          >
+            <Icon name="plus" />
+          </Button>
+
+          <Button
+            className="btn btn-block btn-outline-danger p-2"
+            onClick={handleRemoveProduct(props)}
+          >
+            <Icon name="minus" />
+          </Button>
+        </div>
       </div>
     </div>
   )

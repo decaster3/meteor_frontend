@@ -3,7 +3,7 @@ import {WrappedFieldProps} from "redux-form"
 import * as classnames from "classnames"
 import {css, cx} from "emotion"
 
-const inputGroupStyle = css`
+export const inputGroupStyle = css`
   margin-bottom: 32px;
 `
 

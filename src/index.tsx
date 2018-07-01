@@ -30,10 +30,11 @@ const MOUNT_NODE = document.getElementById("root")
 
 store.subscribe(() => {
   saveState({
-    // userSession: store.getState().get("userSession"),
-    // language: store.getState().get("language"),
-    // cart: store.getState().get("cart"),
-    // geolocation: store.getState().get("geolocation"),
+    userSession: store.getState().get("userSession"),
+    language: store.getState().get("language"),
+    cart: store.getState().get("cart"),
+    geolocation: store.getState().get("geolocation"),
+    products: store.getState().get("products"),
   })
 })
 

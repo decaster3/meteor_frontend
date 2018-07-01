@@ -53,6 +53,7 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
       dispatch({
         type: ActionType.SET_CATEGORIES,
         payload: data.map((category: {name: string; id: number}) => ({
+          ...category,
           id: category.id,
           name: category.name,
           productsStatus: Status.NOT_LOADED,
