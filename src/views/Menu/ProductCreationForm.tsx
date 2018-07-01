@@ -42,7 +42,6 @@ const ProductCreation: React.StatelessComponent<
         </button>
       </li>
       {fields.map((opt: OptionName, index: number) => {
-        console.log(opt)
         const options = props.optionNames.map(option => (
           <div key={option.id} className="form-group row">
             <label className="col-4 col-form-label" htmlFor="phone">
