@@ -1,6 +1,5 @@
 import * as React from "react"
 import * as _ from "lodash"
-import * as classnames from "classnames"
 
 import {
   Product,
@@ -11,6 +10,7 @@ import {
 import * as styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Row, Col} from "reactstrap"
+import {cx} from "emotion"
 
 interface ProductCardProps {
   product: Product
@@ -25,22 +25,19 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     currentProductState: _.cloneDeep(this.props.product.instances[0]),
   }
 
-  changeCurrentProduct = (event: React.SyntheticEvent<HTMLButtonElement>) => {
-    const optionConcat: OptionConcat = {
-      optionId: parseInt(event.currentTarget.name, 10),
-      valueId: parseInt(event.currentTarget.value, 10),
-    }
+  changeCurrentProduct = (optionId: number, valueId: number, value: string) => {
     const newState = _.cloneDeep(this.state.currentProductState)
     const valueForChangeId = newState.independentOptions.findIndex(
-      (el: OptionConcat) => optionConcat.optionId === el.optionId
+      io => optionId === io.optionId
     )
+    const optionConcat: OptionConcat = {optionId, valueId, value}
     newState.independentOptions[valueForChangeId] = optionConcat
     const newProductInstance =
-      this.props.product.instances.find((instance: ProductInstance) => {
-        return _(instance.independentOptions)
+      this.props.product.instances.find(instance =>
+        _(instance.independentOptions)
           .differenceWith(newState.independentOptions, _.isEqual)
           .isEmpty()
-      }) || this.state.currentProductState
+      ) || this.state.currentProductState
     this.setState({currentProductState: newProductInstance})
   }
 
@@ -70,8 +67,15 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
                   type="button"
                   name={option.id.toString()}
                   value={optionName.id}
-                  onClick={this.changeCurrentProduct}
-                  className={classnames(styles.option, {
+                  // tslint:disable-next-line:jsx-no-lambda
+                  onClick={() =>
+                    this.changeCurrentProduct(
+                      option.id,
+                      optionName.id,
+                      optionName.value
+                    )
+                  }
+                  className={cx(styles.option, {
                     [styles.optionActive]:
                       currentOptionValue.valueId === optionName.id,
                   })}
@@ -124,7 +128,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
   render() {
     return (
       <div className={styles.productCard}>
-        <div className={classnames(styles.name, "text-center")}>
+        <div className={cx(styles.name, "text-center")}>
           {this.props.product.name}
         </div>
 
@@ -136,7 +140,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
           />
         </div>
 
-        <div className={classnames(styles.ingridients, "text-center")}>
+        <div className={cx(styles.ingridients, "text-center")}>
           {this.props.product.description}
         </div>
 
