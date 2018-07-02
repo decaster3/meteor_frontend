@@ -56,24 +56,6 @@ interface UserSessionProps {
   getUserInfo(token: string): void
 }
 
-const WithRegistration = (WrappedComponent: React.ComponentType) => {
-  return class WithRegistrationContainer extends React.Component<
-    UserSessionProps
-  > {
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
-  }
-}
-
-const WithUser = (WrappedComponent: React.ComponentType) => {
-  return class WithUserContainer extends React.Component<UserSessionProps> {
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
-  }
-}
-
 const mapStateToPropsUser = (state: State) => {
   return {
     userState: selectUserState(state),
@@ -124,7 +106,6 @@ const withReducer = injectReducer({key: "userSession", reducer})
 
 export const withRegistration = compose(
   withReducer,
-  WithRegistration,
   connect(
     mapStateToPropsRegistration,
     mapDispatchToPropsRegistration
@@ -133,7 +114,6 @@ export const withRegistration = compose(
 
 export const withUser = compose(
   withReducer,
-  WithUser,
   connect(
     mapStateToPropsUser,
     mapDispatchToPropsSessionControl

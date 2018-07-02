@@ -1,9 +1,35 @@
 import * as React from "react"
 import {css, cx} from "emotion"
+import Icon from "react-fa"
 
-import {CartProduct, Option} from "../../containers/Cart/actions"
-import {OptionConcat} from "../../containers/Product/actions"
-import {ThemeProps, withTheme} from "../App/Theme"
+import {CartProduct} from "../../containers/Cart/actions"
+import {ThemeProps, withTheme, styled} from "../App/Theme"
+
+const Button = styled("button")`
+  line-height: 1;
+  padding: 8px;
+  width: 36px;
+  height: 36px;
+`
+
+interface OptionProps {
+  name: string
+  value: string
+}
+
+const Option: React.SFC<OptionProps> = props => (
+  <div
+    className={cx(
+      "mr-3",
+      css`
+        white-space: nowrap;
+      `
+    )}
+  >
+    <small className="mr-2">{props.name}</small>
+    {props.value}
+  </div>
+)
 
 interface CartProductProps {
   product: CartProduct
@@ -11,132 +37,141 @@ interface CartProductProps {
   addProductToCart(product: CartProduct): void
 }
 
-const handleAddProduct = (props: CartProductProps) => () => {
-  props.addProductToCart(props.product)
+interface CartProductState {
+  independentOptions: Array<[string, string]>
+  dependentOptions: Array<[string, string]>
 }
 
-const handleRemoveProduct = (props: CartProductProps) => () => {
-  props.removeProductFromCart(props.product)
-}
+class CartProductView extends React.Component<
+  CartProductProps & ThemeProps,
+  CartProductState
+> {
+  constructor(props: CartProductProps & ThemeProps) {
+    super(props)
 
-const CartProduct: React.StatelessComponent<
-  CartProductProps & ThemeProps
-> = props => {
-  const independentOptions: Array<[string, string]> = []
-  const dependentOptions: Array<[string, string]> = []
+    this.state = {
+      independentOptions: [],
+      dependentOptions: [],
+    }
 
-  props.product.instance.independentOptions.forEach(independentOption => {
-    props.product.options.forEach(option => {
-      if (option.id === independentOption.optionId) {
-        option.optionValues.forEach(optionValue => {
-          if (optionValue.id === independentOption.valueId) {
-            independentOptions.push([option.name, optionValue.value])
-          }
-        })
-      }
+    props.product.instance.independentOptions.forEach(independentOption => {
+      props.product.options.forEach(option => {
+        if (option.id === independentOption.optionId) {
+          option.optionValues.forEach(optionValue => {
+            if (optionValue.id === independentOption.valueId) {
+              this.state.independentOptions.push([
+                option.name,
+                optionValue.value,
+              ])
+            }
+          })
+        }
+      })
     })
-  })
 
-  props.product.instance.dependentOptions.forEach(dependentOption => {
-    props.product.options.forEach(option => {
-      if (option.id === dependentOption.optionId) {
-        option.optionValues.forEach(optionValue => {
-          if (optionValue.id === dependentOption.valueId) {
-            dependentOptions.push([option.name, optionValue.value])
-          }
-        })
-      }
+    props.product.instance.dependentOptions.forEach(dependentOption => {
+      props.product.options.forEach(option => {
+        if (option.id === dependentOption.optionId) {
+          option.optionValues.forEach(optionValue => {
+            if (optionValue.id === dependentOption.valueId) {
+              this.state.dependentOptions.push([option.name, optionValue.value])
+            }
+          })
+        }
+      })
     })
-  })
+  }
 
-  return (
-    <div
-      className={cx(
-        "row align-items-center my-3",
-        css`
-          text-transform: uppercase;
-          font-weight: 500;
-        `
-      )}
-    >
-      <div className="col">
-        <img
-          className={cx(
-            "m-2",
-            css`
-              max-width: 100%;
-            `
-          )}
-          src={`https://picsum.photos/300/200/?blue&image=${props.product.id}`}
-        />
-      </div>
-      <div className="col">
-        <div className="text-center">{props.product.name}</div>
-        <div
-          className={cx(
-            "mt-3",
-            css`
-              font-size: 0.75em;
-              font-weight: 700;
-              color: ${props.theme.lighterGrey};
-            `
-          )}
-        >
-          {props.product.description}
+  handleRemoveProduct = () => {
+    this.props.removeProductFromCart(this.props.product)
+  }
+
+  handleAddProduct = () => {
+    this.props.addProductToCart(this.props.product)
+  }
+
+  render() {
+    return (
+      <div className="row align-items-center mb-4 text-uppercase font-weight-bold">
+        <div className="col-4 col-md-auto my-2 text-center">
+          <img
+            className={cx(
+              css`
+                max-width: 100%;
+                max-height: 64px;
+              `
+            )}
+            src={`https://picsum.photos/300/200/?blue&image=${
+              this.props.product.id
+            }`}
+          />
         </div>
-      </div>
-      <div
-        className={cx(
-          "col",
-          css`
-            color: ${props.theme.lightGreen};
-          `
-        )}
-      >
-        <div>
-          {independentOptions.map(([name, value], index) => (
-            <div
-              className="d-flex justify-content-between align-items-center"
-              key={index}
-            >
-              <div>
-                <small>{name}</small>
-              </div>
-              <div>{value}</div>
+
+        <div className="col-8 col-md mb-2 mb-md-0">
+          <div>{this.props.product.name}</div>
+          <div
+            className={css`
+              display: flex;
+              flex-flow: row wrap;
+              color: ${this.props.theme.lightGreen};
+            `}
+          >
+            {this.state.independentOptions.map(([name, value], index) => (
+              <Option key={index} name={name} value={value} />
+            ))}
+
+            {this.state.dependentOptions.map(([name, value], index) => (
+              <Option key={index} name={name} value={value} />
+            ))}
+          </div>
+        </div>
+
+        <div className="col-4 col-md-2 h4 mb-0 text-center">
+          {this.props.product.price.value}&nbsp;<small>
+            {this.props.product.price.currency}
+          </small>
+        </div>
+
+        <div className="col-6 col-md-3">
+          <div className="row no-gutters align-items-center text-center">
+            <div className={"col"}>
+              <Button
+                className="btn btn-outline-danger"
+                onClick={this.handleRemoveProduct}
+              >
+                <Icon name="minus" />
+              </Button>
             </div>
-          ))}
-        </div>
-        <div className="mt-3">
-          {dependentOptions.map(([name, value], index) => (
-            <div
-              className="d-flex justify-content-between  align-items-center"
-              key={index}
-            >
-              <div>
-                <small>{name}</small>
+
+            <div className="col">
+              <div
+                className={css`
+                  min-width: 2em;
+                `}
+              >
+                <span className="h4 mb-0">{this.props.product.count}</span>
               </div>
-              <div>{value}</div>
             </div>
-          ))}
+
+            <div className="col">
+              <Button
+                className="btn btn-outline-success"
+                onClick={this.handleAddProduct}
+              >
+                <Icon name="plus" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-2 col-md-1 text-center">
+          <span className="h5 mb-0 text-danger">
+            <Icon name="times" />
+          </span>
         </div>
       </div>
-      <div className="col-1 text-center">{props.product.count}</div>
-      <div className="col-1">
-        <button
-          className="btn btn-block btn-outline-success"
-          onClick={handleAddProduct(props)}
-        >
-          +
-        </button>
-        <button
-          className="btn btn-block btn-outline-danger"
-          onClick={handleRemoveProduct(props)}
-        >
-          -
-        </button>
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
-export default withTheme(CartProduct)
+export default withTheme(CartProductView)

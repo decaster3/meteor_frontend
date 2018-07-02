@@ -84,7 +84,12 @@ const CheckoutForm: React.StatelessComponent<
         Улица
       </label>
       <div className="col-8">
-        <Field name="street" options={props.streets} component={CustomSelect} />
+        <Field
+          options={props.streets}
+          name="street"
+          component={CustomSelect}
+          props={{placeholder: "Улица", options: props.streets}}
+        />
       </div>
     </div>
 
@@ -141,28 +146,41 @@ const CheckoutForm: React.StatelessComponent<
         />
       </div>
     </div>
+
     <div className="form-group row">
       <label className="col-4 col-form-label" htmlFor="password">
         Метод оплаты
       </label>
-      <label>
-        <Field
-          name="paymentMethod"
-          component={CustomInput}
-          type="radio"
-          value="cash"
-        />
-        Наличка
-      </label>
-      <label>
-        <Field
-          name="paymentMethod"
-          component={CustomInput}
-          type="radio"
-          value="cashless"
-        />
-        Карта
-      </label>
+
+      <div className="col-8 d-flex justify-content-around">
+        <div className="form-check form-check-inline align-items-baseline">
+          <Field
+            name="paymentMethod"
+            id="cash"
+            component={"input"}
+            type="radio"
+            value="cash"
+            props={{className: "form-check-input mr-3"}}
+          />
+          <label className="form-check-label text-uppercase" htmlFor="cash">
+            Наличка
+          </label>
+        </div>
+
+        <div className="form-check form-check-inline align-items-baseline">
+          <Field
+            name="paymentMethod"
+            id="cashless"
+            component={"input"}
+            type="radio"
+            value="cashless"
+            props={{className: "form-check-input mr-3"}}
+          />
+          <label className="form-check-label text-uppercase" htmlFor="cashless">
+            Карта
+          </label>
+        </div>
+      </div>
     </div>
 
     <div style={{color: "red", textAlign: "center"}}>

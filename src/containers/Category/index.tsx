@@ -28,9 +28,11 @@ interface CategoriesProps {
   getCategories(): void
 }
 
-const WithCategories = (WrappedComponent: React.ComponentType) => {
+const withCategories = <P extends object>(
+  WrappedComponent: React.ComponentType<P>
+) => {
   return class WithCategoriesContainer extends React.Component<
-    CategoriesProps
+    CategoriesProps & P
   > {
     componentDidMount() {
       this.props.getCategories()
@@ -62,6 +64,9 @@ const withReducer = injectReducer({key: "categories", reducer})
 
 export default compose(
   withReducer,
-  connect(mapStateToProps, mapDispatchToPropsCategories),
-  WithCategories
+  connect(
+    mapStateToProps,
+    mapDispatchToPropsCategories
+  ),
+  withCategories
 )

@@ -6,13 +6,11 @@ import * as classnames from "classnames"
 import {Category} from "../../containers/Product/actions"
 import {Status} from "../../constants"
 import ProductCard from "../ProductCard"
-import {Product} from "../../containers/Product/actions"
 import {CartProduct} from "../../containers/Cart/actions"
 import * as styles from "./Menu.module.scss"
 import meteorSymbol from "../../assets/logo_meteor.png"
 import {compose} from "redux"
-import withCategories from "../../containers/Category"
-import {withProductsAndCategories} from "../../containers/Product"
+import withCategories from "../../containers/Product"
 import {JS_HREF} from "../App/Theme"
 
 interface MenuProps {
@@ -119,4 +117,4 @@ export class Menu extends React.Component<MenuProps, MenuState> {
   }
 }
 
-export default compose(withProductsAndCategories)(Menu)
+export default compose(withCategories)(Menu)

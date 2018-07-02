@@ -73,16 +73,16 @@ const fadedBlue = Color(theme.blue)
 const App: React.StatelessComponent<AppProps> = props => (
   <ThemeProvider theme={theme}>
     <div
-      className={css`
-        flex: 1;
-        padding-top: 3.5rem;
-        background-color: ${fadedDarkBlue};
-        background: linear-gradient(
+      className={css({
+        flex: 1,
+        paddingTop: "3.5rem",
+        backgroundColor: fadedDarkBlue,
+        background: `linear-gradient(
           ${theme.darkBlue},
           ${fadedDarkBlue},
           ${theme.darkBlue}
-        );
-      `}
+        )`,
+      })}
     >
       <Header />
       <Container
@@ -93,16 +93,16 @@ const App: React.StatelessComponent<AppProps> = props => (
         `}
       >
         <Row
-          className={css`
-            flex: 1;
-            background-color: ${fadedBlue};
-            background: linear-gradient(
+          className={css({
+            flex: 1,
+            backgroundColor: fadedBlue,
+            background: `linear-gradient(
               ${fadedBlue},
               ${theme.blue},
               ${fadedBlue}
-            );
-            box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
-          `}
+            )`,
+            boxShadow: "0 0 6rem 0 black, 0 0 2rem 0 black",
+          })}
         >
           <Container fluid={true} className="py-3">
             <Switch>

@@ -37,6 +37,7 @@ export interface ProductInstance {
 export interface OptionConcat {
   optionId: number
   valueId: number
+  value: string
 }
 
 const setCategoriesStatus = (categoriesStatus: string) => ({

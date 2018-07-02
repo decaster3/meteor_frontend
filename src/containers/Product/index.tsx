@@ -18,23 +18,27 @@ import MenuView from "../../views/Menu"
 import {addProductToCart, CartProduct} from "../Cart/actions"
 import {setInviterToken} from "../UserSession/actions"
 
-interface ProductsAndCategoriesProps {
+interface CategoriesStateProps {
   categories: Category[]
   categoriesStatus: string
+  inviterToken?: string
+}
+
+interface CategoriesDispatchProps {
   configureCategoriesProducts(): void
   addProductToCart(product: CartProduct): void
   getProductsAfterCategoryClick(category: Category): void
 }
 
-interface CategoriesProps {
-  categories: Category[]
-  categoriesStatus: string
-  getCategories(): void
-}
+export interface CategoriesProps
+  extends CategoriesStateProps,
+    CategoriesDispatchProps {}
 
-const WithProductsAndCategories = (WrappedComponent: React.ComponentType) => {
+const withProductsAndCategories = <P extends object>(
+  WrappedComponent: React.ComponentType<P>
+) => {
   return class WithProductsAndCategoriesContainer extends React.Component<
-    ProductsAndCategoriesProps
+    CategoriesProps & P
   > {
     componentDidMount() {
       this.props.configureCategoriesProducts()
@@ -45,13 +49,9 @@ const WithProductsAndCategories = (WrappedComponent: React.ComponentType) => {
   }
 }
 
-interface MenuStateProps {
-  categories: Category[]
-  categoriesStatus: string
-  inviterToken?: string
-}
-
-const mapDispatchToPropsProductsAndCategories = (dispatch: any) => {
+const mapDispatchToPropsProductsAndCategories = (
+  dispatch: any
+): CategoriesDispatchProps => {
   return {
     addProductToCart: (product: CartProduct) =>
       dispatch(addProductToCart(product)),
@@ -61,15 +61,18 @@ const mapDispatchToPropsProductsAndCategories = (dispatch: any) => {
   }
 }
 
-const mapStateToProps = (state: State): MenuStateProps => ({
+const mapStateToProps = (state: State): CategoriesStateProps => ({
   categories: selectCategories(state),
   categoriesStatus: selectCategoriesStatus(state),
 })
 
 const withReducer = injectReducer({key: "products", reducer})
 
-export const withProductsAndCategories = compose(
+export default compose(
   withReducer,
-  connect(mapStateToProps, mapDispatchToPropsProductsAndCategories),
-  WithProductsAndCategories
+  connect(
+    mapStateToProps,
+    mapDispatchToPropsProductsAndCategories
+  ),
+  withProductsAndCategories
 )

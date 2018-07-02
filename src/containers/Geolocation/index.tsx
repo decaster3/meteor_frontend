@@ -36,9 +36,11 @@ interface GeolocationProps
   extends GeolocationStateProps,
     GeolocationDispatchProps {}
 
-const WithGeolocation = (WrappedComponent: React.ComponentType) => {
+const withGeolocation = <P extends object>(
+  WrappedComponent: React.ComponentType<P>
+) => {
   return class WithGeolocationContainer extends React.Component<
-    GeolocationProps
+    GeolocationProps & P
   > {
     componentDidMount() {
       this.props.configureGeolocation()
@@ -74,5 +76,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  WithGeolocation
+  withGeolocation
 )
