@@ -14,6 +14,8 @@ const request = (
   const token = localStorage.getItem("token")
   const isContentTypeFormData =
     options && options.body && options.body instanceof FormData
+  console.log("isContentTypeFormData", isContentTypeFormData)
+  console.log("OPTIONS BODY", options && options.body)
   return fetch(`${BASEURL}/${path}`, {
     ...options,
     method,
