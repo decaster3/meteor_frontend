@@ -25,7 +25,7 @@ interface MenuProps {
   defaultCity: City
   getProductsAfterCategoryClick(category: Category): void
   addProductToCart(product: CartProduct): void
-  createProduct(photo: any, product: any): void
+  createProduct(image: any, product: any): void
 }
 
 interface MenuState {
@@ -116,7 +116,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
       categoryId: this.state.currentCategory && this.state.currentCategory.id,
       productInstancesAttributes,
     }
-    this.props.createProduct(values.get("photo"), {
+    this.props.createProduct(values.get("image"), {
       product,
       citiesAttributes,
       subcategoriesAttributes: [],

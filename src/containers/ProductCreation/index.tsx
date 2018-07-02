@@ -13,7 +13,7 @@ import {OptionName} from "../Product/actions"
 
 interface PromotionProps {
   isProductCreating: boolean
-  createProduct(photo: any, product: any): void
+  createProduct(image: any, product: any): void
 }
 
 const WithProductCreation = (WrappedComponent: React.ComponentType) => {
@@ -34,8 +34,8 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    createProduct: (photo: any, product: any) =>
-      dispatch(createProduct(photo, product)),
+    createProduct: (image: any, product: any) =>
+      dispatch(createProduct(image, product)),
   }
 }
 

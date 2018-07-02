@@ -93,7 +93,7 @@ const ProductCreation: React.StatelessComponent<
   return (
     <form onSubmit={props.handleSubmit}>
       <div>
-        <Field name="productImage" component={renderDropzoneInput} />
+        <Field name="image" component={renderDropzoneInput} />
       </div>
       <div className="form-group row">
         <label className="col-4 col-form-label" htmlFor="phone">
