@@ -156,14 +156,12 @@ export class Menu extends React.Component<MenuProps, MenuState> {
             <Row>
               {this.state.currentCategory.products.map(product => (
                 <React.Fragment key={product.id}>
-                  {_.range(7).map((value, index) => (
-                    <Col key={index} sm="6" md="4" lg="3" className="my-3">
-                      <ProductCard
-                        product={product}
-                        addProductToCart={this.props.addProductToCart}
-                      />
-                    </Col>
-                  ))}
+                  <Col sm="6" md="4" lg="3" className="my-3">
+                    <ProductCard
+                      product={product}
+                      addProductToCart={this.props.addProductToCart}
+                    />
+                  </Col>
                 </React.Fragment>
               ))}
             </Row>

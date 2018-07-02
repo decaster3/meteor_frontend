@@ -18,6 +18,7 @@ export interface Product {
   id: number
   name: string
   description: string
+  imageUrl: string
   options: Option[]
   instances: ProductInstance[]
 }

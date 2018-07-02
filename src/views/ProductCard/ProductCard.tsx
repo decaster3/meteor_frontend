@@ -11,6 +11,7 @@ import * as styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Row, Col} from "reactstrap"
 import {cx} from "emotion"
+import { BASEURL } from "../../constants";
 
 interface ProductCardProps {
   product: Product
@@ -134,9 +135,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
 
         <div className={styles.imageContainer}>
           <img
-            src={`https://picsum.photos/300/200/?blue&image=${
-              this.state.currentProductState.id
-            }`}
+            src={`${BASEURL}/${this.props.product.imageUrl}`}
           />
         </div>
 
