@@ -26,7 +26,6 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
     return (
       <div>
         <h2>Корзина</h2>
-
         <div>
           {this.props.products.map(product => (
             <CartProductView

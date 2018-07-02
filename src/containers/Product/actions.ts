@@ -10,6 +10,7 @@ import {ActionType} from "./constants"
 export interface Category {
   name: string
   id: number
+  optionNames: OptionName[]
   products: Product[]
   productsStatus: string
 }
@@ -38,6 +39,13 @@ export interface OptionConcat {
   optionId: number
   valueId: number
   value: string
+}
+
+export interface OptionName {
+  id: number
+  name: string
+  isCharacteristic: boolean
+  value?: string
 }
 
 const setCategoriesStatus = (categoriesStatus: string) => ({
@@ -88,9 +96,9 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
     .then(data => {
       dispatch({
         type: ActionType.SET_CATEGORIES,
-        payload: data.map((category: {name: string; id: number}) => ({
-          id: category.id,
-          name: category.name,
+        payload: data.map((category: Category) => ({
+          ...category,
+          optionNames: category.optionNames,
           productsStatus: Status.NOT_LOADED,
           products: [],
         })),

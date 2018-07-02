@@ -10,7 +10,6 @@ interface AccountWrapperProps {
 
 class AccountWrapper extends React.Component<AccountWrapperProps> {
   componentDidMount() {
-    console.log(123)
     this.props.getUserInfo()
   }
   render() {
