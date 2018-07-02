@@ -116,7 +116,6 @@ export class Menu extends React.Component<MenuProps, MenuState> {
       categoryId: this.state.currentCategory && this.state.currentCategory.id,
       productInstancesAttributes,
     }
-    console.log(product)
     this.props.createProduct(values.get("photo"), {
       product,
       citiesAttributes,

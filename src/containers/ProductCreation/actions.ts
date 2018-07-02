@@ -13,13 +13,15 @@ const changeProductCreationStatus = (status: boolean) => ({
   payload: status,
 })
 
-export const createProduct = (photo: any, product: any) => (
+export const createProduct = (image: any, product: any) => (
   dispatch: Dispatch<State>
 ) => {
   return requests
     .post("products", {body: product})
     .then(data => {
-      return requests.put(`product/${data.id}`, {body: photo}).then(() => {
+      const body = new FormData()
+      body.append(`image`, image)
+      return requests.put(`products/${data.id}`, {body}).then(() => {
         dispatch(changeProductCreationStatus(true))
       })
     })

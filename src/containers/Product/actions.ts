@@ -98,7 +98,7 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
         type: ActionType.SET_CATEGORIES,
         payload: data.map((category: Category) => ({
           ...category,
-          optionNames: 11,
+          optionNames: category.optionNames,
           productsStatus: Status.NOT_LOADED,
           products: [],
         })),

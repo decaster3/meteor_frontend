@@ -9,20 +9,27 @@ const setToken = (token: string | null) => {
 const request = (
   method: "GET" | "POST" | "DELETE" | "PUT" = "GET",
   path: string,
-  options?: RequestInit | {body?: any}
+  options?: RequestInit | {body?: any | FormData}
 ) => {
   const token = localStorage.getItem("token")
+  const isContentTypeFormData =
+    options && options.body && options.body instanceof FormData
   return fetch(`${BASEURL}/${path}`, {
     ...options,
     method,
     mode: "cors",
     headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
       "X-Key-Inflection": "camel",
+      ...(isContentTypeFormData ? {} : {"Content-Type": "application/json"}),
       ...(token ? {Authorization: token} : {}),
     },
-    ...(options && options.body ? {body: JSON.stringify(options.body)} : {}),
+    ...(options && options.body
+      ? {
+          body: isContentTypeFormData
+            ? options.body
+            : JSON.stringify(options.body),
+        }
+      : {}),
   })
     .then((response: Response) => {
       if (response.ok) {
