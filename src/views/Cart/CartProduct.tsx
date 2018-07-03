@@ -13,7 +13,6 @@ const Button = styled("button")`
 `
 
 interface OptionProps {
-  name: string
   value: string
 }
 
@@ -26,7 +25,6 @@ const Option: React.SFC<OptionProps> = props => (
       `
     )}
   >
-    <small className="mr-2">{props.name}</small>
     {props.value}
   </div>
 )
@@ -38,8 +36,8 @@ interface CartProductProps {
 }
 
 interface CartProductState {
-  independentOptions: Array<[string, string]>
-  dependentOptions: Array<[string, string]>
+  independentOptions: string[]
+  dependentOptions: string[]
 }
 
 class CartProductView extends React.Component<
@@ -59,27 +57,28 @@ class CartProductView extends React.Component<
         if (option.id === independentOption.optionId) {
           option.optionValues.forEach(optionValue => {
             if (optionValue.id === independentOption.valueId) {
-              this.state.independentOptions.push([
-                option.name,
-                optionValue.value,
-              ])
+              this.state.independentOptions.push(optionValue.value)
             }
           })
         }
       })
     })
 
+    this.state.independentOptions.sort()
+
     props.product.instance.dependentOptions.forEach(dependentOption => {
       props.product.options.forEach(option => {
         if (option.id === dependentOption.optionId) {
           option.optionValues.forEach(optionValue => {
             if (optionValue.id === dependentOption.valueId) {
-              this.state.dependentOptions.push([option.name, optionValue.value])
+              this.state.dependentOptions.push(optionValue.value)
             }
           })
         }
       })
     })
+
+    this.state.dependentOptions.sort()
   }
 
   handleRemoveProduct = () => {
@@ -116,12 +115,12 @@ class CartProductView extends React.Component<
               color: ${this.props.theme.lightGreen};
             `}
           >
-            {this.state.independentOptions.map(([name, value], index) => (
-              <Option key={index} name={name} value={value} />
+            {this.state.independentOptions.map((value, index) => (
+              <Option key={index} value={value} />
             ))}
 
-            {this.state.dependentOptions.map(([name, value], index) => (
-              <Option key={index} name={name} value={value} />
+            {this.state.dependentOptions.map((value, index) => (
+              <Option key={index} value={value} />
             ))}
           </div>
         </div>

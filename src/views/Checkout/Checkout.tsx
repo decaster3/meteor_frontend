@@ -1,15 +1,11 @@
 import * as React from "react"
-import {reduxForm} from "redux-form/immutable"
-import * as classnames from "classnames"
-import {Field} from "redux-form/immutable"
-import {Link} from "react-router-dom"
 import {compose} from "redux"
+import {fromJS} from "immutable"
+
 import withCheckout from "../../containers/Checkout"
 import CheckoutForm from "./CheckoutForm"
-import * as styles from "./Checkout.module.scss"
 import {Address} from "../../containers/Checkout/actions"
 import {withUser} from "../../containers/UserSession"
-import {fromJS} from "immutable"
 import {User} from "../../containers/UserSession/actions"
 
 interface CheckoutProps {
@@ -23,6 +19,7 @@ interface CheckoutProps {
     paymentMethod: string
   ): void
 }
+
 class Checkout extends React.Component<CheckoutProps> {
   handleOrderSubmit = (values: any) => {
     const address = {
