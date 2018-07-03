@@ -5,17 +5,18 @@ import {UserInformation} from "../../containers/UserSession/actions"
 
 interface AccountMainProps {
   userInfo: UserInformation
+  getUserInfo(): void
 }
 
 class AccountMain extends React.Component<AccountMainProps> {
+  componentDidMount() {
+    this.props.getUserInfo()
+  }
   render() {
     return (
       <>
-        имя
         {this.props.userInfo.name}
-        телефон
         {this.props.userInfo.phone}
-        токен
         {this.props.userInfo.token}
         {/* {this.props.userInfo.meteors[0].value} */}
       </>

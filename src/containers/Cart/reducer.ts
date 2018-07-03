@@ -5,7 +5,6 @@
 import {fromJS} from "immutable"
 import * as _ from "lodash"
 import {ActionType} from "./constants"
-import {Status} from "../../constants"
 import {AnyAction} from "redux"
 import {CartProduct} from "./actions"
 
@@ -54,11 +53,12 @@ const cartReducer = (state = initialState, action: AnyAction) => {
         currentCartProducts,
         action.payload
       )
-      if (
-        potentialIndex !== -1 &&
-        currentCartProducts[potentialIndex].count !== 1
-      ) {
-        currentCartProducts[potentialIndex].count -= 1
+      if (potentialIndex !== -1) {
+        if (currentCartProducts[potentialIndex].count === 1) {
+          // currentCartProducts.splice(potentialIndex, 1)
+        } else {
+          currentCartProducts[potentialIndex].count -= 1
+        }
       }
       return state.set("products", fromJS(currentCartProducts))
     }

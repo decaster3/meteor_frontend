@@ -8,20 +8,26 @@ import {State} from "../../"
 import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
 import * as moment from "moment"
+import {Status} from "../../constants"
 
-export interface User {
+export interface UserInformation {
   id: number
   phone: string
   role: string
   name: string
   token: string
   meteors: Meteor[]
+  userInfoStatus: string
 }
 export interface Meteor {
-  cityId: number
-  value: string
+  id: number
+  value: number
+  description: string
 }
-
+const changeUserInfoStatus = (status: string) => ({
+  type: ActionType.UPDATE_USER_INFORMATION_STATUS,
+  payload: status,
+})
 const nextRegistrationStep = () => ({type: ActionType.NEXT_REGISTRATION_STEP})
 
 const previousRegistrationStep = () => ({
@@ -48,7 +54,7 @@ const changeUserStatus = (userStatus: UserState) => ({
   payload: userStatus,
 })
 
-const setUserInfo = (userInfo: User) => ({
+const setUserInfo = (userInfo: UserInformation) => ({
   type: ActionType.UPDATE_USER_INFORMATION,
   payload: userInfo,
 })
@@ -58,9 +64,14 @@ export const setInviterToken = (inviterToken: string) => ({
   payload: inviterToken,
 })
 export const getUserInfo = () => (dispatch: Dispatch<State>) => {
-  return requests.get("users").then(data => {
-    dispatch(setUserInfo(data))
-  })
+  dispatch(changeUserInfoStatus(Status.LOADING))
+  return requests
+    .get("users")
+    .then(data => {
+      dispatch(setUserInfo(data))
+      dispatch(changeUserInfoStatus(Status.LOADED))
+    })
+    .catch(err => dispatch(changeUserInfoStatus(Status.LOADING_ERROR)))
 }
 
 export const login = (password: string, phone: string) => (

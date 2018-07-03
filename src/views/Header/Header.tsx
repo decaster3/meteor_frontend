@@ -20,7 +20,8 @@ import {Link, NavLink as ReactRouterNavLink} from "react-router-dom"
 import logo from "../../assets/logo.svg"
 import {compose} from "redux"
 import withGeolocation from "../../containers/Geolocation"
-import {User} from "../../containers/UserSession/actions"
+import {withUser} from "../../containers/UserSession"
+import {UserInformation} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
 import {
@@ -49,7 +50,7 @@ interface HeaderProps {
   citiesStatus: Status
   cities: City[]
   defaultCity: City
-  userInfo: User
+  userInfo: UserInformation
   userState: UserState
   setDefaultCity(city: City): void
 }
@@ -248,13 +249,13 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                   Корзина
                 </NavLink>
               </NavItem>
-
-              <NavItem>
-                <NavLink tag={ReactRouterNavLink} to="/account">
-                  Аккаунт
-                </NavLink>
-              </NavItem>
-
+              {this.props.userState === UserState.LOGED_IN && (
+                <NavItem>
+                  <NavLink tag={ReactRouterNavLink} to="/account">
+                    Аккаунт
+                  </NavLink>
+                </NavItem>
+              )}
               <NavItem>
                 <NavLink tag={ReactRouterNavLink} to="/sales">
                   Акции
@@ -296,4 +297,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
   }
 }
 
-export default compose(withGeolocation)(withTheme(Header))
+export default compose<any>(
+  withUser,
+  withGeolocation
+)(withTheme(Header))
