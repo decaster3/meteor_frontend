@@ -1,6 +1,6 @@
 import * as React from "react"
 import {WrappedFieldProps} from "redux-form"
-import * as classnames from "classnames"
+import classnames from "classnames"
 import {css, cx} from "emotion"
 
 export const inputGroupStyle = css`

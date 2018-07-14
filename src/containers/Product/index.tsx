@@ -3,13 +3,12 @@
  */
 import * as React from "react"
 import {connect} from "react-redux"
-import {compose, Dispatch} from "redux"
+import {compose} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
-import {getProducts} from "./actions"
+import {getProducts, Category} from "./actions"
 import reducer from "./reducer"
 import {selectCategories, selectCurrentCategoryId} from "./selectors"
-import {Category} from "./actions"
 import {addProductToCart, CartProduct} from "../Cart/actions"
 
 interface CategoriesStateProps {

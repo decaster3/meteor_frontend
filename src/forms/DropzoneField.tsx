@@ -2,7 +2,7 @@ import * as React from "react"
 import {WrappedFieldProps} from "redux-form"
 import Icon from "react-fa"
 import * as styles from "./Dropzone.module.scss"
-import * as classnames from "classnames"
+import classnames from "classnames"
 import Dropzone from "react-dropzone"
 
 interface CustomDropzoneProps {

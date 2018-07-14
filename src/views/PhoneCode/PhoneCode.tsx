@@ -1,5 +1,5 @@
 import * as React from "react"
-import * as moment from "moment"
+import moment from "moment"
 import * as styles from "./PhoneCode.module.scss"
 import PhoneCodeForm, {ImmutablePhoneCodeFormData} from "./PhoneCodeForm"
 import {fromJS} from "immutable"

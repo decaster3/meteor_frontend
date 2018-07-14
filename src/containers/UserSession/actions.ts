@@ -2,12 +2,13 @@
  * User actions
  */
 import {formatNumber} from "libphonenumber-js"
+// tslint:disable-next-line:no-submodule-imports
 import {SubmissionError} from "redux-form/immutable"
 import {Dispatch} from "redux"
 import {State} from "../../"
 import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
-import * as moment from "moment"
+import moment from "moment"
 import {Status} from "../../constants"
 
 export interface UserInformation {

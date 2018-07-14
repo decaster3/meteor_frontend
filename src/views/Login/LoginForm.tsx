@@ -1,18 +1,15 @@
 import * as React from "react"
-import {reduxForm} from "redux-form/immutable"
-import * as classnames from "classnames"
-import {Field} from "redux-form/immutable"
-import {Link} from "react-router-dom"
+// tslint:disable-next-line:no-submodule-imports
+import {reduxForm, Field} from "redux-form/immutable"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
-import {Map as ImmutableMap, fromJS} from "immutable"
+import {Map as ImmutableMap} from "immutable"
 
 import {
   normalizePhone,
   validatePhone,
   passwordValidation,
 } from "../../forms/validationsAndNormalizing"
-import * as styles from "./index.module.scss"
 import CustomInput from "../../forms/CustomInput"
 
 interface LoginFormProps {

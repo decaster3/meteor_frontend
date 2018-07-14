@@ -4,6 +4,7 @@
  * This will setup the i18n language files and locale data for your app.
  */
 import {addLocaleData} from "react-intl"
+// tslint:disable-next-line:no-submodule-imports
 import * as enLocaleData from "react-intl/locale-data/en"
 import {DEFAULT_LOCALE} from "./containers/LanguageProvider/constants"
 
@@ -22,9 +23,10 @@ export const formatTranslationMessages = (locale: any, messages: any) => {
   return Object.keys(messages).reduce((formattedMessages, key) => {
     let message = messages[key]
     if (!message && locale !== DEFAULT_LOCALE) {
+      // @ts-ignore
       message = defaultFormattedMessages[key]
     }
-    return Object.assign(formattedMessages, {[key]: message})
+    return {...formattedMessages, ...{[key]: message}}
   }, {})
 }
 

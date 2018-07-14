@@ -1,9 +1,8 @@
 /*
  * User
  */
-import * as React from "react"
 import {connect} from "react-redux"
-import {compose, Dispatch} from "redux"
+import {compose} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
 import {
@@ -28,42 +27,30 @@ import {
   selectInviterToken,
   selectUserInfo,
 } from "./selectors"
-import AuthWrapper from "../../views/AuthWrapper"
 
-interface UserSessionProps {
-  phone: string
-  inviterToken: string
-  registrationFirst?: boolean
-  codeSent: string
+export interface UserStateProps {
   userState: string
   userInfo: UserInformation
-  regsitrationStep: number
-  isLoginPending: boolean
-  isPhonePending: boolean
-  isCodePending: boolean
-  login(password: string, phone: string): void
-  signUp(
-    inviterToken: string,
-    name: string,
-    phone: string,
-    password: string,
-    passwordConfirmation: string
-  ): void
-  sendCode(params: {code: string}): void
-  logout(): void
-  reSendPhone(): void
-  setInviterToken(token: string): void
-  getUserInfo(token: string): void
 }
 
-const mapStateToPropsUser = (state: State) => {
+const mapStateToUserProps = (state: State): UserStateProps => {
   return {
     userState: selectUserState(state),
     userInfo: selectUserInfo(state),
   }
 }
 
-const mapStateToPropsRegistration = (state: State) => {
+export interface RegistrationStateProps {
+  phone: string
+  inviterToken: string
+  codeSent: string
+  regsitrationStep: number
+  isLoginPending: boolean
+  isPhonePending: boolean
+  isCodePending: boolean
+}
+
+const mapStateToRegistrationProps = (state: State): RegistrationStateProps => {
   return {
     regsitrationStep: selectUserRegistrationStep(state),
     codeSent: selectCodeSentTime(state),
@@ -75,7 +62,13 @@ const mapStateToPropsRegistration = (state: State) => {
   }
 }
 
-const mapDispatchToPropsSessionControl = (dispatch: any) => {
+export interface UserDispatchProps {
+  login(password: string, phone: string): void
+  logout(): void
+  getUserInfo(token: string): void
+}
+
+const mapDispatchToUserProps = (dispatch: any): UserDispatchProps => {
   return {
     login: (password: string, phone: string) =>
       dispatch(login(password, phone)),
@@ -84,7 +77,22 @@ const mapDispatchToPropsSessionControl = (dispatch: any) => {
   }
 }
 
-const mapDispatchToPropsRegistration = (dispatch: any) => {
+export interface RegistrationDispatchProps {
+  signUp(
+    inviterToken: string,
+    name: string,
+    phone: string,
+    password: string,
+    passwordConfirmation: string
+  ): void
+  sendCode(code: string): void
+  reSendPhone(): void
+  setInviterToken(token: string): void
+}
+
+const mapDispatchToRegistrationProps = (
+  dispatch: any
+): RegistrationDispatchProps => {
   return {
     signUp: (
       inviterToken: string,
@@ -107,15 +115,15 @@ const withReducer = injectReducer({key: "userSession", reducer})
 export const withRegistration = compose(
   withReducer,
   connect(
-    mapStateToPropsRegistration,
-    mapDispatchToPropsRegistration
+    mapStateToRegistrationProps,
+    mapDispatchToRegistrationProps
   )
 )
 
 export const withUser = compose(
   withReducer,
   connect(
-    mapStateToPropsUser,
-    mapDispatchToPropsSessionControl
+    mapStateToUserProps,
+    mapDispatchToUserProps
   )
 )

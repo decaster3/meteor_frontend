@@ -14,8 +14,7 @@ import {
   selectProbableCity,
   selectDefaultCity,
 } from "./selectors"
-import {configureGeolocation, setDefaultCity} from "./actions"
-import {City} from "./actions"
+import {configureGeolocation, setDefaultCity, City} from "./actions"
 
 interface GeolocationStateProps {
   cities: City[]

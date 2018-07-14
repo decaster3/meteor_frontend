@@ -1,4 +1,4 @@
-import * as invariant from "invariant"
+import invariant from "invariant"
 import {conformsTo, isFunction, isObject} from "lodash"
 
 /**

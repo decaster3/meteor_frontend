@@ -4,7 +4,7 @@ import {compose} from "redux"
 import {Switch, Route, withRouter} from "react-router-dom"
 import {injectGlobal, css} from "emotion"
 import {Container, Row} from "reactstrap"
-import * as Color from "color"
+import {transparentize} from "polished"
 
 import Menu from "../../views/MainContentPlaceholder/Menu"
 import MainPage from "../../views/MainPage"
@@ -19,7 +19,7 @@ import {Category} from "../../containers/Product/actions"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
 import withCategories from "../../containers/Category"
-import Account from "../AccountWrapper"
+import Account from "../Account"
 import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
 
@@ -60,15 +60,8 @@ interface AppProps {
   categories: Category[]
 }
 
-const fadedDarkBlue = Color(theme.darkBlue)
-  .fade(0.5)
-  .hsl()
-  .string()
-
-const fadedBlue = Color(theme.blue)
-  .fade(0.5)
-  .hsl()
-  .string()
+const fadedDarkBlue = transparentize(0.5, theme.darkBlue)
+const fadedBlue = transparentize(0.5, theme.blue)
 
 const App: React.StatelessComponent<AppProps> = props => (
   <ThemeProvider theme={theme}>
@@ -118,17 +111,15 @@ const App: React.StatelessComponent<AppProps> = props => (
               <Route path="/zakuski" exact={true} component={MainPage} />
               <Route path="/menu" component={Menu} />
               <Route path="/cart" component={Cart} />
-              {props.userState === UserState.LOGED_IN && (
+              {/* {props.userState === UserState.LOGED_IN && (
                 <Route path="/account" component={Account} />
-              )}
+              )} */}
+              <Route path="/account" component={Account} />
               <Route />
             </Switch>
           </Container>
         </Row>
-        <Footer
-          categoriesStatus={props.categoriesStatus}
-          categories={props.categories}
-        />
+        <Footer />
       </Container>
     </div>
   </ThemeProvider>

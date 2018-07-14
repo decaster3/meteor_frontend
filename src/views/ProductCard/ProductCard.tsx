@@ -1,9 +1,8 @@
 import * as React from "react"
-import * as _ from "lodash"
+import _ from "lodash"
 
 import {
   Product,
-  Option,
   ProductInstance,
   OptionConcat,
 } from "../../containers/Product/actions"
@@ -11,7 +10,7 @@ import * as styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Row, Col} from "reactstrap"
 import {cx} from "emotion"
-import { BASEURL } from "../../constants";
+import {BASEURL} from "../../constants"
 
 interface ProductCardProps {
   product: Product
@@ -134,9 +133,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
         </div>
 
         <div className={styles.imageContainer}>
-          <img
-            src={`${BASEURL}/${this.props.product.imageUrl}`}
-          />
+          <img src={`${BASEURL}/${this.props.product.imageUrl}`} />
         </div>
 
         <div className={cx(styles.ingridients, "text-center")}>

@@ -1,13 +1,11 @@
 import * as React from "react"
-import {reduxForm} from "redux-form/immutable"
-import * as classnames from "classnames"
-import {Field} from "redux-form/immutable"
+// tslint:disable-next-line:no-submodule-imports
+import {reduxForm, Field} from "redux-form/immutable"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
 
 import {codeValidation} from "../../forms/validationsAndNormalizing"
-import * as styles from "./index.module.scss"
 import CustomInput from "../../forms/CustomInput"
 
 interface PhoneCodeFormProps {

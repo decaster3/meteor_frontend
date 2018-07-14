@@ -1,19 +1,16 @@
 import * as React from "react"
+// tslint:disable-next-line:no-submodule-imports
 import {reduxForm, Field} from "redux-form/immutable"
-import * as classnames from "classnames"
-import {Link} from "react-router-dom"
 import {
   normalizePhone,
   validatePhone,
   passwordValidation,
-  passwordConfirmationValidation,
 } from "../../forms/validationsAndNormalizing"
 
-import * as styles from "./index.module.scss"
 import CustomInput from "../../forms/CustomInput"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
-import {Map as ImmutableMap, fromJS} from "immutable"
+import {Map as ImmutableMap} from "immutable"
 
 interface SignupFormProps {
   isPhonePending: boolean

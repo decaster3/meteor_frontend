@@ -3,16 +3,13 @@
  */
 import * as React from "react"
 import {connect} from "react-redux"
-import {compose, Dispatch} from "redux"
+import {compose} from "redux"
 import {State} from "../../"
 import injectReducer from "../../utils/injectReducer"
-import {getCategories} from "./actions"
+import {getCategories, Category} from "./actions"
 import reducer from "./reducer"
 import {selectCategories, selectCategoriesStatus} from "./selectors"
-import {Category} from "./actions"
-import MenuView from "../../views/Menu"
-import {addProductToCart, CartProduct} from "../Cart/actions"
-import {setInviterToken} from "../UserSession/actions"
+import {CartProduct} from "../Cart/actions"
 
 interface ProductsAndCategoriesProps {
   categories: Category[]

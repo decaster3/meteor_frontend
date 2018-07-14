@@ -8,7 +8,14 @@ import Login from "../Login"
 import SignUp from "../Signup"
 import PhoneCode from "../PhoneCode"
 import {compose} from "redux"
-import {withRegistration, withUser} from "../../containers/UserSession"
+import {
+  withRegistration,
+  withUser,
+  UserStateProps,
+  RegistrationDispatchProps,
+  RegistrationStateProps,
+  UserDispatchProps,
+} from "../../containers/UserSession"
 import {UserState} from "../../containers/UserSession/constants"
 
 interface AuthenticationState {
@@ -16,27 +23,15 @@ interface AuthenticationState {
   isLogin: boolean
 }
 
-interface AuthenticationProps {
-  userState: string
-  phone: string
-  inviterToken: string
-  registrationFirst?: boolean
-  codeSent: string
-  regsitrationStep: number
-  isCodePending: boolean
-  isPhonePending: boolean
-  isLoginPending: boolean
-  login(password: string, phone: string): void
-  signUp(
-    inviterToken: string,
-    name: string,
-    phone: string,
-    password: string,
-    passwordConfirmation: string
-  ): void
-  sendCode(code: string): void
-  reSendPhone(): void
+interface AuthenticationOwnProps {
+  registrationFirst: boolean
 }
+
+type AuthenticationProps = UserStateProps &
+  RegistrationDispatchProps &
+  RegistrationStateProps &
+  UserDispatchProps &
+  AuthenticationOwnProps
 
 class Authentication extends React.Component<
   AuthenticationProps,
@@ -132,7 +127,7 @@ class Authentication extends React.Component<
   }
 }
 
-export default compose(
+export default compose<React.ComponentType<AuthenticationOwnProps>>(
   withRegistration,
   withUser
 )(Authentication)

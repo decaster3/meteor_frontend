@@ -1,3 +1,4 @@
+// tslint:disable-next-line:no-submodule-imports no-implicit-dependencies
 import createHistory from "history/createBrowserHistory"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
@@ -5,10 +6,13 @@ import {Provider} from "react-redux"
 import {ConnectedRouter} from "react-router-redux"
 
 // Vendor styles
+// tslint:disable-next-line:no-submodule-imports
 import "bootstrap/dist/css/bootstrap.min.css"
+// tslint:disable-next-line:no-submodule-imports
 import "bootstrap/dist/css/bootstrap.min.css.map"
 
 // Vendor JS
+// tslint:disable-next-line:no-submodule-imports
 import "bootstrap/dist/js/bootstrap.bundle"
 
 import configureStore from "./configureStore"
@@ -64,6 +68,7 @@ if ((module as any).hot) {
 if (!(window as any).Intl) {
   import("intl")
     // @ts-ignore
+    // tslint:disable-next-line:no-submodule-imports
     .then(() => Promise.all([import("intl/locale-data/jsonp/en")]))
     .then(() => render(translationMessages))
 } else {
@@ -74,7 +79,7 @@ if (!(window as any).Intl) {
 // it's not most important operation and if main code fails,
 // we do not want it installed
 if (process.env.NODE_ENV === "production") {
-  // tslint:disable-next-line:no-var-requires
+  // tslint:disable-next-line:no-var-requires no-submodule-imports
   require("offline-plugin/runtime").install() // eslint-disable-line global-require
 }
 

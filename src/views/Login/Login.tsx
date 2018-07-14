@@ -1,8 +1,5 @@
 import * as React from "react"
-import {reduxForm} from "redux-form/immutable"
-import * as classnames from "classnames"
-import {Field} from "redux-form/immutable"
-import {Link} from "react-router-dom"
+import classnames from "classnames"
 
 import LoginForm from "./LoginForm"
 import * as styles from "./Login.module.scss"

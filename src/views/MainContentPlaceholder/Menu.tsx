@@ -1,6 +1,6 @@
 import * as React from "react"
 import Icon from "react-fa"
-import * as cn from "classnames"
+import cn from "classnames"
 import symbol from "../../assets/logo_meteor.png"
 
 // @ts-ignore

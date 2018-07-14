@@ -1,6 +1,6 @@
 import * as React from "react"
-import {reduxForm} from "redux-form/immutable"
-import {Field, FieldArray} from "redux-form/immutable"
+// tslint:disable-next-line:no-submodule-imports
+import {reduxForm, Field, FieldArray} from "redux-form/immutable"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap, fromJS} from "immutable"

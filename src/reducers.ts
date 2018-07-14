@@ -4,6 +4,7 @@
 
 import {fromJS} from "immutable"
 import {combineReducers} from "redux-immutable"
+// tslint:disable-next-line:no-submodule-imports
 import {reducer as formReducer} from "redux-form/immutable"
 
 import languageProviderReducer from "./containers/LanguageProvider/reducer"

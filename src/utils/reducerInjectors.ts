@@ -1,4 +1,4 @@
-import * as invariant from "invariant"
+import invariant from "invariant"
 import {isEmpty, isFunction, isString} from "lodash"
 import {Store} from "redux"
 // import {combineReducers} from "redux /-immutable"
