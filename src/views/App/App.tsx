@@ -112,6 +112,10 @@ const App: React.StatelessComponent<AppProps> = props => (
                 component={MainPage}
               />
               <Route path="/" exact={true} component={MainPage} />
+              <Route path="/pizza" exact={true} component={MainPage} />
+              <Route path="/burgers" exact={true} component={MainPage} />
+              <Route path="/sushi" exact={true} component={MainPage} />
+              <Route path="/zakuski" exact={true} component={MainPage} />
               <Route path="/menu" component={Menu} />
               <Route path="/cart" component={Cart} />
               {props.userState === UserState.LOGED_IN && (

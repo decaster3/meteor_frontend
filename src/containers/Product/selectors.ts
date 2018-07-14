@@ -16,7 +16,8 @@ export const selectMenuDomain = (state: any) => state.get("products")
 export const selectCategories = createSelector(selectMenuDomain, categories => {
   return categories.get("categories").toJS()
 })
-export const selectCategoriesStatus = createSelector(
+
+export const selectCurrentCategoryId = createSelector(
   selectMenuDomain,
-  categoriesStatus => categoriesStatus.get("categoriesStatus")
+  currentCategoryId => currentCategoryId.get("currentCategoryId")
 )

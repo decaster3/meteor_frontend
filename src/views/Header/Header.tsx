@@ -122,7 +122,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                   }
                 `}
               >
-                +7 727 321-22-21
+                {this.props.defaultCity.phone}
               </div>
               <button
                 className={css`

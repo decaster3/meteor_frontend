@@ -2,16 +2,16 @@
  * User actions
  */
 // @ts-ignore
-import Geocode from "react-geocode"
 import {Dispatch} from "redux"
 import {State} from "../../"
-import requests from "../../services/requests"
 import {Status} from "../../constants"
 import {ActionType} from "./constants"
 
 export interface Category {
   name: string
   id: number
+  url: string
+  imgUrl: string
   products: Product[]
   productsStatus: string
 }
@@ -45,25 +45,60 @@ const setCategoriesStatus = (categoriesStatus: string) => ({
   payload: categoriesStatus,
 })
 
+const categories = [
+  {
+    id: 1,
+    name: "Пицца",
+    productsStatus: Status.NOT_LOADED,
+    products: [],
+    imgUrl: "qwe",
+    optionNames: [
+      {
+        id: 1,
+        isCharacteristic: false,
+        name: "размер",
+      },
+      {
+        id: 2,
+        isCharacteristic: false,
+        name: "тесто",
+      },
+      {
+        id: 3,
+        isCharacteristic: true,
+        name: "вес",
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Бургеры",
+    imgUrl: "qwe",
+    productsStatus: Status.NOT_LOADED,
+    products: [],
+    optionNames: [
+      {
+        id: 3,
+        isCharacteristic: true,
+        name: "вес",
+      },
+    ],
+  },
+]
+
 export const getCategories = () => (dispatch: Dispatch<State>) => {
   dispatch(setCategoriesStatus(Status.LOADING))
-  return requests
-    .get("categories")
-    .then(data => {
-      dispatch({
-        type: ActionType.SET_CATEGORIES,
-        payload: data.map((category: {name: string; id: number}) => ({
-          ...category,
-          id: category.id,
-          name: category.name,
-          productsStatus: Status.NOT_LOADED,
-          products: [],
-        })),
-      })
-      dispatch(setCategoriesStatus(Status.LOADED))
-      return data
-    })
-    .catch(() => {
-      dispatch(setCategoriesStatus(Status.LOADING_ERROR))
-    })
+  // return requests
+  //   .get("categories")
+  //   .then(data => {
+  dispatch({
+    type: ActionType.SET_CATEGORIES,
+    payload: categories,
+  })
+  dispatch(setCategoriesStatus(Status.LOADED))
+  //   return data
+  // })
+  // .catch(() => {
+  //   dispatch(setCategoriesStatus(Status.LOADING_ERROR))
+  // })
 }
