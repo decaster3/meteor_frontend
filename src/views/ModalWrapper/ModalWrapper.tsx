@@ -9,7 +9,7 @@ interface ModalState {
 interface ModalProps {
   children?: React.ReactNode
   modalTitle: string
-  onCloseListener: boolean
+  onCloseListener?: boolean
   modalToggler: React.ComponentType
 }
 
