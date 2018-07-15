@@ -1,7 +1,5 @@
-import * as React from "react"
-import {Button, Modal} from "reactstrap"
-import {WrappedFieldProps, Field, reduxForm} from "redux-form"
-import {Link, Switch, Route} from "react-router-dom"
+import React from "react"
+import {Modal} from "reactstrap"
 
 import * as styles from "./AuthWrapper.module.scss"
 import Login from "../Login"

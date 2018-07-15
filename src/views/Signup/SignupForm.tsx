@@ -1,5 +1,4 @@
-import * as React from "react"
-// tslint:disable-next-line:no-submodule-imports
+import React from "react"
 import {reduxForm, Field} from "redux-form/immutable"
 import {
   normalizePhone,

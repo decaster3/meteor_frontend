@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import Icon from "react-fa"
 import cn from "classnames"
 import symbol from "../../assets/logo_meteor.png"

@@ -4,8 +4,7 @@
  * This will setup the i18n language files and locale data for your app.
  */
 import {addLocaleData} from "react-intl"
-// tslint:disable-next-line:no-submodule-imports
-import * as enLocaleData from "react-intl/locale-data/en"
+import enLocaleData from "react-intl/locale-data/en"
 import {DEFAULT_LOCALE} from "./containers/LanguageProvider/constants"
 
 // @ts-ignore

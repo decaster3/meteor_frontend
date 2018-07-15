@@ -91,6 +91,7 @@
     "node-sass": "^4.9.2",
     "react-app-rewire-css-modules": "github:codebandits/react-app-rewire-css-modules",
     "react-app-rewire-emotion": "^4.0.0",
+    "react-app-rewire-polished": "^1.0.3",
     "react-app-rewired": "^1.5.2",
     "react-dev-utils": "^5.0.1",
     "sass-loader": "^7.0.3",

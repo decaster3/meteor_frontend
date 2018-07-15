@@ -1,8 +1,7 @@
-import * as React from "react"
+import React from "react"
 import Select from "react-select"
 import {WrappedFieldProps} from "redux-form"
 
-// tslint:disable-next-line:no-submodule-imports
 import "react-select/dist/react-select.css"
 import {inputGroupStyle} from "./CustomInput"
 import {cx} from "emotion"

@@ -1,8 +1,7 @@
-import * as React from "react"
+import React from "react"
 import Icon from "react-fa"
 import {css, cx} from "react-emotion"
 import {
-  Col,
   Navbar,
   Container,
   Collapse,
@@ -264,7 +263,6 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                       {this.props.citiesStatus === Status.LOADED &&
                         this.props.cities.map(city => (
                           <DropdownItem
-                            // tslint:disable-next-line:jsx-no-lambda
                             onClick={() => this.handleCityClick(city)}
                             key={city.id}
                           >

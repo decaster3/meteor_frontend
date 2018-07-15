@@ -1,8 +1,6 @@
 /*
  * User actions
  */
-import {formatNumber} from "libphonenumber-js"
-// tslint:disable-next-line:no-submodule-imports
 import {SubmissionError} from "redux-form/immutable"
 import {Dispatch} from "redux"
 import {State} from "../../"

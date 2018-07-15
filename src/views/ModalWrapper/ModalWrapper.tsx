@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import {Modal} from "reactstrap"
 
 import * as styles from "./ModalWrapper.module.scss"
@@ -6,8 +6,8 @@ import * as styles from "./ModalWrapper.module.scss"
 interface ModalState {
   modalShown: boolean
 }
+
 interface ModalProps {
-  children?: React.ReactNode
   modalTitle: string
   onCloseListener?: boolean
   modalToggler: React.ComponentType
@@ -20,8 +20,9 @@ class ModalWrapper extends React.Component<ModalProps, ModalState> {
   ) {
     if (nextProps.onCloseListener === true && prevState.modalShown === true) {
       return {modalShown: false}
+    } else {
+      return null
     }
-    return null
   }
 
   state: ModalState = {

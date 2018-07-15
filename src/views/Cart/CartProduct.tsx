@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import {css, cx} from "emotion"
 import Icon from "react-fa"
 

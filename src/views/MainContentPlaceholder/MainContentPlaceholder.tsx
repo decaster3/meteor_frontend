@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 import Icon from "react-fa"
-import * as _ from "lodash"
+import _ from "lodash"
 
 import * as styles from "./MainContentPlaceholder.module.module.scss"
 import ProductCard from "./ProductCard"

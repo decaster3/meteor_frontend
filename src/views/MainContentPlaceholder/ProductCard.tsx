@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 
 // @ts-ignore
 import styles from "./ProductCard.module.scss"

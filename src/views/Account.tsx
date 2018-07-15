@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import {cx, css} from "emotion"
 import {withTheme} from "emotion-theming"
 import {compose} from "redux"

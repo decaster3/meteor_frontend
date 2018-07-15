@@ -1,9 +1,8 @@
-import * as PropTypes from "prop-types"
-import * as React from "react"
+import PropTypes from "prop-types"
+import React from "react"
 import {Reducer} from "redux"
 import getInjectors from "./reducerInjectors"
 import hoistNonReactStatics from "hoist-non-react-statics"
-import {Subtract} from "utility-types"
 
 // Dynamically injects a reducer
 export default ({key, reducer}: {key: string; reducer: Reducer<any>}) => (

@@ -1,5 +1,5 @@
 import {ThemeProvider, withTheme} from "emotion-theming"
-import * as React from "react"
+import React from "react"
 import {compose} from "redux"
 import {Switch, Route, withRouter} from "react-router-dom"
 import {injectGlobal, css} from "emotion"

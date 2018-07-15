@@ -3,7 +3,7 @@
  */
 
 import {fromJS} from "immutable"
-import * as _ from "lodash"
+import _ from "lodash"
 import {ActionType} from "./constants"
 import {AnyAction} from "redux"
 import {CartProduct} from "./actions"

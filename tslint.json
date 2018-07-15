@@ -9,6 +9,7 @@
     "object-literal-sort-keys": false,
     "member-access": false,
     "ordered-imports": false,
-    "max-classes-per-file": false
+    "max-classes-per-file": false,
+    "no-submodule-imports": false
   }
 }

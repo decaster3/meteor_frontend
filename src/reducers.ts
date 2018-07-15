@@ -4,15 +4,13 @@
 
 import {fromJS} from "immutable"
 import {combineReducers} from "redux-immutable"
-// tslint:disable-next-line:no-submodule-imports
 import {reducer as formReducer} from "redux-form/immutable"
 
 import languageProviderReducer from "./containers/LanguageProvider/reducer"
 import userSessionReducer from "./containers/UserSession/reducer"
 import cartReducer from "./containers/Cart/reducer"
 import geolocationReducer from "./containers/Geolocation/reducer"
-// tslint:disable-next-line:no-var-requires
-const {LOCATION_CHANGE} = require("react-router-redux")
+import {LOCATION_CHANGE} from "react-router-redux"
 
 /*
  * routeReducer
