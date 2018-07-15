@@ -1,6 +1,5 @@
 import * as React from "react"
-import {reduxForm} from "redux-form/immutable"
-import {Field} from "redux-form/immutable"
+import {reduxForm, Field} from "redux-form/immutable"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
