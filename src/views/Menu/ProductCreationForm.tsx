@@ -15,7 +15,7 @@ interface ProductCreationForm {
 }
 
 interface ProductCreationData {
-  productImage?: string
+  image: any
   price: string
 }
 

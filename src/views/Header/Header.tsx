@@ -3,7 +3,6 @@ import Icon from "react-fa"
 import {css, cx} from "react-emotion"
 import {
   Col,
-  Row,
   Navbar,
   Container,
   Collapse,
@@ -24,6 +23,9 @@ import {withUser} from "../../containers/UserSession"
 import {UserInformation} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
+import ModalWrapper from "../ModalWrapper"
+import PhoneCallbackForm from "../PhoneCallback"
+import SignUp from "../AuthWrapper"
 import {
   styled,
   withTheme,
@@ -72,6 +74,36 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
   handleCityClick = (city: City) => this.props.setDefaultCity(city)
 
   render() {
+    const modal = () => (
+      <button
+        className={css`
+          background-color: transparent;
+          color: ${this.props.theme.lighterGrey};
+          font-weight: 700;
+          text-transform: uppercase;
+          border: 2px solid ${this.props.theme.lighterGrey};
+          border-radius: 4px;
+          white-space: nowrap;
+          line-height: 1.25;
+          font-size: 12px;
+          padding: 0 2px;
+
+          ${mediaBreakpointUp("lg")} {
+            padding: 0 8px;
+            margin: 4px 8px;
+            font-size: 16px;
+
+            &:hover,
+            &:focus {
+              color: ${this.props.theme.lightestGrey};
+              border-color: ${this.props.theme.lightestGrey};
+            }
+          }
+        `}
+      >
+        <Icon name="phone" /> Позвоните мне
+      </button>
+    )
     return (
       <Navbar
         fixed="top"
@@ -124,34 +156,9 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
               >
                 {this.props.defaultCity.phone}
               </div>
-              <button
-                className={css`
-                  background-color: transparent;
-                  color: ${this.props.theme.lighterGrey};
-                  font-weight: 700;
-                  text-transform: uppercase;
-                  border: 2px solid ${this.props.theme.lighterGrey};
-                  border-radius: 4px;
-                  white-space: nowrap;
-                  line-height: 1.25;
-                  font-size: 12px;
-                  padding: 0 2px;
-
-                  ${mediaBreakpointUp("lg")} {
-                    padding: 0 8px;
-                    margin: 4px 8px;
-                    font-size: 16px;
-
-                    &:hover,
-                    &:focus {
-                      color: ${this.props.theme.lightestGrey};
-                      border-color: ${this.props.theme.lightestGrey};
-                    }
-                  }
-                `}
-              >
-                <Icon name="phone" /> Позвоните мне
-              </button>
+              <ModalWrapper modalTitle="Обратный звонок" modalToggler={modal}>
+                <PhoneCallbackForm isLoading={false} />
+              </ModalWrapper>
             </div>
           </div>
 
@@ -244,24 +251,6 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
               `}
               navbar={true}
             >
-              <NavItem className="d-none d-md-block">
-                <NavLink tag={ReactRouterNavLink} to="/cart">
-                  Корзина
-                </NavLink>
-              </NavItem>
-              {this.props.userState === UserState.LOGED_IN && (
-                <NavItem>
-                  <NavLink tag={ReactRouterNavLink} to="/account">
-                    Аккаунт
-                  </NavLink>
-                </NavItem>
-              )}
-              <NavItem>
-                <NavLink tag={ReactRouterNavLink} to="/sales">
-                  Акции
-                </NavLink>
-              </NavItem>
-
               {this.props.citiesStatus === Status.LOADED &&
                 this.props.cities.length > 0 &&
                 (this.props.cities.length > 1 ? (
@@ -289,6 +278,31 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                     <NavLink>{this.props.cities[0].name}</NavLink>
                   </NavItem>
                 ))}
+              <NavItem>
+                <NavLink tag={ReactRouterNavLink} to="/sales">
+                  Акции
+                </NavLink>
+              </NavItem>
+              {this.props.userState === UserState.LOGED_IN ? (
+                <NavItem>
+                  <NavLink tag={ReactRouterNavLink} to="/account">
+                    Аккаунт
+                  </NavLink>
+                </NavItem>
+              ) : (
+                <SignUp registrationFirst={false}>
+                  <NavItem>
+                    <NavLink href={JS_HREF} tag="a">
+                      Вход
+                    </NavLink>
+                  </NavItem>
+                </SignUp>
+              )}
+              <NavItem className="d-none d-md-block">
+                <NavLink tag={ReactRouterNavLink} to="/cart">
+                  Корзина
+                </NavLink>
+              </NavItem>
             </Nav>
           </Collapse>
         </Container>
