@@ -1,7 +1,11 @@
 import React from "react"
 import {Category, Subcategory} from "../../containers/Product/actions"
+import {JS_HREF, ThemeProps, withTheme} from "../App/Theme"
+import {css, cx} from "emotion"
 
-interface SubcategoriesNavProps extends React.HTMLProps<HTMLDivElement> {
+interface SubcategoriesNavProps
+  extends ThemeProps,
+    React.HTMLProps<HTMLDivElement> {
   category?: Category
   currentSubcategory?: Subcategory
   handleChangeSubcategory(subcategory: Subcategory): void
@@ -11,19 +15,39 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
   category,
   handleChangeSubcategory,
   currentSubcategory,
+  theme,
   ...restOfProps
 }) => {
   return (
-    <div {...restOfProps}>
+    <div
+      className={"row justify-content-center text-uppercase"}
+      {...restOfProps}
+    >
       {category && currentSubcategory ? (
         <>
-          {[...category.subcategories, {id: 0, name: "Все"}].map(
+          {[{id: 0, name: "Все"}, ...category.subcategories].map(
             subcategory => (
-              <div key={subcategory.id}>
-                <button onClick={() => handleChangeSubcategory(subcategory)}>
+              <div className="col-auto" key={subcategory.id}>
+                <a
+                  className={cx(
+                    {active: currentSubcategory.name === subcategory.name},
+                    css`
+                      &,
+                      &:hover {
+                        color: ${theme.lighterGrey};
+                        font-weight: 500;
+                        text-decoration: none;
+                      }
+                      &.active {
+                        color: white;
+                      }
+                    `
+                  )}
+                  href={JS_HREF}
+                  onClick={() => handleChangeSubcategory(subcategory)}
+                >
                   {subcategory.name}
-                  {currentSubcategory.name === subcategory.name && " Выбрана"}
-                </button>
+                </a>
               </div>
             )
           )}
@@ -35,4 +59,4 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
   )
 }
 
-export default SubcategoriesNav
+export default withTheme(SubcategoriesNav)

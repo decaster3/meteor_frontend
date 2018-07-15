@@ -1,6 +1,6 @@
 import styled, {ThemedReactEmotionInterface} from "react-emotion"
 import {withTheme} from "emotion-theming"
-import {createSelector} from "reselect"
+import {Subtract} from "utility-types"
 
 export const theme = {
   darkGrey: "hsl(199, 20%, 16%)",
@@ -76,9 +76,9 @@ const customStyled = styled as ThemedReactEmotionInterface<Theme>
 
 export {customStyled as styled}
 
-const customWithTheme = <P extends object>(
-  WrappedComponent: React.ComponentType<P & ThemeProps>
-): React.ComponentType<P> => withTheme(WrappedComponent)
+const customWithTheme = <P extends ThemeProps>(
+  WrappedComponent: React.ComponentType<P>
+): React.ComponentType<Subtract<P, ThemeProps>> => withTheme(WrappedComponent)
 
 export {customWithTheme as withTheme}
 
