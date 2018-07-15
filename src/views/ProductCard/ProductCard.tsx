@@ -47,8 +47,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
       name: this.props.product.name,
       description: this.props.product.description,
       options: this.props.product.options,
-      price: this.state.currentProductState.price,
-      instance: this.state.currentProductState,
+      instances: [this.state.currentProductState],
       count: 1,
     })
   }

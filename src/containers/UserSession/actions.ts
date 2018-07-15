@@ -8,6 +8,8 @@ import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
 import moment from "moment"
 import {Status} from "../../constants"
+import {Product} from "../Product/actions"
+import {CartProduct} from "../Cart/actions"
 
 export interface UserInformation {
   id: number
@@ -16,8 +18,21 @@ export interface UserInformation {
   name: string
   token: string
   meteors: Meteor[]
+  orders: Order[]
   userInfoStatus: string
 }
+export interface Order {
+  id: number
+  paymentMethod: string
+  status: string
+  orderProducts: OrderProduct[]
+}
+export interface OrderProduct {
+  id: number
+  quantity: number
+  product: CartProduct
+}
+
 export interface Meteor {
   id: number
   value: number

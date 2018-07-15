@@ -66,7 +66,7 @@ export const makeOrder = (
     .toJS()
     .map((product: CartProduct) => ({
       quantity: product.count,
-      productInstanceId: product.instance.id,
+      productInstanceId: product.instances[0].id,
     }))
   const cityId =
     getState()

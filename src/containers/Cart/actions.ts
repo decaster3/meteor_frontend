@@ -11,9 +11,8 @@ export interface CartProduct {
   name: string
   description: string
   options: Option[]
-  instance: ProductInstance
-  count: number
-  price: {currency: string; value: string; id: number}
+  instances: ProductInstance[]
+  count?: number
 }
 
 export interface Option {

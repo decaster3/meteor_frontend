@@ -16,8 +16,8 @@ const initialState = fromJS({
 const compareProducts = (products: CartProduct[], product2: CartProduct) => {
   return products.findIndex((product: CartProduct) =>
     _.isEqual(
-      {id: product.id, instance: product.instance},
-      {id: product2.id, instance: product2.instance}
+      {id: product.id, instance: product.instances[0]},
+      {id: product2.id, instance: product2.instances[0]}
     )
   )
 }
@@ -27,7 +27,8 @@ const getTotalCart = (state: any) => {
   const meteors = state.get("meteors")
   let total = 0
   products.forEach((product: CartProduct) => {
-    total += parseInt(product.instance.price.value, 10) * product.count
+    const quantity = product.count || 1
+    total += parseInt(product.instances[0].price.value, 10) * quantity
   })
   return total
 }

@@ -30,7 +30,7 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
           <div className="col-12 col-lg-8">
             {this.props.products.map(product => (
               <CartProductView
-                key={product.instance.id}
+                key={product.instances[0].id}
                 product={product}
                 addProductToCart={this.props.addProductToCart}
                 removeProductFromCart={this.props.removeProductFromCart}

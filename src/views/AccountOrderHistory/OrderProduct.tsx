@@ -1,4 +1,4 @@
-import React from "react"
+import * as React from "react"
 import {css, cx} from "emotion"
 import Icon from "react-fa"
 
@@ -12,26 +12,25 @@ const Button = styled("button")`
   height: 36px;
 `
 
-// interface OptionProps {
-//   value: string
-// }
+interface OptionProps {
+  value: string
+}
 
-// const Option: React.SFC<OptionProps> = props => (
-//   <div
-//     className={cx(
-//       "mr-3",
-//       css`
-//         white-space: nowrap;
-//       `
-//     )}
-//   >
-//     {props.value}
-//   </div>
-// )
+const Option: React.SFC<OptionProps> = props => (
+  <div
+    className={cx(
+      "mr-3",
+      css`
+        white-space: nowrap;
+      `
+    )}
+  >
+    {props.value}
+  </div>
+)
 
 interface CartProductProps {
   product: CartProduct
-  removeProductFromCart(product: CartProduct): void
   addProductToCart(product: CartProduct): void
 }
 
@@ -81,26 +80,22 @@ class CartProductView extends React.Component<
     this.state.dependentOptions.sort()
   }
 
-  handleRemoveProduct = () => {
-    this.props.removeProductFromCart(this.props.product)
-  }
-
   handleAddProduct = () => {
     this.props.addProductToCart(this.props.product)
   }
 
   render() {
     return (
-      <div className="row align-items-center my-4 text-uppercase font-weight-bold">
+      <div className="row align-items-center mb-4 text-uppercase font-weight-bold">
         <div className="col-4 col-md-auto my-2 text-center">
           <img
             className={cx(
               css`
                 max-width: 100%;
-                max-height: 96px;
+                max-height: 64px;
               `
             )}
-            src={`https://picsum.photos/256/256/?blue&image=${
+            src={`https://picsum.photos/300/200/?blue&image=${
               this.props.product.id
             }`}
           />
@@ -116,27 +111,11 @@ class CartProductView extends React.Component<
             `}
           >
             {this.state.independentOptions.map((value, index) => (
-              <div
-                key={index}
-                className={css`
-                  white-space: nowrap;
-                  margin-right: 1em;
-                `}
-              >
-                {value}
-              </div>
+              <Option key={index} value={value} />
             ))}
 
             {this.state.dependentOptions.map((value, index) => (
-              <div
-                key={index}
-                className={css`
-                  white-space: nowrap;
-                  margin-right: 1em;
-                `}
-              >
-                {value}
-              </div>
+              <Option key={index} value={value} />
             ))}
           </div>
         </div>
@@ -149,15 +128,6 @@ class CartProductView extends React.Component<
 
         <div className="col-6 col-md-3">
           <div className="row no-gutters align-items-center text-center">
-            <div className={"col"}>
-              <Button
-                className="btn btn-outline-danger"
-                onClick={this.handleRemoveProduct}
-              >
-                <Icon name="minus" />
-              </Button>
-            </div>
-
             <div className="col">
               <div
                 className={css`
@@ -173,7 +143,7 @@ class CartProductView extends React.Component<
                 className="btn btn-outline-success"
                 onClick={this.handleAddProduct}
               >
-                <Icon name="plus" />
+                Добавить в карзину
               </Button>
             </div>
           </div>

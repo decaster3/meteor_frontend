@@ -3,6 +3,7 @@ import {compose} from "redux"
 import {withUser} from "../../containers/UserSession"
 import AccountMainInfo from "../AccountMainInfo"
 import AccountMeteorHistory from "../AccountMeteorHistory"
+import AccountOrderHistory from "../AccountOrderHistory"
 
 interface AccountWrapperProps {
   getUserInfo(): void
@@ -17,6 +18,7 @@ class AccountWrapper extends React.Component<AccountWrapperProps> {
       <>
         <AccountMainInfo />
         <AccountMeteorHistory />
+        <AccountOrderHistory />
       </>
     )
   }
