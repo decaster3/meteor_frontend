@@ -4,7 +4,7 @@
 import React from "react"
 import {connect} from "react-redux"
 import {compose, Dispatch} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
 import {getBanners} from "./actions"
 import reducer from "./reducer"

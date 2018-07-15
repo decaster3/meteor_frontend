@@ -4,7 +4,7 @@
 // @ts-ignore
 import Geocode from "react-geocode"
 import {Dispatch} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import {ActionType} from "./constants"
 import {Status} from "../../constants"
 import requests from "../../services/requests"

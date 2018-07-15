@@ -2,7 +2,7 @@
  * User actions
  */
 import {Dispatch} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import requests from "../../services/requests"
 import {ActionType} from "./constants"
 

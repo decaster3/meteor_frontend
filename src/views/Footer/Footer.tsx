@@ -6,7 +6,7 @@ import {compose} from "redux"
 import withCategories from "../../containers/Category"
 import {Status} from "../../constants"
 import {Row} from "reactstrap"
-import {Category} from "../../containers/Category/actions"
+import {Category} from "../../containers/Product/actions"
 
 const secondaryPages = [
   "Feedback",

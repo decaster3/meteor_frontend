@@ -3,7 +3,7 @@
  */
 import {connect} from "react-redux"
 import {compose} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
 import {
   login,

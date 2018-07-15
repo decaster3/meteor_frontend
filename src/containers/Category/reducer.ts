@@ -6,7 +6,6 @@ import {fromJS} from "immutable"
 
 import {ActionType} from "./constants"
 import {Status} from "../../constants"
-import {Category} from "./actions"
 import {AnyAction} from "redux"
 
 const initialState = fromJS({

@@ -3,7 +3,7 @@
  */
 import {SubmissionError} from "redux-form/immutable"
 import {Dispatch} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
 import moment from "moment"

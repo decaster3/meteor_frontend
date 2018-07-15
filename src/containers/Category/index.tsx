@@ -4,12 +4,13 @@
 import React from "react"
 import {connect} from "react-redux"
 import {compose} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
-import {getCategories, Category} from "./actions"
+import {getCategories} from "./actions"
 import reducer from "./reducer"
 import {selectCategories, selectCategoriesStatus} from "./selectors"
 import {CartProduct} from "../Cart/actions"
+import {Category} from "../Product/actions"
 
 interface ProductsAndCategoriesProps {
   categories: Category[]

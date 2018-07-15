@@ -2,7 +2,7 @@
  * User actions
  */
 import {Dispatch} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import requests from "../../services/requests"
 import {Status} from "../../constants"
 import {ActionType} from "./constants"
@@ -17,10 +17,12 @@ export interface Category {
   products: Product[]
   productsStatus: string
 }
+
 export interface Subcategory {
   id: number
   name: string
 }
+
 export interface Product {
   id: number
   name: string

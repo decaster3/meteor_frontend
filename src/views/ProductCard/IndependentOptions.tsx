@@ -3,51 +3,53 @@ import {Option} from "../../containers/Product/actions"
 import {OptionConcat} from "../../containers/Category/actions"
 import {cx} from "emotion"
 import styles from "./ProductCard.module.scss"
+import _ from "lodash"
 
-interface IndependentOptionsProps {
+interface IndependentOptionsProps extends React.HTMLProps<HTMLDivElement> {
   options: Option[]
   independentOptions: OptionConcat[]
   changeCurrentProduct(optionId: number, valueId: number, value: string): void
 }
 
-const IndependentOptions: React.SFC<IndependentOptionsProps> = props => (
-  <>
-    {props.options.map(option => {
-      const currentOptionValue = props.independentOptions.find(
+const IndependentOptions: React.SFC<IndependentOptionsProps> = ({
+  options,
+  independentOptions,
+  changeCurrentProduct,
+  ...restOfProps
+}) => (
+  <div {...restOfProps}>
+    {options.filter(option => !option.isCharacteristic).map(option => {
+      const currentOptionValue = independentOptions.find(
         currentOption => currentOption.optionId === option.id
       )
-      if (currentOptionValue && !option.isCharacteristic) {
-        return (
+      return (
+        currentOptionValue && (
           <div className={"row no-gutters my-2"} key={option.id}>
-            {option.optionValues.map(optionName => (
-              <div className="col text-center" key={optionName.id}>
+            {_.sortBy(option.optionValues, x => x.value).map(optionValue => (
+              <div className="col text-center" key={optionValue.id}>
                 <button
                   type="button"
-                  name={option.id.toString()}
-                  value={optionName.id}
                   onClick={() =>
-                    props.changeCurrentProduct(
+                    changeCurrentProduct(
                       option.id,
-                      optionName.id,
-                      optionName.value
+                      optionValue.id,
+                      optionValue.value
                     )
                   }
                   className={cx(styles.option, {
                     [styles.optionActive]:
-                      currentOptionValue.valueId === optionName.id,
+                      currentOptionValue.valueId === optionValue.id,
                   })}
                 >
-                  {optionName.value}
+                  {optionValue.value}
                 </button>
               </div>
             ))}
           </div>
         )
-      } else {
-        return null
-      }
+      )
     })}
-  </>
+  </div>
 )
 
 export default IndependentOptions

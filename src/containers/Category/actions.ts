@@ -3,25 +3,10 @@
  */
 // @ts-ignore
 import {Dispatch} from "redux"
-import {State} from "../../"
+import {State} from "../.."
 import {Status} from "../../constants"
 import {ActionType} from "./constants"
 
-export interface Category {
-  name: string
-  id: number
-  url: string
-  imgUrl: string
-  products: Product[]
-  productsStatus: string
-}
-export interface Product {
-  id: number
-  name: string
-  description: string
-  options: Option[]
-  instances: ProductInstance[]
-}
 export interface Option {
   name: string
   id: number

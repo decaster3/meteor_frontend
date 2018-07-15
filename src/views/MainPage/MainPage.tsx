@@ -6,7 +6,7 @@ import MeteorBanner from "../MeteorBanner"
 import Menu from "../Menu"
 import {compose} from "redux"
 import {withRegistration} from "../../containers/UserSession"
-import {match} from "../../../node_modules/@types/react-router"
+import {match} from "react-router"
 
 interface MainPage {
   match: match<{inviterToken?: string}>

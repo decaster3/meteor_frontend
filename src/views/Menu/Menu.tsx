@@ -1,86 +1,152 @@
 import React from "react"
 import {Row, Col} from "reactstrap"
+import _ from "lodash"
 import classnames from "classnames"
-
-import {Category} from "../../containers/Product/actions"
-import {Status} from "../../constants"
-import ProductCard from "../ProductCard"
+import {Category, Product, Subcategory} from "../../containers/Product/actions"
+import {Status, categoriesData} from "../../constants"
 import {CartProduct} from "../../containers/Cart/actions"
 import ModalWrapper from "../ModalWrapper"
 import withProductCreation from "../../containers/ProductCreation"
 import withGeolocation from "../../containers/Geolocation"
 import ProductCreationForm from "./ProductCreationForm"
 import * as styles from "./Menu.module.scss"
-import meteorSymbol from "../../assets/logo_meteor.png"
 import {compose} from "redux"
 import withProductsAndCategories from "../../containers/Product"
-import {JS_HREF} from "../App/Theme"
 import {City} from "../../containers/Geolocation/actions"
+import {Link, withRouter} from "react-router-dom"
+import ProductCard from "../ProductCard"
+import SubcategoriesNav from "./SubcategoriesNav"
 
-interface MenuProps {
+interface CategoriesProps {
   categories: Category[]
-  categoriesStatus: string
   isProductCreating: boolean
   defaultCity: City
-  getProductsAfterCategoryClick(category: Category): void
+  location: any
   addProductToCart(product: CartProduct): void
+  getProducts(category: Category): void
   createProduct(image: any, product: any): void
 }
 
-interface MenuState {
-  currentCategory?: Category
+interface CategoriesState {
+  currentCategory: Category
+  currentSubcategory: Subcategory
 }
 
-export class Menu extends React.Component<MenuProps, MenuState> {
-  static getDerivedStateFromProps(nextProps: MenuProps, prevState: MenuState) {
-    if (
-      nextProps.categoriesStatus === Status.LOADED &&
-      !prevState.currentCategory &&
-      nextProps.categories[0] &&
-      nextProps.categories[0].productsStatus === Status.LOADED
-    ) {
-      return {currentCategory: nextProps.categories[0]}
-    } else {
-      return null
+export class Categories extends React.Component<
+  CategoriesProps,
+  CategoriesState
+> {
+  constructor(props: CategoriesProps) {
+    super(props)
+    this.state = {
+      currentCategory: this.findCategoryByUrl(this.props.location.pathname),
+      currentSubcategory: {id: 0, name: "Все"},
     }
   }
+  componentDidMount() {
+    this.props.getProducts(this.state.currentCategory)
+  }
 
-  state: MenuState = {}
+  shouldComponentUpdate(nextProps: CategoriesProps) {
+    if (this.props.location.pathname !== nextProps.location.pathname) {
+      this.setState({
+        currentCategory: this.findCategoryByUrl(nextProps.location.pathname),
+        currentSubcategory: {id: 0, name: "Все"},
+      })
+      this.props.getProducts(
+        this.findCategoryByUrl(nextProps.location.pathname)
+      )
+      return false
+    }
+    return true
+  }
 
-  handleCategoryClick = (category: Category) => () => {
-    this.props.getProductsAfterCategoryClick(category)
-    this.setState({currentCategory: category})
+  findCategoryByUrl = (url: string) => {
+    return (
+      this.props.categories.find(category => category.url === url) ||
+      categoriesData[0]
+    )
   }
 
   renderCategories = () => {
-    switch (this.props.categoriesStatus) {
-      case Status.LOADING:
-        return <p>Loading...</p>
-      case Status.LOADING_ERROR:
-        return <p>Loading error.</p>
-      case Status.LOADED:
-        return (
-          <Row className="align-items-center justify-content-around py-3">
-            {this.props.categories.map(category => (
-              <div
-                className={classnames(styles.categoryLinkWrapper, {
-                  [styles.active]:
-                    this.state.currentCategory &&
-                    category.id === this.state.currentCategory.id,
-                })}
-                key={category.id}
-              >
-                <a href={JS_HREF} onClick={this.handleCategoryClick(category)}>
-                  <img src={meteorSymbol} />
-                  <span>{category.name}</span>
-                </a>
-              </div>
-            ))}
-          </Row>
-        )
-      default:
-        return <p>Something went wrong. Reload the page.</p>
+    return (
+      <Row className="align-items-center justify-content-around py-3">
+        {this.props.categories.map(category => (
+          <div
+            key={category.id}
+            className={classnames(styles.categoryLinkWrapper, {
+              [styles.active]:
+                this.state.currentCategory &&
+                category.id === this.state.currentCategory.id,
+            })}
+          >
+            <Link to={category.url}>
+              <img src={category.imgUrl} />
+              <span>{category.name}</span>
+            </Link>
+          </div>
+        ))}
+      </Row>
+    )
+  }
+
+  handleChangeSubcategory = (subcategory: Subcategory) =>
+    this.setState({currentSubcategory: subcategory})
+
+  renderProducts = () => {
+    const currentCategory = this.props.categories.find(
+      cat => cat.id === this.state.currentCategory.id
+    )
+    if (currentCategory) {
+      switch (currentCategory.productsStatus) {
+        case Status.LOADING:
+          return <p>Loading...</p>
+        case Status.LOADING_ERROR:
+          return <p>Loading error.</p>
+        case Status.LOADED:
+          if (this.state.currentSubcategory.name === "Все") {
+            return (
+              <Row>
+                {currentCategory.products.map((product: Product) => (
+                  <React.Fragment key={product.id}>
+                    <Col sm="6" md="4" lg="3" className="my-3">
+                      <ProductCard
+                        product={product}
+                        addProductToCart={this.props.addProductToCart}
+                      />
+                    </Col>
+                  </React.Fragment>
+                ))}
+              </Row>
+            )
+          } else {
+            return (
+              <Row>
+                {currentCategory.products
+                  .filter(product =>
+                    _.includes(
+                      product.subcategories,
+                      this.state.currentSubcategory
+                    )
+                  )
+                  .map((product: Product) => (
+                    <React.Fragment key={product.id}>
+                      <Col sm="6" md="4" lg="3" className="my-3">
+                        <ProductCard
+                          product={product}
+                          addProductToCart={this.props.addProductToCart}
+                        />
+                      </Col>
+                    </React.Fragment>
+                  ))}
+              </Row>
+            )
+          }
+        default:
+          return <p>Something went wrong. Reload the page.</p>
+      }
     }
+    return <div>Category is not selected.</div>
   }
 
   handleSubmit = (values: any) => {
@@ -143,39 +209,17 @@ export class Menu extends React.Component<MenuProps, MenuState> {
     )
   }
 
-  renderProducts = () => {
-    if (this.state.currentCategory) {
-      switch (this.state.currentCategory.productsStatus) {
-        case Status.LOADING:
-          return <p>Loading...</p>
-        case Status.LOADING_ERROR:
-          return <p>Loading error.</p>
-        case Status.LOADED:
-          return (
-            <Row>
-              {this.state.currentCategory.products.map(product => (
-                <React.Fragment key={product.id}>
-                  <Col sm="6" md="4" lg="3" className="my-3">
-                    <ProductCard
-                      product={product}
-                      addProductToCart={this.props.addProductToCart}
-                    />
-                  </Col>
-                </React.Fragment>
-              ))}
-            </Row>
-          )
-        default:
-          return <p>Something went wrong. Reload the page.</p>
-      }
-    }
-    return <div>Category is not selected.</div>
-  }
-
   render() {
     return (
       <>
         {this.renderCategories()}
+
+        <SubcategoriesNav
+          handleChangeSubcategory={this.handleChangeSubcategory}
+          category={this.state.currentCategory}
+          currentSubcategory={this.state.currentSubcategory}
+        />
+
         {this.renderProducts()}
         {this.renderProductCreation()}
       </>
@@ -183,8 +227,10 @@ export class Menu extends React.Component<MenuProps, MenuState> {
   }
 }
 
-export default compose<any>(
-  withProductsAndCategories,
-  withGeolocation,
-  withProductCreation
-)(Menu)
+export default withRouter(
+  compose<any>(
+    withProductsAndCategories,
+    withGeolocation,
+    withProductCreation
+  )(Categories)
+)
