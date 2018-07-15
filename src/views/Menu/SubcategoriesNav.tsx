@@ -16,11 +16,15 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
   handleChangeSubcategory,
   currentSubcategory,
   theme,
+  className,
   ...restOfProps
 }) => {
   return (
     <div
-      className={"row justify-content-center text-uppercase"}
+      className={cx(
+        "row justify-content-center align-items-center text-uppercase my-3",
+        className
+      )}
       {...restOfProps}
     >
       {category && currentSubcategory ? (

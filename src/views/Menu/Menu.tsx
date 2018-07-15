@@ -16,6 +16,7 @@ import {City} from "../../containers/Geolocation/actions"
 import {Link, withRouter} from "react-router-dom"
 import ProductCard from "../ProductCard"
 import SubcategoriesNav from "./SubcategoriesNav"
+import CategoriesNav from "./CategoriesNav"
 
 interface CategoriesProps {
   categories: Category[]
@@ -43,6 +44,7 @@ export class Categories extends React.Component<
       currentSubcategory: {id: 0, name: "Все"},
     }
   }
+
   componentDidMount() {
     this.props.getProducts(this.state.currentCategory)
   }
@@ -65,28 +67,6 @@ export class Categories extends React.Component<
     return (
       this.props.categories.find(category => category.url === url) ||
       categoriesData[0]
-    )
-  }
-
-  renderCategories = () => {
-    return (
-      <Row className="align-items-center justify-content-around py-3">
-        {this.props.categories.map(category => (
-          <div
-            key={category.id}
-            className={classnames(styles.categoryLinkWrapper, {
-              [styles.active]:
-                this.state.currentCategory &&
-                category.id === this.state.currentCategory.id,
-            })}
-          >
-            <Link to={category.url}>
-              <img src={category.imgUrl} />
-              <span>{category.name}</span>
-            </Link>
-          </div>
-        ))}
-      </Row>
     )
   }
 
@@ -212,7 +192,10 @@ export class Categories extends React.Component<
   render() {
     return (
       <>
-        {this.renderCategories()}
+        <CategoriesNav
+          categories={this.props.categories}
+          currentCategory={this.state.currentCategory}
+        />
 
         <SubcategoriesNav
           handleChangeSubcategory={this.handleChangeSubcategory}
