@@ -2,7 +2,7 @@ import {ThemeProvider, withTheme} from "emotion-theming"
 import React from "react"
 import {compose} from "redux"
 import {Switch, Route, withRouter} from "react-router-dom"
-import {injectGlobal, css} from "emotion"
+import {injectGlobal, css, cx} from "emotion"
 import {Container, Row} from "reactstrap"
 import {transparentize} from "polished"
 
@@ -97,7 +97,14 @@ const App: React.StatelessComponent<AppProps> = props => (
             boxShadow: "0 0 6rem 0 black, 0 0 2rem 0 black",
           })}
         >
-          <Container fluid={true} className="py-3">
+          <div
+            className={cx(
+              "container-fluid",
+              css`
+                padding: 32px;
+              `
+            )}
+          >
             <Switch>
               <Route
                 path="/invite/:inviterToken"
@@ -117,7 +124,7 @@ const App: React.StatelessComponent<AppProps> = props => (
               <Route path="/account" component={Account} />
               <Route />
             </Switch>
-          </Container>
+          </div>
         </Row>
         <Footer />
       </Container>

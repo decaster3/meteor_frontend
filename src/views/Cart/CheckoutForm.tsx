@@ -2,7 +2,7 @@ import React from "react"
 import {reduxForm, Field} from "redux-form/immutable"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
-import {Map as ImmutableMap, fromJS} from "immutable"
+import {Map as ImmutableMap} from "immutable"
 
 import {
   normalizePhone,
@@ -16,17 +16,15 @@ import {cx, css} from "emotion"
 import {compose} from "redux"
 import {ThemeProps, withTheme} from "../App/Theme"
 
-const inputStyle = css`
-  border-radius: 24px;
-`
-
 interface CheckoutFormOwnProps {
   isOrderPending: boolean
   userPhone: string
   streets: string[]
+  total: number
 }
 
 interface CheckoutFormData {
+  name?: string
   phone?: string
   street?: string
   building?: string
@@ -52,6 +50,12 @@ class CheckoutForm extends React.Component<
   CheckoutFormProps,
   CheckoutFormState
 > {
+  static RequiredStar: React.SFC<React.HTMLProps<HTMLSpanElement>> = props => (
+    <span className="text-danger mx-1" {...props}>
+      *
+    </span>
+  )
+
   state: CheckoutFormState = {}
 
   handleChoosePaymentMethod = (
@@ -64,11 +68,24 @@ class CheckoutForm extends React.Component<
   render() {
     return (
       <form onSubmit={this.props.handleSubmit}>
+        <h2 className="mb-4">Оформление заказа</h2>
+
         <div className="row mt-3">
           <div className="col-6">
-            <div className="form-group row">
+            <h3
+              className={cx(
+                "mb-4",
+                css`
+                  color: ${this.props.theme.lighterGrey};
+                `
+              )}
+            >
+              Доставка
+            </h3>
+
+            <div className="form-group row mb-5">
               <label className="col-3 col-form-label" htmlFor="phone">
-                Телефон
+                Телефон<CheckoutForm.RequiredStar />
               </label>
               <div className="col-9">
                 <Field
@@ -80,15 +97,14 @@ class CheckoutForm extends React.Component<
                     type: "tel",
                     placeholder: "Телефон",
                     autoComplete: "tel",
-                    className: inputStyle,
                   }}
                 />
               </div>
             </div>
 
-            <div className="form-group row">
+            <div className="form-group row mb-5">
               <label className="col-3 col-form-label" htmlFor="name">
-                Имя
+                Имя<CheckoutForm.RequiredStar />
               </label>
               <div className="col-9">
                 <Field
@@ -99,15 +115,14 @@ class CheckoutForm extends React.Component<
                     type: "text",
                     placeholder: "Имя",
                     autoComplete: "name",
-                    className: inputStyle,
                   }}
                 />
               </div>
             </div>
 
-            <div className="form-group row">
+            <div className="form-group row mb-5">
               <label className="col-3 col-form-label" htmlFor="street">
-                Улица
+                Улица<CheckoutForm.RequiredStar />
               </label>
               <div className="col-9">
                 <Field
@@ -117,15 +132,14 @@ class CheckoutForm extends React.Component<
                   props={{
                     id: "street",
                     placeholder: "Улица",
-                    className: inputStyle,
                   }}
                 />
               </div>
             </div>
 
-            <div className="form-group row">
+            <div className="form-group row mb-5">
               <label className="col-3 col-form-label" htmlFor="building">
-                Дом
+                Дом<CheckoutForm.RequiredStar />
               </label>
 
               <div className="col">
@@ -137,13 +151,12 @@ class CheckoutForm extends React.Component<
                     type: "text",
                     placeholder: "Дом",
                     autoComplete: "building",
-                    className: inputStyle,
                   }}
                 />
               </div>
 
               <label className="col-auto col-form-label" htmlFor="apartment">
-                Квартира
+                Квартира<CheckoutForm.RequiredStar />
               </label>
 
               <div className="col">
@@ -155,7 +168,6 @@ class CheckoutForm extends React.Component<
                     type: "text",
                     placeholder: "Квартира",
                     autoComplete: "apartment",
-                    className: inputStyle,
                   }}
                 />
               </div>
@@ -163,12 +175,25 @@ class CheckoutForm extends React.Component<
           </div>
 
           <div className="col-6">
+            <h3
+              className={cx(
+                "mb-4",
+                css`
+                  color: ${this.props.theme.lighterGrey};
+                `
+              )}
+            >
+              Оплата
+            </h3>
+
             <nav className="nav nav-pills nav-fill mb-5 text-uppercase font-weight-bold">
               <label
                 htmlFor="cash"
                 className={cx(
                   "nav-item nav-link mb-0",
                   css`
+                    padding-top: 6px;
+                    padding-bottom: 6px;
                     color: ${this.props.theme.lightGreen};
                     border: 1px solid ${this.props.theme.lightGreen};
 
@@ -202,6 +227,8 @@ class CheckoutForm extends React.Component<
                 className={cx(
                   "nav-item nav-link mb-0",
                   css`
+                    padding-top: 6px;
+                    padding-bottom: 6px;
                     color: ${this.props.theme.lightGreen};
                     border: 1px solid ${this.props.theme.lightGreen};
 
@@ -227,11 +254,27 @@ class CheckoutForm extends React.Component<
               </label>
             </nav>
 
-            <div className="form-group row">
-              <label className="col-4 col-form-label" htmlFor="comment">
+            <div className="form-group row mb-5">
+              <label className="col-3 col-form-label" htmlFor="total">
+                К оплате
+              </label>
+              <div className="col-9">
+                <input
+                  value={this.props.total}
+                  className="form-control"
+                  name="total"
+                  id="total"
+                  placeholder="К оплате"
+                  readOnly
+                />
+              </div>
+            </div>
+
+            <div className="form-group row mb-5">
+              <label className="col-3 col-form-label" htmlFor="comment">
                 Комментарий
               </label>
-              <div className="col-8">
+              <div className="col-9">
                 <Field
                   component={CustomInput}
                   name="comment"
@@ -240,7 +283,6 @@ class CheckoutForm extends React.Component<
                     type: "text",
                     placeholder: "Комментарий",
                     autoComplete: "comment",
-                    className: inputStyle,
                   }}
                 />
               </div>
@@ -258,8 +300,8 @@ class CheckoutForm extends React.Component<
                   background-color: ${this.props.theme.lightGreen};
                   border-radius: 2.25rem/2rem;
                   border: none;
-                  letter-spacing: 0.125em;
-                  font-weight: 500;
+                  letter-spacing: 1px;
+                  font-weight: 700;
                   padding: 0.5rem 1.5rem;
                   text-transform: uppercase;
                   width: 100%;
@@ -292,6 +334,7 @@ class CheckoutForm extends React.Component<
 const validateCheckoutFrom = (values: ImmutableMapOfCheckoutFormData) =>
   ({
     phone: validatePhone(values.get("phone")),
+    name: validatePresence(values.get("name")),
     street: validatePresence(values.get("street")),
     building: validatePresence(values.get("building")),
     apartment: validatePresence(values.get("apartment")),

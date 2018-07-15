@@ -15,25 +15,11 @@ import {
 } from "./selectors"
 import {makeOrder, getStreets, Address} from "./actions"
 
-interface CheckoutProps {
-  streets: string[]
-  streetsStatus: string
-  orderStatus: string
-  isOrderPending: boolean
-  makeOrder(
-    address: Address,
-    name: string,
-    phone: string,
-    paymentMethod: string
-  ): void
-  getStreets(): void
-}
-
 const withCheckout = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) => {
   return class WithCheckoutContainer extends React.Component<
-    CheckoutProps & P
+    CheckoutStateProps & CheckoutDispatchProps & P
   > {
     componentDidMount() {
       this.props.getStreets()
@@ -44,7 +30,28 @@ const withCheckout = <P extends object>(
   }
 }
 
-const mapStateToProps = (state: State) => {
+export interface CheckoutStateProps {
+  streets: string[]
+  streetsStatus: string
+  orderStatus: string
+  isOrderPending: boolean
+}
+
+export interface CheckoutDispatchProps {
+  makeOrder(
+    address: Address,
+    name: string,
+    phone: string,
+    paymentMethod: string
+  ): void
+  getStreets(): void
+}
+
+export interface CheckoutProps
+  extends CheckoutStateProps,
+    CheckoutDispatchProps {}
+
+const mapStateToProps = (state: State): CheckoutStateProps => {
   return {
     streets: selectStreets(state),
     streetsStatus: selectStreetsStatus(state),
@@ -53,7 +60,7 @@ const mapStateToProps = (state: State) => {
   }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: any): CheckoutDispatchProps => {
   return {
     makeOrder: (
       address: Address,

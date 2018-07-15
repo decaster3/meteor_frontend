@@ -78,7 +78,8 @@ export {customStyled as styled}
 
 const customWithTheme = <P extends ThemeProps>(
   WrappedComponent: React.ComponentType<P>
-): React.ComponentType<Subtract<P, ThemeProps>> => withTheme(WrappedComponent)
+): React.ComponentType<Subtract<P, ThemeProps>> =>
+  withTheme<P, Theme>(WrappedComponent)
 
 export {customWithTheme as withTheme}
 

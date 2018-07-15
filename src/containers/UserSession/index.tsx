@@ -68,6 +68,8 @@ export interface UserDispatchProps {
   getUserInfo(token: string): void
 }
 
+export interface UserProps extends UserStateProps, UserDispatchProps {}
+
 const mapDispatchToUserProps = (dispatch: any): UserDispatchProps => {
   return {
     login: (password: string, phone: string) =>

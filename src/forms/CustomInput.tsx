@@ -1,11 +1,6 @@
 import React from "react"
 import {WrappedFieldProps} from "redux-form"
 import classnames from "classnames"
-import {css, cx} from "emotion"
-
-export const inputGroupStyle = css`
-  margin-bottom: 32px;
-`
 
 interface CustomInputProps {
   type?: string
@@ -27,17 +22,10 @@ export const CustomInput = ({
   type,
   placeholder,
   autoComplete,
-  prepend,
-  append,
   readOnly,
 }: CustomInputProps & WrappedFieldProps) => {
   return (
-    <div className={cx("input-group", inputGroupStyle)}>
-      {prepend && (
-        <div className="input-group-prepend">
-          <span className="input-group-text">{prepend}</span>
-        </div>
-      )}
+    <>
       <input
         className={classnames(
           "form-control",
@@ -54,16 +42,12 @@ export const CustomInput = ({
         autoComplete={autoComplete}
         {...input}
       />
-      {append && (
-        <div className="input-group-append">
-          <span className="input-group-text">{append}</span>
-        </div>
-      )}
+
       {meta.touched &&
         meta.error && <div className="invalid-tooltip">{meta.error}</div>}
       {meta.touched &&
         meta.warning && <div className="valid-tooltip">{meta.warning}</div>}
-    </div>
+    </>
   )
 }
 

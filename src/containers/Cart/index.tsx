@@ -13,7 +13,6 @@ import {
   selectTotal,
   selectPossibleMeteors,
 } from "./selectors"
-import CartView from "../../views/Cart"
 import {
   addProductToCart,
   removeProductFromCart,
@@ -21,12 +20,20 @@ import {
   CartProduct,
 } from "./actions"
 
-interface CartStateProps {
+export interface CartStateProps {
   products: CartProduct[]
   meteors: number
   total: number
   possibleMeteors: number
 }
+
+export interface CartDispatchProps {
+  removeProductFromCart(product: CartProduct): void
+  addProductToCart(product: CartProduct): void
+  updateTotalCart(): void
+}
+
+export interface CartProps extends CartStateProps, CartDispatchProps {}
 
 const mapStateToProps = (state: State): CartStateProps => ({
   meteors: selectMeteors(state),
@@ -34,12 +41,6 @@ const mapStateToProps = (state: State): CartStateProps => ({
   products: selectProducts(state),
   possibleMeteors: selectPossibleMeteors(state),
 })
-
-interface CartDispatchProps {
-  removeProductFromCart(product: CartProduct): void
-  addProductToCart(product: CartProduct): void
-  updateTotalCart(): void
-}
 
 const mapDispatchToProps = (dispatch: any): CartDispatchProps => ({
   addProductToCart: (product: CartProduct) =>

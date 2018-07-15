@@ -2,7 +2,7 @@ import React from "react"
 import {compose} from "redux"
 import withCart, {CartProps} from "../../containers/Cart"
 import CartProductView from "./CartProduct"
-import Checkout from "../Checkout"
+import Checkout from "./Checkout"
 import {css} from "emotion"
 import {withTheme} from "emotion-theming"
 import {ThemeProps} from "../App/Theme"
@@ -26,8 +26,8 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
       <div>
         <h2>Корзина</h2>
 
-        <div className="row">
-          <div className="col-12 col-lg-8 d-flex flex-column justify-content-center">
+        <div className="row mb-5">
+          <div className="col-12 col-lg-8">
             {this.props.products.map(product => (
               <CartProductView
                 key={product.instance.id}
@@ -45,7 +45,7 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
                   <div className="h5 mt-3 text-center text-uppercase">
                     <span
                       className={css`
-                        letter-spacing: 2px;
+                        letter-spacing: 1px;
                       `}
                     >
                       Использовать метеоры
@@ -85,21 +85,22 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
 
                   <div className="row my-3 mb-5 text-center text-uppercase">
                     <div className="col">
-                      <div>{"К оплате: "}</div>
-                      <span className="h4 font-weight-bold">
+                      <div className="mb-1">{"К оплате: "}</div>
+                      <div className="h4 mb-0 font-weight-bold">
                         <span
                           className={css`
+                            line-height: 1.5;
                             color: ${this.props.theme.lightGreen};
                           `}
                         >
                           {this.props.total - this.state.choosenMeteors}
                           &nbsp;<small>JPY</small>
                         </span>
-                      </span>
-                      {" и "}
-                      <span className="h4 font-weight-bold">
+                      </div>
+                      <div className="h4 mb-0 font-weight-bold">
                         <span
                           className={css`
+                            line-height: 1.5;
                             color: ${this.props.theme.orange};
                           `}
                         >
@@ -107,7 +108,7 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
                             метеоров
                           </small>
                         </span>
-                      </span>
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -2,25 +2,14 @@ import React from "react"
 import {compose} from "redux"
 import {fromJS} from "immutable"
 
-import withCheckout from "../../containers/Checkout"
+import withCart, {CartProps} from "../../containers/Cart"
+import withCheckout, {CheckoutProps} from "../../containers/Checkout"
 import CheckoutForm from "./CheckoutForm"
-import {Address} from "../../containers/Checkout/actions"
-import {withUser} from "../../containers/UserSession"
-import {UserInformation} from "../../containers/UserSession/actions"
+import {withUser, UserProps} from "../../containers/UserSession"
 
-interface CheckoutProps {
-  isOrderPending: boolean
-  userInfo: UserInformation
-  streets: string[]
-  makeOrder(
-    address: Address,
-    name: string,
-    phone: string,
-    paymentMethod: string
-  ): void
-}
+type CheckoutViewProps = CartProps & UserProps & CheckoutProps
 
-class Checkout extends React.Component<CheckoutProps> {
+class Checkout extends React.Component<CheckoutViewProps> {
   handleOrderSubmit = (values: any) => {
     const address = {
       street: values.get("street").value,
@@ -43,6 +32,7 @@ class Checkout extends React.Component<CheckoutProps> {
         isOrderPending={this.props.isOrderPending}
         streets={this.props.streets}
         userPhone={this.props.userInfo.phone}
+        total={this.props.total}
         initialValues={fromJS({
           phone: this.props.userInfo.phone ? this.props.userInfo.phone : "",
           name: this.props.userInfo.name ? this.props.userInfo.name : "",
@@ -55,5 +45,6 @@ class Checkout extends React.Component<CheckoutProps> {
 
 export default compose(
   withCheckout,
-  withUser
+  withUser,
+  withCart
 )(Checkout)

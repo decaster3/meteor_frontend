@@ -3,7 +3,6 @@ import Select from "react-select"
 import {WrappedFieldProps} from "redux-form"
 
 import "react-select/dist/react-select.css"
-import {inputGroupStyle} from "./CustomInput"
 import {cx} from "emotion"
 
 interface CustomSelectProps {
@@ -20,9 +19,11 @@ const CustomSelect = (props: CustomSelectProps & WrappedFieldProps) => {
   // const handleInputChange = (value: string) => {
   //   props.input.input.onChange(value)
   // }
+
   // const blur = (value: string) => {
   //   props.input.input.onBlur(input.input.value)
   // }
+
   const {
     placeholder,
     input,
@@ -35,7 +36,7 @@ const CustomSelect = (props: CustomSelectProps & WrappedFieldProps) => {
 
   return (
     <Select
-      className={cx(inputGroupStyle, className)}
+      className={className}
       value={input.value}
       onChange={input.onChange}
       // tslint:disable-next-line:jsx-no-lambda

@@ -12,22 +12,22 @@ const Button = styled("button")`
   height: 36px;
 `
 
-interface OptionProps {
-  value: string
-}
+// interface OptionProps {
+//   value: string
+// }
 
-const Option: React.SFC<OptionProps> = props => (
-  <div
-    className={cx(
-      "mr-3",
-      css`
-        white-space: nowrap;
-      `
-    )}
-  >
-    {props.value}
-  </div>
-)
+// const Option: React.SFC<OptionProps> = props => (
+//   <div
+//     className={cx(
+//       "mr-3",
+//       css`
+//         white-space: nowrap;
+//       `
+//     )}
+//   >
+//     {props.value}
+//   </div>
+// )
 
 interface CartProductProps {
   product: CartProduct
@@ -91,16 +91,16 @@ class CartProductView extends React.Component<
 
   render() {
     return (
-      <div className="row align-items-center mb-4 text-uppercase font-weight-bold">
+      <div className="row align-items-center my-4 text-uppercase font-weight-bold">
         <div className="col-4 col-md-auto my-2 text-center">
           <img
             className={cx(
               css`
                 max-width: 100%;
-                max-height: 64px;
+                max-height: 96px;
               `
             )}
-            src={`https://picsum.photos/300/200/?blue&image=${
+            src={`https://picsum.photos/256/256/?blue&image=${
               this.props.product.id
             }`}
           />
@@ -116,11 +116,27 @@ class CartProductView extends React.Component<
             `}
           >
             {this.state.independentOptions.map((value, index) => (
-              <Option key={index} value={value} />
+              <div
+                key={index}
+                className={css`
+                  white-space: nowrap;
+                  margin-right: 1em;
+                `}
+              >
+                {value}
+              </div>
             ))}
 
             {this.state.dependentOptions.map((value, index) => (
-              <Option key={index} value={value} />
+              <div
+                key={index}
+                className={css`
+                  white-space: nowrap;
+                  margin-right: 1em;
+                `}
+              >
+                {value}
+              </div>
             ))}
           </div>
         </div>
