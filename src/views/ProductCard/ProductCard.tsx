@@ -1,16 +1,16 @@
 import React from "react"
 import _ from "lodash"
-
 import {
   Product,
   ProductInstance,
   OptionConcat,
 } from "../../containers/Product/actions"
-import * as styles from "./ProductCard.module.scss"
+import styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
-import {Row, Col} from "reactstrap"
 import {cx} from "emotion"
 import {BASEURL} from "../../constants"
+import IndependentOptions from "./IndependentOptions"
+import DependentOptions from "./DependentOptions"
 
 interface ProductCardProps {
   product: Product
@@ -53,78 +53,6 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     })
   }
 
-  renderIndependentOptions = () =>
-    this.props.product.options.map(option => {
-      const currentOptionValue = this.state.currentProductState.independentOptions.find(
-        currentOption => currentOption.optionId === option.id
-      )
-      if (currentOptionValue && !option.isCharacteristic) {
-        return (
-          <Row className={"my-2"} noGutters={true} key={option.id}>
-            {option.optionValues.map(optionName => (
-              <Col className="text-center" key={optionName.id}>
-                <button
-                  type="button"
-                  name={option.id.toString()}
-                  value={optionName.id}
-                  // tslint:disable-next-line:jsx-no-lambda
-                  onClick={() =>
-                    this.changeCurrentProduct(
-                      option.id,
-                      optionName.id,
-                      optionName.value
-                    )
-                  }
-                  className={cx(styles.option, {
-                    [styles.optionActive]:
-                      currentOptionValue.valueId === optionName.id,
-                  })}
-                >
-                  {optionName.value}
-                </button>
-              </Col>
-            ))}
-          </Row>
-        )
-      } else {
-        return null
-      }
-    })
-
-  renderDependentOptions = () => {
-    return this.props.product.options.map(option => {
-      const currentOptionValue = this.state.currentProductState.dependentOptions.find(
-        currentOption => currentOption.optionId === option.id
-      )
-      if (currentOptionValue && option.isCharacteristic) {
-        return (
-          <Row key={option.id} className={styles.dependentOption}>
-            <Col>
-              <small>{option.name}</small>
-            </Col>
-            {option.optionValues.map(optionName => {
-              if (currentOptionValue.valueId === optionName.id) {
-                return (
-                  <Col
-                    key={optionName.id}
-                    xs="auto"
-                    className="font-weight-bold"
-                  >
-                    {optionName.value}
-                  </Col>
-                )
-              } else {
-                return null
-              }
-            })}
-          </Row>
-        )
-      } else {
-        return null
-      }
-    })
-  }
-
   render() {
     return (
       <div className={styles.productCard}>
@@ -133,16 +61,29 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
         </div>
 
         <div className={styles.imageContainer}>
-          <img src={`${BASEURL}/${this.props.product.imageUrl}`} />
+          <img
+            src={
+              this.props.product.imageUrl
+                ? `${BASEURL}/${this.props.product.imageUrl}`
+                : "http://via.placeholder.com/256x256"
+            }
+          />
         </div>
 
         <div className={cx(styles.ingridients, "text-center")}>
           {this.props.product.description}
         </div>
 
-        {this.renderIndependentOptions()}
+        <IndependentOptions
+          options={this.props.product.options}
+          independentOptions={this.state.currentProductState.independentOptions}
+          changeCurrentProduct={this.changeCurrentProduct}
+        />
 
-        {this.renderDependentOptions()}
+        <DependentOptions
+          options={this.props.product.options}
+          dependentOptions={this.state.currentProductState.dependentOptions}
+        />
 
         <button onClick={this.handleAddProductToCart} className={styles.order}>
           {this.state.currentProductState.price.value}
