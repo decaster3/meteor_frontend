@@ -28,7 +28,6 @@ class Cart extends React.Component<
     this.props.getUserInfo()
   }
   componentWillUnmount() {
-    console.log(123123123123)
     this.props.changeMeteors(this.state.choosenMeteors)
   }
 

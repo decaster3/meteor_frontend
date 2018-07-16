@@ -7,7 +7,7 @@ import moment from "moment"
 import {Status} from "../../constants"
 import {CartProduct} from "../Cart/actions"
 
-export interface UserInfo {
+export interface UserInformation {
   id: number
   phone: string
   role: string
@@ -17,34 +17,16 @@ export interface UserInfo {
   orders: Order[]
   userInfoStatus: string
 }
-
-type paymentMethodType = "cash" | "cashless"
-type orderStatusType =
-  | "not_adopted"
-  | "adopted"
-  | "ready"
-  | "cancelled"
-  | "finished"
-
-export const orderStatusTranslation: {[K in orderStatusType]: string} = {
-  not_adopted: "Не принят",
-  adopted: "Готовится",
-  ready: "Доставляется",
-  cancelled: "Отменен",
-  finished: "Завершен",
-}
-
-export const paymentMethodTranslation: {[K in paymentMethodType]: string} = {
-  cash: "Наличные",
-  cashless: "Карта",
-}
-
 export interface Order {
   id: number
-  paymentMethod: paymentMethodType
-  status: orderStatusType
-  orderProducts: CartProduct[]
-  createdAt: string
+  paymentMethod: string
+  status: string
+  orderProducts: OrderProduct[]
+}
+export interface OrderProduct {
+  id: number
+  quantity: number
+  product: CartProduct
 }
 
 export interface Meteor {
@@ -52,12 +34,10 @@ export interface Meteor {
   value: number
   description: string
 }
-
 const changeUserInfoStatus = (status: string) => ({
   type: ActionType.UPDATE_USER_INFORMATION_STATUS,
   payload: status,
 })
-
 const nextRegistrationStep = () => ({type: ActionType.NEXT_REGISTRATION_STEP})
 
 const previousRegistrationStep = () => ({
@@ -84,7 +64,7 @@ const changeUserStatus = (userStatus: UserState) => ({
   payload: userStatus,
 })
 
-const setUserInfo = (userInfo: UserInfo) => ({
+const setUserInfo = (userInfo: UserInformation) => ({
   type: ActionType.UPDATE_USER_INFORMATION,
   payload: userInfo,
 })
@@ -93,7 +73,6 @@ export const setInviterToken = (inviterToken: string) => ({
   type: ActionType.SET_INVITER_TOKEN,
   payload: inviterToken,
 })
-
 export const getUserInfo = () => (dispatch: Dispatch<State>) => {
   dispatch(changeUserInfoStatus(Status.LOADING))
   return requests
@@ -123,7 +102,6 @@ export const login = (password: string, phone: string) => (
       dispatch(changeUserStatus(UserState.ANONYMOUS))
       dispatch(changeLoginPendingState(false))
       if (err.body.error === "Invalid Phone or password.") {
-        console.log(err)
         throw new SubmissionError({_error: "Неправильный телефон или пароль"})
       }
     })
