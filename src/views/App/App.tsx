@@ -19,6 +19,7 @@ import {Category} from "../../containers/Products/actions"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
 import withCategories from "../../containers/Category"
+import withAccount from "../AccountWrapper"
 import Account from "../Account"
 import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
@@ -113,20 +114,17 @@ const App: React.StatelessComponent<AppProps> = props => (
                 component={MainPage}
               />
               <Route path="/" exact={true} component={MainPage} />
-
               <Route path="/pizza" exact={true} component={MainPage} />
               <Route path="/burgers" exact={true} component={MainPage} />
               <Route path="/sushi" exact={true} component={MainPage} />
               <Route path="/snacks" exact={true} component={MainPage} />
               <Route path="/menu" component={Menu} />
-
               <Route path="/cart" exact={true} component={Cart} />
               <Route path="/checkout" exact={true} component={Checkout} />
-
               {props.userState === UserState.LOGED_IN && (
-                <Route path="/account" component={Account} />
+                <Route path="/account" component={withAccount} />
               )}
-              <Route />
+              */}
             </Switch>
           </div>
         </Row>
