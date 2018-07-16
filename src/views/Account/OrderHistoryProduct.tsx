@@ -4,46 +4,34 @@ import Icon from "react-fa"
 
 import {CartProduct} from "../../containers/Cart/actions"
 import {ThemeProps, withTheme, styled} from "../App/Theme"
+import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 
-const Button = styled("button")`
-  line-height: 1;
-  padding: 8px;
-  width: 36px;
-  height: 36px;
-`
-
-interface OptionProps {
-  value: string
-}
-
-const Option: React.SFC<OptionProps> = props => (
-  <div
-    className={cx(
-      "mr-3",
-      css`
-        white-space: nowrap;
-      `
-    )}
-  >
-    {props.value}
-  </div>
-)
-
-interface CartProductProps {
+interface OrderHistoryProductProps {
   product: CartProduct
   addProductToCart(product: CartProduct): void
 }
 
-interface CartProductState {
+interface OrderHistoryProductState {
   independentOptions: string[]
   dependentOptions: string[]
 }
 
-class CartProductView extends React.Component<
-  CartProductProps & ThemeProps,
-  CartProductState
+class OrderHistoryProduct extends React.Component<
+  OrderHistoryProductProps & ThemeProps,
+  OrderHistoryProductState
 > {
-  constructor(props: CartProductProps & ThemeProps) {
+  static AddToCartButton = styled("button")`
+    line-height: 1;
+    padding: 8px;
+    height: 36px;
+  `
+
+  static Option = styled("div")`
+    margin-right: 16px; /* mr-3 */
+    white-space: nowrap;
+  `
+
+  constructor(props: OrderHistoryProductProps & ThemeProps) {
     super(props)
 
     this.state = {
@@ -89,15 +77,11 @@ class CartProductView extends React.Component<
       <div className="row align-items-center mb-4 text-uppercase font-weight-bold">
         <div className="col-4 col-md-auto my-2 text-center">
           <img
-            className={cx(
-              css`
-                max-width: 100%;
-                max-height: 64px;
-              `
-            )}
-            src={`https://picsum.photos/300/200/?blue&image=${
-              this.props.product.id
-            }`}
+            className={css`
+              max-width: 100%;
+              max-height: 96px;
+            `}
+            src={pizzaPlaceholder}
           />
         </div>
 
@@ -111,11 +95,15 @@ class CartProductView extends React.Component<
             `}
           >
             {this.state.independentOptions.map((value, index) => (
-              <Option key={index} value={value} />
+              <OrderHistoryProduct.Option key={index}>
+                {value}
+              </OrderHistoryProduct.Option>
             ))}
 
             {this.state.dependentOptions.map((value, index) => (
-              <Option key={index} value={value} />
+              <OrderHistoryProduct.Option key={index}>
+                {value}
+              </OrderHistoryProduct.Option>
             ))}
           </div>
         </div>
@@ -139,24 +127,18 @@ class CartProductView extends React.Component<
             </div>
 
             <div className="col">
-              <Button
+              <OrderHistoryProduct.AddToCartButton
                 className="btn btn-outline-success"
                 onClick={this.handleAddProduct}
               >
                 Добавить в карзину
-              </Button>
+              </OrderHistoryProduct.AddToCartButton>
             </div>
           </div>
-        </div>
-
-        <div className="col-2 col-md-1 text-center">
-          <span className="h5 mb-0 text-danger">
-            <Icon name="times" />
-          </span>
         </div>
       </div>
     )
   }
 }
 
-export default withTheme(CartProductView)
+export default withTheme(OrderHistoryProduct)

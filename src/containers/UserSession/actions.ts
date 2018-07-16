@@ -17,12 +17,36 @@ export interface UserInformation {
   orders: Order[]
   userInfoStatus: string
 }
+
+type paymentMethodType = "cash" | "cashless"
+type orderStatusType =
+  | "not_adopted"
+  | "adopted"
+  | "ready"
+  | "cancelled"
+  | "finished"
+
+export const orderStatusTranslation: {[K in orderStatusType]: string} = {
+  not_adopted: "Не принят",
+  adopted: "Готовится",
+  ready: "Доставляется",
+  cancelled: "Отменен",
+  finished: "Завершен",
+}
+
+export const paymentMethodTranslation: {[K in paymentMethodType]: string} = {
+  cash: "Наличные",
+  cashless: "Карта",
+}
+
 export interface Order {
   id: number
-  paymentMethod: string
-  status: string
+  paymentMethod: paymentMethodType
+  status: orderStatusType
   orderProducts: OrderProduct[]
+  createdAt: string
 }
+
 export interface OrderProduct {
   id: number
   quantity: number
@@ -34,10 +58,12 @@ export interface Meteor {
   value: number
   description: string
 }
+
 const changeUserInfoStatus = (status: string) => ({
   type: ActionType.UPDATE_USER_INFORMATION_STATUS,
   payload: status,
 })
+
 const nextRegistrationStep = () => ({type: ActionType.NEXT_REGISTRATION_STEP})
 
 const previousRegistrationStep = () => ({
@@ -73,6 +99,7 @@ export const setInviterToken = (inviterToken: string) => ({
   type: ActionType.SET_INVITER_TOKEN,
   payload: inviterToken,
 })
+
 export const getUserInfo = () => (dispatch: Dispatch<State>) => {
   dispatch(changeUserInfoStatus(Status.LOADING))
   return requests

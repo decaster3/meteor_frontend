@@ -1,7 +1,7 @@
 import {Dispatch} from "redux"
 import {State} from "../.."
-import requests from "../../services/requests"
 import {ActionType} from "./constants"
+import {Option, ProductInstance} from "../Products/actions"
 
 export interface CartProduct {
   id: number
@@ -10,30 +10,6 @@ export interface CartProduct {
   options: Option[]
   instances: ProductInstance[]
   count?: number
-}
-
-export interface Option {
-  name: string
-  id: number
-  isCharacteristic: boolean
-  optionValues: OptionValue[]
-}
-
-interface OptionValue {
-  value: string
-  id: number
-}
-
-export interface ProductInstance {
-  id: number
-  price: {currency: string; value: string; id: number}
-  independentOptions: OptionConcat[]
-  dependentOptions: OptionConcat[]
-}
-
-export interface OptionConcat {
-  optionId: number
-  valueId: number
 }
 
 export const updateTotalCart = () => ({type: ActionType.UPDATE_TOTAL_CART})

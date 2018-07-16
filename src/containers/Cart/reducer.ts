@@ -24,7 +24,7 @@ const getTotalCart = (state: any) => {
   let total = 0
   products.forEach((product: CartProduct) => {
     const quantity = product.count || 1
-    total += parseInt(product.instances[0].price.value, 10) * quantity
+    total += product.instances[0].price.value * quantity
   })
   return total
 }

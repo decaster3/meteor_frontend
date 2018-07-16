@@ -33,14 +33,24 @@ export interface Option {
   name: string
   id: number
   isCharacteristic: boolean
-  optionValues: Array<{value: string; id: number}>
+  optionValues: OptionValue[]
+}
+
+interface OptionValue {
+  value: string
+  id: number
 }
 
 export interface ProductInstance {
   id: number
-  price: {currency: string; value: string; id: number}
+  price: Price
   independentOptions: OptionConcat[]
   dependentOptions: OptionConcat[]
+}
+
+export interface Price {
+  currency: string
+  value: number
 }
 
 export interface OptionConcat {

@@ -62,8 +62,8 @@ interface AppProps {
   categories: Category[]
 }
 
-const fadedDarkBlue = transparentize(0.5, theme.darkBlue)
-const fadedBlue = transparentize(0.5, theme.blue)
+const fadedDarkBlue = transparentize(0.2, theme.darkBlue)
+const fadedBlue = transparentize(0.2, theme.blue)
 
 const App: React.StatelessComponent<AppProps> = props => (
   <ThemeProvider theme={theme}>
@@ -72,11 +72,6 @@ const App: React.StatelessComponent<AppProps> = props => (
         flex: 1,
         paddingTop: "3.5rem",
         backgroundColor: fadedDarkBlue,
-        background: `linear-gradient(
-          ${theme.darkBlue},
-          ${fadedDarkBlue},
-          ${theme.darkBlue}
-        )`,
       })}
     >
       <Header />
@@ -91,11 +86,6 @@ const App: React.StatelessComponent<AppProps> = props => (
           className={css({
             flex: 1,
             backgroundColor: fadedBlue,
-            background: `linear-gradient(
-              ${fadedBlue},
-              ${theme.blue},
-              ${fadedBlue}
-            )`,
             boxShadow: "0 0 6rem 0 black, 0 0 2rem 0 black",
           })}
         >

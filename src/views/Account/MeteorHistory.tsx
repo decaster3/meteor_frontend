@@ -1,15 +1,10 @@
 import React from "react"
 import {compose} from "redux"
-import {withUser} from "../../containers/UserSession"
-import {UserInformation} from "../../containers/UserSession/actions"
+import {withUser, UserProps} from "../../containers/UserSession"
 import {Status} from "../../constants"
 
-interface AccountMainProps {
-  userInfo: UserInformation
-}
-
-class AccountMain extends React.Component<AccountMainProps> {
-  renderMeteorsHistory = () => {
+class AccountMain extends React.Component<UserProps> {
+  render() {
     switch (this.props.userInfo.userInfoStatus) {
       case Status.LOADING:
         return <p>Loading...</p>
@@ -28,10 +23,6 @@ class AccountMain extends React.Component<AccountMainProps> {
       default:
         return <p>Something went wrong. Reload the page.</p>
     }
-  }
-  render() {
-    const meteorsHistory = this.renderMeteorsHistory()
-    return <>{meteorsHistory}</>
   }
 }
 
