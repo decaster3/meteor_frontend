@@ -18,11 +18,18 @@ class Cart extends React.Component<
   UserProps & CartProps & ThemeProps,
   CartState
 > {
-  state: CartState = {
-    choosenMeteors: 0,
+  constructor(props: UserProps & CartProps & ThemeProps) {
+    super(props)
+    this.state = {
+      choosenMeteors: this.props.meteors,
+    }
   }
   componentDidMount() {
     this.props.getUserInfo()
+  }
+  componentWillUnmount() {
+    console.log(123123123123)
+    this.props.changeMeteors(this.state.choosenMeteors)
   }
 
   handleChangeMeteors = (event: React.SyntheticEvent<HTMLInputElement>) => {

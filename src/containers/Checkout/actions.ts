@@ -82,7 +82,9 @@ export const makeOrder = (
   const total = getState()
     .get("cart")
     .get("total")
-
+  const meteors = getState()
+    .get("cart")
+    .get("meteors")
   requests
     .post("orders", {
       body: {
@@ -90,8 +92,8 @@ export const makeOrder = (
         address: {...address, cityId},
         user: {name, phone: phone.replace(/\s/g, "")},
         paymentMethod,
-        amount: total,
-        meteors: 0,
+        amount: total - meteors,
+        meteors,
       },
     })
     .then(() => {

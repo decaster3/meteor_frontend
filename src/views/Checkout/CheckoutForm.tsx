@@ -23,6 +23,7 @@ interface CheckoutFormOwnProps {
   userPhone: string
   streets: string[]
   total: number
+  meteors: number
   currency: string
 }
 
@@ -271,7 +272,7 @@ class CheckoutForm extends React.Component<
               <div className="col-9">
                 <div className="input-group">
                   <input
-                    value={this.props.total}
+                    value={this.props.total - this.props.meteors}
                     className="form-control text-right form-control-lg"
                     name="total"
                     id="total"
@@ -280,6 +281,22 @@ class CheckoutForm extends React.Component<
                   />
                   <div className="input-group-append">
                     <span className="input-group-text">JYP</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="col-9">
+                <div className="input-group">
+                  <input
+                    value={this.props.meteors}
+                    className="form-control text-right form-control-lg"
+                    name="total"
+                    id="total"
+                    placeholder="К оплате"
+                    readOnly
+                  />
+                  <div className="input-group-append">
+                    <span className="input-group-text">Метеоров</span>
                   </div>
                 </div>
               </div>

@@ -36,6 +36,7 @@ class Checkout extends React.Component<CheckoutViewProps> {
         currency={this.props.defaultCity.key}
         isOrderPending={this.props.isOrderPending}
         streets={this.props.streets}
+        meteors={this.props.meteors}
         userPhone={this.props.userInfo.phone}
         total={this.props.total}
         initialValues={fromJS({

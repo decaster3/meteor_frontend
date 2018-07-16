@@ -15,7 +15,10 @@ export interface CartProduct {
 
 export const updateTotalCart = () => ({type: ActionType.UPDATE_TOTAL_CART})
 export const clearCart = () => ({type: ActionType.CLEAR_CART})
-
+export const changeMeteors = (meteors: number) => ({
+  type: ActionType.CHANGE_METEORS,
+  payload: meteors,
+})
 export const addProductToCart = (product: CartProduct) => (
   dispatch: Dispatch<State>
 ) => {

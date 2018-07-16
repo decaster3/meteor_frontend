@@ -14,6 +14,7 @@ import {
   addProductToCart,
   removeProductFromCart,
   updateTotalCart,
+  changeMeteors,
   CartProduct,
 } from "./actions"
 
@@ -25,6 +26,7 @@ export interface CartStateProps {
 }
 
 export interface CartDispatchProps {
+  changeMeteors(meteors: number): void
   removeProductFromCart(product: CartProduct): void
   addProductToCart(product: CartProduct): void
   updateTotalCart(): void
@@ -42,6 +44,7 @@ const mapStateToProps = (state: State): CartStateProps => ({
 const mapDispatchToProps = (dispatch: any): CartDispatchProps => ({
   addProductToCart: (product: CartProduct) =>
     dispatch(addProductToCart(product)),
+  changeMeteors: (meteors: number) => dispatch(changeMeteors(meteors)),
   removeProductFromCart: (product: CartProduct) =>
     dispatch(removeProductFromCart(product)),
   updateTotalCart: () => dispatch(updateTotalCart()),

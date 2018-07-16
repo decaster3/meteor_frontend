@@ -7,6 +7,7 @@ import {CartProduct} from "./actions"
 const initialState = fromJS({
   products: [],
   total: 0,
+  meteors: 0,
 })
 
 const compareProducts = (products: CartProduct[], product2: CartProduct) => {
@@ -31,6 +32,9 @@ const getTotalCart = (state: any) => {
 
 const cartReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case ActionType.CHANGE_METEORS: {
+      return state.set("meteors", fromJS(action.payload))
+    }
     case ActionType.ADD_PRODUCT_TO_CART: {
       const currentCartProducts = state.get("products").toJS()
       const potentialIndex = compareProducts(
