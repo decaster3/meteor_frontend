@@ -19,7 +19,7 @@ import logo from "../../assets/logo.svg"
 import {compose} from "redux"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
-import {UserInformation} from "../../containers/UserSession/actions"
+import {UserInfo} from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
 import ModalWrapper from "../ModalWrapper"
@@ -51,7 +51,7 @@ interface HeaderProps {
   citiesStatus: Status
   cities: City[]
   defaultCity: City
-  userInfo: UserInformation
+  userInfo: UserInfo
   userState: UserState
   setDefaultCity(city: City): void
 }

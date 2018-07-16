@@ -18,6 +18,7 @@ export interface Address {
   apartment: string
   comment: string
 }
+
 export interface ProductForOrder {
   quantity: number
   productInstanceId: number
@@ -32,6 +33,7 @@ const changeStreetsStatus = (streetsStatus: string) => ({
   type: ActionType.CHANGE_STREETS_STATUS,
   payload: streetsStatus,
 })
+
 const mockStreets = [{value: "one", label: "One"}, {value: "two", label: "Two"}]
 
 export const getStreets = () => (dispatch: Dispatch<State>, getState: any) => {
@@ -57,6 +59,7 @@ export const makeOrder = (
   paymentMethod: string
 ) => (dispatch: Dispatch<State>, getState: any) => {
   dispatch(changeOrderStatus(OrderStatus.PROCESSING))
+
   const orderProductsAttributes = getState()
     .get("cart")
     .get("products")
@@ -65,6 +68,7 @@ export const makeOrder = (
       quantity: product.count,
       productInstanceId: product.instances[0].id,
     }))
+
   const cityId =
     getState()
       .get("geolocation")
@@ -73,6 +77,7 @@ export const makeOrder = (
       .get("geolocation")
       .get("defaultCity")
       .get("id")
+
   requests
     .post("orders", {
       body: {

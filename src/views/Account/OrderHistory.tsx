@@ -3,7 +3,6 @@ import {compose} from "redux"
 import {withUser, UserProps} from "../../containers/UserSession"
 import withCart, {CartProps} from "../../containers/Cart"
 import {
-  OrderProduct,
   paymentMethodTranslation,
   orderStatusTranslation,
 } from "../../containers/UserSession/actions"

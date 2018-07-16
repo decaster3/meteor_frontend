@@ -9,6 +9,7 @@ export interface CartProduct {
   description: string
   options: Option[]
   instances: ProductInstance[]
+  imageUrl?: string | null
   count?: number
 }
 

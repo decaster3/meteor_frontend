@@ -10,7 +10,7 @@ import Menu from "../MainContentPlaceholder/Menu"
 import MainPage from "../MainPage"
 import Cart from "../Cart"
 import {Status} from "../../constants"
-import {UserInformation} from "../../containers/UserSession/actions"
+import {UserInfo} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
@@ -55,7 +55,7 @@ interface AppProps {
   citiesStatus: Status
   cities: City[]
 
-  userInfo: UserInformation
+  userInfo: UserInfo
   userState: UserState
 
   categoriesStatus: Status

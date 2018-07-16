@@ -10,7 +10,7 @@ import {
   reSendPhone,
   sendCode,
   setInviterToken,
-  UserInformation,
+  UserInfo,
 } from "./actions"
 import reducer from "./reducer"
 import {
@@ -27,7 +27,7 @@ import {
 
 export interface UserStateProps {
   userState: string
-  userInfo: UserInformation
+  userInfo: UserInfo
 }
 
 const mapStateToUserProps = (state: State): UserStateProps => {

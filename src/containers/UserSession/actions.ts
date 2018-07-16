@@ -7,7 +7,7 @@ import moment from "moment"
 import {Status} from "../../constants"
 import {CartProduct} from "../Cart/actions"
 
-export interface UserInformation {
+export interface UserInfo {
   id: number
   phone: string
   role: string
@@ -43,14 +43,8 @@ export interface Order {
   id: number
   paymentMethod: paymentMethodType
   status: orderStatusType
-  orderProducts: OrderProduct[]
+  orderProducts: CartProduct[]
   createdAt: string
-}
-
-export interface OrderProduct {
-  id: number
-  quantity: number
-  product: CartProduct
 }
 
 export interface Meteor {
@@ -90,7 +84,7 @@ const changeUserStatus = (userStatus: UserState) => ({
   payload: userStatus,
 })
 
-const setUserInfo = (userInfo: UserInformation) => ({
+const setUserInfo = (userInfo: UserInfo) => ({
   type: ActionType.UPDATE_USER_INFORMATION,
   payload: userInfo,
 })

@@ -3,7 +3,6 @@ import {
   Order,
   paymentMethodTranslation,
   orderStatusTranslation,
-  OrderProduct,
 } from "../../containers/UserSession/actions"
 import OrderHistoryProduct from "./OrderHistoryProduct"
 import {CartProduct} from "../../containers/Cart/actions"
@@ -25,25 +24,34 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
 
   render() {
     const {order, addProductToCart, children, ...restOfProps} = this.props
-    const currency = order.orderProducts[0].product.instances[0].price.currency
+    // const currency = order.orderProducts[0].product.instances[0].price.currency
     // const total = order.orderProducts
     //   .map(x => x.product.instances[0].price)
     //   .reduce()
     return (
       <div {...restOfProps}>
-        <div>
-          <div>
+        <div className="row">
+          <div className="col">
+            <button onClick={this.toggle}>Toggle</button>
+          </div>
+
+          <div className="col">
             Метод оплаты: {paymentMethodTranslation[order.paymentMethod]}
           </div>
-          <div>Статус: {orderStatusTranslation[order.status]}</div>
-          <div>Заказ от: {order.createdAt}</div>
+
+          <div className="col">
+            Статус: {orderStatusTranslation[order.status]}
+          </div>
+
+          <div className="col">
+            Заказ от: {new Date(order.createdAt).toLocaleString()}
+          </div>
         </div>
-        <button onClick={this.toggle}>Toggle</button>
         <Collapse isOpen={!this.state.collapsed}>
           {order.orderProducts.map((orderProduct, index) => (
             <OrderHistoryProduct
               key={index}
-              product={orderProduct.product}
+              product={orderProduct}
               addProductToCart={addProductToCart}
             />
           ))}
