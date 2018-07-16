@@ -11,6 +11,7 @@ import {cx} from "emotion"
 import {BASEURL} from "../../constants"
 import IndependentOptions from "./IndependentOptions"
 import DependentOptions from "./DependentOptions"
+import {PrimaryButton} from "../PrimaryButton"
 
 interface ProductCardProps {
   product: Product
@@ -84,10 +85,10 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
           dependentOptions={this.state.currentProductState.dependentOptions}
         />
 
-        <button onClick={this.handleAddProductToCart} className={styles.order}>
+        <PrimaryButton onClick={this.handleAddProductToCart}>
           {this.state.currentProductState.price.value}
           <small>{this.state.currentProductState.price.currency}</small> Order
-        </button>
+        </PrimaryButton>
       </div>
     )
   }

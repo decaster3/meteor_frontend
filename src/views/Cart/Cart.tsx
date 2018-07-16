@@ -7,8 +7,7 @@ import {css} from "emotion"
 import {withTheme} from "emotion-theming"
 import {ThemeProps} from "../App/Theme"
 import {StickyContainer, Sticky} from "react-sticky"
-import {Link, withRouter} from "react-router-dom"
-import Button from "../Button"
+import {PrimaryButtonAsLink} from "../PrimaryButton"
 
 interface CartState {
   choosenMeteors: number
@@ -119,7 +118,13 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
           </StickyContainer>
         </div>
 
-        <Button>Офромить заказ</Button>
+        <div className="row justify-content-center">
+          <div className="col-auto">
+            <PrimaryButtonAsLink to="/checkout">
+              Офромить заказ
+            </PrimaryButtonAsLink>
+          </div>
+        </div>
       </div>
     )
   }

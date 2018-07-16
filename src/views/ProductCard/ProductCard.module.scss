@@ -51,44 +51,6 @@
   color: $lightGreen;
 }
 
-.order {
-  color: white;
-  display: block;
-  background-color: $lightGreen;
-  background: linear-gradient(
-    $lightGreen,
-    $lightGreen 50%,
-    $darkGreen 50%,
-    $darkGreen
-  );
-  border-radius: 2.25rem/2rem;
-  border: none;
-  letter-spacing: 0.125em;
-  font-weight: 500;
-  padding: 0.5rem 1.5rem;
-  align-self: center;
-  text-transform: uppercase;
-
-  &:hover,
-  &:focus {
-    background: linear-gradient(
-      darken($lightGreen, 5%),
-      darken($lightGreen, 5%) 50%,
-      darken($darkGreen, 5%) 50%,
-      darken($darkGreen, 5%)
-    );
-  }
-
-  &:active {
-    background: linear-gradient(
-      darken($lightGreen, 10%),
-      darken($lightGreen, 10%) 50%,
-      darken($darkGreen, 10%) 50%,
-      darken($darkGreen, 10%)
-    );
-  }
-}
-
 .option {
   text-transform: uppercase;
   background: none;

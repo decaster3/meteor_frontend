@@ -15,7 +15,7 @@ import CustomSelect from "../../forms/CustomSelect"
 import {cx, css} from "emotion"
 import {compose} from "redux"
 import {ThemeProps, withTheme} from "../App/Theme"
-import Button from "../Button"
+import {PrimaryButton} from "../PrimaryButton"
 
 interface CheckoutFormOwnProps {
   isOrderPending: boolean
@@ -293,13 +293,13 @@ class CheckoutForm extends React.Component<
               {this.props.error && <strong>{this.props.error}</strong>}
             </div>
 
-            <Button type="submit" disabled={this.props.isOrderPending}>
+            <PrimaryButton type="submit" disabled={this.props.isOrderPending}>
               {this.props.isOrderPending ? (
                 <PulseLoader color={"#ffffff"} size={8} />
               ) : (
                 "Заказать"
               )}
-            </Button>
+            </PrimaryButton>
           </div>
         </div>
       </form>
