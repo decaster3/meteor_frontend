@@ -26,47 +26,6 @@ const setCategoriesStatus = (categoriesStatus: string) => ({
   payload: categoriesStatus,
 })
 
-const categories = [
-  {
-    id: 1,
-    name: "Пицца",
-    productsStatus: Status.NOT_LOADED,
-    products: [],
-    imgUrl: "qwe",
-    optionNames: [
-      {
-        id: 1,
-        isCharacteristic: false,
-        name: "размер",
-      },
-      {
-        id: 2,
-        isCharacteristic: false,
-        name: "тесто",
-      },
-      {
-        id: 3,
-        isCharacteristic: true,
-        name: "вес",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Бургеры",
-    imgUrl: "qwe",
-    productsStatus: Status.NOT_LOADED,
-    products: [],
-    optionNames: [
-      {
-        id: 3,
-        isCharacteristic: true,
-        name: "вес",
-      },
-    ],
-  },
-]
-
 export const getCategories = () => (dispatch: Dispatch<State>) => {
   dispatch(setCategoriesStatus(Status.LOADING))
   // return requests
