@@ -1,7 +1,7 @@
 import React from "react"
 import {css, cx} from "emotion"
 import Icon from "react-fa"
-
+import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {CartProduct} from "../../containers/Cart/actions"
 import {ThemeProps, withTheme, styled} from "../App/Theme"
 
@@ -11,23 +11,6 @@ const Button = styled("button")`
   width: 36px;
   height: 36px;
 `
-
-// interface OptionProps {
-//   value: string
-// }
-
-// const Option: React.SFC<OptionProps> = props => (
-//   <div
-//     className={cx(
-//       "mr-3",
-//       css`
-//         white-space: nowrap;
-//       `
-//     )}
-//   >
-//     {props.value}
-//   </div>
-// )
 
 interface CartProductProps {
   product: CartProduct
@@ -100,9 +83,7 @@ class CartProductView extends React.Component<
                 max-height: 96px;
               `
             )}
-            src={`https://picsum.photos/256/256/?blue&image=${
-              this.props.product.id
-            }`}
+            src={pizzaPlaceholder}
           />
         </div>
 

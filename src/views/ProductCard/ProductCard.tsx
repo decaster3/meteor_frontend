@@ -12,6 +12,7 @@ import {BASEURL} from "../../constants"
 import IndependentOptions from "./IndependentOptions"
 import DependentOptions from "./DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
+import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 
 interface ProductCardProps {
   product: Product
@@ -65,7 +66,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
             src={
               this.props.product.imageUrl
                 ? `${BASEURL}/${this.props.product.imageUrl}`
-                : "http://via.placeholder.com/256x256"
+                : pizzaPlaceholder
             }
           />
         </div>
