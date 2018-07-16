@@ -17,10 +17,10 @@ export const selectProducts = createSelector(selectCartDomain, cart =>
 
 export const selectPossibleMeteors = createSelector(
   selectUserDomain,
-  user =>
-    user.get("userInfo").get("meteors") &&
-    user
-      .get("userInfo")
-      .get("meteors")
-      .toJS()[0].value
+  user => 400
+  // user.get("userInfo").get("meteors") &&
+  // user
+  //   .get("userInfo")
+  //   .get("meteors")
+  //   .toJS()[0].value
 )
