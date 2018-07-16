@@ -5,7 +5,6 @@ import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
 import moment from "moment"
 import {Status} from "../../constants"
-import {Product} from "../Product/actions"
 import {CartProduct} from "../Cart/actions"
 
 export interface UserInformation {
