@@ -6,7 +6,6 @@ import injectReducer from "../../utils/injectReducer"
 import {createProduct} from "./actions"
 import reducer from "./reducer"
 import {selectIsProductCreating} from "./selectors"
-import {OptionName} from "../Products/actions"
 
 interface PromotionProps {
   isProductCreating: boolean

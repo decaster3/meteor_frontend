@@ -2,27 +2,15 @@ import React from "react"
 import {WrappedFieldProps} from "redux-form"
 import classnames from "classnames"
 
-interface CustomInputProps {
-  type?: string
-  className?: string
-  id?: string
-  placeholder?: string
-  autoComplete?: string
-  readOnly?: boolean
-  prepend?: React.ReactNode
-  append?: React.ReactNode
-  value?: string
-}
+interface CustomInputProps
+  extends React.HTMLProps<HTMLInputElement>,
+    WrappedFieldProps {}
 
 export const CustomInput = ({
   input,
   meta,
   className,
-  id,
-  type,
-  placeholder,
-  autoComplete,
-  readOnly,
+  ...restOfProps
 }: CustomInputProps & WrappedFieldProps) => {
   return (
     <>
@@ -35,11 +23,7 @@ export const CustomInput = ({
           },
           className
         )}
-        readOnly={readOnly}
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
+        {...restOfProps}
         {...input}
       />
 

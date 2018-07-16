@@ -1,52 +1,47 @@
 import React from "react"
-import Select from "react-select"
+import Select, {ReactSelectProps} from "react-select"
 import {WrappedFieldProps} from "redux-form"
 
 import "react-select/dist/react-select.css"
-import {cx} from "emotion"
+import {cx, css} from "../../node_modules/emotion"
 
-interface CustomSelectProps {
-  clearable?: boolean
-  searchable?: boolean
-  options: any[]
-  input?: any
-  placeholder?: string
-  className?: string
-}
+interface CustomSelectProps extends ReactSelectProps, WrappedFieldProps {}
 
-const CustomSelect = (props: CustomSelectProps & WrappedFieldProps) => {
-  // const {input, options} = props
-  // const handleInputChange = (value: string) => {
-  //   props.input.input.onChange(value)
-  // }
-
-  // const blur = (value: string) => {
-  //   props.input.input.onBlur(input.input.value)
-  // }
-
-  const {
-    placeholder,
-    input,
-    clearable,
-    searchable,
-    options,
-    className,
-    ...rest
-  } = props
-
+const CustomSelect = ({
+  input: {value, onBlur, ...restOfInput},
+  meta,
+  className,
+  ...restOfProps
+}: CustomSelectProps) => {
   return (
-    <Select
-      className={className}
-      value={input.value}
-      onChange={input.onChange}
-      // tslint:disable-next-line:jsx-no-lambda
-      // onBlur={() => input.onBlur(input.value)}
-      options={options}
-      placeholder={placeholder}
-      // onChange={handleInputChange}
-      style={{height: 38}}
-      {...rest}
-    />
+    <>
+      <Select
+        className={cx(
+          "form-control",
+          css`
+            height: 38px;
+            padding: 0;
+            z-index: 6;
+          `,
+          {
+            "is-invalid": meta.touched && meta.invalid,
+            "is-valid": meta.touched && meta.valid,
+          },
+          className
+        )}
+        style={{border: 0}}
+        value={value || ""}
+        onBlur={() => onBlur(value)}
+        {...restOfProps}
+        {...restOfInput}
+      />
+
+      {meta.touched &&
+        meta.error && <div className="invalid-tooltip">{meta.error}</div>}
+      {meta.touched &&
+        meta.warning && <div className="valid-tooltip">{meta.warning}</div>}
+    </>
   )
 }
+
 export default CustomSelect

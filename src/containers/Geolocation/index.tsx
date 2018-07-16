@@ -13,7 +13,7 @@ import {
 } from "./selectors"
 import {configureGeolocation, setDefaultCity, City} from "./actions"
 
-export interface GeolocationStateProps {
+interface GeolocationStateProps {
   cities: City[]
   citiesStatus: string
   defaultCity: City
@@ -23,7 +23,7 @@ export interface GeolocationStateProps {
   showModal: boolean
 }
 
-export interface GeolocationDispatchProps {
+interface GeolocationDispatchProps {
   configureGeolocation(): void
   setDefaultCity(city: City): void
 }
