@@ -1,6 +1,7 @@
 import React from "react"
 import {compose} from "redux"
 import withCart, {CartProps} from "../../containers/Cart"
+import {withUser, UserProps} from "../../containers/UserSession"
 import CartProductView from "./CartProduct"
 import Checkout from "../Checkout"
 import {css} from "emotion"
@@ -13,9 +14,15 @@ interface CartState {
   choosenMeteors: number
 }
 
-class Cart extends React.Component<CartProps & ThemeProps, CartState> {
+class Cart extends React.Component<
+  UserProps & CartProps & ThemeProps,
+  CartState
+> {
   state: CartState = {
     choosenMeteors: 0,
+  }
+  componentDidMount() {
+    this.props.getUserInfo()
   }
 
   handleChangeMeteors = (event: React.SyntheticEvent<HTMLInputElement>) => {
@@ -26,7 +33,6 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
     return (
       <div>
         <h2>Корзина</h2>
-
         <div className="row mb-5">
           <div className="col-12 col-lg-8">
             {this.props.products.map(product => (
@@ -116,15 +122,29 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
               )}
             </Sticky>
           </StickyContainer>
-        </div>
-
-        <div className="row justify-content-center">
-          <div className="col-auto">
-            <PrimaryButtonAsLink to="/checkout">
-              Офромить заказ
-            </PrimaryButtonAsLink>
+        </div>{" "}
+        {this.props.total > 3000 + this.state.choosenMeteors ? (
+          <div className="row justify-content-center mt-3">
+            <div className="col-auto">
+              <PrimaryButtonAsLink to="/checkout">
+                Офромить заказ
+              </PrimaryButtonAsLink>
+            </div>
           </div>
-        </div>
+        ) : (
+          <>
+            <div style={{color: "red", textAlign: "center"}}>
+              Сумма заказа должна быть выше 3000!
+            </div>
+            <div className="row justify-content-center mt-3">
+              <div className="col-auto">
+                <PrimaryButtonAsLink to="/checkout">
+                  Офромить заказ (НУЖНО СДЕЛАТЬ НЕАКТИВНЫМ)
+                </PrimaryButtonAsLink>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     )
   }
@@ -132,5 +152,6 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
 
 export default compose(
   withCart,
+  withUser,
   withTheme
 )(Cart)

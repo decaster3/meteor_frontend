@@ -123,6 +123,7 @@ export const login = (password: string, phone: string) => (
       dispatch(changeUserStatus(UserState.ANONYMOUS))
       dispatch(changeLoginPendingState(false))
       if (err.body.error === "Invalid Phone or password.") {
+        console.log(err)
         throw new SubmissionError({_error: "Неправильный телефон или пароль"})
       }
     })

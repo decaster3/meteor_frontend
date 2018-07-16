@@ -130,6 +130,16 @@ export class Categories extends React.Component<
   handleSubmit = (values: any) => {
     const productInstancesAttributes: any[] = []
     const citiesAttributes = [{cityId: this.props.defaultCity.id}]
+    const subcategoriesAttributes: any[] = []
+    if (this.state.currentCategory) {
+      this.state.currentCategory.subcategories.forEach(
+        (subcat: Subcategory) => {
+          if (values.get(`subcategory${subcat.id}`)) {
+            subcategoriesAttributes.push({subcategoryId: subcat.id})
+          }
+        }
+      )
+    }
     values.get("options").forEach((optionValuesElement: any) => {
       const optionValuesAttributes: any[] = []
       if (this.state.currentCategory) {
@@ -162,7 +172,7 @@ export class Categories extends React.Component<
     this.props.createProduct(values.get("image"), {
       product,
       citiesAttributes,
-      subcategoriesAttributes: [],
+      subcategoriesAttributes,
     })
   }
 
@@ -182,6 +192,7 @@ export class Categories extends React.Component<
               ? this.state.currentCategory.optionNames
               : []
           }
+          subcategories={this.state.currentCategory.subcategories}
         />
       </ModalWrapper>
     )

@@ -75,7 +75,7 @@ const LoginForm: React.StatelessComponent<
           {props.isLoginPending ? (
             <PulseLoader color={"#ffffff"} size={8} />
           ) : (
-            <span>Отправить код</span>
+            <span>Войти</span>
           )}
         </button>
       </div>

@@ -1,5 +1,4 @@
 @import "../../main.scss";
-
 .productCard {
   color: white;
   text-transform: uppercase;
@@ -11,8 +10,7 @@
   display: flex;
   flex-flow: column;
   height: 100%;
-
-  > * {
+  >* {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
@@ -28,8 +26,7 @@
 
 .imageContainer {
   align-self: center;
-
-  > img {
+  >img {
     display: block;
     width: 100%;
   }
@@ -58,9 +55,7 @@
   color: $lighterGrey;
   line-height: 2rem;
   padding: 0;
-  transition: all 0.25s;
-  // padding: 0 0.25rem;
-
+  transition: all 0.25s; // padding: 0 0.25rem;
   &:focus {
     outline: none;
     color: white;
@@ -77,8 +72,7 @@
 }
 
 .optionActive {
-  color: white;
-  // text-shadow: 0 0 0.5rem fade-out(white, 0.25);
+  color: white; // text-shadow: 0 0 0.5rem fade-out(white, 0.25);
   font-size: 1.25rem;
   line-height: 2rem;
 }
@@ -90,4 +84,12 @@
   border-radius: 0.125rem;
   height: 0.25rem;
   width: 100%;
+}
+
+.badge {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  border-radius: 50%;
+  background: hsl(33, 99%, 50%);
 }

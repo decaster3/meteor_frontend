@@ -75,11 +75,21 @@ const setProductsStatus = (category: Category, productsStatus: string) => ({
 })
 
 export const getProducts = (category: Category) => (
-  dispatch: Dispatch<State>
+  dispatch: Dispatch<State>,
+  getState: any
 ) => {
   dispatch(setProductsStatus(category, Status.LOADING))
+  const currentCiytyId =
+    (getState()
+      .get("geolocation")
+      .get("defaultCity") &&
+      getState()
+        .get("geolocation")
+        .get("defaultCity")
+        .get("id")) ||
+    1
   return requests
-    .get(`products?category_id=${category.id}&city_id=1`)
+    .get(`products?category_id=${category.id}&city_id=${currentCiytyId}`)
     .then(data => {
       dispatch({
         type: ActionType.SET_PRODUCTS,

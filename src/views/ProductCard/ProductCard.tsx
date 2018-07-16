@@ -7,24 +7,40 @@ import {
 } from "../../containers/Products/actions"
 import styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
+import withCart from "../../containers/Cart"
 import {cx} from "emotion"
 import {BASEURL} from "../../constants"
 import IndependentOptions from "./IndependentOptions"
 import DependentOptions from "./DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
+import {compose} from "redux"
 
 interface ProductCardProps {
   product: Product
+  products: CartProduct[]
   addProductToCart(product: CartProduct): void
 }
 interface ProductCardState {
   currentProductState: ProductInstance
+  quantityInCart: number
 }
 
 class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
   state: ProductCardState = {
     currentProductState: _.cloneDeep(this.props.product.instances[0]),
+    quantityInCart: 0,
+  }
+  componentDidMount() {
+    const foundedProductInCart = this.props.products.find(
+      (product: CartProduct) => product.id === this.props.product.id
+    )
+    this.setState({
+      quantityInCart:
+        foundedProductInCart && foundedProductInCart.count
+          ? foundedProductInCart.count
+          : 0,
+    })
   }
 
   changeCurrentProduct = (optionId: number, valueId: number, value: string) => {
@@ -52,13 +68,17 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
       instances: [this.state.currentProductState],
       count: 1,
     })
+    this.setState(prevState => ({quantityInCart: prevState.quantityInCart + 1}))
   }
 
   render() {
     return (
       <div className={styles.productCard}>
         <div className={cx(styles.name, "text-center")}>
-          {this.props.product.name}
+          {this.props.product.name}{" "}
+        </div>
+        <div className={cx(styles.badge, "mt-1 mr-1")}>
+          {this.state.quantityInCart}
         </div>
 
         <div className={styles.imageContainer}>
@@ -94,4 +114,4 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     )
   }
 }
-export default ProductCard
+export default compose<any>(withCart)(ProductCard)

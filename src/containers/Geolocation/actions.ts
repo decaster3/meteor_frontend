@@ -1,12 +1,13 @@
 import {Dispatch} from "redux"
 import {State} from "../.."
 import {ActionType} from "./constants"
-import {Status} from "../../constants"
+import {Status, categoriesData} from "../../constants"
 import requests from "../../services/requests"
 import {clearCart} from "../Cart/actions"
 
 // @ts-ignore
 import Geocode from "react-geocode"
+import {getProducts} from "../Products/actions"
 
 Geocode.setApiKey("AIzaSyDeRt-ekVSI0anD_b1zE5Kl7WobsRGutvc")
 Geocode.enableDebug()
@@ -52,6 +53,20 @@ export const setDefaultCity = (city: City) => (
     type: ActionType.SET_DEFAULT_CITY,
     payload: city,
   })
+  dispatch(getProducts(dispatch(findCategoryByUrl())))
+}
+
+const findCategoryByUrl = () => (dispatch: Dispatch<State>, getState: any) => {
+  return (
+    categoriesData.find(
+      category =>
+        category.url ===
+        getState()
+          .get("route")
+          .get("location")
+          .get("pathname")
+    ) || categoriesData[0]
+  )
 }
 
 export const changeNavigationStatus = (status: boolean) => ({

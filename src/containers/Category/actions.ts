@@ -1,6 +1,6 @@
 import {Dispatch} from "redux"
 import {State} from "../.."
-import {Status} from "../../constants"
+import {Status, categoriesData} from "../../constants"
 import {ActionType} from "./constants"
 
 export interface Option {
@@ -74,7 +74,7 @@ export const getCategories = () => (dispatch: Dispatch<State>) => {
   //   .then(data => {
   dispatch({
     type: ActionType.SET_CATEGORIES,
-    payload: categories,
+    payload: categoriesData,
   })
   dispatch(setCategoriesStatus(Status.LOADED))
   //   return data

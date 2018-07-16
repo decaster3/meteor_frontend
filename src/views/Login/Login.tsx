@@ -12,7 +12,7 @@ interface LoginProps {
 
 class Login extends React.Component<LoginProps> {
   handleLoginSubmit = (values: any) => {
-    this.props.login(values.get("password"), values.get("phone"))
+    return this.props.login(values.get("password"), values.get("phone"))
   }
 
   render() {

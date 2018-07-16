@@ -1,6 +1,7 @@
 import {createSelector} from "reselect"
 
 export const selectCartDomain = (state: any) => state.get("cart")
+export const selectUserDomain = (state: any) => state.get("userSession")
 
 export const selectMeteors = createSelector(selectCartDomain, cart => {
   return cart.get("meteors")
@@ -15,6 +16,11 @@ export const selectProducts = createSelector(selectCartDomain, cart =>
 )
 
 export const selectPossibleMeteors = createSelector(
-  selectCartDomain,
-  products => 400
+  selectUserDomain,
+  user =>
+    user.get("userInfo").get("meteors") &&
+    user
+      .get("userInfo")
+      .get("meteors")
+      .toJS()[0].value
 )

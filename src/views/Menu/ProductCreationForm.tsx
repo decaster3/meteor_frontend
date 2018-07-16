@@ -5,12 +5,13 @@ import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap, fromJS} from "immutable"
 
 import {renderDropzoneInput} from "../../forms/DropzoneField"
-import {OptionName} from "../../containers/Products/actions"
+import {OptionName, Subcategory} from "../../containers/Products/actions"
 import CustomInput from "../../forms/CustomInput"
 
 interface ProductCreationForm {
   productCreationStatus: boolean
   optionNames: OptionName[]
+  subcategories: Subcategory[]
 }
 
 interface ProductCreationData {
@@ -27,6 +28,24 @@ const ProductCreation: React.StatelessComponent<
   ProductCreationForm &
     InjectedFormProps<ImmutableMapOfProductCreationData, ProductCreationForm>
 > = props => {
+  const renderSubcategories = () => {
+    const subcategories = props.subcategories.map(
+      (subcategory: Subcategory, index: number) => (
+        <div key={subcategory.id} className="form-group row">
+          <label htmlFor={subcategory.name}>{subcategory.name}</label>
+          <div>
+            <Field
+              name={`subcategory${subcategory.id}`}
+              value={subcategory.id}
+              component="input"
+              type="checkbox"
+            />
+          </div>
+        </div>
+      )
+    )
+    return subcategories
+  }
   const renderOptions = ({fields}: any) => (
     <ul>
       <li>
@@ -111,6 +130,7 @@ const ProductCreation: React.StatelessComponent<
           />
         </div>
       </div>
+      {renderSubcategories()}
       <div className="form-group row">
         <label className="col-4 col-form-label" htmlFor="phone">
           Описание продукта
