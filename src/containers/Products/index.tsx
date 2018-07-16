@@ -1,6 +1,3 @@
-/*
- * User
- */
 import React from "react"
 import {connect} from "react-redux"
 import {compose} from "redux"
@@ -11,26 +8,26 @@ import reducer from "./reducer"
 import {selectCategories, selectCurrentCategoryId} from "./selectors"
 import {addProductToCart, CartProduct} from "../Cart/actions"
 
-interface CategoriesStateProps {
+interface ProductsStateProps {
   categories: Category[]
   currentCategoryId: number
   inviterToken?: string
 }
 
-interface CategoriesDispatchProps {
+interface ProductsDispatchProps {
   addProductToCart(product: CartProduct): void
   getProducts(category: Category): void
 }
 
-export interface CategoriesProps
-  extends CategoriesStateProps,
-    CategoriesDispatchProps {}
+export interface ProductsProps
+  extends ProductsStateProps,
+    ProductsDispatchProps {}
 
-const withProductsAndCategories = <P extends object>(
+const withProducts = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) => {
   return class WithProductsAndCategoriesContainer extends React.Component<
-    CategoriesProps & P
+    ProductsProps & P
   > {
     render() {
       return <WrappedComponent {...this.props} />
@@ -40,7 +37,7 @@ const withProductsAndCategories = <P extends object>(
 
 const mapDispatchToPropsProductsAndCategories = (
   dispatch: any
-): CategoriesDispatchProps => {
+): ProductsDispatchProps => {
   return {
     addProductToCart: (product: CartProduct) =>
       dispatch(addProductToCart(product)),
@@ -48,7 +45,7 @@ const mapDispatchToPropsProductsAndCategories = (
   }
 }
 
-const mapStateToProps = (state: State): CategoriesStateProps => ({
+const mapStateToProps = (state: State): ProductsStateProps => ({
   categories: selectCategories(state),
   currentCategoryId: selectCurrentCategoryId(state),
 })
@@ -61,5 +58,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToPropsProductsAndCategories
   ),
-  withProductsAndCategories
+  withProducts
 )

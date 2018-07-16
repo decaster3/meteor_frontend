@@ -2,11 +2,13 @@ import React from "react"
 import {compose} from "redux"
 import withCart, {CartProps} from "../../containers/Cart"
 import CartProductView from "./CartProduct"
-import Checkout from "./Checkout"
+import Checkout from "../Checkout"
 import {css} from "emotion"
 import {withTheme} from "emotion-theming"
 import {ThemeProps} from "../App/Theme"
 import {StickyContainer, Sticky} from "react-sticky"
+import {Link, withRouter} from "react-router-dom"
+import Button from "../Button"
 
 interface CartState {
   choosenMeteors: number
@@ -117,7 +119,7 @@ class Cart extends React.Component<CartProps & ThemeProps, CartState> {
           </StickyContainer>
         </div>
 
-        <Checkout />
+        <Button>Офромить заказ</Button>
       </div>
     )
   }

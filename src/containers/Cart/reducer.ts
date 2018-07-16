@@ -1,7 +1,3 @@
-/*
- * User reducer
- */
-
 import {fromJS} from "immutable"
 import _ from "lodash"
 import {ActionType} from "./constants"

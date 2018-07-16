@@ -1,14 +1,12 @@
-/*
- * User actions
- */
-// @ts-ignore
-import Geocode from "react-geocode"
 import {Dispatch} from "redux"
 import {State} from "../.."
 import {ActionType} from "./constants"
 import {Status} from "../../constants"
 import requests from "../../services/requests"
 import {clearCart} from "../Cart/actions"
+
+// @ts-ignore
+import Geocode from "react-geocode"
 
 Geocode.setApiKey("AIzaSyDeRt-ekVSI0anD_b1zE5Kl7WobsRGutvc")
 Geocode.enableDebug()

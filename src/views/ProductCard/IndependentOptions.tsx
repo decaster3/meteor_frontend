@@ -1,5 +1,5 @@
 import React from "react"
-import {Option} from "../../containers/Product/actions"
+import {Option} from "../../containers/Products/actions"
 import {OptionConcat} from "../../containers/Category/actions"
 import {cx} from "emotion"
 import styles from "./ProductCard.module.scss"

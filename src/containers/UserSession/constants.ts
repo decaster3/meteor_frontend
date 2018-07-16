@@ -1,6 +1,3 @@
-/*
- * User constants
- */
 export enum ActionType {
   CHANGE_USER_STATE = "CHANGE_USER_STATE",
   UPDATE_USER_INFORMATION = "UPDATE_USER_INFORMATION",

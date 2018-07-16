@@ -4,7 +4,7 @@ import {
   Product,
   ProductInstance,
   OptionConcat,
-} from "../../containers/Product/actions"
+} from "../../containers/Products/actions"
 import styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import {cx} from "emotion"

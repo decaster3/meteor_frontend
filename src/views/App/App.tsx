@@ -15,13 +15,14 @@ import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
 import {theme} from "./Theme"
-import {Category} from "../../containers/Product/actions"
+import {Category} from "../../containers/Products/actions"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
 import withCategories from "../../containers/Category"
 import Account from "../Account"
 import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
+import Checkout from "../Checkout"
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
@@ -112,12 +113,15 @@ const App: React.StatelessComponent<AppProps> = props => (
                 component={MainPage}
               />
               <Route path="/" exact={true} component={MainPage} />
+
               <Route path="/pizza" exact={true} component={MainPage} />
               <Route path="/burgers" exact={true} component={MainPage} />
               <Route path="/sushi" exact={true} component={MainPage} />
-              <Route path="/zakuski" exact={true} component={MainPage} />
+              <Route path="/snacks" exact={true} component={MainPage} />
               <Route path="/menu" component={Menu} />
-              <Route path="/cart" component={Cart} />
+
+              <Route path="/cart" exact={true} component={Cart} />
+              <Route path="/checkout" exact={true} component={Checkout} />
               {/* {props.userState === UserState.LOGED_IN && (
                 <Route path="/account" component={Account} />
               )} */}

@@ -1,7 +1,3 @@
-/*
- * User actions
- */
-// @ts-ignore
 import {Dispatch} from "redux"
 import {State} from "../.."
 import {Status} from "../../constants"

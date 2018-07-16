@@ -1,6 +1,3 @@
-/*
- * User
- */
 import React from "react"
 import {connect} from "react-redux"
 import {compose, Dispatch} from "redux"
@@ -9,7 +6,7 @@ import injectReducer from "../../utils/injectReducer"
 import {createProduct} from "./actions"
 import reducer from "./reducer"
 import {selectIsProductCreating} from "./selectors"
-import {OptionName} from "../Product/actions"
+import {OptionName} from "../Products/actions"
 
 interface PromotionProps {
   isProductCreating: boolean

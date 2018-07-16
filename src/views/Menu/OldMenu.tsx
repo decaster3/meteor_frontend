@@ -2,7 +2,7 @@ import React from "react"
 import {Row, Col} from "reactstrap"
 import classnames from "classnames"
 
-import {Category} from "../../containers/Product/actions"
+import {Category} from "../../containers/Products/actions"
 import {Status} from "../../constants"
 import ProductCard from "../ProductCard"
 import {CartProduct} from "../../containers/Cart/actions"
@@ -13,7 +13,7 @@ import ProductCreationForm from "./ProductCreationForm"
 import * as styles from "./Menu.module.scss"
 import meteorSymbol from "../../assets/logo_meteor.png"
 import {compose} from "redux"
-import withProductsAndCategories from "../../containers/Product"
+import withProducts from "../../containers/Products"
 import {JS_HREF} from "../App/Theme"
 import {City} from "../../containers/Geolocation/actions"
 
@@ -184,7 +184,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
 }
 
 export default compose<any>(
-  withProductsAndCategories,
+  withProducts,
   withGeolocation,
   withProductCreation
 )(Menu)

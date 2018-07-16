@@ -1,22 +1,20 @@
 import React from "react"
 import {Row, Col} from "reactstrap"
 import _ from "lodash"
-import classnames from "classnames"
-import {Category, Product, Subcategory} from "../../containers/Product/actions"
+import {Category, Product, Subcategory} from "../../containers/Products/actions"
 import {Status, categoriesData} from "../../constants"
 import {CartProduct} from "../../containers/Cart/actions"
 import ModalWrapper from "../ModalWrapper"
 import withProductCreation from "../../containers/ProductCreation"
 import withGeolocation from "../../containers/Geolocation"
 import ProductCreationForm from "./ProductCreationForm"
-import * as styles from "./Menu.module.scss"
 import {compose} from "redux"
-import withProductsAndCategories from "../../containers/Product"
+import withProducts from "../../containers/Products"
 import {City} from "../../containers/Geolocation/actions"
-import {Link, withRouter} from "react-router-dom"
 import ProductCard from "../ProductCard"
 import SubcategoriesNav from "./SubcategoriesNav"
 import CategoriesNav from "./CategoriesNav"
+import {withRouter} from "react-router-dom"
 
 interface CategoriesProps {
   categories: Category[]
@@ -199,7 +197,7 @@ export class Categories extends React.Component<
 
         <SubcategoriesNav
           handleChangeSubcategory={this.handleChangeSubcategory}
-          category={this.state.currentCategory}
+          subcategories={this.state.currentCategory.subcategories}
           currentSubcategory={this.state.currentSubcategory}
         />
 
@@ -212,7 +210,7 @@ export class Categories extends React.Component<
 
 export default withRouter(
   compose<any>(
-    withProductsAndCategories,
+    withProducts,
     withGeolocation,
     withProductCreation
   )(Categories)

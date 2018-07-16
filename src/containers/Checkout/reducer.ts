@@ -1,7 +1,3 @@
-/*
- * User reducer
- */
-
 import {fromJS} from "immutable"
 import {ActionType, OrderStatus} from "./constants"
 import {Status} from "../../constants"

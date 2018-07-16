@@ -1,9 +1,4 @@
-/*
- * User reducer
- */
-
 import {fromJS} from "immutable"
-
 import {ActionType} from "./constants"
 import {Status} from "../../constants"
 import {AnyAction} from "redux"

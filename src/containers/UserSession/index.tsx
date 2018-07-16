@@ -1,6 +1,3 @@
-/*
- * User
- */
 import {connect} from "react-redux"
 import {compose} from "redux"
 import {State} from "../.."

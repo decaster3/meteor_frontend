@@ -1,20 +1,20 @@
 import React from "react"
-import {Category, Subcategory} from "../../containers/Product/actions"
+import {Subcategory} from "../../containers/Products/actions"
 import {JS_HREF, ThemeProps, withTheme} from "../App/Theme"
 import {css, cx} from "emotion"
 
 interface SubcategoriesNavProps
   extends ThemeProps,
     React.HTMLProps<HTMLDivElement> {
-  category?: Category
+  subcategories?: Subcategory[]
   currentSubcategory?: Subcategory
   handleChangeSubcategory(subcategory: Subcategory): void
 }
 
 const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
-  category,
   handleChangeSubcategory,
   currentSubcategory,
+  subcategories,
   theme,
   className,
   ...restOfProps
@@ -27,34 +27,32 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
       )}
       {...restOfProps}
     >
-      {category && currentSubcategory ? (
+      {subcategories && currentSubcategory ? (
         <>
-          {[{id: 0, name: "Все"}, ...category.subcategories].map(
-            subcategory => (
-              <div className="col-auto" key={subcategory.id}>
-                <a
-                  className={cx(
-                    {active: currentSubcategory.name === subcategory.name},
-                    css`
-                      &,
-                      &:hover {
-                        color: ${theme.lighterGrey};
-                        font-weight: 500;
-                        text-decoration: none;
-                      }
-                      &.active {
-                        color: white;
-                      }
-                    `
-                  )}
-                  href={JS_HREF}
-                  onClick={() => handleChangeSubcategory(subcategory)}
-                >
-                  {subcategory.name}
-                </a>
-              </div>
-            )
-          )}
+          {[{id: 0, name: "Все"}, ...subcategories].map(subcategory => (
+            <div className="col-auto" key={subcategory.id}>
+              <a
+                className={cx(
+                  {active: currentSubcategory.name === subcategory.name},
+                  css`
+                    &,
+                    &:hover {
+                      color: ${theme.lighterGrey};
+                      font-weight: 500;
+                      text-decoration: none;
+                    }
+                    &.active {
+                      color: white;
+                    }
+                  `
+                )}
+                href={JS_HREF}
+                onClick={() => handleChangeSubcategory(subcategory)}
+              >
+                {subcategory.name}
+              </a>
+            </div>
+          ))}
         </>
       ) : (
         <div>Загрузка...</div>

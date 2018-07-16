@@ -1,6 +1,3 @@
-/*
- * User constants
- */
 export enum ActionType {
   MAKE_ORDER = "MAKE_ORDER",
   SET_STREETS = "SET_STREETS",

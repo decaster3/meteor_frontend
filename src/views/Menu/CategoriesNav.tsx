@@ -1,5 +1,5 @@
 import React from "react"
-import {Category} from "../../containers/Product/actions"
+import {Category} from "../../containers/Products/actions"
 import {Link} from "react-router-dom"
 import styles from "./Menu.module.scss"
 import {cx} from "emotion"

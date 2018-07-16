@@ -5,7 +5,7 @@ import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap, fromJS} from "immutable"
 
 import {renderDropzoneInput} from "../../forms/DropzoneField"
-import {OptionName} from "../../containers/Product/actions"
+import {OptionName} from "../../containers/Products/actions"
 import CustomInput from "../../forms/CustomInput"
 
 interface ProductCreationForm {

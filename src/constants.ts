@@ -2,7 +2,7 @@ export const BASEURL = "http://0.0.0.0:3001"
 import pizza from "./assets/pizza.png"
 import burger from "./assets/burger.png"
 import sushi from "./assets/sushi.png"
-import zakuski from "./assets/zakuski.png"
+import snacks from "./assets/snacks.png"
 
 export enum Status {
   NOT_LOADED = "NOT_LOADED",
@@ -73,8 +73,8 @@ export const categoriesData = [
   {
     id: 4,
     name: "Закуски",
-    imgUrl: zakuski,
-    url: "/zakuski",
+    imgUrl: snacks,
+    url: "/snacks",
     productsStatus: Status.NOT_LOADED,
     products: [],
     subcategories: [{name: "Веганские", id: 1}, {name: "Мясные", id: 2}],

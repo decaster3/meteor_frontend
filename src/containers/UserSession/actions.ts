@@ -1,6 +1,3 @@
-/*
- * User actions
- */
 import {SubmissionError} from "redux-form/immutable"
 import {Dispatch} from "redux"
 import {State} from "../.."

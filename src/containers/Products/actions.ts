@@ -1,6 +1,3 @@
-/*
- * User actions
- */
 import {Dispatch} from "redux"
 import {State} from "../.."
 import requests from "../../services/requests"
