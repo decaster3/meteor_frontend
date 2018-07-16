@@ -122,10 +122,10 @@ const App: React.StatelessComponent<AppProps> = props => (
 
               <Route path="/cart" exact={true} component={Cart} />
               <Route path="/checkout" exact={true} component={Checkout} />
-              {/* {props.userState === UserState.LOGED_IN && (
+
+              {props.userState === UserState.LOGED_IN && (
                 <Route path="/account" component={Account} />
-              )} */}
-              <Route path="/account" component={Account} />
+              )}
               <Route />
             </Switch>
           </div>

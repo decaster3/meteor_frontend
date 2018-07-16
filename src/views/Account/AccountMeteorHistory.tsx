@@ -19,8 +19,7 @@ class AccountMain extends React.Component<AccountMainProps> {
         if (this.props.userInfo.meteors.length > 0) {
           return this.props.userInfo.meteors.map(el => (
             <div key={el.id}>
-              {el.description} -
-              {el.value}
+              {el.description} - {el.value}
             </div>
           ))
         } else {

@@ -62,7 +62,7 @@ const mapStateToRegistrationProps = (state: State): RegistrationStateProps => {
 export interface UserDispatchProps {
   login(password: string, phone: string): void
   logout(): void
-  getUserInfo(token: string): void
+  getUserInfo(): void
 }
 
 export interface UserProps extends UserStateProps, UserDispatchProps {}
