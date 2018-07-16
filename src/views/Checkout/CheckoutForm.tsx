@@ -14,14 +14,16 @@ import CustomInput from "../../forms/CustomInput"
 import CustomSelect from "../../forms/CustomSelect"
 import {cx, css} from "emotion"
 import {compose} from "redux"
-import {ThemeProps, withTheme} from "../App/Theme"
+import {ThemeProps, withTheme, styled} from "../App/Theme"
 import {PrimaryButton} from "../PrimaryButton"
+import {CustomTextarea} from "../../forms/CustomTextarea"
 
 interface CheckoutFormOwnProps {
   isOrderPending: boolean
   userPhone: string
   streets: string[]
   total: number
+  currency: string
 }
 
 interface CheckoutFormData {
@@ -51,10 +53,36 @@ class CheckoutForm extends React.Component<
   CheckoutFormProps,
   CheckoutFormState
 > {
-  static RequiredStar: React.SFC<React.HTMLProps<HTMLSpanElement>> = props => (
-    <span className="text-danger mx-1" {...props}>
-      *
-    </span>
+  static PaymentMethodLabel = styled("label")`
+    padding-top: 11px;
+    padding-bottom: 11px;
+    color: ${props => props.theme.lightGreen};
+    border: 1px solid ${props => props.theme.lightGreen};
+
+    &&.active {
+      background: ${props => props.theme.lightGreen};
+    }
+
+    & + label {
+      margin-left: 16px;
+    }
+  `
+
+  static FormGroupRow: React.SFC = ({children}) => (
+    <div className="form-group row mb-5">{children}</div>
+  )
+
+  static ColFormLabel: React.SFC<React.HTMLProps<HTMLLabelElement>> = ({
+    children,
+    htmlFor,
+  }) => (
+    <label className="col-3 col-form-label col-form-label-lg" htmlFor={htmlFor}>
+      {children}
+    </label>
+  )
+
+  static RequiredStar: React.SFC = () => (
+    <span className="text-danger mx-1">*</span>
   )
 
   state: CheckoutFormState = {}
@@ -84,10 +112,11 @@ class CheckoutForm extends React.Component<
               Доставка
             </h3>
 
-            <div className="form-group row mb-5">
-              <label className="col-3 col-form-label" htmlFor="phone">
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="phone">
                 Телефон<CheckoutForm.RequiredStar />
-              </label>
+              </CheckoutForm.ColFormLabel>
+
               <div className="col-9">
                 <Field
                   component={CustomInput}
@@ -98,15 +127,17 @@ class CheckoutForm extends React.Component<
                     type: "tel",
                     placeholder: "Телефон",
                     autoComplete: "tel",
+                    className: "form-control-lg",
                   }}
                 />
               </div>
-            </div>
+            </CheckoutForm.FormGroupRow>
 
-            <div className="form-group row mb-5">
-              <label className="col-3 col-form-label" htmlFor="name">
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="name">
                 Имя<CheckoutForm.RequiredStar />
-              </label>
+              </CheckoutForm.ColFormLabel>
+
               <div className="col-9">
                 <Field
                   component={CustomInput}
@@ -116,15 +147,17 @@ class CheckoutForm extends React.Component<
                     type: "text",
                     placeholder: "Имя",
                     autoComplete: "name",
+                    className: "form-control-lg",
                   }}
                 />
               </div>
-            </div>
+            </CheckoutForm.FormGroupRow>
 
-            <div className="form-group row mb-5">
-              <label className="col-3 col-form-label" htmlFor="street">
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="street">
                 Улица<CheckoutForm.RequiredStar />
-              </label>
+              </CheckoutForm.ColFormLabel>
+
               <div className="col-9">
                 <Field
                   options={this.props.streets}
@@ -133,15 +166,17 @@ class CheckoutForm extends React.Component<
                   props={{
                     id: "street",
                     placeholder: "Улица",
+                    className: "form-control-lg",
+                    size: "lg",
                   }}
                 />
               </div>
-            </div>
+            </CheckoutForm.FormGroupRow>
 
-            <div className="form-group row mb-5">
-              <label className="col-3 col-form-label" htmlFor="building">
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="building">
                 Дом<CheckoutForm.RequiredStar />
-              </label>
+              </CheckoutForm.ColFormLabel>
 
               <div className="col">
                 <Field
@@ -152,13 +187,16 @@ class CheckoutForm extends React.Component<
                     type: "text",
                     placeholder: "Дом",
                     autoComplete: "building",
+                    className: "form-control-lg",
                   }}
                 />
               </div>
+            </CheckoutForm.FormGroupRow>
 
-              <label className="col-auto col-form-label" htmlFor="apartment">
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="apartment">
                 Квартира<CheckoutForm.RequiredStar />
-              </label>
+              </CheckoutForm.ColFormLabel>
 
               <div className="col">
                 <Field
@@ -169,10 +207,11 @@ class CheckoutForm extends React.Component<
                     type: "text",
                     placeholder: "Квартира",
                     autoComplete: "apartment",
+                    className: "form-control-lg",
                   }}
                 />
               </div>
-            </div>
+            </CheckoutForm.FormGroupRow>
           </div>
 
           <div className="col-6">
@@ -188,28 +227,11 @@ class CheckoutForm extends React.Component<
             </h3>
 
             <nav className="nav nav-pills nav-fill mb-5 text-uppercase font-weight-bold">
-              <label
+              <CheckoutForm.PaymentMethodLabel
                 htmlFor="cash"
-                className={cx(
-                  "nav-item nav-link mb-0",
-                  css`
-                    padding-top: 6px;
-                    padding-bottom: 6px;
-                    color: ${this.props.theme.lightGreen};
-                    border: 1px solid ${this.props.theme.lightGreen};
-
-                    &&.active {
-                      background: ${this.props.theme.lightGreen};
-                    }
-
-                    & + label {
-                      margin-left: 16px;
-                    }
-                  `,
-                  {
-                    active: this.state.paymentMethod === "cash",
-                  }
-                )}
+                className={cx("nav-item nav-link mb-0", {
+                  active: this.state.paymentMethod === "cash",
+                })}
               >
                 <Field
                   name="paymentMethod"
@@ -221,26 +243,13 @@ class CheckoutForm extends React.Component<
                   onChange={this.handleChoosePaymentMethod}
                 />
                 Наличные
-              </label>
+              </CheckoutForm.PaymentMethodLabel>
 
-              <label
+              <CheckoutForm.PaymentMethodLabel
                 htmlFor="cashless"
-                className={cx(
-                  "nav-item nav-link mb-0",
-                  css`
-                    padding-top: 6px;
-                    padding-bottom: 6px;
-                    color: ${this.props.theme.lightGreen};
-                    border: 1px solid ${this.props.theme.lightGreen};
-
-                    &&.active {
-                      background: ${this.props.theme.lightGreen};
-                    }
-                  `,
-                  {
-                    active: this.state.paymentMethod === "cashless",
-                  }
-                )}
+                className={cx("nav-item nav-link mb-0", {
+                  active: this.state.paymentMethod === "cashless",
+                })}
               >
                 <Field
                   name="paymentMethod"
@@ -252,47 +261,58 @@ class CheckoutForm extends React.Component<
                   onChange={this.handleChoosePaymentMethod}
                 />
                 Карта
-              </label>
+              </CheckoutForm.PaymentMethodLabel>
             </nav>
 
-            <div className="form-group row mb-5">
-              <label className="col-3 col-form-label" htmlFor="total">
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="total">
                 К оплате
-              </label>
+              </CheckoutForm.ColFormLabel>
               <div className="col-9">
-                <input
-                  value={this.props.total}
-                  className="form-control"
-                  name="total"
-                  id="total"
-                  placeholder="К оплате"
-                  readOnly
-                />
+                <div className="input-group">
+                  <input
+                    value={this.props.total}
+                    className="form-control text-right form-control-lg"
+                    name="total"
+                    id="total"
+                    placeholder="К оплате"
+                    readOnly
+                  />
+                  <div className="input-group-append">
+                    <span className="input-group-text">JYP</span>
+                  </div>
+                </div>
               </div>
-            </div>
+            </CheckoutForm.FormGroupRow>
+          </div>
+        </div>
 
-            <div className="form-group row mb-5">
-              <label className="col-3 col-form-label" htmlFor="comment">
+        <div className="row">
+          <div className="col">
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="comment">
                 Комментарий
-              </label>
+              </CheckoutForm.ColFormLabel>
+
               <div className="col-9">
                 <Field
-                  component={CustomInput}
+                  component={CustomTextarea}
                   name="comment"
                   props={{
                     id: "comment",
                     type: "text",
-                    placeholder: "Комментарий",
+                    placeholder: "Комментарий к заказу",
                     autoComplete: "comment",
+                    className: "form-control-lg",
                   }}
                 />
               </div>
-            </div>
+            </CheckoutForm.FormGroupRow>
+          </div>
+        </div>
 
-            <div style={{color: "red", textAlign: "center"}}>
-              {this.props.error && <strong>{this.props.error}</strong>}
-            </div>
-
+        <div className="row justify-content-center mb-5">
+          <div className="col-auto">
             <PrimaryButton type="submit" disabled={this.props.isOrderPending}>
               {this.props.isOrderPending ? (
                 <PulseLoader color={"#ffffff"} size={8} />

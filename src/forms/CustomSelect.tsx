@@ -3,23 +3,36 @@ import Select, {ReactSelectProps} from "react-select"
 import {WrappedFieldProps} from "redux-form"
 
 import "react-select/dist/react-select.css"
-import {cx, css} from "../../node_modules/emotion"
+import {cx, css, injectGlobal} from "../../node_modules/emotion"
 
-interface CustomSelectProps extends ReactSelectProps, WrappedFieldProps {}
+interface CustomSelectProps extends ReactSelectProps, WrappedFieldProps {
+  size?: "lg"
+}
 
 const CustomSelect = ({
   input: {value, onBlur, ...restOfInput},
   meta,
+  size,
   className,
   ...restOfProps
 }: CustomSelectProps) => {
+  // tslint:disable-next-line:no-unused-expression
+  injectGlobal`
+    .Select-placeholder,
+    .Select-value-label {
+      line-height: ${size === "lg" ? 48 : 38}px;
+    }
+  `
+
   return (
     <>
+      <style>{`.Select-placeholder, .Select-value-label {
+        line-height: 48px
+      }`}</style>
       <Select
         className={cx(
           "form-control",
           css`
-            height: 38px;
             padding: 0;
             z-index: 6;
           `,
@@ -29,7 +42,10 @@ const CustomSelect = ({
           },
           className
         )}
-        style={{border: 0}}
+        style={{
+          border: 0,
+          height: size === "lg" ? "48px" : "38px",
+        }}
         value={value || ""}
         onBlur={() => onBlur(value)}
         {...restOfProps}

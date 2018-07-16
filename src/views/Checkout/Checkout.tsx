@@ -6,8 +6,12 @@ import withCart, {CartProps} from "../../containers/Cart"
 import withCheckout, {CheckoutProps} from "../../containers/Checkout"
 import CheckoutForm from "./CheckoutForm"
 import {withUser, UserProps} from "../../containers/UserSession"
+import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 
-type CheckoutViewProps = CartProps & UserProps & CheckoutProps
+type CheckoutViewProps = CartProps &
+  UserProps &
+  CheckoutProps &
+  GeolocationProps
 
 class Checkout extends React.Component<CheckoutViewProps> {
   handleOrderSubmit = (values: any) => {
@@ -29,6 +33,7 @@ class Checkout extends React.Component<CheckoutViewProps> {
   render() {
     return (
       <CheckoutForm
+        currency={this.props.defaultCity.key}
         isOrderPending={this.props.isOrderPending}
         streets={this.props.streets}
         userPhone={this.props.userInfo.phone}
@@ -44,6 +49,7 @@ class Checkout extends React.Component<CheckoutViewProps> {
 }
 
 export default compose(
+  withGeolocation,
   withCheckout,
   withUser,
   withCart
