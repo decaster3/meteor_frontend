@@ -10,7 +10,7 @@
   display: flex;
   flex-flow: column;
   height: 100%;
-  >* {
+  > * {
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
   }
@@ -26,7 +26,7 @@
 
 .imageContainer {
   align-self: center;
-  >img {
+  > img {
     display: block;
     width: 100%;
   }
@@ -35,6 +35,7 @@
 .name {
   font-weight: 700;
   letter-spacing: 0.125em;
+  text-align: center;
 }
 
 .ingridients {
@@ -55,7 +56,8 @@
   color: $lighterGrey;
   line-height: 2rem;
   padding: 0;
-  transition: all 0.25s; // padding: 0 0.25rem;
+  transition: all 0.25s;
+  // padding: 0 0.25rem;
   &:focus {
     outline: none;
     color: white;
@@ -72,7 +74,8 @@
 }
 
 .optionActive {
-  color: white; // text-shadow: 0 0 0.5rem fade-out(white, 0.25);
+  color: white;
+  // text-shadow: 0 0 0.5rem fade-out(white, 0.25);
   font-size: 1.25rem;
   line-height: 2rem;
 }

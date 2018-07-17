@@ -8,19 +8,22 @@ import {
 import styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import withCart from "../../containers/Cart"
-import {cx} from "emotion"
+import {cx, css} from "emotion"
 import {BASEURL} from "../../constants"
 import IndependentOptions from "./IndependentOptions"
 import DependentOptions from "./DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {compose} from "redux"
+import {ThemeProps} from "../App/Theme"
+import {withTheme} from "../../../node_modules/emotion-theming"
 
-interface ProductCardProps {
+interface ProductCardProps extends ThemeProps {
   product: Product
   products: CartProduct[]
   addProductToCart(product: CartProduct): void
 }
+
 interface ProductCardState {
   currentProductState: ProductInstance
   quantityInCart: number
@@ -32,13 +35,13 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     quantityInCart: 0,
   }
   componentDidMount() {
-    const foundedProductInCart = this.props.products.find(
+    const founProductInCart = this.props.products.find(
       (product: CartProduct) => product.id === this.props.product.id
     )
     this.setState({
       quantityInCart:
-        foundedProductInCart && foundedProductInCart.count
-          ? foundedProductInCart.count
+        founProductInCart && founProductInCart.count
+          ? founProductInCart.count
           : 0,
     })
   }
@@ -74,11 +77,24 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
   render() {
     return (
       <div className={styles.productCard}>
-        <div className={cx(styles.name, "text-center")}>
-          {this.props.product.name}{" "}
-        </div>
-        <div className={cx(styles.badge, "mt-1 mr-1")}>
-          {this.state.quantityInCart}
+        <div className={styles.name}>
+          {this.props.product.name}
+          {this.state.quantityInCart > 0 && (
+            <>
+              {" "}
+              <span
+                className={cx(
+                  "badge badge-pill badge-success",
+                  css`
+                    background: ${this.props.theme.orange};
+                    display: inline-block;
+                  `
+                )}
+              >
+                {this.state.quantityInCart}
+              </span>
+            </>
+          )}
         </div>
 
         <div className={styles.imageContainer}>
@@ -114,4 +130,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     )
   }
 }
-export default compose<any>(withCart)(ProductCard)
+export default compose<any>(
+  withCart,
+  withTheme
+)(ProductCard)
