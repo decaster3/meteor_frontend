@@ -7,8 +7,11 @@ import {
 import OrderHistoryProduct from "./OrderHistoryProduct"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Collapse} from "reactstrap"
+import Icon from "react-fa"
+import {styled, ThemeProps, withTheme} from "../App/Theme"
+import {cx, css} from "../../../node_modules/emotion"
 
-interface OrderViewProps extends React.HTMLProps<HTMLDivElement> {
+interface OrderViewProps extends React.HTMLProps<HTMLDivElement>, ThemeProps {
   order: Order
   addProductToCart(poduct: CartProduct): void
 }
@@ -18,47 +21,74 @@ interface OrderViewState {
 }
 
 class OrderView extends React.Component<OrderViewProps, OrderViewState> {
+  static Label = styled("small")`
+    color: ${props => props.theme.lighterGrey};
+  `
+
   state: OrderViewState = {collapsed: true}
 
   toggle = () => this.setState(prevState => ({collapsed: !prevState.collapsed}))
 
   render() {
-    const {order, addProductToCart, children, ...restOfProps} = this.props
-    // const currency = order.orderProducts[0].product.instances[0].price.currency
-    // const total = order.orderProducts
-    //   .map(x => x.product.instances[0].price)
-    //   .reduce()
+    const {
+      order,
+      addProductToCart,
+      children,
+      className,
+      theme,
+      ...restOfProps
+    } = this.props
     return (
-      <div {...restOfProps}>
-        <div className="row">
-          <div className="col">
-            <button onClick={this.toggle}>Toggle</button>
+      <div
+        className={cx(
+          css`
+            padding: 16px;
+            margin: 16px 0;
+          `,
+          className
+        )}
+        {...restOfProps}
+      >
+        <div
+          className="row text-uppercase align-items-center"
+          onClick={this.toggle}
+        >
+          <div className="col-1 text-center font-weight-bold">
+            <span className="h1 mb-0">
+              <Icon name={this.state.collapsed ? "angle-down" : "angle-up"} />
+            </span>
           </div>
 
           <div className="col">
-            Метод оплаты: {paymentMethodTranslation[order.paymentMethod]}
+            <OrderView.Label>Заказ от:</OrderView.Label>{" "}
+            {new Date(order.createdAt).toLocaleString()}
           </div>
 
           <div className="col">
-            Статус: {orderStatusTranslation[order.status]}
+            <OrderView.Label>Статус:</OrderView.Label>{" "}
+            {orderStatusTranslation[order.status]}
           </div>
 
           <div className="col">
-            Заказ от: {new Date(order.createdAt).toLocaleString()}
+            <OrderView.Label>Метод оплаты:</OrderView.Label>{" "}
+            {paymentMethodTranslation[order.paymentMethod]}
           </div>
         </div>
+
         <Collapse isOpen={!this.state.collapsed}>
-          {order.orderProducts.map((orderProduct, index) => (
-            <OrderHistoryProduct
-              key={index}
-              product={orderProduct}
-              addProductToCart={addProductToCart}
-            />
-          ))}
+          <div className="mt-5">
+            {order.orderProducts.map((orderProduct, index) => (
+              <OrderHistoryProduct
+                key={index}
+                product={orderProduct}
+                addProductToCart={addProductToCart}
+              />
+            ))}
+          </div>
         </Collapse>
       </div>
     )
   }
 }
 
-export default OrderView
+export default withTheme(OrderView)

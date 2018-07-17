@@ -10,6 +10,7 @@ import AccountOrderHistory from "./OrderHistory"
 import {cx, css} from "emotion"
 import {ThemeProps, styled} from "../App/Theme"
 import {withTheme} from "../../../node_modules/emotion-theming"
+import {PrimaryButtonAsLink} from "../PrimaryButton"
 
 interface AccountProps extends UserStateProps, UserDispatchProps, ThemeProps {}
 
@@ -35,11 +36,10 @@ class Account extends React.Component<AccountProps> {
               css`
                 color: ${this.props.theme.lighterGrey};
                 font-weight: 500;
-                line-height: 3;
               `
             )}
           >
-            <div className="col-auto text-center">
+            <div className="col text-center">
               <img
                 className="rounded-circle"
                 src={`https://picsum.photos/256/256`}
@@ -47,12 +47,32 @@ class Account extends React.Component<AccountProps> {
             </div>
 
             <div className="col">
-              <div>{this.props.userInfo.name}</div>
-              <div>{this.props.userInfo.phone}</div>
-              <div>{this.props.userInfo.token}</div>
+              <div
+                className={css`
+                  line-height: 3;
+                `}
+              >
+                <div>{this.props.userInfo.name}</div>
+                <div>{this.props.userInfo.phone}</div>
+                <div>{this.props.userInfo.token}</div>
+              </div>
             </div>
 
-            <div className="col-autotext-center">12 метеоров</div>
+            <div className="col text-center">
+              <div>На вашем счету</div>
+              <div>
+                {this.props.userInfo.meteors
+                  .map(x => x.value)
+                  .reduce(
+                    (prevVal, currentVal) => prevVal + currentVal,
+                    0
+                  )}{" "}
+                метеоров
+              </div>
+              <PrimaryButtonAsLink to="/meteors">
+                Как это работает?
+              </PrimaryButtonAsLink>
+            </div>
           </div>
         </div>
 

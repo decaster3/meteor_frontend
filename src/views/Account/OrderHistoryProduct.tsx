@@ -114,27 +114,17 @@ class OrderHistoryProduct extends React.Component<
           </small>
         </div>
 
-        <div className="col-6 col-md-3">
-          <div className="row no-gutters align-items-center text-center">
-            <div className="col">
-              <div
-                className={css`
-                  min-width: 2em;
-                `}
-              >
-                <span className="h4 mb-0">{this.props.product.count}</span>
-              </div>
-            </div>
+        <div className="col-1">
+          <span className="h4 mb-0">{this.props.product.count}</span>
+        </div>
 
-            <div className="col">
-              <OrderHistoryProduct.AddToCartButton
-                className="btn btn-outline-success"
-                onClick={this.handleAddProduct}
-              >
-                Добавить в карзину
-              </OrderHistoryProduct.AddToCartButton>
-            </div>
-          </div>
+        <div className="col-6 col-md-3">
+          <OrderHistoryProduct.AddToCartButton
+            className="btn btn-outline-success"
+            onClick={this.handleAddProduct}
+          >
+            Добавить в карзину
+          </OrderHistoryProduct.AddToCartButton>
         </div>
       </div>
     )
