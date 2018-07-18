@@ -58,20 +58,30 @@ class Account extends React.Component<AccountProps> {
               </div>
             </div>
 
-            <div className="col text-center">
+            <div className={cx("col text-center")}>
               <div>На вашем счету</div>
-              <div>
+              <div
+                className={css`
+                  color: white;
+                  font-size: 1.5em;
+                  margin: 1em 0;
+                `}
+              >
                 {this.props.userInfo.meteors
                   .map(x => x.value)
                   .reduce(
                     (prevVal, currentVal) => prevVal + currentVal,
                     0
                   )}{" "}
-                метеоров
+                <small>метеоров</small>
               </div>
-              <PrimaryButtonAsLink to="/meteors">
-                Как это работает?
-              </PrimaryButtonAsLink>
+              <div className="row justify-content-center">
+                <div className="col-auto">
+                  <PrimaryButtonAsLink to="/meteors">
+                    Как это работает?
+                  </PrimaryButtonAsLink>
+                </div>
+              </div>
             </div>
           </div>
         </div>

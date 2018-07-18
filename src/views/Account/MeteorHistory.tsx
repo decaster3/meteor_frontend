@@ -12,9 +12,9 @@ class AccountMain extends React.Component<UserProps> {
         return <p>Loading error.</p>
       case Status.LOADED:
         if (this.props.userInfo.meteors.length > 0) {
-          return this.props.userInfo.meteors.map(el => (
-            <div key={el.id}>
-              {el.description} - {el.value}
+          return this.props.userInfo.meteors.map(meteor => (
+            <div key={meteor.id}>
+              {meteor.description} - {meteor.value}
             </div>
           ))
         } else {

@@ -23,6 +23,12 @@ interface OrderViewState {
 class OrderView extends React.Component<OrderViewProps, OrderViewState> {
   static Label = styled("small")`
     color: ${props => props.theme.lighterGrey};
+    white-space: nowrap;
+  `
+
+  static Value = styled("p")`
+    white-space: nowrap;
+    margin-bottom: 0;
   `
 
   state: OrderViewState = {collapsed: true}
@@ -44,6 +50,7 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
           css`
             padding: 16px;
             margin: 16px 0;
+            background: ${this.props.theme.darkBlue};
           `,
           className
         )}
@@ -59,19 +66,37 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
             </span>
           </div>
 
-          <div className="col">
-            <OrderView.Label>Заказ от:</OrderView.Label>{" "}
-            {new Date(order.createdAt).toLocaleString()}
+          <div className="col-2 text-center">
+            <OrderView.Label>Заказ № </OrderView.Label>
+            <OrderView.Value>{order.id}</OrderView.Value>
           </div>
 
           <div className="col">
-            <OrderView.Label>Статус:</OrderView.Label>{" "}
-            {orderStatusTranslation[order.status]}
+            <OrderView.Label>Дата: </OrderView.Label>
+            <OrderView.Value>
+              {new Date(order.createdAt).toLocaleDateString()}
+            </OrderView.Value>
           </div>
 
           <div className="col">
-            <OrderView.Label>Метод оплаты:</OrderView.Label>{" "}
-            {paymentMethodTranslation[order.paymentMethod]}
+            <OrderView.Label>Время: </OrderView.Label>
+            <OrderView.Value>
+              {new Date(order.createdAt).toLocaleTimeString()}
+            </OrderView.Value>
+          </div>
+
+          <div className="col">
+            <OrderView.Label>Статус: </OrderView.Label>
+            <OrderView.Value>
+              {orderStatusTranslation[order.status]}
+            </OrderView.Value>
+          </div>
+
+          <div className="col">
+            <OrderView.Label>Метод оплаты: </OrderView.Label>
+            <OrderView.Value>
+              {paymentMethodTranslation[order.paymentMethod]}
+            </OrderView.Value>
           </div>
         </div>
 
