@@ -11,6 +11,7 @@ interface DependentOptionsProps extends React.HTMLProps<HTMLDivElement> {
 const DependentOptions: React.SFC<DependentOptionsProps> = ({
   options,
   dependentOptions,
+  children,
   ...restOfProps
 }) => (
   <div {...restOfProps}>

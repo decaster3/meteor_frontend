@@ -118,6 +118,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
         />
 
         <DependentOptions
+          className="mx-4"
           options={this.props.product.options}
           dependentOptions={this.state.currentProductState.dependentOptions}
         />
