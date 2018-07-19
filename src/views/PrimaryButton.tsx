@@ -1,6 +1,6 @@
 import {styled} from "./App/Theme"
 import {Link} from "react-router-dom"
-import {darken} from "polished"
+import {darken, desaturate, shade} from "polished"
 
 export const PrimaryButton = styled("button")(({theme}) => ({
   background: `linear-gradient(
@@ -22,24 +22,30 @@ export const PrimaryButton = styled("button")(({theme}) => ({
   textTransform: "uppercase",
   width: "100%",
 
-  "&:hover, &:focus": {
-    color: "white",
-    textDecoration: "none",
-    background: `linear-gradient(
+  "&:disabled, &[disabled]": {
+    color: darken(0.25, "white"),
+  },
+
+  "&:enabled, &:not([disabled])": {
+    "&:hover, &:focus": {
+      color: "white",
+      textDecoration: "none",
+      background: `linear-gradient(
       ${darken(0.05, theme.lightGreen)},
       ${darken(0.05, theme.lightGreen)} 50%,
       ${darken(0.05, theme.darkGreen)} 50%,
       ${darken(0.05, theme.darkGreen)}
     )`,
-  },
+    },
 
-  "&:active": {
-    background: `linear-gradient(
+    "&:active": {
+      background: `linear-gradient(
       ${darken(0.1, theme.lightGreen)},
       ${darken(0.1, theme.lightGreen)} 50%,
       ${darken(0.1, theme.darkGreen)} 50%,
       ${darken(0.1, theme.darkGreen)}
     )`,
+    },
   },
 }))
 

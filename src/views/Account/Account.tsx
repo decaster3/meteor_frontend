@@ -126,7 +126,7 @@ class Account extends React.Component<AccountProps, AccountState> {
         <div
           className={css`
             background: ${this.props.theme.darkBlue};
-            margin: 16px -32px;
+            margin: 24px -32px;
           `}
         >
           <Nav className="row text-center">

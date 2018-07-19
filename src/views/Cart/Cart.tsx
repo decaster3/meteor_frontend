@@ -8,7 +8,7 @@ import {css} from "emotion"
 import {withTheme} from "emotion-theming"
 import {ThemeProps} from "../App/Theme"
 import {StickyContainer, Sticky} from "react-sticky"
-import {PrimaryButtonAsLink} from "../PrimaryButton"
+import {PrimaryButtonAsLink, PrimaryButton} from "../PrimaryButton"
 
 interface CartState {
   choosenMeteors: number
@@ -128,9 +128,9 @@ class Cart extends React.Component<
               )}
             </Sticky>
           </StickyContainer>
-        </div>{" "}
+        </div>
         {this.props.total > 3000 + this.state.choosenMeteors ? (
-          <div className="row justify-content-center mt-3">
+          <div className="row justify-content-center my-3">
             <div className="col-auto">
               <PrimaryButtonAsLink to="/checkout">
                 Офромить заказ
@@ -139,15 +139,15 @@ class Cart extends React.Component<
           </div>
         ) : (
           <>
-            <div style={{color: "red", textAlign: "center"}}>
-              Сумма заказа должна быть выше 3000!
-            </div>
-            <div className="row justify-content-center mt-3">
+            <div className="row justify-content-center my-3">
               <div className="col-auto">
-                <PrimaryButtonAsLink to="/checkout">
-                  Офромить заказ (НУЖНО СДЕЛАТЬ НЕАКТИВНЫМ)
-                </PrimaryButtonAsLink>
+                <PrimaryButton className="disabled" disabled>
+                  Офромить заказ
+                </PrimaryButton>
               </div>
+            </div>
+            <div className="my-3 text-center text-danger">
+              Сумма заказа должна быть выше 3000 <small>JYP</small>
             </div>
           </>
         )}
