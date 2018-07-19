@@ -16,7 +16,7 @@ import Icon from "react-fa"
 
 interface AccountProps extends UserStateProps, UserDispatchProps, ThemeProps {}
 
-type TabType = "order-history" | "meteor-history"
+type TabType = "order-history" | "meteor-history" | "settings"
 
 interface AccountState {
   activeTab: TabType
@@ -155,6 +155,19 @@ class Account extends React.Component<AccountProps, AccountState> {
                 <p className="mb-0">История бонусов</p>
               </Account.NavLink>
             </NavItem>
+
+            <NavItem className="col">
+              <Account.NavLink
+                href={JS_HREF}
+                className={cx({
+                  active: this.state.activeTab === "settings",
+                })}
+                onClick={() => this.toggle("settings")}
+              >
+                <Account.Icon name="cog" />
+                <p className="mb-0">Настройки</p>
+              </Account.NavLink>
+            </NavItem>
           </Nav>
         </div>
 
@@ -165,6 +178,7 @@ class Account extends React.Component<AccountProps, AccountState> {
           <TabPane tabId="meteor-history">
             <BonusHistory />
           </TabPane>
+          <TabPane tabId="settings" />
         </TabContent>
       </div>
     )
