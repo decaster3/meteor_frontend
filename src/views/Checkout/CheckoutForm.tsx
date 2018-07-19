@@ -284,7 +284,10 @@ class CheckoutForm extends React.Component<
                   </div>
                 </div>
               </div>
+            </CheckoutForm.FormGroupRow>
 
+            <CheckoutForm.FormGroupRow>
+              <CheckoutForm.ColFormLabel htmlFor="total" />
               <div className="col-9">
                 <div className="input-group">
                   <input
