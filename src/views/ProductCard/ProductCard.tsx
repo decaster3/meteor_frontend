@@ -34,6 +34,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     currentProductState: _.cloneDeep(this.props.product.instances[0]),
     quantityInCart: 0,
   }
+
   componentDidMount() {
     const founProductInCart = this.props.products.find(
       (product: CartProduct) => product.id === this.props.product.id
@@ -49,7 +50,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
   changeCurrentProduct = (optionId: number, valueId: number, value: string) => {
     const newState = _.cloneDeep(this.state.currentProductState)
     const valueForChangeId = newState.independentOptions.findIndex(
-      io => optionId === io.optionId
+      x => optionId === x.optionId
     )
     const optionConcat: OptionConcat = {optionId, valueId, value}
     newState.independentOptions[valueForChangeId] = optionConcat
@@ -87,7 +88,6 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
                   "badge badge-pill badge-success",
                   css`
                     background: ${this.props.theme.orange};
-                    display: inline-block;
                   `
                 )}
               >
