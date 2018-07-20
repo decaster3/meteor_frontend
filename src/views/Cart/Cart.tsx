@@ -130,14 +130,11 @@ class Cart extends React.Component<
             </Sticky>
           </StickyContainer>
         </div>
-<<<<<<< HEAD
-=======
         {this.props.checkTime() ? (
           <h1>ТОлько запланированный заказ</h1>
         ) : (
           <div />
         )}
->>>>>>> Fix geolocation, add delivery time
         {this.props.total > 3000 + this.state.choosenMeteors ? (
           <div className="row justify-content-center my-3">
             <div className="col-auto">
