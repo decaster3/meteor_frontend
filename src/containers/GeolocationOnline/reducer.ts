@@ -3,27 +3,26 @@ import {fromJS} from "immutable"
 import {ActionType} from "./constants"
 import {Status} from "../../constants"
 import {AnyAction} from "redux"
-import {citiesData} from "./actions"
 
 const initialState = fromJS({
-  cities: citiesData,
-  citiesStatus: Status.LOADED,
+  citiesStatus: Status.NOT_LOADED,
+  cities: [],
   determinedCity: null,
-  isCityChoosen: false,
   determinedCityStatus: Status.NOT_LOADED,
   isNavigationAllowed: false,
-  defaultCity: citiesData[0],
+  defaultCity: null,
 })
 
-const GeoReducer = (state = initialState, action: AnyAction) => {
+const LayoutReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case ActionType.SET_CITIES:
+      return state.set("cities", fromJS(action.payload))
+    case ActionType.SET_CITIES_STATUS:
+      return state.set("citiesStatus", fromJS(action.payload))
     case ActionType.SET_DETERMINED_CITY:
       return state.set("determinedCity", fromJS(action.payload))
     case ActionType.SET_DEFAULT_CITY:
-      const currentState = state.toJS()
-      currentState.defaultCity = action.payload
-      currentState.isCityChoosen = true
-      return fromJS(currentState)
+      return state.set("defaultCity", fromJS(action.payload))
     case ActionType.CHANGE_NAVIGATION_STATUS:
       return state.set("isNavigationAllowed", fromJS(action.payload))
     case ActionType.SET_DETERMINED_CITY_STATUS:
@@ -33,4 +32,4 @@ const GeoReducer = (state = initialState, action: AnyAction) => {
   }
 }
 
-export default GeoReducer
+export default LayoutReducer

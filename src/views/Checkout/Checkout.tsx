@@ -33,7 +33,7 @@ class Checkout extends React.Component<CheckoutViewProps> {
   render() {
     return (
       <CheckoutForm
-        currency={this.props.defaultCity.key}
+        currency={this.props.defaultCity.currency}
         isOrderPending={this.props.isOrderPending}
         streets={this.props.streets}
         meteors={this.props.meteors}

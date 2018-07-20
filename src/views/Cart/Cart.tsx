@@ -1,6 +1,7 @@
 import React from "react"
 import {compose} from "redux"
 import withCart, {CartProps} from "../../containers/Cart"
+import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import {withUser, UserProps} from "../../containers/UserSession"
 import CartProductView from "./CartProduct"
 import Checkout from "../Checkout"
@@ -15,10 +16,10 @@ interface CartState {
 }
 
 class Cart extends React.Component<
-  UserProps & CartProps & ThemeProps,
+  UserProps & CartProps & ThemeProps & GeolocationProps,
   CartState
 > {
-  constructor(props: UserProps & CartProps & ThemeProps) {
+  constructor(props: UserProps & CartProps & ThemeProps & GeolocationProps) {
     super(props)
     this.state = {
       choosenMeteors: this.props.meteors,
@@ -129,6 +130,14 @@ class Cart extends React.Component<
             </Sticky>
           </StickyContainer>
         </div>
+<<<<<<< HEAD
+=======
+        {this.props.checkTime() ? (
+          <h1>ТОлько запланированный заказ</h1>
+        ) : (
+          <div />
+        )}
+>>>>>>> Fix geolocation, add delivery time
         {this.props.total > 3000 + this.state.choosenMeteors ? (
           <div className="row justify-content-center my-3">
             <div className="col-auto">
@@ -158,6 +167,7 @@ class Cart extends React.Component<
 
 export default compose(
   withCart,
+  withGeolocation,
   withUser,
   withTheme
 )(Cart)

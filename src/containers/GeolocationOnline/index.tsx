@@ -11,7 +11,7 @@ import {
   selectProbableCity,
   selectDefaultCity,
 } from "./selectors"
-import {configureGeolocation, setDefaultCity, City, checkTime} from "./actions"
+import {configureGeolocation, setDefaultCity, City} from "./actions"
 
 interface GeolocationStateProps {
   cities: City[]
@@ -26,7 +26,6 @@ interface GeolocationStateProps {
 interface GeolocationDispatchProps {
   configureGeolocation(): void
   setDefaultCity(city: City): void
-  checkTime(): void
 }
 
 export interface GeolocationProps
@@ -65,7 +64,6 @@ const mapDispatchToProps = (dispatch: any): GeolocationDispatchProps => {
   return {
     configureGeolocation: () => dispatch(configureGeolocation()),
     setDefaultCity: (city: City) => dispatch(setDefaultCity(city)),
-    checkTime: () => dispatch(checkTime()),
   }
 }
 
