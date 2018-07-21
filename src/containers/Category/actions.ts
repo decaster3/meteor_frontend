@@ -3,24 +3,6 @@ import {State} from "../.."
 import {Status, categoriesData} from "../../constants"
 import {ActionType} from "./constants"
 
-export interface Option {
-  name: string
-  id: number
-  isCharacteristic: boolean
-  optionValues: Array<{value: string; id: number}>
-}
-
-export interface ProductInstance {
-  id: number
-  price: {currency: string; value: string; id: number}
-  belongingOptions: OptionConcat[]
-  notBelongingOptions: OptionConcat[]
-}
-
-export interface OptionConcat {
-  optionId: number
-  valueId: number
-}
 const setCategoriesStatus = (categoriesStatus: string) => ({
   type: ActionType.SET_CATEGORIES_STATUS,
   payload: categoriesStatus,

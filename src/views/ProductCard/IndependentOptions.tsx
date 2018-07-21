@@ -1,6 +1,5 @@
 import React from "react"
-import {Option} from "../../containers/Products/actions"
-import {OptionConcat} from "../../containers/Category/actions"
+import {Option, OptionConcat} from "../../containers/Products/actions"
 import {cx} from "emotion"
 import styles from "./ProductCard.module.scss"
 import _ from "lodash"

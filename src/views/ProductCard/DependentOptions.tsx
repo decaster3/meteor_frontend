@@ -1,7 +1,7 @@
 import React from "react"
-import {Option, OptionConcat} from "../../containers/Category/actions"
 import {cx} from "emotion"
 import styles from "./ProductCard.module.scss"
+import {Option, OptionConcat} from "../../containers/Products/actions"
 
 interface DependentOptionsProps extends React.HTMLProps<HTMLDivElement> {
   options: Option[]
