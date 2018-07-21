@@ -1,11 +1,10 @@
-import {ThemeProvider, withTheme} from "emotion-theming"
+import {ThemeProvider as EmotionThemeProvider} from "emotion-theming"
 import React from "react"
 import {compose} from "redux"
 import {Switch, Route, withRouter} from "react-router-dom"
-import {injectGlobal, css, cx} from "emotion"
-import {Container, Row} from "reactstrap"
 import {transparentize} from "polished"
 
+import styled, {injectGlobal, ThemeProvider} from "./styled"
 import Menu from "../MainContentPlaceholder/Menu"
 import MainPage from "../MainPage"
 import Cart from "../Cart"
@@ -14,7 +13,7 @@ import {UserInfo} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
-import {theme} from "./Theme"
+import {theme} from "./emotion"
 import {Category} from "../../containers/Products/actions"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
@@ -64,38 +63,34 @@ interface AppProps {
 const fadedDarkBlue = transparentize(0.2, theme.darkBlue)
 const fadedBlue = transparentize(0.2, theme.blue)
 
+const Wrapper = styled.div`
+  flex: 1;
+  padding-top: 56px;
+  background-color: ${fadedDarkBlue};
+`
+
+const Container = styled.div.attrs({className: "container"})`
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
+`
+
+const Content = styled.div`
+  background-color: ${fadedBlue};
+  box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
+  flex: 1;
+  margin: 0 -15px;
+  padding: 32px;
+`
+
 const App: React.StatelessComponent<AppProps> = props => (
   <ThemeProvider theme={theme}>
-    <div
-      className={css({
-        flex: 1,
-        paddingTop: "3.5rem",
-        backgroundColor: fadedDarkBlue,
-      })}
-    >
-      <Header />
-      <Container
-        className={css`
-          display: flex;
-          flex-flow: column;
-          min-height: 100%;
-        `}
-      >
-        <Row
-          className={css({
-            flex: 1,
-            backgroundColor: fadedBlue,
-            boxShadow: "0 0 6rem 0 black, 0 0 2rem 0 black",
-          })}
-        >
-          <div
-            className={cx(
-              "container-fluid",
-              css`
-                padding: 32px;
-              `
-            )}
-          >
+    <EmotionThemeProvider theme={theme}>
+      <Wrapper>
+        <Header />
+
+        <Container>
+          <Content>
             <Switch>
               <Route
                 path="/invite/:inviterToken"
@@ -113,13 +108,13 @@ const App: React.StatelessComponent<AppProps> = props => (
               {props.userState === UserState.LOGED_IN && (
                 <Route path="/account" component={Account} />
               )}
-              */}
             </Switch>
-          </div>
-        </Row>
-        <Footer />
-      </Container>
-    </div>
+          </Content>
+
+          <Footer />
+        </Container>
+      </Wrapper>
+    </EmotionThemeProvider>
   </ThemeProvider>
 )
 

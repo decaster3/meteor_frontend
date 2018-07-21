@@ -3,7 +3,7 @@ import {css, cx} from "emotion"
 import Icon from "react-fa"
 
 import {CartProduct} from "../../containers/Cart/actions"
-import {ThemeProps, withTheme, styled} from "../App/Theme"
+import {ThemeProps, withTheme, styled} from "../App/emotion"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 
 interface OrderHistoryProductProps {

@@ -7,12 +7,14 @@ import {
 } from "../../containers/UserSession"
 import BonusHistory from "./BonusHistory"
 import OrderHistory from "./OrderHistory"
-import {cx, css} from "emotion"
-import {ThemeProps, styled, JS_HREF} from "../App/Theme"
-import {withTheme} from "../../../node_modules/emotion-theming"
+import {css, cx} from "emotion"
+import {ThemeProps} from "../App/emotion"
+import styled from "../App/styled"
+import {withTheme} from "emotion-theming"
 import {PrimaryButtonAsLink} from "../PrimaryButton"
 import {Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from "reactstrap"
 import Icon from "react-fa"
+import {JS_HREF} from "../../constants"
 
 interface AccountProps extends UserStateProps, UserDispatchProps, ThemeProps {}
 
@@ -23,7 +25,7 @@ interface AccountState {
 }
 
 class Account extends React.Component<AccountProps, AccountState> {
-  static Subtitle = styled("h3")`
+  static Subtitle = styled.h3`
     color: ${props => props.theme.lighterGrey};
     margin-bottom: 24px; /* mb-4 */
     margin-top: 48px; /* mb-5 */
@@ -55,6 +57,19 @@ class Account extends React.Component<AccountProps, AccountState> {
     }
   `
 
+  static AccountInfoItem = styled.div`
+    padding: 16px 0;
+
+    & + & {
+      border-top: 2px solid ${props => props.theme.lightGrey};
+    }
+  `
+
+  static AccountInfoWrapper = styled.div`
+    color: ${props => props.theme.lighterGrey};
+    font-weight: 500;
+  `
+
   state: AccountState = {activeTab: "order-history"}
 
   componentDidMount() {
@@ -71,57 +86,48 @@ class Account extends React.Component<AccountProps, AccountState> {
     return (
       <div>
         <h2 className="mb-4">Аккаунт</h2>
-        <div
-          className={cx(
-            "row align-items-center mb-5",
-            css`
-              color: ${this.props.theme.lighterGrey};
-              font-weight: 500;
-            `
-          )}
-        >
-          <div className="col text-center">
-            <img
-              className="rounded-circle"
-              src={`https://picsum.photos/256/256`}
-            />
-          </div>
 
-          <div className="col">
-            <div
-              className={css`
-                line-height: 3;
-              `}
-            >
-              <div>{this.props.userInfo.name}</div>
-              <div>{this.props.userInfo.phone}</div>
-              <div>{this.props.userInfo.token}</div>
+        <Account.AccountInfoWrapper>
+          <div className={"row align-items-center mb-5"}>
+            <div className="col-4 text-center">
+              <img
+                className="rounded-circle"
+                src={`https://picsum.photos/256/256`}
+              />
             </div>
-          </div>
 
-          <div className={cx("col text-center")}>
-            <div>На вашем счету</div>
-            <div
-              className={css`
-                color: white;
-                font-size: 1.5em;
-                margin: 1em 0;
-              `}
-            >
-              {this.props.userInfo.meteors
-                .map(x => x.value)
-                .reduce((prevVal, currentVal) => prevVal + currentVal, 0)}{" "}
-              <small>метеоров</small>
+            <div className="col-4">
+              <Account.AccountInfoItem>
+                {this.props.userInfo.name}
+              </Account.AccountInfoItem>
+
+              <Account.AccountInfoItem>
+                {this.props.userInfo.phone}
+              </Account.AccountInfoItem>
+
+              <Account.AccountInfoItem>
+                {this.props.userInfo.token}
+              </Account.AccountInfoItem>
             </div>
-            <div className="row justify-content-center">
-              <div className="col-auto">
-                <PrimaryButtonAsLink to="/meteors">
-                  Как это работает?
-                </PrimaryButtonAsLink>
+
+            <div className={"col-4 text-center"}>
+              <div>На вашем счету</div>
+              <div className={"text-white h3 mb-0 py-3"}>
+                {this.props.userInfo.meteors
+                  .map(x => x.value)
+                  .reduce((prevVal, currentVal) => prevVal + currentVal, 0)}
+                <small> метеоров</small>
+              </div>
+              <div className="row justify-content-center">
+                <div className="col-auto">
+                  <PrimaryButtonAsLink to="/meteors">
+                    Как это работает?
+                  </PrimaryButtonAsLink>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Account.AccountInfoWrapper>
 
         <div
           className={css`

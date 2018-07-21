@@ -20,18 +20,12 @@ import {compose} from "redux"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
 import {UserInfo} from "../../containers/UserSession/actions"
-import {Status} from "../../constants"
+import {Status, JS_HREF} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
 import ModalWrapper from "../ModalWrapper"
 import PhoneCallbackForm from "../PhoneCallback"
 import SignUp from "../AuthWrapper"
-import {
-  styled,
-  withTheme,
-  ThemeProps,
-  mediaBreakpointUp,
-  JS_HREF,
-} from "../App/Theme"
+import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "../App/emotion"
 import {City} from "../../containers/Geolocation/actions"
 
 const StyledAnchor = styled("a")`

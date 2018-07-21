@@ -10,7 +10,7 @@ import {UserInfo} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import SignUp from "../AuthWrapper"
 import {withUser} from "../../containers/UserSession"
-import {ThemeProps, withTheme} from "../App/Theme"
+import {ThemeProps, withTheme} from "../App/emotion"
 
 interface MeteorBannerProps {
   userState: UserState

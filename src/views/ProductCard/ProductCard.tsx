@@ -15,8 +15,8 @@ import DependentOptions from "./DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {compose} from "redux"
-import {ThemeProps} from "../App/Theme"
-import {withTheme} from "../../../node_modules/emotion-theming"
+import {ThemeProps} from "../App/emotion"
+import {withTheme} from "emotion-theming"
 
 interface ProductCardProps extends ThemeProps {
   product: Product

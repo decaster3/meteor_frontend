@@ -3,7 +3,7 @@ import {css, cx} from "emotion"
 import Icon from "react-fa"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {CartProduct} from "../../containers/Cart/actions"
-import {ThemeProps, withTheme, styled} from "../App/Theme"
+import {ThemeProps, withTheme, styled} from "../App/emotion"
 
 const Button = styled("button")`
   line-height: 1;

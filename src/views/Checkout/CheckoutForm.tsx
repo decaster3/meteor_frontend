@@ -14,7 +14,7 @@ import CustomInput from "../../forms/CustomInput"
 import CustomSelect from "../../forms/CustomSelect"
 import {cx, css} from "emotion"
 import {compose} from "redux"
-import {ThemeProps, withTheme, styled} from "../App/Theme"
+import {ThemeProps, withTheme, styled} from "../App/emotion"
 import {PrimaryButton} from "../PrimaryButton"
 import {CustomTextarea} from "../../forms/CustomTextarea"
 

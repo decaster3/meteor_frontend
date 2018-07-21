@@ -8,8 +8,8 @@ import OrderHistoryProduct from "./OrderHistoryProduct"
 import {CartProduct} from "../../containers/Cart/actions"
 import {Collapse} from "reactstrap"
 import Icon from "react-fa"
-import {styled, ThemeProps, withTheme} from "../App/Theme"
-import {cx, css} from "../../../node_modules/emotion"
+import {styled, ThemeProps, withTheme} from "../App/emotion"
+import {cx, css} from "emotion"
 
 interface OrderViewProps extends React.HTMLProps<HTMLDivElement>, ThemeProps {
   order: Order

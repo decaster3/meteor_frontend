@@ -1,7 +1,8 @@
 import React from "react"
 import {Subcategory} from "../../containers/Products/actions"
-import {JS_HREF, ThemeProps, withTheme} from "../App/Theme"
+import {ThemeProps, withTheme} from "../App/emotion"
 import {css, cx} from "emotion"
+import {JS_HREF} from "../../constants"
 
 interface SubcategoriesNavProps
   extends ThemeProps,

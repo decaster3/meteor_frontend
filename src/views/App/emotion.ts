@@ -82,5 +82,3 @@ const customWithTheme = <P extends ThemeProps>(
   withTheme<P, Theme>(WrappedComponent)
 
 export {customWithTheme as withTheme}
-
-export const JS_HREF = "javascript:void(0);"

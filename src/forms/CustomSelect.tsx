@@ -3,7 +3,7 @@ import Select, {ReactSelectProps} from "react-select"
 import {WrappedFieldProps} from "redux-form"
 
 import "react-select/dist/react-select.css"
-import {cx, css, injectGlobal} from "../../node_modules/emotion"
+import {cx, css, injectGlobal} from "emotion"
 
 interface CustomSelectProps extends ReactSelectProps, WrappedFieldProps {
   size?: "lg"

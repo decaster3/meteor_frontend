@@ -7,7 +7,7 @@ import CartProductView from "./CartProduct"
 import Checkout from "../Checkout"
 import {css} from "emotion"
 import {withTheme} from "emotion-theming"
-import {ThemeProps} from "../App/Theme"
+import {ThemeProps} from "../App/emotion"
 import {StickyContainer, Sticky} from "react-sticky"
 import {PrimaryButtonAsLink, PrimaryButton} from "../PrimaryButton"
 
@@ -19,12 +19,10 @@ class Cart extends React.Component<
   UserProps & CartProps & ThemeProps & GeolocationProps,
   CartState
 > {
-  constructor(props: UserProps & CartProps & ThemeProps & GeolocationProps) {
-    super(props)
-    this.state = {
-      choosenMeteors: this.props.meteors,
-    }
+  state: CartState = {
+    choosenMeteors: this.props.meteors,
   }
+
   componentDidMount() {
     this.props.getUserInfo()
   }
@@ -36,9 +34,13 @@ class Cart extends React.Component<
     this.setState({choosenMeteors: parseInt(event.currentTarget.value, 10)})
   }
 
+  choosenMeteors = () => <div>{this.state.choosenMeteors}</div>
+
   render() {
     return (
       <div>
+        <this.choosenMeteors />
+
         <h2>Корзина</h2>
         <div className="row mb-5">
           <div className="col-12 col-lg-8">
@@ -82,7 +84,6 @@ class Cart extends React.Component<
                             : this.props.total
                         }
                         value={this.state.choosenMeteors}
-                        onInput={this.handleChangeMeteors}
                         onChange={this.handleChangeMeteors}
                         step={10}
                       />

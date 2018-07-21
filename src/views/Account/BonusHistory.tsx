@@ -3,8 +3,8 @@ import {compose} from "redux"
 import {withUser, UserProps} from "../../containers/UserSession"
 import {Status} from "../../constants"
 import {cx, css} from "emotion"
-import {ThemeProps} from "../App/Theme"
-import {withTheme} from "../../../node_modules/emotion-theming"
+import {ThemeProps} from "../App/emotion"
+import {withTheme} from "emotion-theming"
 
 interface BonusHistoryProps extends UserProps, ThemeProps {}
 
@@ -12,12 +12,12 @@ class BonusHistory extends React.Component<BonusHistoryProps> {
   render() {
     switch (this.props.userInfo.userInfoStatus) {
       case Status.LOADING:
-        return <p>Loading...</p>
+        return <p>Загрузка...</p>
       case Status.LOADING_ERROR:
-        return <p>Loading error.</p>
+        return <p>Ошибка загрузки. Перезагрузите страницу.</p>
       case Status.LOADED:
-        if (this.props.userInfo.meteors.length > 0) {
-          return this.props.userInfo.meteors.map(meteor => (
+        return this.props.userInfo.meteors.length > 0 ? (
+          this.props.userInfo.meteors.map(meteor => (
             <div
               key={meteor.id}
               className={css`
@@ -32,11 +32,11 @@ class BonusHistory extends React.Component<BonusHistoryProps> {
               </div>
             </div>
           ))
-        } else {
-          return <div>Здесь будет отображена история начисления метеоров</div>
-        }
+        ) : (
+          <div>Здесь будет отображена история начисления метеоров.</div>
+        )
       default:
-        return <p>Something went wrong. Reload the page.</p>
+        return <p>Что-то пошло не так. Перезагрузите страницу.</p>
     }
   }
 }

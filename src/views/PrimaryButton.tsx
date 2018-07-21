@@ -1,4 +1,4 @@
-import {styled} from "./App/Theme"
+import {styled} from "./App/emotion"
 import {Link} from "react-router-dom"
 import {darken, desaturate, shade} from "polished"
 

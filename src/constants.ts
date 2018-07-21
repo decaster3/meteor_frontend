@@ -4,6 +4,8 @@ import burger from "./assets/burger.png"
 import sushi from "./assets/sushi.png"
 import snacks from "./assets/snacks.png"
 
+export const JS_HREF = "javascript:void(0);"
+
 export enum Status {
   NOT_LOADED = "NOT_LOADED",
   LOADED = "LOADED",
