@@ -39,9 +39,8 @@ class Cart extends React.Component<
   render() {
     return (
       <div>
-        <this.choosenMeteors />
-
         <h2>Корзина</h2>
+
         <div className="row mb-5">
           <div className="col-12 col-lg-8">
             {this.props.products.map(product => (

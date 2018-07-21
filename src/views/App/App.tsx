@@ -1,10 +1,9 @@
-import {ThemeProvider as EmotionThemeProvider} from "emotion-theming"
+import {ThemeProvider} from "emotion-theming"
 import React from "react"
 import {compose} from "redux"
 import {Switch, Route, withRouter} from "react-router-dom"
 import {transparentize} from "polished"
 
-import styled, {injectGlobal, ThemeProvider} from "./styled"
 import Menu from "../MainContentPlaceholder/Menu"
 import MainPage from "../MainPage"
 import Cart from "../Cart"
@@ -13,7 +12,7 @@ import {UserInfo} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
-import {theme} from "./emotion"
+import {theme, styled} from "./emotion"
 import {Category} from "../../containers/Products/actions"
 import withGeolocation from "../../containers/Geolocation"
 import {withUser} from "../../containers/UserSession"
@@ -22,6 +21,7 @@ import Account from "../Account"
 import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
 import Checkout from "../Checkout"
+import {injectGlobal} from "emotion"
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
@@ -63,19 +63,19 @@ interface AppProps {
 const fadedDarkBlue = transparentize(0.2, theme.darkBlue)
 const fadedBlue = transparentize(0.2, theme.blue)
 
-const Wrapper = styled.div`
+const Wrapper = styled("div")`
   flex: 1;
   padding-top: 56px;
   background-color: ${fadedDarkBlue};
 `
 
-const Container = styled.div.attrs({className: "container"})`
+const Container = styled("div")`
   display: flex;
   flex-flow: column;
   min-height: 100%;
 `
 
-const Content = styled.div`
+const Content = styled("div")`
   background-color: ${fadedBlue};
   box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
   flex: 1;
@@ -85,36 +85,34 @@ const Content = styled.div`
 
 const App: React.StatelessComponent<AppProps> = props => (
   <ThemeProvider theme={theme}>
-    <EmotionThemeProvider theme={theme}>
-      <Wrapper>
-        <Header />
+    <Wrapper>
+      <Header />
 
-        <Container>
-          <Content>
-            <Switch>
-              <Route
-                path="/invite/:inviterToken"
-                exact={true}
-                component={MainPage}
-              />
-              <Route path="/" exact={true} component={MainPage} />
-              <Route path="/pizza" exact={true} component={MainPage} />
-              <Route path="/burgers" exact={true} component={MainPage} />
-              <Route path="/sushi" exact={true} component={MainPage} />
-              <Route path="/snacks" exact={true} component={MainPage} />
-              <Route path="/menu" component={Menu} />
-              <Route path="/cart" exact={true} component={Cart} />
-              <Route path="/checkout" exact={true} component={Checkout} />
-              {props.userState === UserState.LOGED_IN && (
-                <Route path="/account" component={Account} />
-              )}
-            </Switch>
-          </Content>
+      <Container className="container">
+        <Content>
+          <Switch>
+            <Route
+              path="/invite/:inviterToken"
+              exact={true}
+              component={MainPage}
+            />
+            <Route path="/" exact={true} component={MainPage} />
+            <Route path="/pizza" exact={true} component={MainPage} />
+            <Route path="/burgers" exact={true} component={MainPage} />
+            <Route path="/sushi" exact={true} component={MainPage} />
+            <Route path="/snacks" exact={true} component={MainPage} />
+            <Route path="/menu" component={Menu} />
+            <Route path="/cart" exact={true} component={Cart} />
+            <Route path="/checkout" exact={true} component={Checkout} />
+            {props.userState === UserState.LOGED_IN && (
+              <Route path="/account" component={Account} />
+            )}
+          </Switch>
+        </Content>
 
-          <Footer />
-        </Container>
-      </Wrapper>
-    </EmotionThemeProvider>
+        <Footer />
+      </Container>
+    </Wrapper>
   </ThemeProvider>
 )
 

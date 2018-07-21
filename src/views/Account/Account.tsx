@@ -8,8 +8,7 @@ import {
 import BonusHistory from "./BonusHistory"
 import OrderHistory from "./OrderHistory"
 import {css, cx} from "emotion"
-import {ThemeProps} from "../App/emotion"
-import styled from "../App/styled"
+import {ThemeProps, styled} from "../App/emotion"
 import {withTheme} from "emotion-theming"
 import {PrimaryButtonAsLink} from "../PrimaryButton"
 import {Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from "reactstrap"
@@ -25,7 +24,7 @@ interface AccountState {
 }
 
 class Account extends React.Component<AccountProps, AccountState> {
-  static Subtitle = styled.h3`
+  static Subtitle = styled("h3")`
     color: ${props => props.theme.lighterGrey};
     margin-bottom: 24px; /* mb-4 */
     margin-top: 48px; /* mb-5 */
@@ -57,7 +56,7 @@ class Account extends React.Component<AccountProps, AccountState> {
     }
   `
 
-  static AccountInfoItem = styled.div`
+  static AccountInfoItem = styled("div")`
     padding: 16px 0;
 
     & + & {
@@ -65,7 +64,7 @@ class Account extends React.Component<AccountProps, AccountState> {
     }
   `
 
-  static AccountInfoWrapper = styled.div`
+  static AccountInfoWrapper = styled("div")`
     color: ${props => props.theme.lighterGrey};
     font-weight: 500;
   `
