@@ -11,13 +11,13 @@ import {connect} from "react-redux"
 import {createSelector} from "reselect"
 import {makeSelectLocale} from "./selectors"
 
-interface ILanguageProviderProps {
+interface LanguageProviderProps {
   locale: any
   messages: any[]
 }
 
 export class LanguageProvider extends React.PureComponent<
-  ILanguageProviderProps
+  LanguageProviderProps
 > {
   render() {
     return (

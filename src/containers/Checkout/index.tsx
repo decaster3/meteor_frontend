@@ -27,14 +27,14 @@ const withCheckout = <P extends object>(
   }
 }
 
-export interface CheckoutStateProps {
+interface CheckoutStateProps {
   streets: string[]
   streetsStatus: string
   orderStatus: string
   isOrderPending: boolean
 }
 
-export interface CheckoutDispatchProps {
+interface CheckoutDispatchProps {
   makeOrder(
     address: Address,
     name: string,

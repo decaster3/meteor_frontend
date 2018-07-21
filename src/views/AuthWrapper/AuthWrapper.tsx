@@ -9,10 +9,8 @@ import {compose} from "redux"
 import {
   withRegistration,
   withUser,
-  UserStateProps,
-  RegistrationDispatchProps,
-  RegistrationStateProps,
-  UserDispatchProps,
+  UserProps,
+  RegistrationProps,
 } from "../../containers/UserSession"
 import {UserState} from "../../containers/UserSession/constants"
 
@@ -25,10 +23,8 @@ interface AuthenticationOwnProps {
   registrationFirst: boolean
 }
 
-type AuthenticationProps = UserStateProps &
-  RegistrationDispatchProps &
-  RegistrationStateProps &
-  UserDispatchProps &
+type AuthenticationProps = UserProps &
+  RegistrationProps &
   AuthenticationOwnProps
 
 class Authentication extends React.Component<

@@ -14,14 +14,14 @@ import {
   CartProduct,
 } from "./actions"
 
-export interface CartStateProps {
+interface CartStateProps {
   products: CartProduct[]
   meteors: number
   total: number
   possibleMeteors: number
 }
 
-export interface CartDispatchProps {
+interface CartDispatchProps {
   changeMeteors(meteors: number): void
   removeProductFromCart(product: CartProduct): void
   addProductToCart(product: CartProduct): void

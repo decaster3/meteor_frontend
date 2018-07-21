@@ -1,10 +1,6 @@
 import React from "react"
 import {compose} from "redux"
-import {
-  withUser,
-  UserDispatchProps,
-  UserStateProps,
-} from "../../containers/UserSession"
+import {withUser, UserProps} from "../../containers/UserSession"
 import BonusHistory from "./BonusHistory"
 import OrderHistory from "./OrderHistory"
 import {css, cx} from "emotion"
@@ -15,7 +11,7 @@ import {Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from "reactstrap"
 import Icon from "react-fa"
 import {JS_HREF} from "../../constants"
 
-interface AccountProps extends UserStateProps, UserDispatchProps, ThemeProps {}
+interface AccountProps extends UserProps, ThemeProps {}
 
 type TabType = "order-history" | "meteor-history" | "settings"
 

@@ -25,10 +25,18 @@ import {
   selectUserInfo,
 } from "./selectors"
 
-export interface UserStateProps {
+interface UserStateProps {
   userState: string
   userInfo: UserInfo
 }
+
+interface UserDispatchProps {
+  login(password: string, phone: string): void
+  logout(): void
+  getUserInfo(): void
+}
+
+export interface UserProps extends UserStateProps, UserDispatchProps {}
 
 const mapStateToUserProps = (state: State): UserStateProps => {
   return {
@@ -36,36 +44,6 @@ const mapStateToUserProps = (state: State): UserStateProps => {
     userInfo: selectUserInfo(state),
   }
 }
-
-export interface RegistrationStateProps {
-  phone: string
-  inviterToken: string
-  codeSent: string
-  regsitrationStep: number
-  isLoginPending: boolean
-  isPhonePending: boolean
-  isCodePending: boolean
-}
-
-const mapStateToRegistrationProps = (state: State): RegistrationStateProps => {
-  return {
-    regsitrationStep: selectUserRegistrationStep(state),
-    codeSent: selectCodeSentTime(state),
-    isPhonePending: selectIsPhonePending(state),
-    isCodePending: selectIsCodePending(state),
-    isLoginPending: selectIsLoginPending(state),
-    phone: selectPhone(state),
-    inviterToken: selectInviterToken(state),
-  }
-}
-
-export interface UserDispatchProps {
-  login(password: string, phone: string): void
-  logout(): void
-  getUserInfo(): void
-}
-
-export interface UserProps extends UserStateProps, UserDispatchProps {}
 
 const mapDispatchToUserProps = (dispatch: any): UserDispatchProps => {
   return {
@@ -76,7 +54,17 @@ const mapDispatchToUserProps = (dispatch: any): UserDispatchProps => {
   }
 }
 
-export interface RegistrationDispatchProps {
+interface RegistrationStateProps {
+  phone: string
+  inviterToken: string
+  codeSent: string
+  regsitrationStep: number
+  isLoginPending: boolean
+  isPhonePending: boolean
+  isCodePending: boolean
+}
+
+interface RegistrationDispatchProps {
   signUp(
     inviterToken: string,
     name: string,
@@ -89,6 +77,21 @@ export interface RegistrationDispatchProps {
   setInviterToken(token: string): void
 }
 
+export interface RegistrationProps
+  extends RegistrationStateProps,
+    RegistrationDispatchProps {}
+
+const mapStateToRegistrationProps = (state: State): RegistrationStateProps => {
+  return {
+    regsitrationStep: selectUserRegistrationStep(state),
+    codeSent: selectCodeSentTime(state),
+    isPhonePending: selectIsPhonePending(state),
+    isCodePending: selectIsCodePending(state),
+    isLoginPending: selectIsLoginPending(state),
+    phone: selectPhone(state),
+    inviterToken: selectInviterToken(state),
+  }
+}
 const mapDispatchToRegistrationProps = (
   dispatch: any
 ): RegistrationDispatchProps => {
