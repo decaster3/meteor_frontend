@@ -1,6 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
-import {compose, Dispatch} from "redux"
+import {compose} from "redux"
 import {State} from "../.."
 import {
   selectCitiesStatus,

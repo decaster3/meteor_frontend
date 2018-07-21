@@ -2,7 +2,7 @@ import React from "react"
 import {compose} from "redux"
 import {withUser, UserProps} from "../../containers/UserSession"
 import {Status} from "../../constants"
-import {cx, css} from "emotion"
+import {css} from "emotion"
 import {ThemeProps} from "../App/emotion"
 import {withTheme} from "emotion-theming"
 
