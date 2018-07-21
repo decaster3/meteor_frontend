@@ -4,7 +4,7 @@ import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
 
-import {validatePhone} from "../../forms/validationsAndNormalizing"
+import {validatePhone} from "../../forms/validations"
 import * as styles from "./PhoneCallbackForm.module.scss"
 import CustomInput from "../../forms/CustomInput"
 

@@ -4,12 +4,9 @@ import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
 
-import {
-  normalizePhone,
-  validatePhone,
-  passwordValidation,
-} from "../../forms/validationsAndNormalizing"
+import {validatePhone, validatePassword} from "../../forms/validations"
 import CustomInput from "../../forms/CustomInput"
+import {normalizePhone} from "../../forms/normalizations"
 
 interface LoginFormProps {
   isLoginPending: boolean
@@ -86,7 +83,7 @@ const LoginForm: React.StatelessComponent<
 const validateLoginFrom = (values: ImmutableMapOfLoginFormData) =>
   ({
     phone: validatePhone(values.get("phone")),
-    password: passwordValidation(values.get("password")),
+    password: validatePassword(values.get("password")),
   } as any)
 
 export default reduxForm<ImmutableMapOfLoginFormData, LoginFormProps>({

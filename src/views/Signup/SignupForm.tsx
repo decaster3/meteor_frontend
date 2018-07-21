@@ -1,15 +1,12 @@
 import React from "react"
 import {reduxForm, Field} from "redux-form/immutable"
-import {
-  normalizePhone,
-  validatePhone,
-  passwordValidation,
-} from "../../forms/validationsAndNormalizing"
+import {validatePhone, validatePassword} from "../../forms/validations"
 
 import CustomInput from "../../forms/CustomInput"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
+import {normalizePhone} from "../../forms/normalizations"
 
 interface SignupFormProps {
   isPhonePending: boolean
@@ -129,7 +126,7 @@ const validateSignUpForm = (values: ImmutableMapOfSignupFormData) =>
   ({
     name: values.get("name") ? undefined : "Обязательно",
     phone: validatePhone(values.get("phone")),
-    password: passwordValidation(values.get("password")),
+    password: validatePassword(values.get("password")),
   } as any)
 
 export default reduxForm<ImmutableMapOfSignupFormData, SignupFormProps>({

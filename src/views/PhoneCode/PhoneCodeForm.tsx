@@ -4,7 +4,7 @@ import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
 
-import {codeValidation} from "../../forms/validationsAndNormalizing"
+import {validateCode} from "../../forms/validations"
 import CustomInput from "../../forms/CustomInput"
 
 interface PhoneCodeFormProps {
@@ -85,7 +85,7 @@ const PhoneCodeForm: React.StatelessComponent<
 
 const validateCodeFrom = (values: ImmutablePhoneCodeFormData) =>
   ({
-    code: codeValidation(values.get("code")),
+    code: validateCode(values.get("code")),
   } as any)
 
 export default reduxForm<ImmutablePhoneCodeFormData, PhoneCodeFormProps>({

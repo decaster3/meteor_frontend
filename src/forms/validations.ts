@@ -1,4 +1,4 @@
-import {formatNumber, parseNumber} from "libphonenumber-js"
+import {parseNumber} from "libphonenumber-js"
 
 export const validatePhone = (value: string) => {
   if (!value) {
@@ -10,15 +10,7 @@ export const validatePhone = (value: string) => {
   }
 }
 
-export const normalizePhone = (value: string) => {
-  if (!value) {
-    return value
-  } else {
-    return formatNumber(value, "International")
-  }
-}
-
-export const passwordValidation = (value: string) => {
+export const validatePassword = (value: string) => {
   if (!value) {
     return "Обязательно"
   } else if (value.length < 8) {
@@ -28,7 +20,7 @@ export const passwordValidation = (value: string) => {
   }
 }
 
-export const passwordConfirmationValidation = (
+export const validatePasswordConfirmation = (
   value1: string,
   value2: string
 ) => {
@@ -41,7 +33,7 @@ export const passwordConfirmationValidation = (
   }
 }
 
-export const codeValidation = (value: string) => {
+export const validateCode = (value: string) => {
   if (!value) {
     return "Обязательно"
   } else if (value.length !== 6) {

@@ -5,11 +5,10 @@ import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
 
 import {
-  normalizePhone,
   validatePhone,
   validatePresence,
   validateIsUserPhone,
-} from "../../forms/validationsAndNormalizing"
+} from "../../forms/validations"
 import CustomInput from "../../forms/CustomInput"
 import CustomSelect from "../../forms/CustomSelect"
 import {cx, css} from "emotion"
@@ -17,6 +16,7 @@ import {compose} from "redux"
 import {ThemeProps, withTheme, styled} from "../App/emotion"
 import {PrimaryButton} from "../PrimaryButton"
 import {CustomTextarea} from "../../forms/CustomTextarea"
+import {normalizePhone} from "../../forms/normalizations"
 
 interface CheckoutFormOwnProps {
   isOrderPending: boolean
