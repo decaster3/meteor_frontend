@@ -1,7 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
 import {compose} from "redux"
-import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
 import reducer from "./reducer"
 import {
@@ -48,7 +47,7 @@ export interface CheckoutProps
   extends CheckoutStateProps,
     CheckoutDispatchProps {}
 
-const mapStateToProps = (state: State): CheckoutStateProps => {
+const mapStateToProps = (state: any): CheckoutStateProps => {
   return {
     streets: selectStreets(state),
     streetsStatus: selectStreetsStatus(state),

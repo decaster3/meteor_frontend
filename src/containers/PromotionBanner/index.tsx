@@ -1,6 +1,5 @@
 import {connect} from "react-redux"
-import {compose, Dispatch} from "redux"
-import {State} from "../.."
+import {compose} from "redux"
 import injectReducer from "../../utils/injectReducer"
 import {getBanners} from "./actions"
 import reducer from "./reducer"
@@ -20,7 +19,7 @@ export interface PromotionProps
   extends PromotionStateProps,
     PromotionDispatchProps {}
 
-const mapStateToProps = (state: State): PromotionStateProps => {
+const mapStateToProps = (state: any): PromotionStateProps => {
   return {
     banners: selectBanners(state),
     bannersStatus: selectBannersStatus(state),

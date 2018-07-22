@@ -1,5 +1,3 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
 import requests from "../../services/requests"
 import {ActionType} from "./constants"
 
@@ -8,9 +6,7 @@ const changeProductCreationStatus = (status: boolean) => ({
   payload: status,
 })
 
-export const createProduct = (image: any, product: any) => (
-  dispatch: Dispatch<State>
-) => {
+export const createProduct = (image: any, product: any) => (dispatch: any) => {
   return requests
     .post("products", {body: product})
     .then(data => {

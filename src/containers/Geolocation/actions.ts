@@ -1,8 +1,5 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
 import {ActionType} from "./constants"
 import {Status, categoriesData} from "../../constants"
-import requests from "../../services/requests"
 import moment from "moment"
 import {clearCart} from "../Cart/actions"
 
@@ -53,7 +50,7 @@ export interface City {
   closesAt: moment.Moment
 }
 
-export const checkTime = () => (dispatch: Dispatch<State>, getState: any) => {
+export const checkTime = () => (dispatch: any, getState: any) => {
   const currentTime = moment()
   const currentSchedule = {
     opensAt: moment(
@@ -88,7 +85,7 @@ const changeDeterminedCityStatus = (status: string) => ({
 })
 
 export const setDefaultCity = (city: City) => (
-  dispatch: Dispatch<State>,
+  dispatch: any,
   getState: any
 ) => {
   if (
@@ -125,7 +122,7 @@ export const changeNavigationStatus = (status: boolean) => ({
   payload: status,
 })
 
-export const tryToGuessProbableCity = () => (dispatch: Dispatch<State>) => {
+export const tryToGuessProbableCity = () => (dispatch: any) => {
   dispatch(changeDeterminedCityStatus(Status.LOADING))
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {

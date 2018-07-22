@@ -1,5 +1,3 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
 import {ActionType} from "./constants"
 import {Status, categoriesData} from "../../constants"
 import requests from "../../services/requests"
@@ -35,7 +33,7 @@ const changeDeterminedCityStatus = (status: string) => ({
 })
 
 export const setDefaultCity = (city: City) => (
-  dispatch: Dispatch<State>,
+  dispatch: any,
   getState: any
 ) => {
   if (
@@ -56,7 +54,7 @@ export const setDefaultCity = (city: City) => (
   dispatch(getProducts(dispatch(findCategoryByUrl())))
 }
 
-const findCategoryByUrl = () => (dispatch: Dispatch<State>, getState: any) => {
+const findCategoryByUrl = () => (dispatch: any, getState: any) => {
   return (
     categoriesData.find(
       category =>
@@ -74,9 +72,7 @@ export const changeNavigationStatus = (status: boolean) => ({
   payload: status,
 })
 
-export const tryToGuesProbableCity = (cities: City[]) => (
-  dispatch: Dispatch<State>
-) => {
+export const tryToGuesProbableCity = (cities: City[]) => (dispatch: any) => {
   dispatch(changeDeterminedCityStatus(Status.LOADING))
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
@@ -115,7 +111,7 @@ export const tryToGuesProbableCity = (cities: City[]) => (
   }
 }
 
-export const setCities = () => (dispatch: Dispatch<State>) => {
+export const setCities = () => (dispatch: any) => {
   dispatch(changeCitiesStatus(Status.LOADING))
   return requests
     .get("cities")

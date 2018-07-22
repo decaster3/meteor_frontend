@@ -1,6 +1,4 @@
 import {SubmissionError} from "redux-form/immutable"
-import {Dispatch} from "redux"
-import {State} from "../.."
 import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
 import moment from "moment"
@@ -94,7 +92,7 @@ export const setInviterToken = (inviterToken: string) => ({
   payload: inviterToken,
 })
 
-export const getUserInfo = () => (dispatch: Dispatch<State>) => {
+export const getUserInfo = () => (dispatch: any) => {
   dispatch(changeUserInfoStatus(Status.LOADING))
   return requests
     .get("users")
@@ -105,9 +103,7 @@ export const getUserInfo = () => (dispatch: Dispatch<State>) => {
     .catch(err => dispatch(changeUserInfoStatus(Status.LOADING_ERROR)))
 }
 
-export const login = (password: string, phone: string) => (
-  dispatch: Dispatch<State>
-) => {
+export const login = (password: string, phone: string) => (dispatch: any) => {
   dispatch(changeLoginPendingState(true))
   dispatch(changeUserStatus(UserState.LOGGING_IN))
   return requests
@@ -128,7 +124,7 @@ export const login = (password: string, phone: string) => (
     })
 }
 
-export const logout = () => (dispatch: Dispatch<State>) => {
+export const logout = () => (dispatch: any) => {
   dispatch(changeUserStatus(UserState.LOGGING_IN))
   requests.delete("auth/sign_in").then(() => {
     dispatch(changeUserStatus(UserState.ANONYMOUS))
@@ -141,7 +137,7 @@ export const signUp = (
   phone: string,
   password: string,
   passwordConfirmation: string
-) => (dispatch: Dispatch<State>) => {
+) => (dispatch: any) => {
   dispatch(changePhonePendingState(true))
   const user = inviterToken
     ? {
@@ -186,7 +182,7 @@ export const signUp = (
     })
 }
 
-export const sendCode = (code: string) => (dispatch: Dispatch<State>) => {
+export const sendCode = (code: string) => (dispatch: any) => {
   dispatch(changeCodePendingState(true))
   return requests
     .get(`confirmation?confirmation_code=${code}`)
@@ -203,7 +199,7 @@ export const sendCode = (code: string) => (dispatch: Dispatch<State>) => {
     })
 }
 
-export const reSendPhone = () => (dispatch: Dispatch<State>) => {
+export const reSendPhone = () => (dispatch: any) => {
   dispatch(previousRegistrationStep())
   dispatch({
     type: ActionType.SET_PHONE,

@@ -1,5 +1,3 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
 import {ActionType} from "./constants"
 import {Option, ProductInstance} from "../Products/actions"
 
@@ -19,9 +17,7 @@ export const changeMeteors = (meteors: number) => ({
   type: ActionType.CHANGE_METEORS,
   payload: meteors,
 })
-export const addProductToCart = (product: CartProduct) => (
-  dispatch: Dispatch<State>
-) => {
+export const addProductToCart = (product: CartProduct) => (dispatch: any) => {
   dispatch({
     payload: product,
     type: ActionType.ADD_PRODUCT_TO_CART,
@@ -30,7 +26,7 @@ export const addProductToCart = (product: CartProduct) => (
 }
 
 export const removeProductFromCart = (product: CartProduct) => (
-  dispatch: Dispatch<State>
+  dispatch: any
 ) => {
   dispatch({
     payload: product,

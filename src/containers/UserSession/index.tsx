@@ -1,6 +1,5 @@
 import {connect} from "react-redux"
 import {compose} from "redux"
-import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
 import {
   login,
@@ -38,7 +37,7 @@ interface UserDispatchProps {
 
 export interface UserProps extends UserStateProps, UserDispatchProps {}
 
-const mapStateToUserProps = (state: State): UserStateProps => {
+const mapStateToUserProps = (state: any): UserStateProps => {
   return {
     userState: selectUserState(state),
     userInfo: selectUserInfo(state),
@@ -81,7 +80,7 @@ export interface RegistrationProps
   extends RegistrationStateProps,
     RegistrationDispatchProps {}
 
-const mapStateToRegistrationProps = (state: State): RegistrationStateProps => {
+const mapStateToRegistrationProps = (state: any): RegistrationStateProps => {
   return {
     regsitrationStep: selectUserRegistrationStep(state),
     codeSent: selectCodeSentTime(state),

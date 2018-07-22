@@ -1,7 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
 import {compose} from "redux"
-import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
 import {createProduct} from "./actions"
 import reducer from "./reducer"
@@ -29,7 +28,7 @@ const WithProductCreation = (WrappedComponent: React.ComponentType) => {
   }
 }
 
-const mapStateToProps = (state: State): PromotionStateProps => {
+const mapStateToProps = (state: any): PromotionStateProps => {
   return {
     isProductCreating: selectIsProductCreating(state),
   }

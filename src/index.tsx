@@ -19,11 +19,6 @@ import {translationMessages} from "./i18n"
 import {saveState} from "./localStorage"
 import registerServiceWorker from "./registerServiceWorker"
 
-// Create redux store with history
-export interface State {
-  userSession: object
-}
-
 const initialState = {}
 const history = createHistory()
 const store = configureStore(initialState, history)

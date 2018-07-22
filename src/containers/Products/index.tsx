@@ -1,7 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
 import {compose} from "redux"
-import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
 import {getProducts, Category} from "./actions"
 import reducer from "./reducer"
@@ -45,7 +44,7 @@ const mapDispatchToPropsProductsAndCategories = (
   }
 }
 
-const mapStateToProps = (state: State): ProductsStateProps => ({
+const mapStateToProps = (state: any): ProductsStateProps => ({
   categories: selectCategories(state),
   currentCategoryId: selectCurrentCategoryId(state),
 })

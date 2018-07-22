@@ -1,6 +1,3 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
-import requests from "../../services/requests"
 import {Status} from "../../constants"
 import {ActionType} from "./constants"
 
@@ -9,7 +6,7 @@ const setBannersStatus = (bannersStatus: string) => ({
   payload: bannersStatus,
 })
 
-export const getBanners = () => (dispatch: Dispatch<State>) => {
+export const getBanners = () => (dispatch: any) => {
   dispatch(setBannersStatus(Status.LOADING))
   // return requests
   //   .get("banners")

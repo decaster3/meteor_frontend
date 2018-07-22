@@ -1,5 +1,3 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
 import requests from "../../services/requests"
 import {Status} from "../../constants"
 import {ActionType} from "./constants"
@@ -75,7 +73,7 @@ const setProductsStatus = (category: Category, productsStatus: string) => ({
 })
 
 export const getProducts = (category: Category) => (
-  dispatch: Dispatch<State>,
+  dispatch: any,
   getState: any
 ) => {
   dispatch(setProductsStatus(category, Status.LOADING))
@@ -113,7 +111,7 @@ export const getProducts = (category: Category) => (
 //     dispatch(getProducts(category))
 //   }
 // }
-// export const getCategories = () => (dispatch: Dispatch<State>) => {
+// export const getCategories = () => (dispatch: any) => {
 //   dispatch(setCategoriesStatus(Status.LOADING))
 // return requests
 //   .get("categories")

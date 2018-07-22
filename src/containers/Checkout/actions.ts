@@ -1,5 +1,3 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
 import requests from "../../services/requests"
 import {ActionType, OrderStatus} from "./constants"
 import {CartProduct} from "../Cart/actions"
@@ -36,7 +34,7 @@ const changeStreetsStatus = (streetsStatus: string) => ({
 
 const mockStreets = [{value: "one", label: "One"}, {value: "two", label: "Two"}]
 
-export const getStreets = () => (dispatch: Dispatch<State>, getState: any) => {
+export const getStreets = () => (dispatch: any, getState: any) => {
   dispatch(changeStreetsStatus(Status.LOADING))
   // requests
   //   .get("streets/1")
@@ -57,7 +55,7 @@ export const makeOrder = (
   name: string,
   phone: string,
   paymentMethod: string
-) => (dispatch: Dispatch<State>, getState: any) => {
+) => (dispatch: any, getState: any) => {
   dispatch(changeOrderStatus(OrderStatus.PROCESSING))
 
   const orderProductsAttributes = getState()

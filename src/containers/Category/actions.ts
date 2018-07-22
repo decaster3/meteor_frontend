@@ -1,5 +1,3 @@
-import {Dispatch} from "redux"
-import {State} from "../.."
 import {Status, categoriesData} from "../../constants"
 import {ActionType} from "./constants"
 
@@ -8,7 +6,7 @@ const setCategoriesStatus = (categoriesStatus: string) => ({
   payload: categoriesStatus,
 })
 
-export const getCategories = () => (dispatch: Dispatch<State>) => {
+export const getCategories = () => (dispatch: any) => {
   dispatch(setCategoriesStatus(Status.LOADING))
   // return requests
   //   .get("categories")

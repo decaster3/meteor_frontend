@@ -1,7 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
 import {compose} from "redux"
-import {State} from "../.."
 import injectReducer from "../../utils/injectReducer"
 import {getCategories} from "./actions"
 import reducer from "./reducer"
@@ -37,7 +36,7 @@ const withCategories = <P extends object>(
   }
 }
 
-const mapStateToCategoriesProps = (state: State): CategoriesStateProps => ({
+const mapStateToCategoriesProps = (state: any): CategoriesStateProps => ({
   categories: selectCategories(state),
   categoriesStatus: selectCategoriesStatus(state),
 })

@@ -1,5 +1,4 @@
 import {connect} from "react-redux"
-import {State} from "../.."
 import {
   selectProducts,
   selectMeteors,
@@ -30,7 +29,7 @@ interface CartDispatchProps {
 
 export interface CartProps extends CartStateProps, CartDispatchProps {}
 
-const mapStateToProps = (state: State): CartStateProps => ({
+const mapStateToProps = (state: any): CartStateProps => ({
   meteors: selectMeteors(state),
   total: selectTotal(state),
   products: selectProducts(state),

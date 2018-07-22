@@ -1,7 +1,6 @@
 import React from "react"
 import {connect} from "react-redux"
 import {compose, Dispatch} from "redux"
-import {State} from "../.."
 import {
   selectCitiesStatus,
   selectCities,
@@ -48,7 +47,7 @@ const withGeolocation = <P extends object>(
   }
 }
 
-const mapStateToProps = (state: State): GeolocationStateProps => {
+const mapStateToProps = (state: any): GeolocationStateProps => {
   return {
     citiesStatus: selectCitiesStatus(state),
     cities: selectCities(state),
