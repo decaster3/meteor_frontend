@@ -45,12 +45,9 @@ class Authentication extends React.Component<
     }
   }
 
-  constructor(props: AuthenticationProps) {
-    super(props)
-    this.state = {
-      isLogin: true,
-      modalShown: false,
-    }
+  state: AuthenticationState = {
+    isLogin: true,
+    modalShown: false,
   }
 
   toggleModal = () => {
@@ -64,12 +61,15 @@ class Authentication extends React.Component<
     this.props.reSendPhone()
   }
 
-  handleChangeTab = () =>
+  handleChangeTab = () => {
     this.setState(prevState => ({isLogin: !prevState.isLogin}))
+  }
 
-  setDefaultAuthState = () => this.setState(prevState => ({isLogin: true}))
+  setDefaultAuthState = () => {
+    this.setState(prevState => ({isLogin: true}))
+  }
 
-  renderRegsitration = () => {
+  Regsitration = () => {
     switch (this.props.regsitrationStep) {
       case 0:
         return (
@@ -113,7 +113,7 @@ class Authentication extends React.Component<
               isLoginPending={this.props.isLoginPending}
             />
           ) : (
-            this.renderRegsitration()
+            <this.Regsitration />
           )}
         </Modal>
       </div>

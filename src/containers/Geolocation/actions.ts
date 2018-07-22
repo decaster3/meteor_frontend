@@ -69,13 +69,10 @@ export const checkTime = () => (dispatch: Dispatch<State>, getState: any) => {
         .get("closesAt")
     ),
   }
-  if (
+  return (
     minutesOfDay(currentTime) < minutesOfDay(currentSchedule.closesAt) &&
     minutesOfDay(currentTime) > minutesOfDay(currentSchedule.opensAt)
-  ) {
-    return true
-  }
-  return false
+  )
 }
 
 const minutesOfDay = (m: moment.Moment) => m.minutes() + m.hours() * 60
@@ -128,7 +125,7 @@ export const changeNavigationStatus = (status: boolean) => ({
   payload: status,
 })
 
-export const tryToGuesProbableCity = () => (dispatch: Dispatch<State>) => {
+export const tryToGuessProbableCity = () => (dispatch: Dispatch<State>) => {
   dispatch(changeDeterminedCityStatus(Status.LOADING))
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
@@ -153,7 +150,7 @@ export const tryToGuesProbableCity = () => (dispatch: Dispatch<State>) => {
             }
           })
         },
-        (error: any) => {
+        () => {
           dispatch(changeDeterminedCityStatus(Status.LOADING_ERROR))
         }
       )
@@ -173,6 +170,6 @@ export const configureGeolocation = () => (dispatch: any, getState: any) => {
       .get("geolocation")
       .get("isCityChoosen")
   ) {
-    dispatch(tryToGuesProbableCity())
+    dispatch(tryToGuessProbableCity())
   }
 }

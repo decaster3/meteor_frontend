@@ -25,6 +25,7 @@ class Cart extends React.Component<
   componentDidMount() {
     this.props.getUserInfo()
   }
+
   componentWillUnmount() {
     this.props.changeMeteors(this.state.choosenMeteors)
   }
@@ -32,8 +33,6 @@ class Cart extends React.Component<
   handleChangeMeteors = (event: React.SyntheticEvent<HTMLInputElement>) => {
     this.setState({choosenMeteors: parseInt(event.currentTarget.value, 10)})
   }
-
-  choosenMeteors = () => <div>{this.state.choosenMeteors}</div>
 
   render() {
     return (
@@ -129,11 +128,13 @@ class Cart extends React.Component<
             </Sticky>
           </StickyContainer>
         </div>
+
         {this.props.checkTime() ? (
           <h1>ТОлько запланированный заказ</h1>
         ) : (
           <div />
         )}
+
         {this.props.total > 3000 + this.state.choosenMeteors ? (
           <div className="row justify-content-center my-3">
             <div className="col-auto">
