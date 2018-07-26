@@ -1,4 +1,4 @@
-import React from "react"
+import React, {SFC, HTMLProps, SyntheticEvent, Component} from "react"
 import {reduxForm, Field} from "redux-form/immutable"
 import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
@@ -50,10 +50,7 @@ interface CheckoutFormState {
   paymentMethod?: string
 }
 
-class CheckoutForm extends React.Component<
-  CheckoutFormProps,
-  CheckoutFormState
-> {
+class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
   static PaymentMethodLabel = styled("label")`
     padding-top: 11px;
     padding-bottom: 11px;
@@ -69,27 +66,34 @@ class CheckoutForm extends React.Component<
     }
   `
 
-  static FormGroupRow: React.SFC = ({children}) => (
-    <div className="form-group row mb-5">{children}</div>
-  )
+  static Subtitle = styled("h3")`
+    color: ${props => props.theme.lighterGrey};
+    margin-bottom: 24px; /* mb-4 */
+  `
 
-  static ColFormLabel: React.SFC<React.HTMLProps<HTMLLabelElement>> = ({
-    children,
-    htmlFor,
+  static FormGroupRow: SFC<HTMLProps<HTMLDivElement>> = ({
+    className,
+    ...restOfProps
   }) => (
-    <label className="col-3 col-form-label col-form-label-lg" htmlFor={htmlFor}>
-      {children}
-    </label>
+    <div className={cx("form-group row mb-5", className)} {...restOfProps} />
   )
 
-  static RequiredStar: React.SFC = () => (
-    <span className="text-danger mx-1">*</span>
+  static ColFormLabel: SFC<HTMLProps<HTMLLabelElement>> = ({
+    className,
+    ...restOfProps
+  }) => (
+    <label
+      className={cx("col-3 col-form-label col-form-label-lg", className)}
+      {...restOfProps}
+    />
   )
+
+  static RequiredStar = () => <span className="text-danger mx-1">*</span>
 
   state: CheckoutFormState = {}
 
   handleChoosePaymentMethod = (
-    event: React.SyntheticEvent<HTMLInputElement>,
+    event: SyntheticEvent<HTMLInputElement>,
     newValue: string
   ) => {
     this.setState({paymentMethod: newValue})
@@ -102,16 +106,7 @@ class CheckoutForm extends React.Component<
 
         <div className="row mt-3">
           <div className="col-6">
-            <h3
-              className={cx(
-                "mb-4",
-                css`
-                  color: ${this.props.theme.lighterGrey};
-                `
-              )}
-            >
-              Доставка
-            </h3>
+            <CheckoutForm.Subtitle>Доставка</CheckoutForm.Subtitle>
 
             <CheckoutForm.FormGroupRow>
               <CheckoutForm.ColFormLabel htmlFor="phone">
@@ -216,16 +211,7 @@ class CheckoutForm extends React.Component<
           </div>
 
           <div className="col-6">
-            <h3
-              className={cx(
-                "mb-4",
-                css`
-                  color: ${this.props.theme.lighterGrey};
-                `
-              )}
-            >
-              Оплата
-            </h3>
+            <CheckoutForm.Subtitle>Оплата</CheckoutForm.Subtitle>
 
             <nav className="nav nav-pills nav-fill mb-5 text-uppercase font-weight-bold">
               <CheckoutForm.PaymentMethodLabel
@@ -309,12 +295,44 @@ class CheckoutForm extends React.Component<
 
         <div className="row">
           <div className="col">
-            <CheckoutForm.FormGroupRow>
-              <CheckoutForm.ColFormLabel htmlFor="comment">
-                Комментарий
-              </CheckoutForm.ColFormLabel>
+            <CheckoutForm.Subtitle>Время доставки</CheckoutForm.Subtitle>
 
-              <div className="col-9">
+            <CheckoutForm.FormGroupRow>
+              <div className="col">
+                <Field
+                  component={CustomInput}
+                  name="date"
+                  props={{
+                    id: "date",
+                    type: "date",
+                    placeholder: "Дата",
+                    autoComplete: "date",
+                    className: "form-control-lg",
+                  }}
+                />
+              </div>
+
+              <div className="col">
+                <Field
+                  component={CustomInput}
+                  name="time"
+                  props={{
+                    id: "time",
+                    type: "time",
+                    placeholder: "Время",
+                    autoComplete: "time",
+                    className: "form-control-lg",
+                  }}
+                />
+              </div>
+            </CheckoutForm.FormGroupRow>
+          </div>
+
+          <div className="col">
+            <CheckoutForm.Subtitle>Комментарий</CheckoutForm.Subtitle>
+
+            <CheckoutForm.FormGroupRow>
+              <div className="col">
                 <Field
                   component={CustomTextarea}
                   name="comment"
