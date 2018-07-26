@@ -20,7 +20,6 @@ export const PrimaryButton = styled("button")(({theme}) => ({
   textAlign: "center",
   textDecoration: "none",
   textTransform: "uppercase",
-  width: "100%",
 
   "&:disabled, &[disabled]": {
     color: darken(0.25, "white"),

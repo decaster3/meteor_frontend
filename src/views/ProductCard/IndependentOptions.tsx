@@ -24,26 +24,32 @@ const IndependentOptions: React.SFC<IndependentOptionsProps> = ({
       return (
         currentOptionValue && (
           <div className={"row no-gutters my-2"} key={option.id}>
-            {_.sortBy(option.optionValues, x => x.value).map(optionValue => (
-              <div className="col text-center" key={optionValue.id}>
-                <button
-                  type="button"
-                  onClick={() =>
-                    changeCurrentProduct(
-                      option.id,
-                      optionValue.id,
-                      optionValue.value
-                    )
-                  }
-                  className={cx(styles.option, {
-                    [styles.optionActive]:
-                      currentOptionValue.valueId === optionValue.id,
-                  })}
-                >
-                  {optionValue.value}
-                </button>
-              </div>
-            ))}
+            {option.optionValues
+              .sort((a, b) =>
+                a.value
+                  .toLocaleLowerCase()
+                  .localeCompare(b.value.toLocaleLowerCase())
+              )
+              .map(optionValue => (
+                <div className="col text-center" key={optionValue.id}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      changeCurrentProduct(
+                        option.id,
+                        optionValue.id,
+                        optionValue.value
+                      )
+                    }
+                    className={cx(styles.option, {
+                      [styles.optionActive]:
+                        currentOptionValue.valueId === optionValue.id,
+                    })}
+                  >
+                    {optionValue.value}
+                  </button>
+                </div>
+              ))}
           </div>
         )
       )

@@ -22,6 +22,8 @@ import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
 import Checkout from "../Checkout"
 import {injectGlobal} from "emotion"
+import NotFound from "../NotFound"
+import Promotions from "../Promotions"
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
@@ -78,6 +80,8 @@ const Container = styled("div")`
 const Content = styled("div")`
   background-color: ${fadedBlue};
   box-shadow: 0 0 6rem 0 black, 0 0 2rem 0 black;
+  display: flex;
+  flex-flow: column;
   flex: 1;
   margin: 0 -15px;
   padding: 32px;
@@ -104,9 +108,13 @@ const App: React.StatelessComponent<AppProps> = props => (
             <Route path="/menu" component={Menu} />
             <Route path="/cart" exact={true} component={Cart} />
             <Route path="/checkout" exact={true} component={Checkout} />
+            <Route path="/promotions" exact={true} component={Promotions} />
+
             {props.userState === UserState.LOGED_IN && (
               <Route path="/account" component={Account} />
             )}
+
+            <Route component={NotFound} />
           </Switch>
         </Content>
 

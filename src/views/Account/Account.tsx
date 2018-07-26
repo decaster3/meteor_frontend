@@ -87,7 +87,7 @@ class Account extends React.Component<AccountProps, AccountState> {
             <div className="col-4 text-center">
               <img
                 className="rounded-circle"
-                src={`https://picsum.photos/256/256`}
+                src={`http://via.placeholder.com/256x256`}
               />
             </div>
 

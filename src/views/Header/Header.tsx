@@ -271,7 +271,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                   </NavItem>
                 ))}
               <NavItem>
-                <NavLink tag={ReactRouterNavLink} to="/sales">
+                <NavLink tag={ReactRouterNavLink} to="/promotions">
                   Акции
                 </NavLink>
               </NavItem>
