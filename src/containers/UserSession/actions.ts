@@ -139,26 +139,15 @@ export const signUp = (
   passwordConfirmation: string
 ) => (dispatch: any) => {
   dispatch(changePhonePendingState(true))
-  const user = inviterToken
-    ? {
-        phone: phone.replace(/\s/g, ""),
-        password,
-        name,
-        passwordConfirmation,
-        inviterToken,
-      }
-    : {
-        phone: phone.replace(/\s/g, ""),
-        password,
-        name,
-        passwordConfirmation,
-      }
+  const user = {
+    phone: phone.replace(/\s/g, ""),
+    password,
+    name,
+    passwordConfirmation,
+    ...(inviterToken ? {inviterToken} : {}),
+  }
   return requests
-    .post("auth", {
-      body: {
-        user,
-      },
-    })
+    .post("auth", {body: {user}})
     .then(() => {
       dispatch({
         type: ActionType.SET_PHONE,

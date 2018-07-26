@@ -37,21 +37,16 @@ interface UserDispatchProps {
 
 export interface UserProps extends UserStateProps, UserDispatchProps {}
 
-const mapStateToUserProps = (state: any): UserStateProps => {
-  return {
-    userState: selectUserState(state),
-    userInfo: selectUserInfo(state),
-  }
-}
+const mapStateToUserProps = (state: any): UserStateProps => ({
+  userState: selectUserState(state),
+  userInfo: selectUserInfo(state),
+})
 
-const mapDispatchToUserProps = (dispatch: any): UserDispatchProps => {
-  return {
-    login: (password: string, phone: string) =>
-      dispatch(login(password, phone)),
-    logout: () => dispatch(logout()),
-    getUserInfo: () => dispatch(getUserInfo()),
-  }
-}
+const mapDispatchToUserProps = (dispatch: any): UserDispatchProps => ({
+  login: (password: string, phone: string) => dispatch(login(password, phone)),
+  logout: () => dispatch(logout()),
+  getUserInfo: () => dispatch(getUserInfo()),
+})
 
 interface RegistrationStateProps {
   phone: string
@@ -93,23 +88,19 @@ const mapStateToRegistrationProps = (state: any): RegistrationStateProps => {
 }
 const mapDispatchToRegistrationProps = (
   dispatch: any
-): RegistrationDispatchProps => {
-  return {
-    signUp: (
-      inviterToken: string,
-      name: string,
-      phone: string,
-      password: string,
-      passwordConfirmation: string
-    ) =>
-      dispatch(
-        signUp(inviterToken, name, phone, password, passwordConfirmation)
-      ),
-    sendCode: (code: string) => dispatch(sendCode(code)),
-    reSendPhone: () => dispatch(reSendPhone()),
-    setInviterToken: (token: string) => dispatch(setInviterToken(token)),
-  }
-}
+): RegistrationDispatchProps => ({
+  signUp: (
+    inviterToken: string,
+    name: string,
+    phone: string,
+    password: string,
+    passwordConfirmation: string
+  ) =>
+    dispatch(signUp(inviterToken, name, phone, password, passwordConfirmation)),
+  sendCode: (code: string) => dispatch(sendCode(code)),
+  reSendPhone: () => dispatch(reSendPhone()),
+  setInviterToken: (token: string) => dispatch(setInviterToken(token)),
+})
 
 const withReducer = injectReducer({key: "userSession", reducer})
 
