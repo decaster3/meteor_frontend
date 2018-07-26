@@ -11,7 +11,7 @@ import {
 } from "../../forms/validations"
 import CustomInput from "../../forms/CustomInput"
 import CustomSelect from "../../forms/CustomSelect"
-import {cx, css} from "emotion"
+import {cx} from "emotion"
 import {compose} from "redux"
 import {ThemeProps, withTheme, styled} from "../App/emotion"
 import {PrimaryButton} from "../PrimaryButton"
@@ -48,6 +48,7 @@ type CheckoutFormProps = ThemeProps &
 
 interface CheckoutFormState {
   paymentMethod?: string
+  isScheduledDelivery: boolean
 }
 
 class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
@@ -90,7 +91,9 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
 
   static RequiredStar = () => <span className="text-danger mx-1">*</span>
 
-  state: CheckoutFormState = {}
+  state: CheckoutFormState = {
+    isScheduledDelivery: false,
+  }
 
   handleChoosePaymentMethod = (
     event: SyntheticEvent<HTMLInputElement>,
@@ -98,6 +101,11 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
   ) => {
     this.setState({paymentMethod: newValue})
   }
+
+  toggleIsScheduledDelivery = () =>
+    this.setState(prevState => ({
+      isScheduledDelivery: !prevState.isScheduledDelivery,
+    }))
 
   render() {
     return (
@@ -273,15 +281,15 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
             </CheckoutForm.FormGroupRow>
 
             <CheckoutForm.FormGroupRow>
-              <CheckoutForm.ColFormLabel htmlFor="total" />
+              <CheckoutForm.ColFormLabel htmlFor="meteors" />
               <div className="col-9">
                 <div className="input-group">
                   <input
                     value={this.props.meteors}
                     className="form-control text-right form-control-lg"
-                    name="total"
-                    id="total"
-                    placeholder="К оплате"
+                    name="meteors"
+                    id="meteors"
+                    placeholder="Метеоров"
                     readOnly
                   />
                   <div className="input-group-append">
@@ -297,6 +305,28 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
           <div className="col">
             <CheckoutForm.Subtitle>Время доставки</CheckoutForm.Subtitle>
 
+            <div className="form-check row mb-3">
+              <div className="col-auto">
+                <input
+                  className="form-check-input"
+                  name="scheduled-delivery"
+                  type="checkbox"
+                  id="scheduled-delivery"
+                  checked={this.state.isScheduledDelivery}
+                  onChange={this.toggleIsScheduledDelivery}
+                />
+              </div>
+
+              <div className="col">
+                <label
+                  className="form-check-label"
+                  htmlFor="scheduled-delivery"
+                >
+                  Запланировать доставку
+                </label>
+              </div>
+            </div>
+
             <CheckoutForm.FormGroupRow>
               <div className="col">
                 <Field
@@ -308,6 +338,7 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
                     placeholder: "Дата",
                     autoComplete: "date",
                     className: "form-control-lg",
+                    disabled: !this.state.isScheduledDelivery,
                   }}
                 />
               </div>
@@ -322,30 +353,27 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
                     placeholder: "Время",
                     autoComplete: "time",
                     className: "form-control-lg",
+                    disabled: !this.state.isScheduledDelivery,
                   }}
                 />
               </div>
             </CheckoutForm.FormGroupRow>
           </div>
 
-          <div className="col">
+          <div className="col d-flex flex-column mb-5">
             <CheckoutForm.Subtitle>Комментарий</CheckoutForm.Subtitle>
 
-            <CheckoutForm.FormGroupRow>
-              <div className="col">
-                <Field
-                  component={CustomTextarea}
-                  name="comment"
-                  props={{
-                    id: "comment",
-                    type: "text",
-                    placeholder: "Комментарий к заказу",
-                    autoComplete: "comment",
-                    className: "form-control-lg",
-                  }}
-                />
-              </div>
-            </CheckoutForm.FormGroupRow>
+            <Field
+              component={CustomTextarea}
+              name="comment"
+              props={{
+                id: "comment",
+                type: "text",
+                placeholder: "Комментарий к заказу",
+                autoComplete: "comment",
+                className: "form-control-lg flex-grow-1",
+              }}
+            />
           </div>
         </div>
 
