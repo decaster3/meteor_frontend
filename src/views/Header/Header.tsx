@@ -2,18 +2,13 @@ import React from "react"
 import Icon from "react-fa"
 import {css, cx} from "react-emotion"
 import {
-  Navbar,
-  Container,
   Collapse,
-  Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
 } from "reactstrap"
-import {Link, NavLink as ReactRouterNavLink} from "react-router-dom"
+import {Link, NavLink, withRouter} from "react-router-dom"
 
 import logo from "../../assets/logo.svg"
 import {compose} from "redux"
@@ -27,18 +22,6 @@ import SignUp from "../AuthWrapper"
 import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "../App/emotion"
 import {City} from "../../containers/Geolocation/actions"
 import CustomModal from "../CustomModal"
-
-const Anchor = styled("a")`
-  color: white;
-  &:hover,
-  &:focus {
-    color: ${props => props.theme.orange};
-    text-decoration: none;
-    text-shadow: 0 0 3em ${props => props.theme.orange};
-  }
-`
-
-const StyledNavLink = Anchor.withComponent(ReactRouterNavLink)
 
 interface HeaderProps {
   citiesStatus: Status
@@ -55,6 +38,16 @@ interface HeaderState {
 }
 
 class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
+  static Anchor = styled("a")`
+    color: white;
+    &:hover,
+    &:focus {
+      color: ${props => props.theme.orange};
+      text-decoration: none;
+      text-shadow: 0 0 3em ${props => props.theme.orange};
+    }
+  `
+  static NavLink = Header.Anchor.withComponent(NavLink)
   static Logo = styled("img")`
     display: block;
     max-width: 100%;
@@ -107,15 +100,15 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
 
   render() {
     return (
-      <Navbar
-        fixed="top"
-        expand={"md"}
-        dark={true}
-        className={css`
-          background: ${this.props.theme.darkBlue};
-        `}
+      <div
+        className={cx(
+          "navbar navbar-expand-md navbar-dark fixed-top",
+          css`
+            background: ${this.props.theme.darkBlue};
+          `
+        )}
       >
-        <Container>
+        <div className="container">
           <div className="d-flex">
             <Link to="/" className="mr-3">
               <Header.Logo src={logo} />
@@ -133,7 +126,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
               </Header.CallMeBack>
 
               <CustomModal
-                centered={true}
+                centered
                 isOpen={this.state.modalShown}
                 toggle={this.toggleModal}
               >
@@ -163,69 +156,72 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                 `
               )}
             >
-              <Anchor className="d-inline d-sm-none" href={JS_HREF}>
+              <Header.Anchor className="d-inline d-sm-none" href={JS_HREF}>
                 <Icon name="phone" />
-              </Anchor>
+              </Header.Anchor>
 
-              <StyledNavLink to="/cart">
+              <Header.NavLink to="/cart">
                 <Icon name="shopping-cart" />
-              </StyledNavLink>
+              </Header.NavLink>
 
-              <Anchor href={JS_HREF} onClick={this.toggle}>
+              <Header.Anchor href={JS_HREF} onClick={this.toggle}>
                 <Icon name="bars" />
-              </Anchor>
+              </Header.Anchor>
             </div>
           </div>
 
-          <Collapse isOpen={this.state.isOpen} navbar={true}>
-            <Nav
-              className={css`
-                flex: 1;
-                li {
-                  text-transform: uppercase;
-                  font-weight: 500;
-                  white-space: nowrap;
-                }
-                /* To increase specificity to override Bootstrap styles */
-                &&& a {
-                  color: white;
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <ul
+              className={cx(
+                "navbar-nav",
+                css`
+                  flex: 1;
+                  li {
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    white-space: nowrap;
+                  }
+                  /* To increase specificity to override Bootstrap styles */
+                  &&& a {
+                    color: white;
 
-                  &:hover,
-                  &:focus,
-                  &.active {
-                    color: ${this.props.theme.orange};
-                    text-decoration: none;
-                    text-shadow: 0 0 3em ${this.props.theme.orange};
+                    &:hover,
+                    &:focus,
+                    &.active {
+                      color: ${this.props.theme.orange};
+                      text-decoration: none;
+                      text-shadow: 0 0 3em ${this.props.theme.orange};
+                    }
                   }
-                }
-                &&& button {
-                  font-weight: 500;
-                  text-transform: uppercase;
-                  &:hover,
-                  &:focus {
-                    background: ${this.props.theme.lightestGrey};
-                    outline: none;
+                  &&& button {
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    &:hover,
+                    &:focus {
+                      background: ${this.props.theme.lightestGrey};
+                      outline: none;
+                    }
+                    &:active {
+                      background: ${this.props.theme.lightBlue};
+                    }
                   }
-                  &:active {
-                    background: ${this.props.theme.lightBlue};
+                  ${mediaBreakpointUp("lg")} {
+                    justify-content: space-evenly;
                   }
-                }
-                ${mediaBreakpointUp("lg")} {
-                  justify-content: space-evenly;
-                }
-              `}
-              navbar={true}
+                `
+              )}
             >
               {this.props.citiesStatus === Status.LOADED &&
                 this.props.cities.length > 0 &&
                 (this.props.cities.length > 1 ? (
-                  <UncontrolledDropdown nav={true} inNavbar={true}>
-                    <DropdownToggle nav={true} caret={true}>
+                  <UncontrolledDropdown nav inNavbar>
+                    <DropdownToggle nav caret>
                       {this.props.citiesStatus === Status.LOADED
                         ? this.props.defaultCity.name
                         : "Город"}
                     </DropdownToggle>
-                    <DropdownMenu right={true}>
+
+                    <DropdownMenu right>
                       {this.props.citiesStatus === Status.LOADED &&
                         this.props.cities.map(city => (
                           <DropdownItem
@@ -238,47 +234,51 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 ) : (
-                  <NavItem>
-                    <NavLink>{this.props.cities[0].name}</NavLink>
-                  </NavItem>
+                  <li className="nav-item">
+                    <Header.Anchor className="nav-link" href={JS_HREF}>
+                      {this.props.cities[0].name}
+                    </Header.Anchor>
+                  </li>
                 ))}
 
-              <NavItem>
-                <NavLink tag={ReactRouterNavLink} to="/promotions">
+              <li className="nav-item">
+                <Header.NavLink className="nav-link" to="/promotions">
                   Акции
-                </NavLink>
-              </NavItem>
+                </Header.NavLink>
+              </li>
 
               {this.props.userState === UserState.LOGED_IN ? (
-                <NavItem>
-                  <NavLink tag={ReactRouterNavLink} to="/account">
+                <li className="nav-item">
+                  <Header.NavLink className="nav-link" to="/account">
                     Аккаунт
-                  </NavLink>
-                </NavItem>
+                  </Header.NavLink>
+                </li>
               ) : (
                 <SignUp registrationFirst={false}>
-                  <NavItem>
-                    <NavLink href={JS_HREF} tag="a">
+                  <li className="nav-item">
+                    <Header.Anchor className="nav-link" href={JS_HREF}>
                       Вход
-                    </NavLink>
-                  </NavItem>
+                    </Header.Anchor>
+                  </li>
                 </SignUp>
               )}
 
-              <NavItem className="d-none d-md-block">
-                <NavLink tag={ReactRouterNavLink} to="/cart">
+              <li className="nav-item d-none d-md-block">
+                <Header.NavLink className="nav-link" to="/cart">
                   Корзина
-                </NavLink>
-              </NavItem>
-            </Nav>
+                </Header.NavLink>
+              </li>
+            </ul>
           </Collapse>
-        </Container>
-      </Navbar>
+        </div>
+      </div>
     )
   }
 }
 
-export default compose<any>(
+export default compose(
+  withRouter,
   withUser,
-  withGeolocation
-)(withTheme(Header))
+  withGeolocation,
+  withTheme
+)(Header)
