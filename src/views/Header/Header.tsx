@@ -12,8 +12,8 @@ import {Link, NavLink, withRouter} from "react-router-dom"
 
 import logo from "../../assets/logo.svg"
 import {compose} from "redux"
-import withGeolocation from "../../containers/Geolocation"
-import {withUser} from "../../containers/UserSession"
+import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
+import {withUser, UserProps} from "../../containers/UserSession"
 import {UserInfo} from "../../containers/UserSession/actions"
 import {Status, JS_HREF} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
@@ -23,28 +23,26 @@ import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "../App/emotion"
 import {City} from "../../containers/Geolocation/actions"
 import CustomModal from "../CustomModal"
 
-interface HeaderProps {
-  citiesStatus: Status
-  cities: City[]
-  defaultCity: City
-  userInfo: UserInfo
-  userState: UserState
-  setDefaultCity(city: City): void
-}
-
 interface HeaderState {
   isOpen: boolean
   modalShown: boolean
 }
 
-class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
+class Header extends React.Component<
+  UserProps & GeolocationProps & ThemeProps,
+  HeaderState
+> {
   static Anchor = styled("a")`
-    color: white;
-    &:hover,
-    &:focus {
-      color: ${props => props.theme.orange};
-      text-decoration: none;
-      text-shadow: 0 0 3em ${props => props.theme.orange};
+    &&& {
+      color: white;
+      font-weight: 500;
+      :hover,
+      :focus,
+      &.active {
+        color: ${props => props.theme.orange};
+        text-decoration: none;
+        text-shadow: 0 0 3em ${props => props.theme.orange};
+      }
     }
   `
   static NavLink = Header.Anchor.withComponent(NavLink)
@@ -136,35 +134,23 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
           </div>
 
           <div className="d-flex align-items-center justify-content-center">
-            <div
-              className={cx(
-                "d-block d-md-none",
-                css`
-                  font-size: 1.5rem;
-                  > a {
-                    color: white;
-                    :hover,
-                    :focus {
-                      color: ${this.props.theme.orange};
-                      text-decoration: none;
-                      text-shadow: 0 0 3em ${this.props.theme.orange};
-                    }
-                    & + a {
-                      margin-left: 1rem;
-                    }
-                  }
-                `
-              )}
-            >
-              <Header.Anchor className="d-inline d-sm-none" href={JS_HREF}>
+            <div className={"d-block d-md-none"}>
+              <Header.Anchor
+                href={JS_HREF}
+                className="h4 mb-0 mr-3 d-inline d-sm-none"
+              >
                 <Icon name="phone" />
               </Header.Anchor>
 
-              <Header.NavLink to="/cart">
+              <Header.NavLink to="/cart" className="h4 mb-0 mr-3">
                 <Icon name="shopping-cart" />
               </Header.NavLink>
 
-              <Header.Anchor href={JS_HREF} onClick={this.toggle}>
+              <Header.Anchor
+                href={JS_HREF}
+                onClick={this.toggle}
+                className="h4 mb-0"
+              >
                 <Icon name="bars" />
               </Header.Anchor>
             </div>
@@ -172,50 +158,31 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
 
           <Collapse isOpen={this.state.isOpen} navbar>
             <ul
-              className={cx(
-                "navbar-nav",
-                css`
-                  flex: 1;
-                  li {
-                    text-transform: uppercase;
-                    font-weight: 500;
-                    white-space: nowrap;
-                  }
-                  /* To increase specificity to override Bootstrap styles */
-                  &&& a {
-                    color: white;
-
-                    &:hover,
-                    &:focus,
-                    &.active {
-                      color: ${this.props.theme.orange};
-                      text-decoration: none;
-                      text-shadow: 0 0 3em ${this.props.theme.orange};
-                    }
-                  }
-                  &&& button {
-                    font-weight: 500;
-                    text-transform: uppercase;
-                    &:hover,
-                    &:focus {
-                      background: ${this.props.theme.lightestGrey};
-                      outline: none;
-                    }
-                    &:active {
-                      background: ${this.props.theme.lightBlue};
-                    }
-                  }
-                  ${mediaBreakpointUp("lg")} {
-                    justify-content: space-evenly;
-                  }
-                `
-              )}
+              className={
+                "navbar-nav flex-grow-1 text-uppercase justify-content-lg-around"
+              }
             >
               {this.props.citiesStatus === Status.LOADED &&
                 this.props.cities.length > 0 &&
                 (this.props.cities.length > 1 ? (
                   <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
+                    <DropdownToggle
+                      nav
+                      caret
+                      className={css`
+                        &&& {
+                          color: white;
+                          font-weight: 500;
+                          :hover,
+                          :focus,
+                          &.active {
+                            color: ${this.props.theme.orange};
+                            text-decoration: none;
+                            text-shadow: 0 0 3em ${this.props.theme.orange};
+                          }
+                        }
+                      `}
+                    >
                       {this.props.citiesStatus === Status.LOADED
                         ? this.props.defaultCity.name
                         : "Город"}
@@ -227,6 +194,18 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                           <DropdownItem
                             onClick={() => this.handleCityClick(city)}
                             key={city.id}
+                            className={css`
+                              font-weight: 500;
+                              text-transform: uppercase;
+                              :hover,
+                              :focus {
+                                background: ${this.props.theme.lightestGrey};
+                                outline: none;
+                              }
+                              :active {
+                                background: ${this.props.theme.lightBlue};
+                              }
+                            `}
                           >
                             {city.name}
                           </DropdownItem>
