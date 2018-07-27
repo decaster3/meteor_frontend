@@ -22,15 +22,14 @@ import {withUser} from "../../containers/UserSession"
 import {UserInfo} from "../../containers/UserSession/actions"
 import {Status, JS_HREF} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
-import ModalWrapper from "../ModalWrapper"
 import PhoneCallbackForm from "../PhoneCallback"
 import SignUp from "../AuthWrapper"
 import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "../App/emotion"
 import {City} from "../../containers/Geolocation/actions"
+import CustomModal from "../CustomModal"
 
-const StyledAnchor = styled("a")`
+const Anchor = styled("a")`
   color: white;
-
   &:hover,
   &:focus {
     color: ${props => props.theme.orange};
@@ -39,7 +38,7 @@ const StyledAnchor = styled("a")`
   }
 `
 
-const StyledNavLink = StyledAnchor.withComponent(ReactRouterNavLink)
+const StyledNavLink = Anchor.withComponent(ReactRouterNavLink)
 
 interface HeaderProps {
   citiesStatus: Status
@@ -52,51 +51,61 @@ interface HeaderProps {
 
 interface HeaderState {
   isOpen: boolean
+  modalShown: boolean
 }
 
 class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
-  constructor(props: HeaderProps & ThemeProps) {
-    super(props)
-    this.state = {
-      isOpen: false,
+  static Logo = styled("img")`
+    display: block;
+    max-width: 100%;
+    max-height: 2rem;
+    margin: 0.25rem 0;
+  `
+  static CallMeBack = styled("button")`
+    background-color: transparent;
+    color: ${props => props.theme.lighterGrey};
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 2px solid ${props => props.theme.lighterGrey};
+    border-radius: 4px;
+    white-space: nowrap;
+    line-height: 1.25;
+    font-size: 12px;
+    padding: 0 2px;
+    ${mediaBreakpointUp("lg")} {
+      padding: 0 8px;
+      margin: 4px 8px;
+      font-size: 16px;
+      :hover,
+      :focus {
+        color: ${props => props.theme.lightestGrey};
+        border-color: ${props => props.theme.lightestGrey};
+      }
     }
+  `
+  static Phone = styled("div")`
+    line-height: 1.25;
+    color: ${props => props.theme.lighterGrey};
+    font-weight: 700;
+    white-space: nowrap;
+    ${mediaBreakpointUp("lg")} {
+      margin: 0.25rem 0.5rem;
+    }
+  `
+
+  state: HeaderState = {
+    isOpen: false,
+    modalShown: false,
   }
 
   toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}))
 
+  toggleModal = () =>
+    this.setState(prevState => ({modalShown: !prevState.modalShown}))
+
   handleCityClick = (city: City) => this.props.setDefaultCity(city)
 
   render() {
-    const modal = () => (
-      <button
-        className={css`
-          background-color: transparent;
-          color: ${this.props.theme.lighterGrey};
-          font-weight: 700;
-          text-transform: uppercase;
-          border: 2px solid ${this.props.theme.lighterGrey};
-          border-radius: 4px;
-          white-space: nowrap;
-          line-height: 1.25;
-          font-size: 12px;
-          padding: 0 2px;
-
-          ${mediaBreakpointUp("lg")} {
-            padding: 0 8px;
-            margin: 4px 8px;
-            font-size: 16px;
-
-            &:hover,
-            &:focus {
-              color: ${this.props.theme.lightestGrey};
-              border-color: ${this.props.theme.lightestGrey};
-            }
-          }
-        `}
-      >
-        <Icon name="phone" /> Позвоните мне
-      </button>
-    )
     return (
       <Navbar
         fixed="top"
@@ -109,49 +118,27 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
         <Container>
           <div className="d-flex">
             <Link to="/" className="mr-3">
-              <img
-                src={logo}
-                className={css`
-                  display: block;
-                  max-width: 100%;
-                  max-height: 2rem;
-                  margin: 0.25rem 0;
-                `}
-              />
+              <Header.Logo src={logo} />
             </Link>
 
             <div
-              className={cx(
-                "d-none d-sm-flex",
-                css`
-                  flex-flow: column;
-                  align-items: center;
-                  justify-content: center;
-                  margin-right: 1rem;
-
-                  ${mediaBreakpointUp("lg")} {
-                    flex-flow: row;
-                  }
-                `
-              )}
+              className={
+                "d-none d-sm-flex flex-column align-items-center justify-content-center mr-3 flex-lg-row"
+              }
             >
-              <div
-                className={css`
-                  line-height: 1.25;
-                  color: ${this.props.theme.lighterGrey};
-                  font-weight: 700;
-                  white-space: nowrap;
+              <Header.Phone>{this.props.defaultCity.phone}</Header.Phone>
 
-                  ${mediaBreakpointUp("lg")} {
-                    margin: 0.25rem 0.5rem;
-                  }
-                `}
+              <Header.CallMeBack onClick={this.toggleModal}>
+                Перезвоните мне
+              </Header.CallMeBack>
+
+              <CustomModal
+                centered={true}
+                isOpen={this.state.modalShown}
+                toggle={this.toggleModal}
               >
-                {this.props.defaultCity.phone}
-              </div>
-              <ModalWrapper modalTitle="Обратный звонок" modalToggler={modal}>
                 <PhoneCallbackForm isLoading={false} />
-              </ModalWrapper>
+              </CustomModal>
             </div>
           </div>
 
@@ -161,17 +148,14 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                 "d-block d-md-none",
                 css`
                   font-size: 1.5rem;
-
                   > a {
                     color: white;
-
-                    &:hover,
-                    &:focus {
+                    :hover,
+                    :focus {
                       color: ${this.props.theme.orange};
                       text-decoration: none;
                       text-shadow: 0 0 3em ${this.props.theme.orange};
                     }
-
                     & + a {
                       margin-left: 1rem;
                     }
@@ -179,37 +163,29 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                 `
               )}
             >
-              {/* <GlowingLightLink href="#">
+              <Anchor className="d-inline d-sm-none" href={JS_HREF}>
                 <Icon name="phone" />
-              </GlowingLightLink> */}
-
-              <StyledAnchor className="d-inline d-sm-none" href={JS_HREF}>
-                <Icon name="phone" />
-              </StyledAnchor>
+              </Anchor>
 
               <StyledNavLink to="/cart">
                 <Icon name="shopping-cart" />
               </StyledNavLink>
 
-              <StyledAnchor href={JS_HREF} onClick={this.toggle}>
+              <Anchor href={JS_HREF} onClick={this.toggle}>
                 <Icon name="bars" />
-              </StyledAnchor>
+              </Anchor>
             </div>
-
-            {/* <StyledNavbarToggler  /> */}
           </div>
 
           <Collapse isOpen={this.state.isOpen} navbar={true}>
             <Nav
               className={css`
                 flex: 1;
-
                 li {
                   text-transform: uppercase;
                   font-weight: 500;
                   white-space: nowrap;
                 }
-
                 /* To increase specificity to override Bootstrap styles */
                 &&& a {
                   color: white;
@@ -222,22 +198,18 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                     text-shadow: 0 0 3em ${this.props.theme.orange};
                   }
                 }
-
                 &&& button {
                   font-weight: 500;
                   text-transform: uppercase;
-
                   &:hover,
                   &:focus {
                     background: ${this.props.theme.lightestGrey};
                     outline: none;
                   }
-
                   &:active {
                     background: ${this.props.theme.lightBlue};
                   }
                 }
-
                 ${mediaBreakpointUp("lg")} {
                   justify-content: space-evenly;
                 }
@@ -270,11 +242,13 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                     <NavLink>{this.props.cities[0].name}</NavLink>
                   </NavItem>
                 ))}
+
               <NavItem>
                 <NavLink tag={ReactRouterNavLink} to="/promotions">
                   Акции
                 </NavLink>
               </NavItem>
+
               {this.props.userState === UserState.LOGED_IN ? (
                 <NavItem>
                   <NavLink tag={ReactRouterNavLink} to="/account">
@@ -290,6 +264,7 @@ class Header extends React.Component<HeaderProps & ThemeProps, HeaderState> {
                   </NavItem>
                 </SignUp>
               )}
+
               <NavItem className="d-none d-md-block">
                 <NavLink tag={ReactRouterNavLink} to="/cart">
                   Корзина

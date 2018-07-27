@@ -4,7 +4,6 @@ import {compose} from "redux"
 import {Switch, Route, withRouter} from "react-router-dom"
 import {transparentize} from "polished"
 
-import Menu from "../MainContentPlaceholder/Menu"
 import MainPage from "../MainPage"
 import Cart from "../Cart"
 import {Status} from "../../constants"
@@ -105,13 +104,12 @@ const App: React.StatelessComponent<AppProps> = props => (
             <Route path="/burgers" exact={true} component={MainPage} />
             <Route path="/sushi" exact={true} component={MainPage} />
             <Route path="/snacks" exact={true} component={MainPage} />
-            <Route path="/menu" component={Menu} />
             <Route path="/cart" exact={true} component={Cart} />
             <Route path="/checkout" exact={true} component={Checkout} />
             <Route path="/promotions" exact={true} component={Promotions} />
 
             {props.userState === UserState.LOGED_IN && (
-              <Route path="/account" component={Account} />
+              <Route path="/account" exact={true} component={Account} />
             )}
 
             <Route component={NotFound} />

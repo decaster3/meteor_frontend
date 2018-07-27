@@ -34,11 +34,10 @@ class ModalWrapper extends React.Component<ModalProps, ModalState> {
   }
 
   render() {
-    const ModalToggler = this.props.modalToggler
     return (
       <>
         <div onClick={this.toggleModal}>
-          <ModalToggler />
+          <this.props.modalToggler />
         </div>
         <Modal
           centered={true}
