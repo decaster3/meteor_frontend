@@ -1,4 +1,3 @@
-import React from "react"
 import {connect} from "react-redux"
 import {compose} from "redux"
 import injectReducer from "../../utils/injectReducer"
@@ -10,7 +9,6 @@ import {addProductToCart, CartProduct} from "../Cart/actions"
 interface ProductsStateProps {
   categories: Category[]
   currentCategoryId: number
-  inviterToken?: string
 }
 
 interface ProductsDispatchProps {
@@ -22,21 +20,7 @@ export interface ProductsProps
   extends ProductsStateProps,
     ProductsDispatchProps {}
 
-const withProducts = <P extends object>(
-  WrappedComponent: React.ComponentType<P>
-) => {
-  return class WithProductsAndCategoriesContainer extends React.Component<
-    ProductsProps & P
-  > {
-    render() {
-      return <WrappedComponent {...this.props} />
-    }
-  }
-}
-
-const mapDispatchToPropsProductsAndCategories = (
-  dispatch: any
-): ProductsDispatchProps => {
+const mapDispatchToProductsProps = (dispatch: any): ProductsDispatchProps => {
   return {
     addProductToCart: (product: CartProduct) =>
       dispatch(addProductToCart(product)),
@@ -44,7 +28,7 @@ const mapDispatchToPropsProductsAndCategories = (
   }
 }
 
-const mapStateToProps = (state: any): ProductsStateProps => ({
+const mapStateToProductsProps = (state: any): ProductsStateProps => ({
   categories: selectCategories(state),
   currentCategoryId: selectCurrentCategoryId(state),
 })
@@ -54,8 +38,7 @@ const withReducer = injectReducer({key: "products", reducer})
 export default compose(
   withReducer,
   connect(
-    mapStateToProps,
-    mapDispatchToPropsProductsAndCategories
-  ),
-  withProducts
+    mapStateToProductsProps,
+    mapDispatchToProductsProps
+  )
 )

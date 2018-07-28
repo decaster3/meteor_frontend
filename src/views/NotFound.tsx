@@ -4,7 +4,6 @@ import {styled} from "./App/emotion"
 
 const Link = styled(ReactRouterLink)`
   color: ${props => props.theme.orange};
-
   :focus,
   :hover,
   :active {

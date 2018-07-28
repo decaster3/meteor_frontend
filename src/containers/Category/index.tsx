@@ -10,7 +10,6 @@ import {Category} from "../Products/actions"
 interface CategoriesStateProps {
   categories: Category[]
   categoriesStatus: string
-  inviterToken?: string
 }
 
 interface CategoriesDispatchProps {

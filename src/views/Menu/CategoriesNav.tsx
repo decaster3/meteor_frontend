@@ -1,8 +1,43 @@
 import React from "react"
 import {Category} from "../../containers/Products/actions"
 import {Link} from "react-router-dom"
-import styles from "./Menu.module.scss"
 import {cx} from "emotion"
+import {styled} from "../App/emotion"
+
+const LinkWrapper = styled("div")`
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  img {
+    width: 3rem;
+    height: 3rem;
+    margin: 0.5rem;
+    transition: all 0.25s;
+  }
+  a {
+    color: ${props => props.theme.lighterGrey};
+    /* transition: all 0.25s; */
+    :hover {
+      text-decoration: none;
+    }
+  }
+  span {
+    margin: 0 0.5rem;
+  }
+  &.active {
+    font-weight: 700;
+    /* font-size: 1.25rem; */
+    img {
+      width: 4rem;
+      height: 4rem;
+      margin: 0;
+    }
+    a {
+      color: white;
+    }
+  }
+`
 
 interface CategoriesNavProps extends React.HTMLProps<HTMLDivElement> {
   categories: Category[]
@@ -23,18 +58,17 @@ const CategoriesNav: React.SFC<CategoriesNavProps> = ({
     {...restOfProps}
   >
     {categories.map(category => (
-      <div
+      <LinkWrapper
         key={category.id}
-        className={cx(styles.categoryLinkWrapper, {
-          [styles.active]:
-            currentCategory && category.id === currentCategory.id,
+        className={cx({
+          active: currentCategory && category.id === currentCategory.id,
         })}
       >
         <Link to={category.url}>
           <img src={category.imgUrl} />
           <span>{category.name}</span>
         </Link>
-      </div>
+      </LinkWrapper>
     ))}
   </div>
 )

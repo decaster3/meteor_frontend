@@ -23,6 +23,7 @@ import Checkout from "../Checkout"
 import {injectGlobal} from "emotion"
 import NotFound from "../NotFound"
 import Promotions from "../Promotions"
+import ProductView from "../ProductView"
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
@@ -100,10 +101,14 @@ const App: React.StatelessComponent<AppProps> = props => (
               component={MainPage}
             />
             <Route path="/" exact={true} component={MainPage} />
+
             <Route path="/pizza" exact={true} component={MainPage} />
             <Route path="/burgers" exact={true} component={MainPage} />
             <Route path="/sushi" exact={true} component={MainPage} />
             <Route path="/snacks" exact={true} component={MainPage} />
+
+            <Route path="/products/:id" exact={true} component={ProductView} />
+
             <Route path="/cart" exact={true} component={Cart} />
             <Route path="/checkout" exact={true} component={Checkout} />
             <Route path="/promotions" exact={true} component={Promotions} />

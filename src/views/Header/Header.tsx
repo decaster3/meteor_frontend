@@ -14,7 +14,6 @@ import logo from "../../assets/logo.svg"
 import {compose} from "redux"
 import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import {withUser, UserProps} from "../../containers/UserSession"
-import {UserInfo} from "../../containers/UserSession/actions"
 import {Status, JS_HREF} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
 import PhoneCallbackForm from "../PhoneCallback"
@@ -22,6 +21,7 @@ import SignUp from "../AuthWrapper"
 import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "../App/emotion"
 import {City} from "../../containers/Geolocation/actions"
 import CustomModal from "../CustomModal"
+import {RouterState} from "react-router-redux"
 
 interface HeaderState {
   isOpen: boolean
@@ -29,7 +29,7 @@ interface HeaderState {
 }
 
 class Header extends React.Component<
-  UserProps & GeolocationProps & ThemeProps,
+  UserProps & GeolocationProps & ThemeProps & RouterState,
   HeaderState
 > {
   static Anchor = styled("a")`
@@ -255,9 +255,10 @@ class Header extends React.Component<
   }
 }
 
-export default compose(
-  withRouter,
-  withUser,
-  withGeolocation,
-  withTheme
-)(Header)
+export default withRouter(
+  compose<any>(
+    withUser,
+    withGeolocation,
+    withTheme
+  )(Header)
+)
