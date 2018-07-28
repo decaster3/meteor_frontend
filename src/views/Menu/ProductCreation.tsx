@@ -126,7 +126,9 @@ export class Categories extends React.Component<
         <button onClick={this.toggle}>Создать новый продукт</button>
 
         <CustomModal
+          centered
           isOpen={this.state.modalShown || this.props.isProductCreating}
+          toggle={this.toggle}
         >
           <h3 className="text-center">Создание продукта</h3>
           <ProductCreationForm
