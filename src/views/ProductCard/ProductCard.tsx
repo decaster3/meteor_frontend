@@ -4,6 +4,7 @@ import {
   Product,
   ProductInstance,
   OptionConcat,
+  Category,
 } from "../../containers/Products/actions"
 import withCart, {CartProps} from "../../containers/Cart"
 import {cx, css} from "emotion"
@@ -14,9 +15,11 @@ import {PrimaryButton} from "../PrimaryButton"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {compose} from "redux"
 import {ThemeProps, styled, withTheme} from "../App/emotion"
+import {Link} from "react-router-dom"
 
 interface ProductCardOwnProps {
   product: Product
+  category: Category
 }
 
 interface ProductCardProps extends ProductCardOwnProps, CartProps, ThemeProps {}
@@ -28,16 +31,7 @@ interface ProductCardState {
 
 class ProductCard extends Component<ProductCardProps, ProductCardState> {
   static Ingridients = styled("div")`
-    font-size: 0.75rem;
     color: ${props => props.theme.lighterGrey};
-    font-weight: 700;
-    flex: 1;
-  `
-
-  static Name = styled("div")`
-    font-weight: 700;
-    letter-spacing: 0.125em;
-    text-align: center;
   `
 
   static Wrapper = styled("div")`
@@ -49,6 +43,21 @@ class ProductCard extends Component<ProductCardProps, ProductCardState> {
     display: flex;
     flex-flow: column;
     height: 100%;
+  `
+
+  static Link = styled(Link)`
+    text-decoration: none;
+    display: block;
+    display: flex;
+    flex: 1;
+    flex-flow: column;
+    color: inherit;
+    :hover,
+    :focus,
+    :active {
+      color: inherit;
+      text-decoration: none;
+    }
   `
 
   state: ProductCardState = {
@@ -99,36 +108,42 @@ class ProductCard extends Component<ProductCardProps, ProductCardState> {
   render() {
     return (
       <ProductCard.Wrapper>
-        <ProductCard.Name className="my-2">
-          {this.props.product.name}
-          {this.state.quantityInCart > 0 && (
-            <span
-              className={cx(
-                "badge badge-pill badge-success ml-2",
-                css`
-                  background: ${this.props.theme.orange};
-                `
-              )}
-            >
-              {this.state.quantityInCart}
-            </span>
-          )}
-        </ProductCard.Name>
+        <ProductCard.Link
+          to={`/${this.props.category.key}/${this.props.product.id}`}
+        >
+          <div className="my-2 font-weight-bold text-center">
+            {this.props.product.name}
+            {this.state.quantityInCart > 0 && (
+              <span
+                className={cx(
+                  "badge badge-pill badge-success ml-2",
+                  css`
+                    background: ${this.props.theme.orange};
+                  `
+                )}
+              >
+                {this.state.quantityInCart}
+              </span>
+            )}
+          </div>
 
-        <div className="align-self-center my-2">
-          <img
-            className="d-block w-100"
-            src={
-              this.props.product.imageUrl
-                ? `${BASEURL}/${this.props.product.imageUrl}`
-                : pizzaPlaceholder
-            }
-          />
-        </div>
+          <div className="align-self-center my-2">
+            <img
+              className="d-block w-100"
+              src={
+                this.props.product.imageUrl
+                  ? `${BASEURL}/${this.props.product.imageUrl}`
+                  : pizzaPlaceholder
+              }
+            />
+          </div>
 
-        <ProductCard.Ingridients className={"text-center my-2"}>
-          {this.props.product.description}
-        </ProductCard.Ingridients>
+          <ProductCard.Ingridients className={"text-center my-2 flex-grow-1"}>
+            <small className="font-weight-bold">
+              {this.props.product.description}
+            </small>
+          </ProductCard.Ingridients>
+        </ProductCard.Link>
 
         <IndependentOptions
           className="my-2"
