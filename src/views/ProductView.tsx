@@ -8,6 +8,6 @@ const ProductView: SFC<ProductsProps & RouterProps> = props => (
 )
 
 export default compose(
-  withProducts,
-  withRouter
+  withRouter,
+  withProducts
 )(ProductView)

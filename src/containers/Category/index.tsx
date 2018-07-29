@@ -6,6 +6,7 @@ import {getCategories} from "./actions"
 import reducer from "./reducer"
 import {selectCategories, selectCategoriesStatus} from "./selectors"
 import {Category} from "../Products/actions"
+import hoistNonReactStatics from "../../../node_modules/hoist-non-react-statics"
 
 interface CategoriesStateProps {
   categories: Category[]
@@ -20,12 +21,8 @@ export interface CategoriesProps
   extends CategoriesStateProps,
     CategoriesDispatchProps {}
 
-const withCategories = <P extends object>(
-  WrappedComponent: React.ComponentType<P>
-) => {
-  return class WithCategoriesContainer extends React.Component<
-    CategoriesProps & P
-  > {
+const withCategories = (WrappedComponent: React.ComponentType<any>) => {
+  class WithCategoriesContainer extends React.Component<any> {
     componentDidMount() {
       this.props.getCategories()
     }
@@ -33,6 +30,7 @@ const withCategories = <P extends object>(
       return <WrappedComponent {...this.props} />
     }
   }
+  return hoistNonReactStatics(WithCategoriesContainer, WrappedComponent)
 }
 
 const mapStateToCategoriesProps = (state: any): CategoriesStateProps => ({

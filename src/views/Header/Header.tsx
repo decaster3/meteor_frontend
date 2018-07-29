@@ -8,7 +8,7 @@ import {
   DropdownMenu,
   DropdownItem,
 } from "reactstrap"
-import {Link, NavLink, withRouter} from "react-router-dom"
+import {Link, NavLink, withRouter, RouteComponentProps} from "react-router-dom"
 
 import logo from "../../assets/logo.svg"
 import {compose} from "redux"
@@ -21,7 +21,6 @@ import SignUp from "../AuthWrapper"
 import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "../App/emotion"
 import {City} from "../../containers/Geolocation/actions"
 import CustomModal from "../CustomModal"
-import {RouterState} from "react-router-redux"
 
 interface HeaderState {
   isOpen: boolean
@@ -29,7 +28,7 @@ interface HeaderState {
 }
 
 class Header extends React.Component<
-  UserProps & GeolocationProps & ThemeProps & RouterState,
+  UserProps & GeolocationProps & ThemeProps & RouteComponentProps<{}>,
   HeaderState
 > {
   static Anchor = styled("a")`
@@ -255,10 +254,9 @@ class Header extends React.Component<
   }
 }
 
-export default withRouter(
-  compose<any>(
-    withUser,
-    withGeolocation,
-    withTheme
-  )(Header)
-)
+export default compose(
+  withRouter,
+  withUser,
+  withGeolocation,
+  withTheme
+)(Header)

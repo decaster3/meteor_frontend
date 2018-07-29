@@ -3,7 +3,6 @@ import createHistory from "history/createBrowserHistory"
 import React from "react"
 import ReactDOM from "react-dom"
 import {Provider} from "react-redux"
-import {ConnectedRouter} from "react-router-redux"
 
 // Vendor styles
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -17,11 +16,10 @@ import App from "./views/App"
 import LanguageProvider from "./containers/LanguageProvider"
 import {translationMessages} from "./i18n"
 import {saveState} from "./localStorage"
-import registerServiceWorker from "./registerServiceWorker"
+import {BrowserRouter} from "react-router-dom"
 
 const initialState = {}
-const history = createHistory()
-const store = configureStore(initialState, history)
+const store = configureStore(initialState)
 const MOUNT_NODE = document.getElementById("root")
 
 store.subscribe(() => {
@@ -37,9 +35,9 @@ const render = (messages: any) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <ConnectedRouter history={history}>
+        <BrowserRouter>
           <App />
-        </ConnectedRouter>
+        </BrowserRouter>
       </LanguageProvider>
     </Provider>,
     MOUNT_NODE

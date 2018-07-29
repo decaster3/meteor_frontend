@@ -10,64 +10,49 @@ import withProducts, {ProductsProps} from "../../containers/Products"
 import ProductCard from "../ProductCard"
 import SubcategoriesNav from "./SubcategoriesNav"
 import CategoriesNav from "./CategoriesNav"
-import {withRouter} from "react-router-dom"
+import {withRouter, RouteComponentProps} from "react-router-dom"
 import {GeolocationProps} from "../../containers/GeolocationOnline"
-import {RouterState} from "react-router-redux"
 import ProductCreation from "./ProductCreation"
 
 const findCategoryByUrl = (
   url: string | null,
   categories: Category[]
-): Category =>
-  categories.find(category => category.url === url) || categories[0]
+): Category => {
+  return categories.find(category => category.url === url) || categories[0]
+}
 
-interface MenuProps extends ProductsProps, GeolocationProps, RouterState {}
+interface MenuProps
+  extends ProductsProps,
+    GeolocationProps,
+    RouteComponentProps<{}> {}
 
 interface MenuState {
-  currentCategory: Category
   currentSubcategory: Subcategory
 }
 
 export class Menu extends React.Component<MenuProps, MenuState> {
-  static getDerivedStateFromProps(props: MenuProps, state: MenuState) {
-    if (
-      (props.location && props.location.pathname) !== state.currentCategory.url
-    ) {
-      props.getProducts(
-        findCategoryByUrl(
-          props.location && props.location.pathname,
-          props.categories
-        )
-      )
-      return {
-        currentCategory: findCategoryByUrl(
-          props.location && props.location.pathname,
-          props.categories
-        ),
-        currentSubcategory: {id: 0, name: "Все"},
-      }
-    } else {
-      return null
-    }
-  }
-
   state = {
-    currentCategory: findCategoryByUrl(
-      this.props.location && this.props.location.pathname,
-      this.props.categories
-    ),
     currentSubcategory: {id: 0, name: "Все"},
   }
 
   componentDidMount() {
-    this.props.getProducts(this.state.currentCategory)
+    this.props.getProducts(
+      findCategoryByUrl(
+        this.props.location && this.props.location.pathname,
+        this.props.categories
+      )
+    )
   }
 
   handleChangeSubcategory = (subcategory: Subcategory) =>
     this.setState({currentSubcategory: subcategory})
 
   Products = () => {
-    switch (this.state.currentCategory.productsStatus) {
+    const currentCategory = findCategoryByUrl(
+      this.props.location && this.props.location.pathname,
+      this.props.categories
+    )
+    switch (currentCategory.productsStatus) {
       case Status.LOADING:
         return <p>Loading...</p>
       case Status.LOADING_ERROR:
@@ -75,7 +60,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
       case Status.LOADED:
         return (
           <Row>
-            {this.state.currentCategory.products
+            {currentCategory.products
               .filter(
                 product =>
                   this.state.currentSubcategory.name === "Все" ||
@@ -102,16 +87,17 @@ export class Menu extends React.Component<MenuProps, MenuState> {
   }
 
   render() {
+    const currentCategory = findCategoryByUrl(
+      this.props.location && this.props.location.pathname,
+      this.props.categories
+    )
     return (
       <>
-        <CategoriesNav
-          categories={this.props.categories}
-          currentCategory={this.state.currentCategory}
-        />
+        <CategoriesNav categories={this.props.categories} />
 
         <SubcategoriesNav
           handleChangeSubcategory={this.handleChangeSubcategory}
-          subcategories={this.state.currentCategory.subcategories}
+          subcategories={currentCategory.subcategories}
           currentSubcategory={this.state.currentSubcategory}
         />
 
@@ -123,10 +109,9 @@ export class Menu extends React.Component<MenuProps, MenuState> {
   }
 }
 
-export default withRouter(
-  compose<any>(
-    withProducts,
-    withGeolocation,
-    withProductCreation
-  )(Menu)
-)
+export default compose(
+  withRouter,
+  withProducts,
+  withGeolocation,
+  withProductCreation
+)(Menu)

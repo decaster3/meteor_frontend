@@ -1,12 +1,11 @@
 import React from "react"
-import {Col} from "reactstrap"
 
 import PromotionBanner from "../PromotionBanner"
 import MeteorBanner from "../MeteorBanner"
 import Menu from "../Menu"
 import {compose} from "redux"
 import {withRegistration} from "../../containers/UserSession"
-import {match} from "react-router"
+import {match, withRouter} from "react-router"
 
 interface MainPage {
   match: match<{inviterToken?: string}>
@@ -23,12 +22,12 @@ class MainPage extends React.Component<MainPage> {
     return (
       <>
         <div className="row">
-          <Col>
+          <div className="col">
             <PromotionBanner />
-          </Col>
-          <Col xs={12} md="auto">
+          </div>
+          <div className="col-12 col-md-auto">
             <MeteorBanner />
-          </Col>
+          </div>
         </div>
         <Menu />
       </>
@@ -36,4 +35,7 @@ class MainPage extends React.Component<MainPage> {
   }
 }
 
-export default compose(withRegistration)(MainPage)
+export default compose(
+  withRouter,
+  withRegistration
+)(MainPage)

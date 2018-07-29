@@ -1,29 +1,26 @@
 import {ThemeProvider} from "emotion-theming"
 import React from "react"
 import {compose} from "redux"
-import {Switch, Route, withRouter} from "react-router-dom"
+import {Switch, Route, withRouter, RouteComponentProps} from "react-router-dom"
 import {transparentize} from "polished"
 
 import MainPage from "../MainPage"
 import Cart from "../Cart"
-import {Status} from "../../constants"
-import {UserInfo} from "../../containers/UserSession/actions"
 import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
 import {theme, styled} from "./emotion"
-import {Category} from "../../containers/Products/actions"
 import withGeolocation from "../../containers/Geolocation"
-import {withUser} from "../../containers/UserSession"
-import withCategories from "../../containers/Category"
+import {withUser, UserProps} from "../../containers/UserSession"
+import withCategories, {CategoriesProps} from "../../containers/Category"
 import Account from "../Account"
-import {City} from "../../containers/Geolocation/actions"
 import pattern from "../../assets/pattern.png"
 import Checkout from "../Checkout"
 import {injectGlobal} from "emotion"
 import NotFound from "../NotFound"
 import Promotions from "../Promotions"
 import ProductView from "../ProductView"
+import {GeolocationProps} from "../../containers/GeolocationOnline"
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
@@ -51,16 +48,11 @@ injectGlobal`
   }
 `
 
-interface AppProps {
-  citiesStatus: Status
-  cities: City[]
-
-  userInfo: UserInfo
-  userState: UserState
-
-  categoriesStatus: Status
-  categories: Category[]
-}
+interface AppProps
+  extends UserProps,
+    CategoriesProps,
+    GeolocationProps,
+    RouteComponentProps<{}> {}
 
 const fadedDarkBlue = transparentize(0.2, theme.darkBlue)
 const fadedBlue = transparentize(0.2, theme.blue)
@@ -102,10 +94,11 @@ const App: React.StatelessComponent<AppProps> = props => (
             />
             <Route path="/" exact={true} component={MainPage} />
 
-            <Route path="/pizza" exact={true} component={MainPage} />
-            <Route path="/burgers" exact={true} component={MainPage} />
-            <Route path="/sushi" exact={true} component={MainPage} />
-            <Route path="/snacks" exact={true} component={MainPage} />
+            <Route
+              path="/(pizza|burgers|sushi|snacks)"
+              exact={true}
+              component={MainPage}
+            />
 
             <Route path="/products/:id" exact={true} component={ProductView} />
 
@@ -127,7 +120,7 @@ const App: React.StatelessComponent<AppProps> = props => (
   </ThemeProvider>
 )
 
-export default compose<React.ComponentType>(
+export default compose(
   withRouter,
   withGeolocation,
   withUser,

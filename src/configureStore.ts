@@ -3,17 +3,16 @@
  */
 
 import {fromJS} from "immutable"
-import {routerMiddleware} from "react-router-redux"
 import {applyMiddleware, compose, createStore} from "redux"
 import {loadState} from "./localStorage"
 import thunk from "redux-thunk"
 
 import createReducer from "./reducers"
 
-export const configureStore = (initialState = {}, history: any) => {
+export const configureStore = (initialState = {}) => {
   const persistedState = loadState()
 
-  const middlewares = [thunk, routerMiddleware(history)]
+  const middlewares = [thunk]
 
   const enhancers = [applyMiddleware(...middlewares)]
 

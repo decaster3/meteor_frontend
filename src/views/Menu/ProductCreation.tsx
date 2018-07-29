@@ -9,8 +9,7 @@ import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import ProductCreationForm from "./ProductCreationForm"
 import {compose} from "redux"
 import withProducts, {ProductsProps} from "../../containers/Products"
-import {withRouter} from "react-router-dom"
-import {RouterState} from "react-router-redux"
+import {withRouter, RouteComponentProps} from "react-router-dom"
 import CustomModal from "../CustomModal"
 import withCategories, {CategoriesProps} from "../../containers/Category"
 
@@ -21,7 +20,7 @@ const findCategoryByUrl = (url: string | null, categories: Category[]) => {
 interface ProductCreationViewProps
   extends ProductCreationProps,
     ProductsProps,
-    RouterState,
+    RouteComponentProps<{}>,
     GeolocationProps,
     CategoriesProps {}
 
@@ -147,11 +146,10 @@ export class Categories extends React.Component<
   }
 }
 
-export default withRouter(
-  compose<any>(
-    withCategories,
-    withProducts,
-    withProductCreation,
-    withGeolocation
-  )(Categories)
-)
+export default compose(
+  withRouter,
+  withCategories,
+  withProducts,
+  withProductCreation,
+  withGeolocation
+)(Categories)
