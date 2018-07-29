@@ -1,17 +1,6 @@
 import React from "react"
-import {Link as ReactRouterLink} from "react-router-dom"
 import {styled} from "./App/emotion"
 import {PrimaryButton} from "./PrimaryButton"
-
-const Link = styled(ReactRouterLink)`
-  color: ${props => props.theme.orange};
-
-  :focus,
-  :hover,
-  :active {
-    color: ${props => props.theme.redOrange};
-  }
-`
 
 const Image = styled("img")`
   width: 100%;
@@ -25,7 +14,7 @@ const PromotionInfo = styled("p")`
   flex: 1;
 `
 
-const NotFound = () => (
+const Promotions = () => (
   <div className="flex-grow-1 d-flex flex-column">
     <h1 className="mb-5">Акции</h1>
 
@@ -109,4 +98,4 @@ const NotFound = () => (
   </div>
 )
 
-export default NotFound
+export default Promotions
