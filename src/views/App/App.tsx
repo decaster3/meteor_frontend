@@ -10,7 +10,7 @@ import {UserState} from "../../containers/UserSession/constants"
 import Footer from "../Footer"
 import Header from "../Header"
 import {theme, styled} from "./emotion"
-import withGeolocation from "../../containers/Geolocation"
+import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import {withUser, UserProps} from "../../containers/UserSession"
 import withCategories, {CategoriesProps} from "../../containers/Category"
 import Account from "../Account"
@@ -20,7 +20,6 @@ import {injectGlobal} from "emotion"
 import NotFound from "../NotFound"
 import Promotions from "../Promotions"
 import ProductView from "../ProductView"
-import {GeolocationProps} from "../../containers/GeolocationOnline"
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
