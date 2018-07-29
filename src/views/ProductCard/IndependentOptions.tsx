@@ -1,14 +1,49 @@
 import React from "react"
 import {Option, OptionConcat} from "../../containers/Products/actions"
 import {cx} from "emotion"
-import styles from "./ProductCard.module.scss"
-import _ from "lodash"
+import {styled} from "../App/emotion"
+import {transparentize} from "../../../node_modules/polished"
 
 interface IndependentOptionsProps extends React.HTMLProps<HTMLDivElement> {
   options: Option[]
   independentOptions: OptionConcat[]
   changeCurrentProduct(optionId: number, valueId: number, value: string): void
 }
+
+const OptionValue = styled("button")`
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  color: ${props => props.theme.lighterGrey};
+  line-height: 2rem;
+  padding: 0;
+  transition: all 0.25s;
+  :focus {
+    outline: none;
+    color: white;
+  }
+  ::after {
+    content: "";
+    display: block;
+    background: ${props => transparentize(0.5, props.theme.lighterGrey)};
+    border-radius: 0.125rem;
+    height: 0.25rem;
+    width: 100%;
+  }
+  &.active {
+    color: white;
+    font-size: 1.25rem;
+    line-height: 2rem;
+    ::after {
+      content: "";
+      display: block;
+      background: ${props => props.theme.lightGreen};
+      border-radius: 0.125rem;
+      height: 0.25rem;
+      width: 100%;
+    }
+  }
+`
 
 const IndependentOptions: React.SFC<IndependentOptionsProps> = ({
   options,
@@ -32,7 +67,7 @@ const IndependentOptions: React.SFC<IndependentOptionsProps> = ({
               )
               .map(optionValue => (
                 <div className="col text-center" key={optionValue.id}>
-                  <button
+                  <OptionValue
                     type="button"
                     onClick={() =>
                       changeCurrentProduct(
@@ -41,13 +76,12 @@ const IndependentOptions: React.SFC<IndependentOptionsProps> = ({
                         optionValue.value
                       )
                     }
-                    className={cx(styles.option, {
-                      [styles.optionActive]:
-                        currentOptionValue.valueId === optionValue.id,
+                    className={cx({
+                      active: currentOptionValue.valueId === optionValue.id,
                     })}
                   >
                     {optionValue.value}
-                  </button>
+                  </OptionValue>
                 </div>
               ))}
           </div>

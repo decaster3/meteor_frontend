@@ -5,7 +5,6 @@ import {
   ProductInstance,
   OptionConcat,
 } from "../../containers/Products/actions"
-import styles from "./ProductCard.module.scss"
 import {CartProduct} from "../../containers/Cart/actions"
 import withCart from "../../containers/Cart"
 import {cx, css} from "emotion"
@@ -15,7 +14,7 @@ import DependentOptions from "./DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {compose} from "redux"
-import {ThemeProps} from "../App/emotion"
+import {ThemeProps, styled} from "../App/emotion"
 import {withTheme} from "emotion-theming"
 
 interface ProductCardProps extends ThemeProps {
@@ -30,6 +29,30 @@ interface ProductCardState {
 }
 
 class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
+  static Ingridients = styled("div")`
+    font-size: 0.75rem;
+    color: ${props => props.theme.lighterGrey};
+    font-weight: 700;
+    flex: 1;
+  `
+
+  static Name = styled("div")`
+    font-weight: 700;
+    letter-spacing: 0.125em;
+    text-align: center;
+  `
+
+  static Wrapper = styled("div")`
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+    max-width: 20rem;
+    margin: 0 auto;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  `
+
   state: ProductCardState = {
     currentProductState: _.cloneDeep(this.props.product.instances[0]),
     quantityInCart: 0,
@@ -77,28 +100,26 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
 
   render() {
     return (
-      <div className={styles.productCard}>
-        <div className={styles.name}>
+      <ProductCard.Wrapper>
+        <ProductCard.Name className="my-2">
           {this.props.product.name}
           {this.state.quantityInCart > 0 && (
-            <>
-              {" "}
-              <span
-                className={cx(
-                  "badge badge-pill badge-success",
-                  css`
-                    background: ${this.props.theme.orange};
-                  `
-                )}
-              >
-                {this.state.quantityInCart}
-              </span>
-            </>
+            <span
+              className={cx(
+                "badge badge-pill badge-success ml-2",
+                css`
+                  background: ${this.props.theme.orange};
+                `
+              )}
+            >
+              {this.state.quantityInCart}
+            </span>
           )}
-        </div>
+        </ProductCard.Name>
 
-        <div className={styles.imageContainer}>
+        <div className="align-self-center my-2">
           <img
+            className="d-block w-100"
             src={
               this.props.product.imageUrl
                 ? `${BASEURL}/${this.props.product.imageUrl}`
@@ -107,27 +128,33 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
           />
         </div>
 
-        <div className={cx(styles.ingridients, "text-center")}>
+        <ProductCard.Ingridients className={"text-center my-2"}>
           {this.props.product.description}
-        </div>
+        </ProductCard.Ingridients>
 
         <IndependentOptions
+          className="my-2"
           options={this.props.product.options}
           independentOptions={this.state.currentProductState.independentOptions}
           changeCurrentProduct={this.changeCurrentProduct}
         />
 
         <DependentOptions
-          className="mx-4"
+          className={cx(
+            "mx-4 my-2",
+            css`
+              color: ${this.props.theme.lightGreen};
+            `
+          )}
           options={this.props.product.options}
           dependentOptions={this.state.currentProductState.dependentOptions}
         />
 
-        <PrimaryButton onClick={this.handleAddProductToCart}>
+        <PrimaryButton className="my-2" onClick={this.handleAddProductToCart}>
           {this.state.currentProductState.price.value}
           <small>{this.state.currentProductState.price.currency}</small> Order
         </PrimaryButton>
-      </div>
+      </ProductCard.Wrapper>
     )
   }
 }

@@ -1,6 +1,4 @@
 import React from "react"
-import {cx} from "emotion"
-import styles from "./ProductCard.module.scss"
 import {Option, OptionConcat} from "../../containers/Products/actions"
 
 interface DependentOptionsProps extends React.HTMLProps<HTMLDivElement> {
@@ -26,7 +24,7 @@ const DependentOptions: React.SFC<DependentOptionsProps> = ({
 
       return (
         optionValue && (
-          <div key={option.id} className={cx("row", styles.dependentOption)}>
+          <div key={option.id} className={"row"}>
             <div className="col">
               <small>{option.name}</small>
             </div>
