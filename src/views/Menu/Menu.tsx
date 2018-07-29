@@ -1,5 +1,4 @@
 import React from "react"
-import {Row, Col} from "reactstrap"
 import _ from "lodash"
 import {Category, Subcategory} from "../../containers/Products/actions"
 import {Status} from "../../constants"
@@ -13,17 +12,17 @@ import CategoriesNav from "./CategoriesNav"
 import {withRouter, RouteComponentProps} from "react-router-dom"
 import ProductCreation from "./ProductCreation"
 
-const findCategoryByUrl = (
-  url: string | null,
-  categories: Category[]
+const findCategoryByKey = (
+  categories: Category[],
+  key?: string | null
 ): Category => {
-  return categories.find(category => category.url === url) || categories[0]
+  return categories.find(category => category.key === key) || categories[0]
 }
 
 interface MenuProps
   extends ProductsProps,
     GeolocationProps,
-    RouteComponentProps<{}> {}
+    RouteComponentProps<{category?: string}> {}
 
 interface MenuState {
   currentSubcategory: Subcategory
@@ -36,10 +35,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
 
   componentDidMount() {
     this.props.getProducts(
-      findCategoryByUrl(
-        this.props.location && this.props.location.pathname,
-        this.props.categories
-      )
+      findCategoryByKey(this.props.categories, this.props.match.params.category)
     )
   }
 
@@ -47,9 +43,9 @@ export class Menu extends React.Component<MenuProps, MenuState> {
     this.setState({currentSubcategory: subcategory})
 
   Products = () => {
-    const currentCategory = findCategoryByUrl(
-      this.props.location && this.props.location.pathname,
-      this.props.categories
+    const currentCategory = findCategoryByKey(
+      this.props.categories,
+      this.props.match.params.category
     )
     switch (currentCategory.productsStatus) {
       case Status.LOADING:
@@ -58,7 +54,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
         return <p>Loading error.</p>
       case Status.LOADED:
         return (
-          <Row>
+          <div className="row">
             {currentCategory.products
               .filter(
                 product =>
@@ -70,15 +66,12 @@ export class Menu extends React.Component<MenuProps, MenuState> {
               )
               .map(product => (
                 <React.Fragment key={product.id}>
-                  <Col sm="6" md="4" lg="3" className="my-3">
-                    <ProductCard
-                      product={product}
-                      addProductToCart={this.props.addProductToCart}
-                    />
-                  </Col>
+                  <div className="col-6 col-md-4 col-lg-3 my-3">
+                    <ProductCard product={product} />
+                  </div>
                 </React.Fragment>
               ))}
-          </Row>
+          </div>
         )
       default:
         return <p>Something went wrong. Reload the page.</p>
@@ -86,9 +79,9 @@ export class Menu extends React.Component<MenuProps, MenuState> {
   }
 
   render() {
-    const currentCategory = findCategoryByUrl(
-      this.props.location && this.props.location.pathname,
-      this.props.categories
+    const currentCategory = findCategoryByKey(
+      this.props.categories,
+      this.props.match.params.category
     )
     return (
       <>

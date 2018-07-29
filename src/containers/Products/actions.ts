@@ -5,7 +5,7 @@ import {ActionType} from "./constants"
 export interface Category {
   name: string
   id: number
-  url: string
+  key: string
   imgUrl: string
   optionNames: OptionName[]
   subcategories: Subcategory[]

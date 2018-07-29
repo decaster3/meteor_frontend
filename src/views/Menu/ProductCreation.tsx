@@ -13,20 +13,19 @@ import {withRouter, RouteComponentProps} from "react-router-dom"
 import CustomModal from "../CustomModal"
 import withCategories, {CategoriesProps} from "../../containers/Category"
 
-const findCategoryByUrl = (url: string | null, categories: Category[]) => {
-  return categories.find(category => category.url === url) || categoriesData[0]
+const findCategoryByKey = (categories: Category[], key?: string | null) => {
+  return categories.find(category => category.key === key) || categoriesData[0]
 }
 
 interface ProductCreationViewProps
   extends ProductCreationProps,
     ProductsProps,
-    RouteComponentProps<{}>,
+    RouteComponentProps<{category?: string}>,
     GeolocationProps,
     CategoriesProps {}
 
 interface ProductCreationViewState {
   modalShown: boolean
-  currentCategory: Category
 }
 
 export class Categories extends React.Component<
@@ -34,56 +33,34 @@ export class Categories extends React.Component<
   ProductCreationViewState
 > {
   state: ProductCreationViewState = {
-    currentCategory: findCategoryByUrl(
-      this.props.location && this.props.location.pathname,
-      this.props.categories
-    ),
     modalShown: false,
   }
 
   componentDidMount() {
-    this.props.getProducts(this.state.currentCategory)
-  }
-
-  shouldComponentUpdate(nextProps: ProductCreationViewProps) {
-    if (
-      (this.props.location && this.props.location.pathname) !==
-      (nextProps.location && nextProps.location.pathname)
-    ) {
-      this.setState({
-        currentCategory: findCategoryByUrl(
-          nextProps.location && nextProps.location.pathname,
-          nextProps.categories
-        ),
-      })
-      this.props.getProducts(
-        findCategoryByUrl(
-          nextProps.location && nextProps.location.pathname,
-          nextProps.categories
-        )
-      )
-      return false
-    }
-    return true
+    this.props.getProducts(
+      findCategoryByKey(this.props.categories, this.props.match.params.category)
+    )
   }
 
   handleSubmit = (values: any) => {
+    const currentCategory = findCategoryByKey(
+      this.props.categories,
+      this.props.match.params.category
+    )
     const productInstancesAttributes: any[] = []
     const citiesAttributes = [{cityId: this.props.defaultCity.id}]
     const subcategoriesAttributes: any[] = []
-    if (this.state.currentCategory) {
-      this.state.currentCategory.subcategories.forEach(
-        (subcat: Subcategory) => {
-          if (values.get(`subcategory${subcat.id}`)) {
-            subcategoriesAttributes.push({subcategoryId: subcat.id})
-          }
+    if (currentCategory) {
+      currentCategory.subcategories.forEach((subcat: Subcategory) => {
+        if (values.get(`subcategory${subcat.id}`)) {
+          subcategoriesAttributes.push({subcategoryId: subcat.id})
         }
-      )
+      })
     }
     values.get("options").forEach((optionValuesElement: any) => {
       const optionValuesAttributes: any[] = []
-      if (this.state.currentCategory) {
-        this.state.currentCategory.optionNames.forEach(optionName => {
+      if (currentCategory) {
+        currentCategory.optionNames.forEach(optionName => {
           const currentOpt = {
             optionNameId: optionName.id,
             value: optionValuesElement.get(optionName.name),
@@ -106,7 +83,7 @@ export class Categories extends React.Component<
       name: values.get("name"),
       description: values.get("description"),
       isTopping: false,
-      categoryId: this.state.currentCategory && this.state.currentCategory.id,
+      categoryId: currentCategory.id,
       productInstancesAttributes,
     }
     this.props.createProduct(values.get("image"), {
@@ -120,6 +97,10 @@ export class Categories extends React.Component<
     this.setState(prevState => ({modalShown: !prevState.modalShown}))
 
   render() {
+    const currentCategory = findCategoryByKey(
+      this.props.categories,
+      this.props.match.params.category
+    )
     return (
       <>
         <button onClick={this.toggle}>Создать новый продукт</button>
@@ -133,12 +114,8 @@ export class Categories extends React.Component<
           <ProductCreationForm
             productCreationStatus={this.props.isProductCreating}
             onSubmit={this.handleSubmit}
-            optionNames={
-              this.state.currentCategory
-                ? this.state.currentCategory.optionNames
-                : []
-            }
-            subcategories={this.state.currentCategory.subcategories}
+            optionNames={currentCategory.optionNames}
+            subcategories={currentCategory.subcategories}
           />
         </CustomModal>
       </>

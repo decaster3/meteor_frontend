@@ -1,12 +1,11 @@
-import React from "react"
+import React, {ComponentType, Component} from "react"
 import _ from "lodash"
 import {
   Product,
   ProductInstance,
   OptionConcat,
 } from "../../containers/Products/actions"
-import {CartProduct} from "../../containers/Cart/actions"
-import withCart from "../../containers/Cart"
+import withCart, {CartProps} from "../../containers/Cart"
 import {cx, css} from "emotion"
 import {BASEURL} from "../../constants"
 import IndependentOptions from "./IndependentOptions"
@@ -14,21 +13,20 @@ import DependentOptions from "./DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {compose} from "redux"
-import {ThemeProps, styled} from "../App/emotion"
-import {withTheme} from "emotion-theming"
+import {ThemeProps, styled, withTheme} from "../App/emotion"
 
-interface ProductCardProps extends ThemeProps {
+interface ProductCardOwnProps {
   product: Product
-  products: CartProduct[]
-  addProductToCart(product: CartProduct): void
 }
+
+interface ProductCardProps extends ProductCardOwnProps, CartProps, ThemeProps {}
 
 interface ProductCardState {
   currentProductState: ProductInstance
   quantityInCart: number
 }
 
-class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
+class ProductCard extends Component<ProductCardProps, ProductCardState> {
   static Ingridients = styled("div")`
     font-size: 0.75rem;
     color: ${props => props.theme.lighterGrey};
@@ -60,7 +58,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
 
   componentDidMount() {
     const founProductInCart = this.props.products.find(
-      (product: CartProduct) => product.id === this.props.product.id
+      product => product.id === this.props.product.id
     )
     this.setState({
       quantityInCart:
@@ -158,7 +156,7 @@ class ProductCard extends React.Component<ProductCardProps, ProductCardState> {
     )
   }
 }
-export default compose<any>(
+export default compose<ComponentType<ProductCardOwnProps>>(
   withCart,
   withTheme
 )(ProductCard)

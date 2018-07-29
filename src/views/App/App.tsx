@@ -94,12 +94,16 @@ const App: React.StatelessComponent<AppProps> = props => (
             <Route path="/" exact={true} component={MainPage} />
 
             <Route
-              path="/(pizza|burgers|sushi|snacks)"
+              path="/:category(pizza|burgers|sushi|snacks)"
               exact={true}
               component={MainPage}
             />
 
-            <Route path="/products/:id" exact={true} component={ProductView} />
+            <Route
+              path="/:category(pizza|burgers|sushi|snacks)/:productId"
+              exact={true}
+              component={ProductView}
+            />
 
             <Route path="/cart" exact={true} component={Cart} />
             <Route path="/checkout" exact={true} component={Checkout} />

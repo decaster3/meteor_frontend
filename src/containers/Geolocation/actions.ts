@@ -103,17 +103,14 @@ export const setDefaultCity = (city: City) => (
     type: ActionType.SET_DEFAULT_CITY,
     payload: city,
   })
-  const currentUrl = getState()
-    .get("route")
-    .get("location")
-    .get("pathname")
-  const currentCategory = findCategoryByUrl(currentUrl)
+  const currentKey = location.pathname.split("/").filter(x => x)[0]
+  const currentCategory = findCategoryByKey(currentKey)
   dispatch(getProducts(currentCategory))
 }
 
-const findCategoryByUrl = (url: string) => {
+const findCategoryByKey = (key: string) => {
   return (
-    categoriesData.find(category => category.url === url) || categoriesData[0]
+    categoriesData.find(category => category.key === key) || categoriesData[0]
   )
 }
 

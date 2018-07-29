@@ -3,6 +3,7 @@ import pizza from "./assets/pizza.png"
 import burger from "./assets/burger.png"
 import sushi from "./assets/sushi.png"
 import snacks from "./assets/snacks.png"
+import {Category} from "./containers/Products/actions"
 
 export const JS_HREF = "javascript:void(0);"
 
@@ -13,14 +14,14 @@ export enum Status {
   LOADING_ERROR = "LOADING_ERROR",
 }
 
-export const categoriesData = [
+export const categoriesData: Category[] = [
   {
     id: 1,
     name: "Пицца",
-    url: "/pizza",
+    key: "pizza",
     productsStatus: Status.NOT_LOADED,
     products: [],
-    subcategories: [{name: "Веганские", id: 1}, {name: "Мясные", id: 2}],
+    subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     imgUrl: pizza,
     optionNames: [
       {
@@ -44,10 +45,10 @@ export const categoriesData = [
     id: 2,
     name: "Бургеры",
     imgUrl: burger,
-    url: "/burgers",
+    key: "burgers",
     productsStatus: Status.NOT_LOADED,
     products: [],
-    subcategories: [{name: "Веганские", id: 1}, {name: "Мясные", id: 2}],
+    subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     optionNames: [
       {
         id: 3,
@@ -60,10 +61,10 @@ export const categoriesData = [
     id: 3,
     name: "Суши",
     imgUrl: sushi,
-    url: "/sushi",
+    key: "sushi",
     productsStatus: Status.NOT_LOADED,
     products: [],
-    subcategories: [{name: "Веганские", id: 1}, {name: "Мясные", id: 2}],
+    subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     optionNames: [
       {
         id: 3,
@@ -76,10 +77,10 @@ export const categoriesData = [
     id: 4,
     name: "Закуски",
     imgUrl: snacks,
-    url: "/snacks",
+    key: "snacks",
     productsStatus: Status.NOT_LOADED,
     products: [],
-    subcategories: [{name: "Веганские", id: 1}, {name: "Мясные", id: 2}],
+    subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     optionNames: [
       {
         id: 3,

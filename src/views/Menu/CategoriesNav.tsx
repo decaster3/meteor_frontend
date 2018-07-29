@@ -54,7 +54,7 @@ const CategoriesNav: React.SFC<CategoriesNavProps> = ({
   >
     {categories.map(category => (
       <LinkWrapper key={category.id}>
-        <NavLink to={category.url}>
+        <NavLink to={`/${category.key}`}>
           <img src={category.imgUrl} />
           <span>{category.name}</span>
         </NavLink>
