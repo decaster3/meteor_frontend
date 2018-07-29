@@ -2,7 +2,9 @@ import PropTypes from "prop-types"
 import React from "react"
 import {Reducer} from "redux"
 import getInjectors from "./reducerInjectors"
-import hoistNonReactStatics from "hoist-non-react-statics"
+
+// tslint:disable-next-line:no-var-requires
+const hoistNonReactStatics = require("hoist-non-react-statics")
 
 // Dynamically injects a reducer
 export default ({key, reducer}: {key: string; reducer: Reducer<any>}) => (

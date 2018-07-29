@@ -6,7 +6,9 @@ import {getCategories} from "./actions"
 import reducer from "./reducer"
 import {selectCategories, selectCategoriesStatus} from "./selectors"
 import {Category} from "../Products/actions"
-import hoistNonReactStatics from "../../../node_modules/hoist-non-react-statics"
+
+// tslint:disable-next-line:no-var-requires
+const hoistNonReactStatics = require("hoist-non-react-statics")
 
 interface CategoriesStateProps {
   categories: Category[]
