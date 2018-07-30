@@ -40,7 +40,7 @@ class ProductView extends Component<
           x => x.id.toString() === this.props.match.params.productId
         )
         return product ? (
-          <ProductCard category={category} product={product} />
+          <ProductCard product={product} category={category} />
         ) : (
           <Route component={NotFound} />
         )
