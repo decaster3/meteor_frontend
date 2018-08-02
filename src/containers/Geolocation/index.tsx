@@ -9,6 +9,7 @@ import {
   selectProbableCityStatus,
   selectProbableCity,
   selectDefaultCity,
+  selectAvailableTime,
 } from "./selectors"
 import {configureGeolocation, setDefaultCity, City, checkTime} from "./actions"
 
@@ -20,6 +21,7 @@ interface GeolocationStateProps {
   probableCityStatus: string
   isNavigationAllowed: boolean
   showModal: boolean
+  isDeliveryAvailable: boolean
 }
 
 interface GeolocationDispatchProps {
@@ -57,6 +59,7 @@ const mapStateToProps = (state: any): GeolocationStateProps => {
     probableCityStatus: selectProbableCityStatus(state),
     probableCity: selectProbableCity(state),
     defaultCity: selectDefaultCity(state),
+    isDeliveryAvailable: selectAvailableTime(state),
   }
 }
 

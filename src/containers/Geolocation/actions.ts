@@ -66,10 +66,13 @@ export const checkTime = () => (dispatch: any, getState: any) => {
         .get("closesAt")
     ),
   }
-  return (
+  if (
     minutesOfDay(currentTime) < minutesOfDay(currentSchedule.closesAt) &&
     minutesOfDay(currentTime) > minutesOfDay(currentSchedule.opensAt)
-  )
+  ) {
+    dispatch({type: ActionType.CHANGE_AVAILABLE_TIME_STATUS, payload: true})
+  }
+  dispatch({type: ActionType.CHANGE_AVAILABLE_TIME_STATUS, payload: false})
 }
 
 const minutesOfDay = (m: moment.Moment) => m.minutes() + m.hours() * 60

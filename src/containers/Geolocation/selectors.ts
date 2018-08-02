@@ -23,6 +23,10 @@ export const selectProbableCity = createSelector(
   selectLayoutDomain,
   probableCity => probableCity.get("probableCity")
 )
+export const selectAvailableTime = createSelector(
+  selectLayoutDomain,
+  isDeliveryAvailable => isDeliveryAvailable.get("isDeliveryAvailable")
+)
 
 export const selectProbableCityStatus = createSelector(
   selectLayoutDomain,

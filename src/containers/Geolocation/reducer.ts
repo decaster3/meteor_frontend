@@ -13,12 +13,15 @@ const initialState = fromJS({
   determinedCityStatus: Status.NOT_LOADED,
   isNavigationAllowed: false,
   defaultCity: citiesData[0],
+  isDeliveryAvailable: false,
 })
 
 const GeoReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case ActionType.SET_DETERMINED_CITY:
       return state.set("determinedCity", fromJS(action.payload))
+    case ActionType.CHANGE_AVAILABLE_TIME_STATUS:
+      return state.set("isDeliveryAvailable", fromJS(action.payload))
     case ActionType.SET_DEFAULT_CITY:
       const currentState = state.toJS()
       currentState.defaultCity = action.payload
