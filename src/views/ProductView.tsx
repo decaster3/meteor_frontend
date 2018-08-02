@@ -1,4 +1,4 @@
-import React, {SFC, Component} from "react"
+import React, {Component} from "react"
 import withProducts, {ProductsProps} from "../containers/Products"
 import withCategories, {CategoriesProps} from "../containers/Category"
 import {withRouter, RouteComponentProps, Route} from "react-router"
@@ -11,9 +11,8 @@ import {Status} from "../constants"
 const findCategoryByKey = (
   categories: Category[],
   key?: string | null
-): Category => {
-  return categories.find(category => category.key === key) || categories[0]
-}
+): Category =>
+  categories.find(category => category.key === key) || categories[0]
 
 class ProductView extends Component<
   ProductsProps &

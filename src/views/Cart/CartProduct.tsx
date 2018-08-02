@@ -35,31 +35,31 @@ class CartProductView extends React.Component<
       dependentOptions: [],
     }
 
-    props.product.instances[0].independentOptions.forEach(independentOption => {
-      props.product.options.forEach(option => {
-        if (option.id === independentOption.optionId) {
-          option.optionValues.forEach(optionValue => {
-            if (optionValue.id === independentOption.valueId) {
+    props.product.instances[0].independentOptions.forEach(independentOption =>
+      props.product.options
+        .filter(option => option.id === independentOption.optionId)
+        .forEach(option =>
+          option.optionValues
+            .filter(optionValue => optionValue.id === independentOption.valueId)
+            .forEach(optionValue =>
               this.state.independentOptions.push(optionValue.value)
-            }
-          })
-        }
-      })
-    })
+            )
+        )
+    )
 
     this.state.independentOptions.sort()
 
-    props.product.instances[0].dependentOptions.forEach(dependentOption => {
-      props.product.options.forEach(option => {
-        if (option.id === dependentOption.optionId) {
-          option.optionValues.forEach(optionValue => {
-            if (optionValue.id === dependentOption.valueId) {
+    props.product.instances[0].dependentOptions.forEach(dependentOption =>
+      props.product.options
+        .filter(option => option.id === dependentOption.optionId)
+        .forEach(option =>
+          option.optionValues
+            .filter(optionValue => optionValue.id === dependentOption.valueId)
+            .forEach(optionValue =>
               this.state.dependentOptions.push(optionValue.value)
-            }
-          })
-        }
-      })
-    })
+            )
+        )
+    )
 
     this.state.dependentOptions.sort()
   }
@@ -77,12 +77,10 @@ class CartProductView extends React.Component<
       <div className="row align-items-center my-4 text-uppercase font-weight-bold">
         <div className="col-4 col-md-auto my-2 text-center">
           <img
-            className={cx(
-              css`
-                max-width: 100%;
-                max-height: 96px;
-              `
-            )}
+            className={css`
+              max-width: 100%;
+              max-height: 96px;
+            `}
             src={pizzaPlaceholder}
           />
         </div>
