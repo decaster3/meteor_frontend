@@ -1,6 +1,6 @@
 import {styled} from "./App/emotion"
 import {Link} from "react-router-dom"
-import {darken, desaturate, shade} from "polished"
+import {darken} from "polished"
 
 export const PrimaryButton = styled("button")(({theme}) => ({
   background: `linear-gradient(
