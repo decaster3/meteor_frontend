@@ -164,7 +164,7 @@ class ProductCard extends Component<ProductCardProps, ProductCardState> {
         />
 
         <PrimaryButton className="my-2" onClick={this.handleAddProductToCart}>
-          {this.state.currentProductState.price.value}
+          {/* {this.state.currentProductState.price.value} */}
           <small>{this.state.currentProductState.price.currency}</small> Order
         </PrimaryButton>
       </ProductCard.Wrapper>

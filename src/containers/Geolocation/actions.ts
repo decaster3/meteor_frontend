@@ -9,7 +9,6 @@ import {getProducts} from "../Products/actions"
 
 Geocode.setApiKey("AIzaSyDeRt-ekVSI0anD_b1zE5Kl7WobsRGutvc")
 Geocode.enableDebug()
-
 export const citiesData = [
   {
     id: 1,
@@ -17,8 +16,36 @@ export const citiesData = [
     phone: "+7 987 043 21 12",
     currency: "тенге",
     googleKey: "Almaty",
-    opensAt: moment.utc("07:00", "HH:mm"),
-    closesAt: moment.utc("03:00", "HH:mm"),
+    schedule: [
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("6:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("3:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("3:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("6:00", "HH:mm"),
+      },
+    ],
   },
   {
     id: 2,
@@ -26,8 +53,36 @@ export const citiesData = [
     phone: "+7 987 043 21 12",
     currency: "сом",
     googleKey: "Bishkek",
-    opensAt: moment.utc("07:00", "HH:mm"),
-    closesAt: moment.utc("03:00", "HH:mm"),
+    schedule: [
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+    ],
   },
   {
     id: 3,
@@ -35,8 +90,36 @@ export const citiesData = [
     phone: "+7 987 043 21 12",
     currency: "тенге",
     googleKey: "Astana",
-    opensAt: moment.utc("07:00", "HH:mm"),
-    closesAt: moment.utc("03:00", "HH:mm"),
+    schedule: [
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+    ],
   },
 ]
 
@@ -46,36 +129,61 @@ export interface City {
   phone: string
   googleKey: string
   id: number
+  schedule: AvailableTime[]
+}
+export interface AvailableTime {
   opensAt: moment.Moment
   closesAt: moment.Moment
 }
 
 export const checkTime = () => (dispatch: any, getState: any) => {
   const currentTime = moment()
+  const currentDay = moment().isoWeekday()
   const currentSchedule = {
     opensAt: moment(
       getState()
         .get("geolocation")
         .get("defaultCity")
-        .get("opensAt")
+        .get("schedule")
+        .toJS()[currentDay - 1].opensAt
     ),
     closesAt: moment(
       getState()
         .get("geolocation")
         .get("defaultCity")
-        .get("closesAt")
+        .get("schedule")
+        .toJS()[currentDay - 1].closesAt
     ),
   }
   if (
-    minutesOfDay(currentTime) < minutesOfDay(currentSchedule.closesAt) &&
-    minutesOfDay(currentTime) > minutesOfDay(currentSchedule.opensAt)
+    compareTime(currentSchedule.opensAt, currentSchedule.closesAt, currentTime)
   ) {
     dispatch({type: ActionType.CHANGE_AVAILABLE_TIME_STATUS, payload: true})
+  } else {
+    dispatch({type: ActionType.CHANGE_AVAILABLE_TIME_STATUS, payload: false})
   }
-  dispatch({type: ActionType.CHANGE_AVAILABLE_TIME_STATUS, payload: false})
 }
 
-const minutesOfDay = (m: moment.Moment) => m.minutes() + m.hours() * 60
+const compareTime = (
+  time1: moment.Moment,
+  time2: moment.Moment,
+  time3: moment.Moment
+) => {
+  const minutes1 = minutesOfDay(time1)
+  const minutes3 = minutesOfDay(time3)
+  let minutes2 = minutesOfDay(time2)
+  if (minutes2 < minutes1) {
+    minutes2 += 60 * 24
+  }
+  if (minutes3 > minutes1 && minutes3 < minutes2) {
+    return true
+  }
+  return false
+}
+
+const minutesOfDay = (m: moment.Moment) => {
+  return m.minutes() + m.hours() * 60
+}
 
 export const setDeterminedCity = (city: City) => ({
   type: ActionType.SET_DETERMINED_CITY,

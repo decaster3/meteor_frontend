@@ -129,7 +129,9 @@ class Cart extends React.Component<
           </StickyContainer>
         </div>
 
-        {this.props.checkTime() && <h1>Только запланированный заказ</h1>}
+        {!this.props.isDeliveryAvailable && (
+          <h1>Только запланированный заказ</h1>
+        )}
 
         {this.props.total > 3000 + this.state.choosenMeteors ? (
           <div className="row justify-content-center my-3">

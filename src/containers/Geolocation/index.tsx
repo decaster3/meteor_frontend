@@ -42,6 +42,7 @@ const withGeolocation = <P extends object>(
   > {
     componentDidMount() {
       this.props.configureGeolocation()
+      this.props.checkTime()
     }
 
     render() {
