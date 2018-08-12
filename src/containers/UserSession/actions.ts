@@ -121,6 +121,11 @@ export const login = (password: string, phone: string) => (dispatch: any) => {
       if (err.body.error === "Invalid Phone or password.") {
         throw new SubmissionError({_error: "Неправильный телефон или пароль"})
       }
+      if (err.body.error === "Already registered.") {
+        throw new SubmissionError({
+          _error: "Пользователь с таким телефоном уже зарегестрирован",
+        })
+      }
     })
 }
 
@@ -164,9 +169,14 @@ export const signUp = (
       if (err.status === 422) {
         if (err.body.error === "Invalid token.") {
           dispatch(setInviterToken(""))
-          throw new SubmissionError({_error: err.body.error})
+          throw new SubmissionError({_error: "Неправильной код пригласителя"})
         }
         throw new SubmissionError({_error: "Неправильный формат"})
+      }
+      if (err.body.error === "Already registered.") {
+        throw new SubmissionError({
+          _error: "Пользователь с таким телефоном уже зарегестрирован",
+        })
       }
     })
 }
