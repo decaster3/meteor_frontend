@@ -9,7 +9,7 @@ import {withTheme} from "emotion-theming"
 import {PrimaryButtonAsLink} from "../PrimaryButton"
 import {Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from "reactstrap"
 import Icon from "react-fa"
-import {JS_HREF} from "../../constants"
+import {JS_HREF, Status} from "../../constants"
 
 interface AccountProps extends UserProps, ThemeProps {}
 
@@ -108,9 +108,12 @@ class Account extends React.Component<AccountProps, AccountState> {
             <div className={"col-4 text-center"}>
               <div>На вашем счету</div>
               <div className={"text-white h3 mb-0 py-3"}>
-                {this.props.userInfo.meteors
-                  .map(x => x.value)
-                  .reduce((prevVal, currentVal) => prevVal + currentVal, 0)}
+              {this.props.userInfoStatus === Status.LOADED ?
+                this.props.userInfo.meteors
+                .map(x => x.value)
+                .reduce((prevVal, currentVal) => prevVal + currentVal, 0)
+                : 0
+              }
                 <small> метеоров</small>
               </div>
               <div className="row justify-content-center">

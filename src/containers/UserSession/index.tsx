@@ -21,11 +21,13 @@ import {
   selectPhone,
   selectIsLoginPending,
   selectInviterToken,
+  selectUserInfoStatus,
   selectUserInfo,
 } from "./selectors"
 
 interface UserStateProps {
   userState: string
+  userInfoStatus: string
   userInfo: UserInfo
 }
 
@@ -40,6 +42,7 @@ export interface UserProps extends UserStateProps, UserDispatchProps {}
 const mapStateToUserProps = (state: any): UserStateProps => ({
   userState: selectUserState(state),
   userInfo: selectUserInfo(state),
+  userInfoStatus: selectUserInfoStatus(state),
 })
 
 const mapDispatchToUserProps = (dispatch: any): UserDispatchProps => ({

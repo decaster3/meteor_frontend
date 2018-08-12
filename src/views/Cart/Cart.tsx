@@ -35,6 +35,7 @@ class Cart extends React.Component<
   }
 
   render() {
+    console.log(this.props.possibleMeteors)
     return (
       <div>
         <h2>Корзина</h2>
@@ -106,7 +107,8 @@ class Cart extends React.Component<
                           `}
                         >
                           {this.props.total - this.state.choosenMeteors}
-                          &nbsp;<small>JPY</small>
+                          &nbsp;
+                          <small>JPY</small>
                         </span>
                       </div>
                       <div className="h4 mb-0 font-weight-bold">
@@ -116,9 +118,9 @@ class Cart extends React.Component<
                             color: ${this.props.theme.orange};
                           `}
                         >
-                          {this.state.choosenMeteors}&nbsp;<small>
-                            метеоров
-                          </small>
+                          {this.state.choosenMeteors}
+                          &nbsp;
+                          <small>метеоров</small>
                         </span>
                       </div>
                     </div>
