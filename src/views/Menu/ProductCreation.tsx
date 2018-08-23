@@ -1,7 +1,6 @@
 import React from "react"
 import {Category, Subcategory} from "../../containers/Products/actions"
 import {categoriesData} from "../../constants"
-import ModalWrapper from "../ModalWrapper"
 import withProductCreation, {
   ProductCreationProps,
 } from "../../containers/ProductCreation"
