@@ -27,10 +27,15 @@ class Login extends React.Component<LoginProps> {
           isLoginPending={this.props.isLoginPending}
           onSubmit={this.handleLoginSubmit}
         />
-        <div className="row">
-          <div className={classnames(styles.miniLabel, "col")}>
+        <div className="row align-items-center">
+          <div className={classnames(styles.miniLabel, "col-auto")}>
             Нет аккаунта?
-            <button onClick={this.props.handleChangeTab}>
+          </div>
+          <div className="col">
+            <button
+              className="btn btn-block btn-outline-success"
+              onClick={this.props.handleChangeTab}
+            >
               Зарегистрироваться
             </button>
           </div>

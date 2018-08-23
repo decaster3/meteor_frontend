@@ -51,10 +51,10 @@ class Authentication extends React.Component<
   }
 
   toggleModal = () => {
-    if (this.props.registrationFirst) {
-      this.setState({isLogin: false})
-    }
-    this.setState(prevState => ({modalShown: !prevState.modalShown}))
+    this.setState(prevState => ({
+      isLogin: !this.props.registrationFirst,
+      modalShown: !prevState.modalShown,
+    }))
   }
 
   handleReSendPhone = () => {
@@ -66,33 +66,7 @@ class Authentication extends React.Component<
   }
 
   setDefaultAuthState = () => {
-    this.setState(prevState => ({isLogin: true}))
-  }
-
-  Regsitration = () => {
-    switch (this.props.regsitrationStep) {
-      case 0:
-        return (
-          <SignUp
-            signUp={this.props.signUp}
-            handleChangeTab={this.handleChangeTab}
-            isPhonePending={this.props.isPhonePending}
-            inviterToken={this.props.inviterToken}
-          />
-        )
-      case 1:
-        return (
-          <PhoneCode
-            sendCode={this.props.sendCode}
-            codeSent={this.props.codeSent}
-            phone={this.props.phone}
-            isCodePending={this.props.isCodePending}
-            handleReSendPhone={this.handleReSendPhone}
-          />
-        )
-      default:
-        return null
-    }
+    this.setState({isLogin: true})
   }
 
   render() {
@@ -112,9 +86,22 @@ class Authentication extends React.Component<
               handleChangeTab={this.handleChangeTab}
               isLoginPending={this.props.isLoginPending}
             />
-          ) : (
-            <this.Regsitration />
-          )}
+          ) : this.props.regsitrationStep === 0 ? (
+            <SignUp
+              signUp={this.props.signUp}
+              handleChangeTab={this.handleChangeTab}
+              isPhonePending={this.props.isPhonePending}
+              inviterToken={this.props.inviterToken}
+            />
+          ) : this.props.regsitrationStep === 1 ? (
+            <PhoneCode
+              sendCode={this.props.sendCode}
+              codeSent={this.props.codeSent}
+              phone={this.props.phone}
+              isCodePending={this.props.isCodePending}
+              handleReSendPhone={this.handleReSendPhone}
+            />
+          ) : null}
         </Modal>
       </div>
     )
