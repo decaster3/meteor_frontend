@@ -1,7 +1,5 @@
 import React from "react"
-import {Modal} from "reactstrap"
 
-import * as styles from "./AuthWrapper.module.scss"
 import Login from "../Login"
 import SignUp from "../Signup"
 import PhoneCode from "../PhoneCode"
@@ -13,6 +11,7 @@ import {
   RegistrationProps,
 } from "../../containers/UserSession"
 import {UserState} from "../../containers/UserSession/constants"
+import CustomModal from "../CustomModal"
 
 interface AuthenticationState {
   modalShown: boolean
@@ -21,6 +20,8 @@ interface AuthenticationState {
 
 interface AuthenticationOwnProps {
   registrationFirst: boolean
+  modalShown: boolean
+  toggle: () => void
 }
 
 type AuthenticationProps = UserProps &
@@ -46,64 +47,48 @@ class Authentication extends React.Component<
   }
 
   state: AuthenticationState = {
-    isLogin: true,
+    isLogin: !this.props.registrationFirst,
     modalShown: false,
   }
 
-  toggleModal = () => {
-    this.setState(prevState => ({
-      isLogin: !this.props.registrationFirst,
-      modalShown: !prevState.modalShown,
-    }))
-  }
+  handleReSendPhone = () => this.props.reSendPhone()
 
-  handleReSendPhone = () => {
-    this.props.reSendPhone()
-  }
-
-  handleChangeTab = () => {
+  handleChangeTab = () =>
     this.setState(prevState => ({isLogin: !prevState.isLogin}))
-  }
 
-  setDefaultAuthState = () => {
-    this.setState({isLogin: true})
-  }
+  setDefaultAuthState = () => this.setState({isLogin: true})
 
   render() {
     return (
-      <div>
-        <div onClick={this.toggleModal}>{this.props.children}</div>
-        <Modal
-          centered={true}
-          isOpen={this.state.modalShown}
-          toggle={this.toggleModal}
-          contentClassName={styles.modalContent}
-          onClosed={this.setDefaultAuthState}
-        >
-          {this.state.isLogin ? (
-            <Login
-              login={this.props.login}
-              handleChangeTab={this.handleChangeTab}
-              isLoginPending={this.props.isLoginPending}
-            />
-          ) : this.props.regsitrationStep === 0 ? (
-            <SignUp
-              signUp={this.props.signUp}
-              handleChangeTab={this.handleChangeTab}
-              isPhonePending={this.props.isPhonePending}
-              inviterToken={this.props.inviterToken}
-            />
-          ) : this.props.regsitrationStep === 1 ? (
-            <PhoneCode
-              sendCode={this.props.sendCode}
-              codeSent={this.props.codeSent}
-              phone={this.props.phone}
-              isCodePending={this.props.isCodePending}
-              handleReSendPhone={this.handleReSendPhone}
-            />
-          ) : null}
-        </Modal>
-      </div>
+      <CustomModal
+        centered={true}
+        isOpen={this.props.modalShown}
+        toggle={this.props.toggle}
+        onClosed={this.setDefaultAuthState}
+      >
+        {this.state.isLogin ? (
+          <Login
+            login={this.props.login}
+            handleChangeTab={this.handleChangeTab}
+            isLoginPending={this.props.isLoginPending}
+          />
+        ) : this.props.regsitrationStep === 0 ? (
+          <SignUp
+            signUp={this.props.signUp}
+            handleChangeTab={this.handleChangeTab}
+            isPhonePending={this.props.isPhonePending}
+            inviterToken={this.props.inviterToken}
+          />
+        ) : this.props.regsitrationStep === 1 ? (
+          <PhoneCode
+            sendCode={this.props.sendCode}
+            codeSent={this.props.codeSent}
+            phone={this.props.phone}
+            isCodePending={this.props.isCodePending}
+            handleReSendPhone={this.handleReSendPhone}
+          />
+        ) : null}
+      </CustomModal>
     )
   }
 }

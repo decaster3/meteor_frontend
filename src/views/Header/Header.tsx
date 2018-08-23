@@ -17,14 +17,15 @@ import {withUser, UserProps} from "../../containers/UserSession"
 import {Status, JS_HREF} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
 import PhoneCallbackForm from "../PhoneCallback"
-import SignUp from "../AuthWrapper"
+import AuthWrapper from "../AuthWrapper"
 import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "../App/emotion"
 import {City} from "../../containers/Geolocation/actions"
 import CustomModal from "../CustomModal"
 
 interface HeaderState {
   isOpen: boolean
-  modalShown: boolean
+  phoneModalShown: boolean
+  authModalShown: boolean
 }
 
 class Header extends React.Component<
@@ -85,13 +86,17 @@ class Header extends React.Component<
 
   state: HeaderState = {
     isOpen: false,
-    modalShown: false,
+    phoneModalShown: false,
+    authModalShown: false,
   }
 
   toggle = () => this.setState(prevState => ({isOpen: !prevState.isOpen}))
 
-  toggleModal = () =>
-    this.setState(prevState => ({modalShown: !prevState.modalShown}))
+  togglePhoneModal = () =>
+    this.setState(prevState => ({phoneModalShown: !prevState.phoneModalShown}))
+
+  toggleAuthModal = () =>
+    this.setState(prevState => ({authModalShown: !prevState.authModalShown}))
 
   handleCityClick = (city: City) => this.props.setDefaultCity(city)
 
@@ -118,14 +123,14 @@ class Header extends React.Component<
             >
               <Header.Phone>{this.props.defaultCity.phone}</Header.Phone>
 
-              <Header.CallMeBack onClick={this.toggleModal}>
+              <Header.CallMeBack onClick={this.togglePhoneModal}>
                 Перезвоните мне
               </Header.CallMeBack>
 
               <CustomModal
                 centered
-                isOpen={this.state.modalShown}
-                toggle={this.toggleModal}
+                isOpen={this.state.phoneModalShown}
+                toggle={this.togglePhoneModal}
               >
                 <PhoneCallbackForm isLoading={false} />
               </CustomModal>
@@ -232,13 +237,21 @@ class Header extends React.Component<
                   </Header.NavLink>
                 </li>
               ) : (
-                <SignUp registrationFirst={false}>
-                  <li className="nav-item">
-                    <Header.Anchor className="nav-link" href={JS_HREF}>
-                      Вход
-                    </Header.Anchor>
-                  </li>
-                </SignUp>
+                <li className="nav-item">
+                  <Header.Anchor
+                    onClick={this.toggleAuthModal}
+                    className="nav-link"
+                    href={JS_HREF}
+                  >
+                    Вход
+                  </Header.Anchor>
+
+                  <AuthWrapper
+                    modalShown={this.state.authModalShown}
+                    toggle={this.toggleAuthModal}
+                    registrationFirst={false}
+                  />
+                </li>
               )}
 
               <li className="nav-item d-none d-md-block">
