@@ -54,7 +54,8 @@ export const makeOrder = (
   address: Address,
   name: string,
   phone: string,
-  paymentMethod: string
+  paymentMethod: string,
+  successCallback?: any
 ) => (dispatch: any, getState: any) => {
   dispatch(changeOrderStatus(OrderStatus.PROCESSING))
 
@@ -94,8 +95,9 @@ export const makeOrder = (
         meteors,
       },
     })
-    .then(() => {
+    .then(data => {
       dispatch(changeOrderStatus(OrderStatus.DODE))
+      successCallback(data.id, true, phone)
     })
     .catch(() => {
       dispatch(changeOrderStatus(OrderStatus.NOT_DONE))

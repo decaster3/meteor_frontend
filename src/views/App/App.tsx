@@ -22,6 +22,7 @@ import {injectGlobal} from "emotion"
 import NotFound from "../NotFound"
 import Promotions from "../Promotions"
 import ProductView from "../ProductView"
+import OrderCallback from "../../views/OrderCallback"
 
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
@@ -111,6 +112,11 @@ const App: React.StatelessComponent<AppProps> = props => (
             <Route path="/cart" exact={true} component={Cart} />
             <Route path="/checkout" exact={true} component={Checkout} />
             <Route path="/promotions" exact={true} component={Promotions} />
+            <Route
+              path="/order/:id/:status/:phone"
+              exact={true}
+              component={OrderCallback}
+            />
 
             {props.userState === UserState.LOGED_IN && (
               <Route path="/account" exact={true} component={Account} />

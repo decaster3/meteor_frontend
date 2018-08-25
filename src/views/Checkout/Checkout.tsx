@@ -1,7 +1,7 @@
 import React from "react"
 import {compose} from "redux"
 import {fromJS} from "immutable"
-
+import {withRouter} from "react-router-dom"
 import withCart, {CartProps} from "../../containers/Cart"
 import withCheckout, {CheckoutProps} from "../../containers/Checkout"
 import CheckoutForm from "./CheckoutForm"
@@ -11,7 +11,7 @@ import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 type CheckoutViewProps = CartProps &
   UserProps &
   CheckoutProps &
-  GeolocationProps
+  GeolocationProps & {history: any}
 
 class Checkout extends React.Component<CheckoutViewProps> {
   handleOrderSubmit = (values: any) => {
@@ -26,7 +26,9 @@ class Checkout extends React.Component<CheckoutViewProps> {
       address,
       values.get("name"),
       values.get("phone"),
-      values.get("paymentMethod")
+      values.get("paymentMethod"),
+      (id: number, status: boolean, phone: string) =>
+        this.props.history.push(`/order/${id}/${status}/${phone}`)
     )
   }
 
@@ -49,9 +51,11 @@ class Checkout extends React.Component<CheckoutViewProps> {
   }
 }
 
-export default compose(
-  withGeolocation,
-  withCheckout,
-  withUser,
-  withCart
-)(Checkout)
+export default withRouter(
+  compose<any>(
+    withGeolocation,
+    withCheckout,
+    withUser,
+    withCart
+  )(Checkout)
+)

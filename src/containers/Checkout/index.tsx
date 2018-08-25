@@ -38,7 +38,8 @@ interface CheckoutDispatchProps {
     address: Address,
     name: string,
     phone: string,
-    paymentMethod: string
+    paymentMethod: string,
+    successCallback?: any
   ): void
   getStreets(): void
 }
@@ -62,8 +63,10 @@ const mapDispatchToProps = (dispatch: any): CheckoutDispatchProps => {
       address: Address,
       name: string,
       phone: string,
-      paymentMethod: string
-    ) => dispatch(makeOrder(address, name, phone, paymentMethod)),
+      paymentMethod: string,
+      successCallback: any
+    ) =>
+      dispatch(makeOrder(address, name, phone, paymentMethod, successCallback)),
     getStreets: () => dispatch(getStreets()),
   }
 }
