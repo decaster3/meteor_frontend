@@ -1,4 +1,5 @@
 import {SubmissionError} from "redux-form/immutable"
+import {toast} from "react-toastify"
 import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
 import moment from "moment"
@@ -67,6 +68,10 @@ const changePhonePendingState = (state: boolean) => ({
   payload: state,
 })
 
+const clearSession = () => ({
+  type: ActionType.CLEAR_USER_SESSION,
+})
+
 const changeLoginPendingState = (state: boolean) => ({
   type: ActionType.CHANGE_LOGIN_PENDING_STATE,
   payload: state,
@@ -114,11 +119,22 @@ export const login = (password: string, phone: string) => (dispatch: any) => {
       dispatch(changeLoginPendingState(false))
       dispatch(changeUserStatus(UserState.LOGED_IN))
       dispatch(setUserInfo(data))
+      toast.success("🚀🚀🚀 Авторизация прошла успешно!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      })
     })
     .catch(err => {
       dispatch(changeUserStatus(UserState.ANONYMOUS))
       dispatch(changeLoginPendingState(false))
-      if (err.body.error === "Invalid Phone or password.") {
+      if (
+        err.body.error === "Invalid Phone or password." &&
+        err.body.error === "Invalid segment encoding"
+      ) {
         throw new SubmissionError({_error: "Неправильный телефон или пароль"})
       }
       if (err.body.error === "Already registered.") {
@@ -130,9 +146,15 @@ export const login = (password: string, phone: string) => (dispatch: any) => {
 }
 
 export const logout = () => (dispatch: any) => {
-  dispatch(changeUserStatus(UserState.LOGGING_IN))
-  requests.delete("auth/sign_in").then(() => {
-    dispatch(changeUserStatus(UserState.ANONYMOUS))
+  dispatch(changeUserStatus(UserState.ANONYMOUS))
+  dispatch(clearSession())
+  toast.error("🦄 Сессия устарела, пожалуйста, повторно авторизируйтесь", {
+    position: "top-right",
+    autoClose: false,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
   })
 }
 
@@ -189,6 +211,14 @@ export const sendCode = (code: string) => (dispatch: any) => {
       dispatch(changeUserStatus(UserState.LOGED_IN))
       dispatch(setUserInfo(data))
       dispatch(changeCodePendingState(false))
+      toast.success("🚀🚀🚀 Регистрация прошла успешно!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+      })
     })
     .catch(err => {
       dispatch(changeCodePendingState(false))

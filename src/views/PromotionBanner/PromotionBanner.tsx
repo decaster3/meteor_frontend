@@ -2,35 +2,31 @@ import React from "react"
 import Icon from "react-fa"
 import {compose} from "redux"
 import {css, cx} from "emotion"
-
 import symbol from "./logo_meteor.png"
-import {Status} from "../../constants"
+import {Status, BASEURL} from "../../constants"
 import defaultImage from "../../assets/default_banner.png"
-import withPromotionBanner from "../../containers/PromotionBanner"
+import withPromotionBanner, {
+  PromotionStateProps,
+} from "../../containers/PromotionBanner"
 
 const carouselId = "carousel"
 
-interface PromotionBannerProps {
-  banners: Array<{src: string}>
-  bannersStatus: Status
-}
-
 const PromotionBanner: React.StatelessComponent<
-  PromotionBannerProps
+  PromotionStateProps
 > = props => {
   const {carouselItems, carouselIndicators} =
-    props.bannersStatus === Status.LOADED
+    props.promotionsStatus === Status.LOADED
       ? {
-          carouselItems: props.banners.map((img, index) => (
+          carouselItems: props.promotions.map((img, index) => (
             <div className={cx("carousel-item", {active: index === 0})}>
               <img
                 className="d-block w-100"
-                src={img.src}
+                src={`${BASEURL}/${img.imageUrl}`}
                 alt="Promotion slide"
               />
             </div>
           )),
-          carouselIndicators: props.banners.map((img, index) => (
+          carouselIndicators: props.promotions.map((img, index) => (
             <li
               data-target={`#${carouselId}`}
               data-slide-to={index}
@@ -93,4 +89,4 @@ const PromotionBanner: React.StatelessComponent<
   )
 }
 
-export default compose(withPromotionBanner)(PromotionBanner)
+export default compose<any>(withPromotionBanner)(PromotionBanner)

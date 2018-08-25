@@ -9,6 +9,7 @@ import {withTheme} from "emotion-theming"
 import {ThemeProps} from "../App/emotion"
 import {StickyContainer, Sticky} from "react-sticky"
 import {PrimaryButtonAsLink, PrimaryButton} from "../PrimaryButton"
+import {UserState} from "../../containers/UserSession/constants"
 
 interface CartState {
   choosenMeteors: number
@@ -23,7 +24,9 @@ class Cart extends React.Component<
   }
 
   componentDidMount() {
-    this.props.getUserInfo()
+    if (this.props.userState === UserState.LOGED_IN) {
+      this.props.getUserInfo()
+    }
   }
 
   componentWillUnmount() {
@@ -35,7 +38,6 @@ class Cart extends React.Component<
   }
 
   render() {
-    console.log(this.props.possibleMeteors)
     return (
       <div>
         <h2>Корзина</h2>
@@ -135,7 +137,8 @@ class Cart extends React.Component<
           <h1>Только запланированный заказ</h1>
         )}
 
-        {this.props.total > 3000 + this.state.choosenMeteors ? (
+        {this.props.total >
+        this.props.defaultCity.minimalOrderPrice + this.state.choosenMeteors ? (
           <div className="row justify-content-center my-3">
             <div className="col-auto">
               <PrimaryButtonAsLink to="/checkout">
@@ -153,7 +156,8 @@ class Cart extends React.Component<
               </div>
             </div>
             <div className="my-3 text-center text-danger">
-              Сумма заказа должна быть выше 3000 <small>JYP</small>
+              Сумма заказа должна быть выше{" "}
+              {this.props.defaultCity.minimalOrderPrice} <small>JYP</small>
             </div>
           </>
         )}

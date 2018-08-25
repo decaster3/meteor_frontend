@@ -1,34 +1,46 @@
 import {connect} from "react-redux"
 import {compose} from "redux"
 import injectReducer from "../../utils/injectReducer"
-import {getBanners} from "./actions"
+import {getPromotions, Promotion} from "./actions"
 import reducer from "./reducer"
-import {selectBanners, selectBannersStatus} from "./selectors"
+import {selectPromotions, selectPromotionsStatus} from "./selectors"
 import {Status} from "../../constants"
+import React from "react"
 
-interface PromotionStateProps {
-  banners: any[]
-  bannersStatus: Status
+export interface PromotionStateProps {
+  promotions: Promotion[]
+  promotionsStatus: Status
 }
 
 interface PromotionDispatchProps {
-  getBanners(): void
+  getPromotions(): void
 }
 
 export interface PromotionProps
   extends PromotionStateProps,
     PromotionDispatchProps {}
 
+const withPromotions = (WrappedComponent: React.ComponentType<any>) => {
+  return class WithCategoriesContainer extends React.Component<any> {
+    componentDidMount() {
+      this.props.getPromotions()
+    }
+    render() {
+      return <WrappedComponent {...this.props} />
+    }
+  }
+}
+
 const mapStateToProps = (state: any): PromotionStateProps => {
   return {
-    banners: selectBanners(state),
-    bannersStatus: selectBannersStatus(state),
+    promotions: selectPromotions(state),
+    promotionsStatus: selectPromotionsStatus(state),
   }
 }
 
 const mapDispatchToProps = (dispatch: any): PromotionDispatchProps => {
   return {
-    getBanners: () => dispatch(getBanners()),
+    getPromotions: () => dispatch(getPromotions()),
   }
 }
 
@@ -39,5 +51,6 @@ export default compose(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )
+  ),
+  withPromotions
 )

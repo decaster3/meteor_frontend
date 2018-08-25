@@ -16,6 +16,7 @@ export const citiesData = [
     phone: "+7 987 043 21 12",
     currency: "тенге",
     googleKey: "Almaty",
+    minimalOrderPrice: 3000,
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
@@ -53,6 +54,7 @@ export const citiesData = [
     phone: "+7 987 043 21 12",
     currency: "сом",
     googleKey: "Bishkek",
+    minimalOrderPrice: 3000,
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
@@ -90,6 +92,7 @@ export const citiesData = [
     phone: "+7 987 043 21 12",
     currency: "тенге",
     googleKey: "Astana",
+    minimalOrderPrice: 3000,
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
@@ -129,6 +132,7 @@ export interface City {
   phone: string
   googleKey: string
   id: number
+  minimalOrderPrice: number
   schedule: AvailableTime[]
 }
 export interface AvailableTime {

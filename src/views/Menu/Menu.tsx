@@ -3,6 +3,7 @@ import _ from "lodash"
 import {Category, Subcategory} from "../../containers/Products/actions"
 import {Status} from "../../constants"
 import withProductCreation from "../../containers/ProductCreation"
+import {withUser, UserStateProps} from "../../containers/UserSession"
 import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import {compose} from "redux"
 import withProducts, {ProductsProps} from "../../containers/Products"
@@ -21,6 +22,7 @@ const findCategoryByKey = (
 
 interface MenuProps
   extends ProductsProps,
+    UserStateProps,
     GeolocationProps,
     RouteComponentProps<{category?: string}> {}
 
@@ -94,8 +96,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
         />
 
         <this.Products />
-
-        <ProductCreation />
+        {this.props.userInfo.role === "admin" && <ProductCreation />}
       </>
     )
   }
@@ -105,5 +106,6 @@ export default compose(
   withRouter,
   withProducts,
   withGeolocation,
-  withProductCreation
+  withProductCreation,
+  withUser
 )(Menu)

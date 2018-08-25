@@ -14,13 +14,13 @@ export const selectPromotionBannerDomain = (state: any) =>
  * Default selector used by User
  */
 
-export const selectBanners = createSelector(
+export const selectPromotions = createSelector(
   selectPromotionBannerDomain,
-  banners => {
-    return banners.get("banners").toJS()
+  promotions => {
+    return promotions.get("promotions").toJS()
   }
 )
-export const selectBannersStatus = createSelector(
+export const selectPromotionsStatus = createSelector(
   selectPromotionBannerDomain,
-  bannersStatus => bannersStatus.get("bannersStatus")
+  promotionsStatus => promotionsStatus.get("promotionsStatus")
 )

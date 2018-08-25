@@ -1,4 +1,6 @@
 import {BASEURL} from "../constants"
+import {store} from "../"
+import {logout} from "../containers/UserSession/actions"
 
 const setToken = (token: string | null) => {
   if (token) {
@@ -36,12 +38,16 @@ const request = (
         setToken(response.headers.get("Authorization"))
         return response.json()
       } else {
-        return response.json().then(err =>
-          Promise.reject({
+        return response.json().then(err => {
+          if (response.status === 401) {
+            store.dispatch(logout())
+            localStorage.removeItem("token")
+          }
+          return Promise.reject({
             status: response.status,
             body: err,
           })
-        )
+        })
       }
     })
     .catch((error: Error) => {

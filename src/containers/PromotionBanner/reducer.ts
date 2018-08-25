@@ -4,19 +4,19 @@ import {Status} from "../../constants"
 import {AnyAction} from "redux"
 
 const initialState = fromJS({
-  banners: [],
-  bannersStatus: Status.NOT_LOADED,
+  promotions: [],
+  promotionsStatus: Status.NOT_LOADED,
 })
 
-const promotionBannersReducer = (state = initialState, action: AnyAction) => {
+const promotionReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
-    case ActionType.SET_BANNERS:
-      return state.set("banners", fromJS(action.payload))
-    case ActionType.SET_BANNERS_STATUS:
-      return state.set("bannersStatus", fromJS(action.payload))
+    case ActionType.SET_PROMOTIONS:
+      return state.set("promotions", fromJS(action.payload))
+    case ActionType.SET_PROMOTIONS_STATUS:
+      return state.set("promotionsStatus", fromJS(action.payload))
     default:
       return state
   }
 }
 
-export default promotionBannersReducer
+export default promotionReducer

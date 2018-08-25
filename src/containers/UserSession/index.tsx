@@ -25,7 +25,7 @@ import {
   selectUserInfo,
 } from "./selectors"
 
-interface UserStateProps {
+export interface UserStateProps {
   userState: string
   userInfoStatus: string
   userInfo: UserInfo

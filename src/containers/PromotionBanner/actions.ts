@@ -1,22 +1,37 @@
 import {Status} from "../../constants"
 import {ActionType} from "./constants"
+import requests from "../../services/requests"
 
-const setBannersStatus = (bannersStatus: string) => ({
-  type: ActionType.SET_BANNERS_STATUS,
-  payload: bannersStatus,
+export interface Promotion {
+  id: number
+  imageUrl: string
+  description: string
+}
+
+const setPromotionsStatus = (PromotionsStatus: string) => ({
+  type: ActionType.SET_PROMOTIONS_STATUS,
+  payload: PromotionsStatus,
 })
 
-export const getBanners = () => (dispatch: any) => {
-  dispatch(setBannersStatus(Status.LOADING))
-  // return requests
-  //   .get("banners")
-  //   .then(data => {
-  //     dispatch({
-  //       type: ActionType.SET_BANNERS,
-  //       payload: data,
-  //     })
-  //     dispatch(setBannersStatus(Status.LOADED))
-  //     return data
-  //   })
-  //   .catch(() => dispatch(setBannersStatus(Status.LOADING_ERROR)))
+export const getPromotions = () => (dispatch: any, getState: any) => {
+  dispatch(setPromotionsStatus(Status.LOADING))
+  const cityId =
+    getState()
+      .get("geolocation")
+      .get("defaultCity") !== null &&
+    getState()
+      .get("geolocation")
+      .get("defaultCity")
+      .get("id")
+  return requests
+    .get(`promotions?city_id=${cityId}`)
+    .then((data: Promotion[]) => {
+      dispatch({
+        type: ActionType.SET_PROMOTIONS,
+        payload: data,
+      })
+      dispatch(setPromotionsStatus(Status.LOADED))
+      return data
+    })
+    .catch(() => dispatch(setPromotionsStatus(Status.LOADING_ERROR)))
 }

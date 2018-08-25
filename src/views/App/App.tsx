@@ -2,6 +2,8 @@ import {ThemeProvider} from "emotion-theming"
 import React from "react"
 import {compose} from "redux"
 import {Switch, Route, withRouter, RouteComponentProps} from "react-router-dom"
+import "react-toastify/dist/ReactToastify.css"
+import {ToastContainer} from "react-toastify"
 import {transparentize} from "polished"
 
 import MainPage from "../MainPage"
@@ -85,6 +87,7 @@ const App: React.StatelessComponent<AppProps> = props => (
 
       <Container className="container">
         <Content>
+          <ToastContainer />
           <Switch>
             <Route
               path="/invite/:inviterToken"

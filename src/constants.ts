@@ -1,4 +1,4 @@
-export const BASEURL = "http://0.0.0.0:3001"
+export const BASEURL = "http://192.168.0.105:3001"
 import pizza from "./assets/pizza.png"
 import burger from "./assets/burger.png"
 import sushi from "./assets/sushi.png"

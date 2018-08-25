@@ -28,6 +28,8 @@ const initialState = fromJS({
 
 const userSessionReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
+    case ActionType.CLEAR_USER_SESSION:
+      return fromJS(initialState)
     case ActionType.CHANGE_USER_STATE:
       return state.set("userState", fromJS(action.payload))
     case ActionType.SET_INVITER_TOKEN: {

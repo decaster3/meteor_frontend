@@ -19,7 +19,7 @@ import {saveState} from "./localStorage"
 import {BrowserRouter} from "react-router-dom"
 
 const initialState = {}
-const store = configureStore(initialState)
+export const store = configureStore(initialState)
 const MOUNT_NODE = document.getElementById("root")
 
 store.subscribe(() => {
