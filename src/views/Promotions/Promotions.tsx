@@ -1,11 +1,12 @@
 import React from "react"
-import {styled} from "./App/emotion"
-import {PrimaryButton} from "./PrimaryButton"
-import {Status, BASEURL} from "../constants"
+import {styled} from "../App/emotion"
+import {PrimaryButton} from "../PrimaryButton"
+import PromotionCreation from "./PromotionCreation"
+import {Status, BASEURL} from "../../constants"
 import {compose} from "redux"
 import withPromotionBanner, {
   PromotionStateProps,
-} from "../containers/PromotionBanner"
+} from "../../containers/PromotionBanner"
 
 const Image = styled("img")`
   width: 100%;
@@ -22,7 +23,7 @@ const PromotionInfo = styled("p")`
 const Promotions: React.StatelessComponent<PromotionStateProps> = props => (
   <div className="flex-grow-1 d-flex flex-column">
     <h1 className="mb-5">Акции</h1>
-
+    <PromotionCreation />
     <div className="flex-grow-1 row">
       {props.promotionsStatus === Status.LOADED &&
         props.promotions.map(promo => (

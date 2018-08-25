@@ -1,6 +1,6 @@
 import React from "react"
 
-import PromotionBanner from "../PromotionBanner"
+import PromotionBanner from "../Promotions/PromotionBanner"
 import MeteorBanner from "../MeteorBanner"
 import Menu from "../Menu"
 import {compose} from "redux"

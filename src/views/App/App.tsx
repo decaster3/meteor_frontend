@@ -20,7 +20,7 @@ import pattern from "../../assets/pattern.png"
 import Checkout from "../Checkout"
 import {injectGlobal} from "emotion"
 import NotFound from "../NotFound"
-import Promotions from "../Promotions"
+import Promotions from "../Promotions/Promotions"
 import ProductView from "../ProductView"
 import OrderCallback from "../../views/OrderCallback"
 
