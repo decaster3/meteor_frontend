@@ -29,7 +29,10 @@ const Promotions: React.StatelessComponent<
     <div className="flex-grow-1 row">
       {props.promotionsStatus === Status.LOADED &&
         props.promotions.map(promo => (
-          <div className="col-12 col-md-6 mb-5 d-flex flex-column">
+          <div
+            className="col-12 col-md-6 mb-5 d-flex flex-column"
+            key={promo.id}
+          >
             <Image src={`${BASEURL}/${promo.imageUrl}`} />
             <h2>{promo.name}</h2>
             <PromotionInfo>{promo.description}</PromotionInfo>
