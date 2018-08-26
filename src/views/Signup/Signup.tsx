@@ -40,10 +40,17 @@ const Signup: React.StatelessComponent<SignupProps> = props => {
         initialValues={fromJS({inviterToken: props.inviterToken})}
         isPhonePending={props.isPhonePending}
       />
-      <div className="row">
-        <div className={classnames(styles.miniLabel, "col")}>
+      <div className="row align-items-center">
+        <div className={classnames(styles.miniLabel, "col-auto")}>
           Есть аккаунт?
-          <button onClick={props.handleChangeTab}>Войти</button>
+        </div>
+        <div className="col">
+          <button
+            className="btn btn-block btn-outline-success"
+            onClick={props.handleChangeTab}
+          >
+            Войти
+          </button>
         </div>
       </div>
     </div>

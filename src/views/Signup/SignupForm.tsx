@@ -45,6 +45,7 @@ const SignupForm: React.StatelessComponent<
         />
       </div>
     </div>
+
     <div className="form-group row">
       <label className="col-4 col-form-label" htmlFor="phone">
         Телефон
@@ -63,15 +64,15 @@ const SignupForm: React.StatelessComponent<
         />
       </div>
     </div>
+
     <div className="form-group row">
-      <label className="col-4 col-form-label" htmlFor="phone">
+      <label className="col-4 col-form-label" htmlFor="inviterToken">
         Код пригласителя
       </label>
       <div className="col-8">
         <Field
           component={CustomInput}
           name="inviterToken"
-          normalize={normalizePhone}
           props={{
             id: "inviterToken",
             type: "text",
@@ -84,6 +85,7 @@ const SignupForm: React.StatelessComponent<
         />
       </div>
     </div>
+
     <div className="form-group row">
       <label className="col-4 col-form-label" htmlFor="phone">
         Пароль
@@ -101,9 +103,11 @@ const SignupForm: React.StatelessComponent<
         />
       </div>
     </div>
+
     <div style={{color: "red", textAlign: "center"}}>
       {props.error && <strong>{props.error}</strong>}
     </div>
+
     <div className="form-group row">
       <div className="col">
         <button

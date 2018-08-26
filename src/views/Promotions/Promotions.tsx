@@ -2,11 +2,9 @@ import React from "react"
 import {styled} from "../App/emotion"
 import {withUser, UserStateProps} from "../../containers/UserSession"
 import PromotionCreation from "./PromotionCreation"
-import {Status, BASEURL} from "../../constants"
+import {Status, BASE_URL} from "../../constants"
 import {compose} from "redux"
-import withPromotionBanner, {
-  PromotionStateProps,
-} from "../../containers/Promotions"
+import withPromotions, {PromotionProps} from "../../containers/Promotions"
 
 const Image = styled("img")`
   width: 100%;
@@ -21,7 +19,7 @@ const PromotionInfo = styled("p")`
 `
 
 const Promotions: React.StatelessComponent<
-  PromotionStateProps & UserStateProps
+  PromotionProps & UserStateProps
 > = props => (
   <div className="flex-grow-1 d-flex flex-column">
     <h1 className="mb-5">Акции</h1>
@@ -33,19 +31,16 @@ const Promotions: React.StatelessComponent<
             className="col-12 col-md-6 mb-5 d-flex flex-column"
             key={promo.id}
           >
-            <Image src={`${BASEURL}/${promo.imageUrl}`} />
+            <Image src={`${BASE_URL}/${promo.imageUrl}`} />
             <h2>{promo.name}</h2>
             <PromotionInfo>{promo.description}</PromotionInfo>
-            {/* <div className="d-flex justify-content-center">
-              <PrimaryButton>Заказать</PrimaryButton>
-            </div> */}
           </div>
         ))}
     </div>
   </div>
 )
 
-export default compose<any>(
-  withUser,
-  withPromotionBanner
+export default compose(
+  withPromotions,
+  withUser
 )(Promotions)

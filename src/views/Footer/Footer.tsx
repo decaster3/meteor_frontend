@@ -1,5 +1,5 @@
 import React from "react"
-import Icon from "react-fa"
+import {css} from "emotion"
 
 import * as styles from "./Footer.module.scss"
 import {compose} from "redux"
@@ -7,18 +7,33 @@ import withCategories from "../../containers/Category"
 import {Status} from "../../constants"
 import {Row} from "reactstrap"
 import {Category} from "../../containers/Products/actions"
-
-const secondaryPages = [
-  "Feedback",
-  "Sales & Offers",
-  "Delivery & Payment",
-  "About",
-]
+import logo from "../../assets/logo.svg"
+import {styled} from "../App/emotion"
 
 interface FooterProps {
   categoriesStatus: Status
   categories: Category[]
 }
+
+const Anchor = styled("a")`
+  color: white;
+  text-decoration: none;
+
+  :hover,
+  :focus,
+  :active {
+    color: ${props => props.theme.orange};
+    text-decoration: none;
+    text-shadow: 0 0 48px ${props => props.theme.orange};
+  }
+`
+
+const FooterBlock = styled("div")`
+  letter-spacing: 0.125rem;
+  font-weight: 500;
+  color: ${props => props.theme.lighterGrey};
+  padding: 0.5rem 2rem; /* py-2 px-4 */
+`
 
 const Footer: React.StatelessComponent<FooterProps> = props => (
   <>
@@ -33,24 +48,40 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
       ))}
     </Row>
 
-    <div className={styles.footer}>
-      <div className={styles.secondaryMenu}>
-        {secondaryPages.map((secondaryPage, index) => (
-          <div key={index}>
-            <a href="#">{secondaryPage}</a>
-          </div>
-        ))}
-      </div>
+    <div className="row align-items-center mt-3 mb-2">
+      <FooterBlock className="col">
+        <p>
+          <Anchor href="#">Обратная связь</Anchor>
+        </p>
+        <p>
+          <Anchor href="#">Акции и предложения</Anchor>
+        </p>
+        <p>
+          <Anchor href="#">Доставка и оплата</Anchor>
+        </p>
+        <p>
+          <Anchor href="#">О компании</Anchor>
+        </p>
+      </FooterBlock>
 
-      <div className={styles.footerSeparator} />
+      <FooterBlock className="col">
+        <img
+          className={css`
+            max-width: 100%;
+          `}
+          src={logo}
+        />
+      </FooterBlock>
 
-      <div className={styles.secondaryMenu}>
-        {secondaryPages.map((secondaryPage, index) => (
-          <div key={index}>
-            <a href="#">{secondaryPage}</a>
-          </div>
-        ))}
-      </div>
+      <FooterBlock className="col">
+        <p>
+          Поддержка клиентов
+          <br />
+          +7 727 321 22 21
+        </p>
+        <p>Копирайт &copy; {new Date().getFullYear()}</p>
+        <p>Все права защищены.</p>
+      </FooterBlock>
     </div>
   </>
 )

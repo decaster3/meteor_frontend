@@ -1,6 +1,5 @@
 import React from "react"
 import moment from "moment"
-import * as styles from "./PhoneCode.module.scss"
 import PhoneCodeForm, {ImmutablePhoneCodeFormData} from "./PhoneCodeForm"
 import {fromJS} from "immutable"
 
@@ -46,38 +45,32 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
   }
 
   render() {
-    const sentCode =
-      moment().diff(moment(this.props.codeSent), "seconds") - 60 < 0 ? (
-        <div className="col">
-          Номер можно изменить через {this.state.counter}
-        </div>
-      ) : (
-        <div className="form-group row">
-          <div className="row">
-            <div className="col">
-              <button
-                onClick={this.props.handleReSendPhone}
-                className="btn btn-block btn-default"
-              >
-                Изменить номер
-              </button>
-            </div>
-          </div>
-        </div>
-      )
     return (
       <div>
-        <div className={styles.modalTitle}>
-          <h4 className="text-center mb-3 font-weight-bold">
-            Регистрация шаг 2/2
-          </h4>
-        </div>
+        <h4 className="text-center mb-3 font-weight-bold">
+          Регистрация шаг 2/2
+        </h4>
+
         <PhoneCodeForm
           onSubmit={this.handleCodeSubmit}
           isCodePending={this.props.isCodePending}
           initialValues={fromJS({phone: this.props.phone})}
         />
-        {sentCode}
+
+        <div className="mt-3">
+          {moment().diff(moment(this.props.codeSent), "seconds") - 60 < 0 ? (
+            <div className="text-center">
+              Номер можно изменить через {this.state.counter} <small>c</small>
+            </div>
+          ) : (
+            <button
+              onClick={this.props.handleReSendPhone}
+              className="btn btn-block btn-outline-success"
+            >
+              Изменить номер
+            </button>
+          )}
+        </div>
       </div>
     )
   }

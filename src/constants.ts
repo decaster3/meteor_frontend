@@ -1,10 +1,10 @@
-export const BASEURL = "http://192.168.0.107:3001"
 import pizza from "./assets/pizza.png"
 import burger from "./assets/burger.png"
 import sushi from "./assets/sushi.png"
 import snacks from "./assets/snacks.png"
 import {Category} from "./containers/Products/actions"
 
+export const BASE_URL = process.env.REACT_APP_BASE_URL
 export const JS_HREF = "javascript:void(0);"
 
 export enum Status {
