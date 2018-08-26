@@ -16,11 +16,23 @@ const Link = styled(ReactRouterLink)`
   }
 `
 
-export interface OrderCallbackProps extends UserStateProps, ThemeProps {
+interface OrderCallbackProps extends UserStateProps, ThemeProps {
   match: match<{status?: string; id: number; phone: string}>
 }
 
-class OrderCallback extends React.Component<OrderCallbackProps> {
+interface OrderCallbackState {
+  authModalShown: boolean
+}
+
+class OrderCallback extends React.Component<
+  OrderCallbackProps,
+  OrderCallbackState
+> {
+  state: OrderCallbackState = {
+    authModalShown: false,
+  }
+  toggle = () =>
+    this.setState(prevState => ({authModalShown: !prevState.authModalShown}))
   render() {
     return (
       <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
@@ -33,28 +45,32 @@ class OrderCallback extends React.Component<OrderCallbackProps> {
         </div>
         {this.props.userState !== UserState.LOGED_IN && (
           <div>
-            <SignUp registrationFirst={true}>
-              <button
-                className={css`
-                  background-color: ${this.props.theme.lightGreen};
-                  color: white;
-                  text-transform: uppercase;
-                  font-weight: 500;
-                  border: none;
-                  padding: 0.5rem 1rem;
-                  border-radius: 0.25rem;
-                  letter-spacing: 0.125rem;
+            <button
+              className={css`
+                background-color: ${this.props.theme.lightGreen};
+                color: white;
+                text-transform: uppercase;
+                font-weight: 500;
+                border: none;
+                padding: 0.5rem 1rem;
+                border-radius: 0.25rem;
+                letter-spacing: 0.125rem;
 
-                  &:focus,
-                  &:hover {
-                    background-color: ${this.props.theme.darkGreen};
-                  }
-                `}
-              >
-                Зарегестрируйся или войди
-              </button>
-            </SignUp>
+                &:focus,
+                &:hover {
+                  background-color: ${this.props.theme.darkGreen};
+                }
+              `}
+            >
+              Зарегестрируйся или войди
+            </button>
             <p>чтобы использовать бонусные баллы</p>
+
+            <SignUp
+              modalShown={this.state.authModalShown}
+              toggle={this.toggle}
+              registrationFirst={true}
+            />
           </div>
         )}
         <p className="mt-5">

@@ -4,9 +4,7 @@ import {withUser, UserStateProps} from "../../containers/UserSession"
 import PromotionCreation from "./PromotionCreation"
 import {Status, BASEURL} from "../../constants"
 import {compose} from "redux"
-import withPromotionBanner, {
-  PromotionStateProps,
-} from "../../containers/Promotions"
+import withPromotionBanner, {PromotionProps} from "../../containers/Promotions"
 
 const Image = styled("img")`
   width: 100%;
@@ -21,7 +19,7 @@ const PromotionInfo = styled("p")`
 `
 
 const Promotions: React.StatelessComponent<
-  PromotionStateProps & UserStateProps
+  PromotionProps & UserStateProps
 > = props => (
   <div className="flex-grow-1 d-flex flex-column">
     <h1 className="mb-5">Акции</h1>

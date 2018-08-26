@@ -1,6 +1,5 @@
 import React from "react"
 import moment from "moment"
-import * as styles from "./PhoneCode.module.scss"
 import PhoneCodeForm, {ImmutablePhoneCodeFormData} from "./PhoneCodeForm"
 import {fromJS} from "immutable"
 
@@ -48,11 +47,9 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
   render() {
     return (
       <div>
-        <div className={styles.modalTitle}>
-          <h4 className="text-center mb-3 font-weight-bold">
-            Регистрация шаг 2/2
-          </h4>
-        </div>
+        <h4 className="text-center mb-3 font-weight-bold">
+          Регистрация шаг 2/2
+        </h4>
 
         <PhoneCodeForm
           onSubmit={this.handleCodeSubmit}
@@ -62,7 +59,9 @@ class CodeForm extends React.Component<CodeFormProps, CodeFormState> {
 
         <div className="mt-3">
           {moment().diff(moment(this.props.codeSent), "seconds") - 60 < 0 ? (
-            `Номер можно изменить через ${this.state.counter}`
+            <div className="text-center">
+              Номер можно изменить через {this.state.counter} <small>c</small>
+            </div>
           ) : (
             <button
               onClick={this.props.handleReSendPhone}

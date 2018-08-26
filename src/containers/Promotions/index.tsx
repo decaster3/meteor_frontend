@@ -5,9 +5,9 @@ import {getPromotions, Promotion} from "./actions"
 import reducer from "./reducer"
 import {selectPromotions, selectPromotionsStatus} from "./selectors"
 import {Status} from "../../constants"
-import React from "react"
+import React, {ComponentType, Component} from "react"
 
-export interface PromotionStateProps {
+interface PromotionStateProps {
   promotions: Promotion[]
   promotionsStatus: Status
 }
@@ -20,8 +20,8 @@ export interface PromotionProps
   extends PromotionStateProps,
     PromotionDispatchProps {}
 
-const withPromotions = (WrappedComponent: React.ComponentType<any>) => {
-  return class WithCategoriesContainer extends React.Component<any> {
+const withPromotions = (WrappedComponent: ComponentType) => {
+  return class WithCategoriesContainer extends Component<PromotionProps> {
     componentDidMount() {
       this.props.getPromotions()
     }
