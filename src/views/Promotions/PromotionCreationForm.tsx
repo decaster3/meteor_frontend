@@ -35,6 +35,21 @@ const PromotionCreation: React.StatelessComponent<
       </div>
       <div className="form-group row">
         <label className="col-4 col-form-label" htmlFor="phone">
+          Название акции
+        </label>
+        <div className="col-8">
+          <Field
+            component={CustomInput}
+            name={"name"}
+            props={{
+              id: "name",
+              type: "name",
+              placeholder: "название",
+              autoComplete: "name",
+            }}
+          />
+        </div>
+        <label className="col-4 col-form-label" htmlFor="phone">
           Описание акции
         </label>
         <div className="col-8">
@@ -49,6 +64,15 @@ const PromotionCreation: React.StatelessComponent<
             }}
           />
         </div>
+      </div>
+      <div className="d-flex justify-content-end">
+        <button className="btn btn-success m-4" type="submit" disabled={false}>
+          {false ? (
+            <PulseLoader color={"#ffffff"} size={8} />
+          ) : (
+            <span>Cоздать</span>
+          )}
+        </button>
       </div>
     </form>
   )

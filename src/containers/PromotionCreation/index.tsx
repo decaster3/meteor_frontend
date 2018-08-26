@@ -10,7 +10,7 @@ interface PromotionCreationStateProps {
 }
 
 interface PromotionCreationDispatchProps {
-  createPromotion(image: any, description: string): void
+  createPromotion(image: any, description: string, name: string): void
 }
 
 export interface PromotionCreationProps
@@ -25,8 +25,8 @@ const mapStateToProps = (state: any): PromotionCreationStateProps => {
 
 const mapDispatchToProps = (dispatch: any): PromotionCreationDispatchProps => {
   return {
-    createPromotion: (image: any, description: string) =>
-      dispatch(createPromotion(image, description)),
+    createPromotion: (image: any, description: string, name: string) =>
+      dispatch(createPromotion(image, description, name)),
   }
 }
 

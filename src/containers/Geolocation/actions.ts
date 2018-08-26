@@ -8,7 +8,6 @@ import Geocode from "react-geocode"
 import {getProducts} from "../Products/actions"
 
 Geocode.setApiKey("AIzaSyDeRt-ekVSI0anD_b1zE5Kl7WobsRGutvc")
-Geocode.enableDebug()
 export const citiesData = [
   {
     id: 1,

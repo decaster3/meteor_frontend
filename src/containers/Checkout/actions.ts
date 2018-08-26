@@ -1,6 +1,6 @@
 import requests from "../../services/requests"
 import {ActionType, OrderStatus} from "./constants"
-import {CartProduct} from "../Cart/actions"
+import {CartProduct, clearCart} from "../Cart/actions"
 import {Status} from "../../constants"
 
 export interface Order {
@@ -97,6 +97,7 @@ export const makeOrder = (
     })
     .then(data => {
       dispatch(changeOrderStatus(OrderStatus.DODE))
+      dispatch(clearCart())
       successCallback(data.id, true, phone)
     })
     .catch(() => {

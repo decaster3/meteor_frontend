@@ -19,7 +19,11 @@ export class Categories extends React.Component<
   }
 
   handleSubmit = (values: any) => {
-    this.props.createPromotion(values.get("image"), values.get("description"))
+    this.props.createPromotion(
+      values.get("image"),
+      values.get("description"),
+      values.get("name")
+    )
   }
 
   toggle = () =>

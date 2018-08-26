@@ -28,8 +28,8 @@ class OrderCallback extends React.Component<OrderCallbackProps> {
           Заказ {this.props.match.params.id} оформлен успешно!🚀🚀🚀{" "}
         </span>
         <div>
-          После доставки заказа, на номер {this.props.match.params.phone}{" "}
-          поступят бонусные баллы!🎆
+          После доставки заказа, на аккаунт с номером{" "}
+          {this.props.match.params.phone} поступят бонусные баллы!🎆
         </div>
         {this.props.userState !== UserState.LOGED_IN && (
           <div>

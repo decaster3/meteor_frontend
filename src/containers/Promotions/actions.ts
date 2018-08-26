@@ -6,6 +6,7 @@ export interface Promotion {
   id: number
   imageUrl: string
   description: string
+  name: string
 }
 
 const setPromotionsStatus = (PromotionsStatus: string) => ({

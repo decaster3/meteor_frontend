@@ -7,7 +7,7 @@ import {Status, BASEURL} from "../../constants"
 import defaultImage from "../../assets/default_banner.png"
 import withPromotionBanner, {
   PromotionStateProps,
-} from "../../containers/PromotionBanner"
+} from "../../containers/Promotions"
 
 const carouselId = "carousel"
 

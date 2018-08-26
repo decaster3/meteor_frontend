@@ -6,11 +6,22 @@ const changePromotionCreationStatus = (status: boolean) => ({
   payload: status,
 })
 
-export const createPromotion = (image: any, description: any) => (
-  dispatch: any
-) => {
+export const createPromotion = (
+  image: any,
+  description: string,
+  name: string
+) => (dispatch: any, getState: any) => {
+  const cityId =
+    (getState()
+      .get("geolocation")
+      .get("defaultCity") &&
+      getState()
+        .get("geolocation")
+        .get("defaultCity")
+        .get("id")) ||
+    1
   return requests
-    .post("promotions", {body: description})
+    .post("promotions", {body: {description, name, cityId}})
     .then(data => {
       const body = new FormData()
       body.append(`image`, image[0])

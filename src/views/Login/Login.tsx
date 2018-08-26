@@ -1,6 +1,7 @@
 import React from "react"
 import classnames from "classnames"
-
+import {withRegistration} from "../../containers/UserSession"
+import {compose} from "redux"
 import LoginForm from "./LoginForm"
 import * as styles from "./Login.module.scss"
 
@@ -16,6 +17,7 @@ class Login extends React.Component<LoginProps> {
   }
 
   render() {
+    console.log(this.props.isLoginPending)
     return (
       <div>
         <div className={styles.modalTitle}>
@@ -38,4 +40,4 @@ class Login extends React.Component<LoginProps> {
   }
 }
 
-export default Login
+export default compose(withRegistration)(Login)
