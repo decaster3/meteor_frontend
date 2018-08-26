@@ -20,8 +20,10 @@ export interface PromotionProps
   extends PromotionStateProps,
     PromotionDispatchProps {}
 
-const withPromotions = (WrappedComponent: ComponentType) => {
-  return class WithCategoriesContainer extends Component<PromotionProps> {
+const withPromotions = <P extends PromotionProps>(
+  WrappedComponent: ComponentType<P>
+) => {
+  return class WithPromotionsContainer extends Component<P> {
     componentDidMount() {
       this.props.getPromotions()
     }

@@ -1,4 +1,4 @@
-import {BASEURL} from "../constants"
+import {BASE_URL} from "../constants"
 import {store} from "../"
 import {logout} from "../containers/UserSession/actions"
 
@@ -16,7 +16,7 @@ const request = (
   const token = localStorage.getItem("token")
   const isContentTypeFormData =
     options && options.body && options.body instanceof FormData
-  return fetch(`${BASEURL}/${path}`, {
+  return fetch(`${BASE_URL}/${path}`, {
     ...options,
     method,
     mode: "cors",

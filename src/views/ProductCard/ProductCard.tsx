@@ -8,7 +8,7 @@ import {
 } from "../../containers/Products/actions"
 import withCart, {CartProps} from "../../containers/Cart"
 import {cx, css} from "emotion"
-import {BASEURL} from "../../constants"
+import {BASE_URL} from "../../constants"
 import IndependentOptions from "./IndependentOptions"
 import DependentOptions from "./DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
@@ -132,7 +132,7 @@ class ProductCard extends Component<ProductCardProps, ProductCardState> {
               className="d-block w-100"
               src={
                 this.props.product.imageUrl
-                  ? `${BASEURL}/${this.props.product.imageUrl}`
+                  ? `${BASE_URL}/${this.props.product.imageUrl}`
                   : pizzaPlaceholder
               }
             />
