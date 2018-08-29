@@ -1,6 +1,7 @@
 import React from "react"
 import {compose} from "redux"
 import {withUser, UserProps} from "../../containers/UserSession"
+import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import BonusHistory from "./BonusHistory"
 import OrderHistory from "./OrderHistory"
 import {css, cx} from "emotion"
@@ -19,7 +20,10 @@ interface AccountState {
   activeTab: TabType
 }
 
-class Account extends React.Component<AccountProps, AccountState> {
+class Account extends React.Component<
+  AccountProps & GeolocationProps,
+  AccountState
+> {
   static Subtitle = styled("h3")`
     color: ${props => props.theme.lighterGrey};
     margin-bottom: 24px; /* mb-4 */
@@ -108,17 +112,16 @@ class Account extends React.Component<AccountProps, AccountState> {
             <div className={"col-4 text-center"}>
               <div>На вашем счету</div>
               <div className={"text-white h3 mb-0 py-3"}>
-              {this.props.userInfoStatus === Status.LOADED ?
-                this.props.userInfo.meteors
-                .map(x => x.value)
-                .reduce((prevVal, currentVal) => prevVal + currentVal, 0)
-                : 0
-              }
-                <small> метеоров</small>
+                {this.props.userInfoStatus === Status.LOADED
+                  ? this.props.userInfo.meteors
+                      .map(x => x.value)
+                      .reduce((prevVal, currentVal) => prevVal + currentVal, 0)
+                  : 0}
+                <small> метеоров - {this.props.defaultCity.currency}</small>
               </div>
               <div className="row justify-content-center">
                 <div className="col-auto">
-                  <PrimaryButtonAsLink to="/meteors">
+                  <PrimaryButtonAsLink to="/bonussystem">
                     Как это работает?
                   </PrimaryButtonAsLink>
                 </div>
@@ -191,5 +194,6 @@ class Account extends React.Component<AccountProps, AccountState> {
 
 export default compose(
   withUser,
+  withGeolocation,
   withTheme
 )(Account)

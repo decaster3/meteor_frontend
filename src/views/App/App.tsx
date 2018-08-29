@@ -23,7 +23,7 @@ import NotFound from "../NotFound"
 import Promotions from "../Promotions/Promotions"
 import ProductView from "../ProductView"
 import OrderCallback from "../../views/OrderCallback"
-
+import BonusSystemDescription from "../BonusSystemDescription"
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
   html,
@@ -112,6 +112,11 @@ const App: React.StatelessComponent<AppProps> = props => (
             <Route path="/cart" exact={true} component={Cart} />
             <Route path="/checkout" exact={true} component={Checkout} />
             <Route path="/promotions" exact={true} component={Promotions} />
+            <Route
+              path="/bonussystem"
+              exact={true}
+              component={BonusSystemDescription}
+            />
             <Route
               path="/order/:id/:status/:phone"
               exact={true}

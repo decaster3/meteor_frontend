@@ -2,6 +2,7 @@ import React from "react"
 import {css} from "emotion"
 
 import * as styles from "./Footer.module.scss"
+import {Link as ReactRouterLink} from "react-router-dom"
 import {compose} from "redux"
 import withCategories from "../../containers/Category"
 import {Status} from "../../constants"
@@ -15,7 +16,7 @@ interface FooterProps {
   categories: Category[]
 }
 
-const Anchor = styled("a")`
+const Anchor = styled(ReactRouterLink)`
   color: white;
   text-decoration: none;
 
@@ -51,16 +52,16 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
     <div className="row align-items-center mt-3 mb-2">
       <FooterBlock className="col">
         <p>
-          <Anchor href="#">Обратная связь</Anchor>
+          <Anchor to="/promotions">Обратная связь</Anchor>
         </p>
         <p>
-          <Anchor href="#">Акции и предложения</Anchor>
+          <Anchor to="/promotions">Акции и предложения</Anchor>
         </p>
         <p>
-          <Anchor href="#">Доставка и оплата</Anchor>
+          <Anchor to="/promotions">Доставка и оплата</Anchor>
         </p>
         <p>
-          <Anchor href="#">О компании</Anchor>
+          <Anchor to="/promotions">О компании</Anchor>
         </p>
       </FooterBlock>
 
