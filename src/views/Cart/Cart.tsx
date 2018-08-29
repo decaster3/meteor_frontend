@@ -173,7 +173,8 @@ class Cart extends React.Component<
             </div>
             <div className="my-3 text-center text-danger">
               Сумма заказа должна быть выше{" "}
-              {this.props.defaultCity.minimalOrderPrice} <small>JYP</small>
+              {this.props.defaultCity.minimalOrderPrice}{" "}
+              <small>{this.props.defaultCity.currency}</small>
             </div>
           </>
         )}
