@@ -57,10 +57,10 @@ class Cart extends React.Component<
             </div>
 
             <StickyContainer className="col-12 col-lg-4">
-              <Sticky topOffset={-56} bottomOffset={56}>
-                {({style, isSticky}: any) => (
-                  <div style={{...style, ...{marginTop: isSticky ? 56 : 0}}}>
-                    {this.props.possibleMeteors > 0 && (
+              {this.props.possibleMeteors > 0 && (
+                <Sticky topOffset={-56} bottomOffset={56}>
+                  {({style, isSticky}: any) => (
+                    <div style={{...style, ...{marginTop: isSticky ? 56 : 0}}}>
                       <div>
                         <div className="h5 mt-3 text-center text-uppercase">
                           <span
@@ -102,47 +102,49 @@ class Cart extends React.Component<
                           </div>
                         </div>
                       </div>
-                    )}
-                    <div className="row my-3 mb-5 text-center text-uppercase">
-                      <div className="col">
-                        <div
-                          className={
-                            this.props.possibleMeteors > 0 ? "mb-1" : "h4 mb-1"
-                          }
-                        >
-                          К оплате:
-                        </div>
-                        <div className="h4 mb-0 font-weight-bold">
-                          <span
-                            className={css`
-                              line-height: 1.5;
-                              color: ${this.props.theme.lightGreen};
-                            `}
+                      <div className="row my-3 mb-5 text-center text-uppercase">
+                        <div className="col">
+                          <div
+                            className={
+                              this.props.possibleMeteors > 0
+                                ? "mb-1"
+                                : "h4 mb-1"
+                            }
                           >
-                            {this.props.total - this.state.choosenMeteors}
-                            &nbsp;
-                            <small>{this.props.defaultCity.currency}</small>
-                          </span>
-                        </div>
-                        {this.props.possibleMeteors > 0 && (
+                            К оплате:
+                          </div>
                           <div className="h4 mb-0 font-weight-bold">
                             <span
                               className={css`
                                 line-height: 1.5;
-                                color: ${this.props.theme.orange};
+                                color: ${this.props.theme.lightGreen};
                               `}
                             >
-                              {this.state.choosenMeteors}
+                              {this.props.total - this.state.choosenMeteors}
                               &nbsp;
-                              <small>метеоров</small>
+                              <small>{this.props.defaultCity.currency}</small>
                             </span>
                           </div>
-                        )}
+                          {this.props.possibleMeteors > 0 && (
+                            <div className="h4 mb-0 font-weight-bold">
+                              <span
+                                className={css`
+                                  line-height: 1.5;
+                                  color: ${this.props.theme.orange};
+                                `}
+                              >
+                                {this.state.choosenMeteors}
+                                &nbsp;
+                                <small>метеоров</small>
+                              </span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </Sticky>
+                  )}
+                </Sticky>
+              )}
             </StickyContainer>
           </div>
         ) : (
@@ -150,7 +152,9 @@ class Cart extends React.Component<
         )}
 
         {!this.props.isDeliveryAvailable && (
-          <h1>Только запланированный заказ</h1>
+          <div className="h3 text-warning text-center">
+            Только запланированный заказ
+          </div>
         )}
 
         {this.props.total >
@@ -172,8 +176,9 @@ class Cart extends React.Component<
               </div>
             </div>
             <div className="my-3 text-center text-danger">
-              Сумма заказа должна быть выше{" "}
-              {this.props.defaultCity.minimalOrderPrice}{" "}
+              {`Сумма заказа должна быть выше ${
+                this.props.defaultCity.minimalOrderPrice
+              } `}
               <small>{this.props.defaultCity.currency}</small>
             </div>
           </>
