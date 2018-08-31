@@ -9,10 +9,12 @@ import {compose} from "redux"
 
 const Link = styled(ReactRouterLink)`
   color: ${props => props.theme.orange};
+  text-decoration: none;
   :focus,
   :hover,
   :active {
     color: ${props => props.theme.redOrange};
+    text-decoration: none;
   }
 `
 
@@ -37,15 +39,16 @@ class OrderCallback extends React.Component<
     return (
       <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
         <span className="h1 mb-5">
-          Заказ {this.props.match.params.id} оформлен успешно!🚀🚀🚀{" "}
+          Заказ №{this.props.match.params.id} оформлен успешно! 🚀🚀🚀
         </span>
-        <div>
+        <p className="h5 mb-5">
           После доставки заказа, на аккаунт с номером{" "}
           {this.props.match.params.phone} поступят бонусные баллы!
-        </div>
+        </p>
         {this.props.userState !== UserState.LOGED_IN && (
           <div>
             <button
+              onClick={this.toggle}
               className={css`
                 background-color: ${this.props.theme.lightGreen};
                 color: white;
@@ -64,13 +67,14 @@ class OrderCallback extends React.Component<
             >
               Зарегестрируйся или войди
             </button>
-            <p>чтобы использовать бонусные баллы</p>
 
             <SignUp
               modalShown={this.state.authModalShown}
               toggle={this.toggle}
               registrationFirst={true}
             />
+
+            <p className="h5 mt-3">чтобы использовать бонусные баллы</p>
           </div>
         )}
         <p className="mt-5">
