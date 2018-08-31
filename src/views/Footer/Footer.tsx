@@ -17,7 +17,7 @@ interface FooterProps {
   categories: Category[]
 }
 
-const Anchor = styled(ReactRouterLink)`
+const Link = styled(ReactRouterLink)`
   color: white;
   text-decoration: none;
 
@@ -67,16 +67,16 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
     <div className="row align-items-center mt-3 mb-2">
       <FooterBlock className="col">
         <p>
-          <Anchor to="/promotions">Обратная связь</Anchor>
+          <Link to="/promotions">Обратная связь</Link>
         </p>
         <p>
-          <Anchor to="/promotions">Акции и предложения</Anchor>
+          <Link to="/promotions">Акции и предложения</Link>
         </p>
         <p>
-          <Anchor to="/promotions">Доставка и оплата</Anchor>
+          <Link to="/delivery">Доставка и оплата</Link>
         </p>
         <p>
-          <Anchor to="/promotions">О компании</Anchor>
+          <Link to="/about-company">О компании</Link>
         </p>
       </FooterBlock>
 

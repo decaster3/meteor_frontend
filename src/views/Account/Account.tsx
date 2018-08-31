@@ -121,7 +121,7 @@ class Account extends React.Component<
               </div>
               <div className="row justify-content-center">
                 <div className="col-auto">
-                  <PrimaryButtonAsLink to="/bonussystem">
+                  <PrimaryButtonAsLink to="/bonus-system">
                     Как это работает?
                   </PrimaryButtonAsLink>
                 </div>
