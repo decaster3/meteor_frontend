@@ -1,5 +1,6 @@
 import React from "react"
 import {css} from "emotion"
+import Icon from "react-fa"
 
 import * as styles from "./Footer.module.scss"
 import {Link as ReactRouterLink} from "react-router-dom"
@@ -34,6 +35,20 @@ const FooterBlock = styled("div")`
   font-weight: 500;
   color: ${props => props.theme.lighterGrey};
   padding: 0.5rem 2rem; /* py-2 px-4 */
+`
+
+const SocialMediaAnchor = styled("a")`
+  color: ${props => props.theme.orange};
+  font-size: 60px;
+  text-decoration: none;
+
+  :hover,
+  :focus,
+  :active {
+    color: ${props => props.theme.redOrange};
+    text-decoration: none;
+    text-shadow: 0 0 48px ${props => props.theme.redOrange};
+  }
 `
 
 const Footer: React.StatelessComponent<FooterProps> = props => (
@@ -72,6 +87,24 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
           `}
           src={logo}
         />
+
+        <div className="row mt-3">
+          <div className="col text-center">
+            <SocialMediaAnchor href="#">
+              <Icon name="vk" />
+            </SocialMediaAnchor>
+          </div>
+          <div className="col text-center">
+            <SocialMediaAnchor href="#">
+              <Icon name="instagram" />
+            </SocialMediaAnchor>
+          </div>
+          <div className="col text-center">
+            <SocialMediaAnchor href="#">
+              <Icon name="facebook" />
+            </SocialMediaAnchor>
+          </div>
+        </div>
       </FooterBlock>
 
       <FooterBlock className="col">
