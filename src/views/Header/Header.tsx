@@ -13,6 +13,7 @@ import {Link, NavLink, withRouter, RouteComponentProps} from "react-router-dom"
 import logo from "../../assets/logo.svg"
 import {compose} from "redux"
 import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
+import withCart, {CartProps} from "../../containers/Cart"
 import {withUser, UserProps} from "../../containers/UserSession"
 import {Status, JS_HREF} from "../../constants"
 import {UserState} from "../../containers/UserSession/constants"
@@ -29,7 +30,11 @@ interface HeaderState {
 }
 
 class Header extends React.Component<
-  UserProps & GeolocationProps & ThemeProps & RouteComponentProps<{}>,
+  UserProps &
+    GeolocationProps &
+    ThemeProps &
+    CartProps &
+    RouteComponentProps<{}>,
   HeaderState
 > {
   static Anchor = styled("a")`
@@ -256,7 +261,11 @@ class Header extends React.Component<
 
               <li className="nav-item d-none d-md-block">
                 <Header.NavLink className="nav-link" to="/cart">
-                  Корзина
+                  <span className="mr-3">
+                    {this.props.total}{" "}
+                    <small>{this.props.defaultCity.currency}</small>
+                  </span>
+                  <Icon name="shopping-cart" />
                 </Header.NavLink>
               </li>
             </ul>
@@ -271,5 +280,6 @@ export default compose(
   withRouter,
   withUser,
   withGeolocation,
-  withTheme
+  withTheme,
+  withCart
 )(Header)
