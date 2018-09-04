@@ -260,9 +260,13 @@ class Header extends React.Component<
               )}
 
               <li className="nav-item d-none d-md-block">
-                <Header.NavLink className="nav-link" to="/cart">
+                <Header.NavLink
+                  className="nav-link d-flex align-items-center"
+                  to="/cart"
+                >
                   <span className="mr-3">
-                    {this.props.total}{" "}
+                    {this.props.total}
+                    &nbsp;
                     <small>{this.props.defaultCity.currency}</small>
                   </span>
                   <Icon name="shopping-cart" />
