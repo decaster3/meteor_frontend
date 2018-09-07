@@ -1,13 +1,10 @@
 import React from "react"
-import {css} from "emotion"
 import Icon from "react-fa"
 
-import * as styles from "./Footer.module.scss"
 import {Link as ReactRouterLink} from "react-router-dom"
 import {compose} from "redux"
 import withCategories from "../../containers/Category"
 import {Status} from "../../constants"
-import {Row} from "reactstrap"
 import {Category} from "../../containers/Products/actions"
 import logo from "../../assets/logo.svg"
 import {styled} from "../App/emotion"
@@ -51,18 +48,51 @@ const SocialMediaAnchor = styled("a")`
   }
 `
 
+const BottomNavbar = styled("div")(({theme}) => ({
+  backgroundColor: theme.orange,
+  backgroundImage: `radial-gradient(
+    ${theme.orange},
+    ${theme.orange} 25%,
+    ${theme.redOrange}
+  )`,
+  justifyContent: "space-evenly",
+  alignItems: "center",
+  height: "5rem",
+  textTransform: "uppercase",
+  fontWeight: 700,
+  color: theme.darkBlue,
+  letterSpacing: "0.125em",
+}))
+
+const BottomNavbarAnchor = styled("a")`
+  color: ${props => props.theme.darkBlue};
+
+  :hover,
+  :focus {
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 0 2rem white;
+  }
+`
+
+const BottomNavbarSeparator = styled("div")`
+  height: 3rem;
+  width: 0.125rem;
+  background-color: ${props => props.theme.darkBlue};
+`
+
 const Footer: React.StatelessComponent<FooterProps> = props => (
   <>
-    <Row className={styles.bottomNavbar}>
+    <BottomNavbar className={"row"}>
       {props.categories.map((category, index) => (
         <React.Fragment key={index}>
-          {index > 0 && <div className={styles.bottomNavbarSeparator} />}
+          {index > 0 && <BottomNavbarSeparator />}
           <div>
-            <a href="#">{category.name}</a>
+            <BottomNavbarAnchor href="#">{category.name}</BottomNavbarAnchor>
           </div>
         </React.Fragment>
       ))}
-    </Row>
+    </BottomNavbar>
 
     <div className="row align-items-center mt-3 mb-2">
       <FooterBlock className="col">

@@ -83,13 +83,3 @@ body {
     font-weight: 900 !important;
   }
 }
-
-.darkLink {
-  color: $darkBlue;
-
-  &:hover,
-  &:focus {
-    color: white;
-    text-decoration: none;
-  }
-}
