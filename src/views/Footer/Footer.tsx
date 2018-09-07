@@ -31,7 +31,7 @@ const Link = styled(ReactRouterLink)`
 `
 
 const FooterBlock = styled("div")`
-  letter-spacing: 0.125rem;
+  letter-spacing: 0.125em;
   font-weight: 500;
   color: ${props => props.theme.lighterGrey};
   padding: 0.5rem 2rem; /* py-2 px-4 */
@@ -81,12 +81,7 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
       </FooterBlock>
 
       <FooterBlock className="col">
-        <img
-          className={css`
-            max-width: 100%;
-          `}
-          src={logo}
-        />
+        <img className={"mw-100"} src={logo} />
 
         <div className="row mt-3">
           <div className="col text-center">

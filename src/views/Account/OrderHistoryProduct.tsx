@@ -87,13 +87,7 @@ class OrderHistoryProduct extends React.Component<
 
         <div className="col-8 col-md mb-2 mb-md-0">
           <div>{this.props.product.name}</div>
-          <div
-            className={css`
-              display: flex;
-              flex-flow: row wrap;
-              color: ${this.props.theme.lightGreen};
-            `}
-          >
+          <div className={"d-flex flex-wrap text-lightgreen"}>
             {this.state.independentOptions.map((value, index) => (
               <OrderHistoryProduct.Option key={index}>
                 {value}
@@ -109,9 +103,9 @@ class OrderHistoryProduct extends React.Component<
         </div>
 
         <div className="col-4 col-md-2 h4 mb-0 text-center">
-          {this.props.product.instances[0].price.value}&nbsp;<small>
-            {this.props.product.instances[0].price.currency}
-          </small>
+          {this.props.product.instances[0].price.value}
+          &nbsp;
+          <small>{this.props.product.instances[0].price.currency}</small>
         </div>
 
         <div className="col-1">

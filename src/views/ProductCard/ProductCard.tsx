@@ -114,14 +114,7 @@ class ProductCard extends Component<ProductCardProps, ProductCardState> {
           <div className="my-2 font-weight-bold text-center">
             {this.props.product.name}
             {this.state.quantityInCart > 0 && (
-              <span
-                className={cx(
-                  "badge badge-pill badge-success ml-2",
-                  css`
-                    background: ${this.props.theme.orange};
-                  `
-                )}
-              >
+              <span className={"badge badge-pill badge-success ml-2 bg-orange"}>
                 {this.state.quantityInCart}
               </span>
             )}
@@ -153,12 +146,7 @@ class ProductCard extends Component<ProductCardProps, ProductCardState> {
         />
 
         <DependentOptions
-          className={cx(
-            "mx-4 my-2",
-            css`
-              color: ${this.props.theme.lightGreen};
-            `
-          )}
+          className={"mx-4 my-2 text-lightgreen"}
           options={this.props.product.options}
           dependentOptions={this.state.currentProductState.dependentOptions}
         />

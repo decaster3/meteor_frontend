@@ -65,7 +65,7 @@ class MeteorBanner extends Component<
                 border: none;
                 padding: 0.5rem 1rem;
                 border-radius: 0.25rem;
-                letter-spacing: 0.125rem;
+                letter-spacing: 0.125em;
 
                 &:focus,
                 &:hover {

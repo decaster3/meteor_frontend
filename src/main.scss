@@ -23,15 +23,29 @@ body {
     min-width: 1em;
     text-align: center;
   }
-}
 
-.lightLink {
-  color: white;
+  .text-lightgreen {
+    color: $lightGreen;
+  }
 
-  &:hover,
-  &:focus {
-    color: $orange;
-    text-decoration: none;
+  .bg-darkblue {
+    background-color: $darkBlue;
+  }
+
+  .bg-orange {
+    background-color: $orange;
+  }
+
+  .ls-1 {
+    letter-spacing: 0.0625em; // 1/16
+  }
+
+  .ls-2 {
+    letter-spacing: 0.125em; // 1/8
+  }
+
+  .ls-2 {
+    letter-spacing: 0.25em; // 1/4
   }
 }
 

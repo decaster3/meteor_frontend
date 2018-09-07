@@ -46,14 +46,7 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
     } = this.props
     return (
       <div
-        className={cx(
-          css`
-            padding: 16px;
-            margin: 16px 0;
-            background: ${this.props.theme.darkBlue};
-          `,
-          className
-        )}
+        className={cx("p-3 my-3 mx-0 bg-darkblue", className)}
         {...restOfProps}
       >
         <div

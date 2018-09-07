@@ -18,12 +18,7 @@ class BonusHistory extends React.Component<BonusHistoryProps> {
       case Status.LOADED:
         return this.props.userInfo.meteors.length > 0 ? (
           this.props.userInfo.meteors.map(meteor => (
-            <div
-              key={meteor.id}
-              className={css`
-                background: ${this.props.theme.darkBlue};
-              `}
-            >
+            <div key={meteor.id} className={"bg-darkblue"}>
               <div className={"row align-items-center my-3 p-3"}>
                 <div className="col">{meteor.description}</div>
                 <div className="col-auto">

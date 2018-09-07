@@ -71,13 +71,7 @@ class Cart extends React.Component<
                   <div style={{...style, ...{marginTop: isSticky ? 56 : 0}}}>
                     <div>
                       <div className="h5 mt-3 text-center text-uppercase">
-                        <span
-                          className={css`
-                            letter-spacing: 1px;
-                          `}
-                        >
-                          Использовать метеоры
-                        </span>
+                        <span className={"ls-1"}>Использовать метеоры</span>
                       </div>
 
                       <div className="row my-3 px-sm-3">

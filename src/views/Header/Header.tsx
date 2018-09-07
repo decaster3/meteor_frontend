@@ -108,12 +108,7 @@ class Header extends React.Component<
   render() {
     return (
       <div
-        className={cx(
-          "navbar navbar-expand-md navbar-dark fixed-top",
-          css`
-            background: ${this.props.theme.darkBlue};
-          `
-        )}
+        className={"navbar navbar-expand-md navbar-dark fixed-top bg-darkblue"}
       >
         <div className="container">
           <div className="d-flex">
