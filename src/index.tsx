@@ -11,6 +11,9 @@ import "bootstrap/dist/css/bootstrap.min.css.map"
 // Vendor JS
 import "bootstrap/dist/js/bootstrap.bundle"
 
+// Own styles
+import "./main.scss"
+
 import configureStore from "./configureStore"
 import App from "./views/App"
 import LanguageProvider from "./containers/LanguageProvider"

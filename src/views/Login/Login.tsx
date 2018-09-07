@@ -1,9 +1,7 @@
 import React from "react"
-import classnames from "classnames"
 import {withRegistration} from "../../containers/UserSession"
 import {compose} from "redux"
 import LoginForm from "./LoginForm"
-import * as styles from "./Login.module.scss"
 
 interface LoginProps {
   isLoginPending: boolean
@@ -20,17 +18,13 @@ class Login extends React.Component<LoginProps> {
     console.log(this.props.isLoginPending)
     return (
       <div>
-        <div className={styles.modalTitle}>
-          <h4 className="text-center mb-3 font-weight-bold">Вход</h4>
-        </div>
+        <h4 className="text-center mb-3 font-weight-bold">Вход</h4>
         <LoginForm
           isLoginPending={this.props.isLoginPending}
           onSubmit={this.handleLoginSubmit}
         />
         <div className="row align-items-center">
-          <div className={classnames(styles.miniLabel, "col-auto")}>
-            Нет аккаунта?
-          </div>
+          <div className={"col-auto"}>Нет аккаунта?</div>
           <div className="col">
             <button
               className="btn btn-block btn-outline-success"

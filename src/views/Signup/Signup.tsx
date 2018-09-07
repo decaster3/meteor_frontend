@@ -1,7 +1,5 @@
 import React from "react"
-import classnames from "classnames"
 
-import * as styles from "./Signup.module.scss"
 import SignupForm from "./SignupForm"
 import {fromJS} from "immutable"
 
@@ -30,20 +28,14 @@ const Signup: React.StatelessComponent<SignupProps> = props => {
 
   return (
     <div>
-      <div className={styles.modalTitle}>
-        <h4 className="text-center mb-3 font-weight-bold">
-          Регистрация шаг 1/2
-        </h4>
-      </div>
+      <h4 className="text-center mb-3 font-weight-bold">Регистрация шаг 1/2</h4>
       <SignupForm
         onSubmit={handleSignUpSubmit}
         initialValues={fromJS({inviterToken: props.inviterToken})}
         isPhonePending={props.isPhonePending}
       />
       <div className="row align-items-center">
-        <div className={classnames(styles.miniLabel, "col-auto")}>
-          Есть аккаунт?
-        </div>
+        <div className={"col-auto"}>Есть аккаунт?</div>
         <div className="col">
           <button
             className="btn btn-block btn-outline-success"
