@@ -11,13 +11,6 @@ const Image = styled("img")`
   margin-bottom: 16px;
 `
 
-const PromotionInfo = styled("p")`
-  color: ${props => props.theme.lighterGrey};
-  font-weight: 500;
-  font-size: 18px;
-  flex: 1;
-`
-
 const Promotions: React.StatelessComponent<
   PromotionProps & UserStateProps
 > = props => (
@@ -33,7 +26,9 @@ const Promotions: React.StatelessComponent<
           >
             <Image src={`${BASE_URL}/${promo.imageUrl}`} />
             <h2>{promo.name}</h2>
-            <PromotionInfo>{promo.description}</PromotionInfo>
+            <p className="h5 flex-grow-1 text-lightergrey">
+              {promo.description}
+            </p>
           </div>
         ))}
     </div>

@@ -24,28 +24,63 @@ body {
     text-align: center;
   }
 
+  // Color
   .text-lightgreen {
-    color: $lightGreen;
+    color: $lightGreen !important;
+  }
+  .text-lightgrey {
+    color: $lightGrey !important;
+  }
+  .text-lightergrey {
+    color: $lighterGrey !important;
   }
 
+  // Background color
   .bg-darkblue {
-    background-color: $darkBlue;
+    background-color: $darkBlue !important;
   }
-
   .bg-orange {
-    background-color: $orange;
+    background-color: $orange !important;
   }
 
+  // Letter spacing
   .ls-1 {
-    letter-spacing: 0.0625em; // 1/16
+    letter-spacing: 0.0625em !important; // 1/16
+  }
+  .ls-2 {
+    letter-spacing: 0.125em !important; // 1/8
+  }
+  .ls-2 {
+    letter-spacing: 0.25em !important; // 1/4
   }
 
-  .ls-2 {
-    letter-spacing: 0.125em; // 1/8
+  // Font weight
+  .fw-thin {
+    font-weight: 100 !important;
   }
-
-  .ls-2 {
-    letter-spacing: 0.25em; // 1/4
+  .fw-extralight {
+    font-weight: 200 !important;
+  }
+  .fw-light {
+    font-weight: 300 !important;
+  }
+  .fw-normal {
+    font-weight: 400 !important;
+  }
+  .fw-medium {
+    font-weight: 500 !important;
+  }
+  .fw-semibold {
+    font-weight: 600 !important;
+  }
+  .fw-bold {
+    font-weight: 700 !important;
+  }
+  .fw-extrabold {
+    font-weight: 800 !important;
+  }
+  .fw-black {
+    font-weight: 900 !important;
   }
 }
 

@@ -64,11 +64,6 @@ class Account extends React.Component<
     }
   `
 
-  static AccountInfoWrapper = styled("div")`
-    color: ${props => props.theme.lighterGrey};
-    font-weight: 500;
-  `
-
   state: AccountState = {activeTab: "order-history"}
 
   componentDidMount() {
@@ -86,7 +81,7 @@ class Account extends React.Component<
       <div>
         <h2 className="mb-4">Аккаунт</h2>
 
-        <Account.AccountInfoWrapper>
+        <div className="text-lightergrey fw-medium">
           <div className={"row align-items-center mb-5"}>
             <div className="col-4 text-center">
               <img
@@ -128,7 +123,7 @@ class Account extends React.Component<
               </div>
             </div>
           </div>
-        </Account.AccountInfoWrapper>
+        </div>
 
         <div
           className={css`
