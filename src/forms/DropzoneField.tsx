@@ -11,12 +11,7 @@ interface CustomDropzoneProps {
 
 export const renderDropzoneInput = ({
   input,
-  meta: {touched, error, warning, autofilled} = {
-    touched: undefined,
-    error: undefined,
-    warning: undefined,
-    autofilled: undefined,
-  },
+  meta,
   name,
 }: CustomDropzoneProps & WrappedFieldProps) => {
   const handleOnDrop = (filesToUpload: any) => {
@@ -33,11 +28,12 @@ export const renderDropzoneInput = ({
         onDrop={handleOnDrop}
       >
         <div className={styles.baseInfo}>
-          <Icon className={styles.icon} name="upload" />Перетащите или{" "}
+          <Icon className={styles.icon} name="upload" />
+          Перетащите или{" "}
           <span className={styles.info}>выбирите фото продукта</span>
         </div>
       </Dropzone>
-      {touched && error && <span>{error}</span>}
+      {meta.touched && meta.error && <span>{meta.error}</span>}
       {input.value &&
         Array.isArray(input.value) && (
           <div className="m-3">
