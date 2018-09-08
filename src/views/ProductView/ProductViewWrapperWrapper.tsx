@@ -1,12 +1,12 @@
 import React, {Component} from "react"
-import withProducts, {ProductsProps} from "../containers/Products"
-import withCategories, {CategoriesProps} from "../containers/Category"
+import withProducts, {ProductsProps} from "../../containers/Products"
+import withCategories, {CategoriesProps} from "../../containers/Category"
 import {withRouter, RouteComponentProps, Route} from "react-router"
 import {compose} from "redux"
-import {Category} from "../containers/Products/actions"
-import ProductCard from "./ProductCard"
-import NotFound from "./NotFound"
-import {Status} from "../constants"
+import {Category} from "../../containers/Products/actions"
+import NotFound from "../NotFound"
+import {Status} from "../../constants"
+import ProductViewWrapper from "./ProductViewWrapper"
 
 const findCategoryByKey = (
   categories: Category[],
@@ -14,7 +14,7 @@ const findCategoryByKey = (
 ): Category =>
   categories.find(category => category.key === key) || categories[0]
 
-class ProductView extends Component<
+class ProductViewWrapperWrapper extends Component<
   ProductsProps &
     CategoriesProps &
     RouteComponentProps<{category?: string; productId?: string}>
@@ -39,7 +39,7 @@ class ProductView extends Component<
           x => x.id.toString() === this.props.match.params.productId
         )
         return product ? (
-          <ProductCard product={product} category={category} />
+          <ProductViewWrapper product={product} category={category} />
         ) : (
           <Route component={NotFound} />
         )
@@ -54,4 +54,4 @@ export default compose(
   withRouter,
   withCategories,
   withProducts
-)(ProductView)
+)(ProductViewWrapperWrapper)
