@@ -1,5 +1,5 @@
 import {SubmissionError} from "redux-form/immutable"
-import {toast} from "react-toastify"
+import {toast, ToastPosition} from "react-toastify"
 import requests from "../../services/requests"
 import {ActionType, UserState} from "./constants"
 import moment from "moment"
@@ -120,7 +120,7 @@ export const login = (password: string, phone: string) => (dispatch: any) => {
       dispatch(changeUserStatus(UserState.LOGED_IN))
       dispatch(setUserInfo(data))
       toast.success("🚀🚀🚀 Авторизация прошла успешно!", {
-        position: "top-right",
+        position: "top-right" as ToastPosition,
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -149,7 +149,7 @@ export const logout = () => (dispatch: any) => {
   dispatch(changeUserStatus(UserState.ANONYMOUS))
   dispatch(clearSession())
   toast.error("🦄 Сессия устарела, пожалуйста, повторно авторизируйтесь", {
-    position: "top-right",
+    position: "top-right" as ToastPosition,
     autoClose: false,
     hideProgressBar: false,
     closeOnClick: true,
@@ -212,7 +212,7 @@ export const sendCode = (code: string) => (dispatch: any) => {
       dispatch(setUserInfo(data))
       dispatch(changeCodePendingState(false))
       toast.success("🚀🚀🚀 Регистрация прошла успешно!", {
-        position: "top-right",
+        position: "top-right" as ToastPosition,
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
