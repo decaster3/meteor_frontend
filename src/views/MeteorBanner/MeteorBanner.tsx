@@ -51,31 +51,31 @@ class MeteorBanner extends Component<
         `}
       >
         <Col>
+          <button
+            onClick={this.toggleAuthModal}
+            className={css`
+              background-color: ${this.props.theme.lightGreen};
+              color: white;
+              text-transform: uppercase;
+              font-weight: 500;
+              border: none;
+              padding: 0.5rem 1rem;
+              border-radius: 0.25rem;
+              letter-spacing: 0.125em;
+
+              &:focus,
+              &:hover {
+                background-color: ${this.props.theme.darkGreen};
+              }
+            `}
+          >
+            {text}
+          </button>
           <SignUp
             modalShown={this.state.authModalShown}
             toggle={this.toggleAuthModal}
             registrationFirst={true}
-          >
-            <button
-              className={css`
-                background-color: ${this.props.theme.lightGreen};
-                color: white;
-                text-transform: uppercase;
-                font-weight: 500;
-                border: none;
-                padding: 0.5rem 1rem;
-                border-radius: 0.25rem;
-                letter-spacing: 0.125em;
-
-                &:focus,
-                &:hover {
-                  background-color: ${this.props.theme.darkGreen};
-                }
-              `}
-            >
-              {text}
-            </button>
-          </SignUp>
+          />
           <div>и получи</div>
           <div
             className={css`
