@@ -7,7 +7,7 @@ import {
 import {styled} from "./App/emotion"
 import {cx, css} from "emotion"
 
-const Navnav = styled("nav")`
+const BreadCrumbNav = styled("nav")`
   .breadcrumb > li + li:before {
     color: #d3d3d3;
     font-family: "fontAwesome";
@@ -65,8 +65,8 @@ const Breadcrumb: React.StatelessComponent<BreadcrumbProps> = props => {
   return (
     <>
       {currentBreadCrumbObject ? (
-        <Navnav aria-label="breadcrumb">
-          <Ol className="breadcrumb w-50">
+        <BreadCrumbNav aria-label="breadcrumb row">
+          <Ol className="breadcrumb col-lg-6">
             {currentBreadCrumbObject.beforePath.map(el => (
               <li className="breadcrumb-item" key={el.name}>
                 <Link to={el.path}>{el.name}</Link>
@@ -84,7 +84,7 @@ const Breadcrumb: React.StatelessComponent<BreadcrumbProps> = props => {
               {currentBreadCrumbObject.activePath}
             </li>
           </Ol>
-        </Navnav>
+        </BreadCrumbNav>
       ) : (
         <div />
       )}
