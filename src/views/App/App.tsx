@@ -26,7 +26,7 @@ import OrderCallback from "../../views/OrderCallback"
 import BonusSystemDescription from "../BonusSystemDescription"
 import DeliveryDescription from "../DeliveryDescription"
 import AboutCompany from "../AboutCompany"
-
+import Breadcrumb from "../Breadcrumb"
 // tslint:disable-next-line:no-unused-expression
 injectGlobal`
   html,
@@ -88,9 +88,9 @@ const App: React.StatelessComponent<AppProps> = props => (
   <ThemeProvider theme={theme}>
     <Wrapper>
       <Header />
-
       <Container className="container">
         <Content>
+          <Breadcrumb />
           <Switch>
             <Route
               path="/invite/:inviterToken"
