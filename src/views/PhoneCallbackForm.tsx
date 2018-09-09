@@ -4,8 +4,8 @@ import {PulseLoader} from "react-spinners"
 import {InjectedFormProps} from "redux-form"
 import {Map as ImmutableMap} from "immutable"
 
-import {validatePhone} from "../../forms/validations"
-import CustomInput from "../../forms/CustomInput"
+import {validatePhone} from "../forms/validations"
+import CustomInput from "../forms/CustomInput"
 
 interface PhoneCallbackProps {
   isLoading: boolean

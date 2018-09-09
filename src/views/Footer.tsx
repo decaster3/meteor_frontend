@@ -3,11 +3,11 @@ import Icon from "react-fa"
 
 import {Link as ReactRouterLink} from "react-router-dom"
 import {compose} from "redux"
-import withCategories from "../../containers/Category"
-import {Status} from "../../constants"
-import {Category} from "../../containers/Products/actions"
-import logo from "../../assets/logo.svg"
-import {styled} from "../App/emotion"
+import withCategories from "../containers/Category"
+import {Status} from "../constants"
+import {Category} from "../containers/Products/actions"
+import logo from "../assets/logo.svg"
+import {styled} from "./App/emotion"
 
 interface FooterProps {
   categoriesStatus: Status

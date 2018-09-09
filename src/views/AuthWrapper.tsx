@@ -1,17 +1,17 @@
 import React from "react"
 
-import Login from "../Login"
-import SignUp from "../Signup"
-import PhoneCode from "../PhoneCode"
+import Login from "./Login"
+import SignUp from "./Signup"
+import PhoneCode from "./PhoneCode"
 import {compose} from "redux"
 import {
   withRegistration,
   withUser,
   UserProps,
   RegistrationProps,
-} from "../../containers/UserSession"
-import {UserState} from "../../containers/UserSession/constants"
-import CustomModal from "../CustomModal"
+} from "../containers/UserSession"
+import {UserState} from "../containers/UserSession/constants"
+import CustomModal from "./CustomModal"
 
 interface AuthenticationState {
   modalShown: boolean

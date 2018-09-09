@@ -3,13 +3,13 @@ import {compose} from "redux"
 import {css} from "emotion"
 import {Col, Row} from "reactstrap"
 
-import symbol from "../../assets/logo_meteor.png"
-import {Status} from "../../constants"
-import {UserInfo} from "../../containers/UserSession/actions"
-import {UserState} from "../../containers/UserSession/constants"
-import SignUp from "../AuthWrapper"
-import {withUser} from "../../containers/UserSession"
-import {ThemeProps, withTheme} from "../App/emotion"
+import symbol from "../assets/logo_meteor.png"
+import {Status} from "../constants"
+import {UserInfo} from "../containers/UserSession/actions"
+import {UserState} from "../containers/UserSession/constants"
+import SignUp from "./AuthWrapper"
+import {withUser} from "../containers/UserSession"
+import {ThemeProps, withTheme} from "./App/emotion"
 
 interface MeteorBannerProps {
   userState: UserState

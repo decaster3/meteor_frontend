@@ -150,7 +150,8 @@ class Cart extends React.Component<
 
         {!this.props.isDeliveryAvailable && (
           <div className="h3 text-warning text-center">
-            Только запланированный заказ
+            В данный момент ресторан не работает. Вы можете воспользоваться
+            запланированным заказом
           </div>
         )}
 
