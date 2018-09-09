@@ -91,7 +91,6 @@ const App: React.StatelessComponent<AppProps> = props => (
 
       <Container className="container">
         <Content>
-          <ToastContainer />
           <Switch>
             <Route
               path="/invite/:inviterToken"
@@ -148,6 +147,7 @@ const App: React.StatelessComponent<AppProps> = props => (
 
         <Footer />
       </Container>
+      <ToastContainer />
     </Wrapper>
   </ThemeProvider>
 )

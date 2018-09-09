@@ -31,10 +31,6 @@ interface ProductViewOwnProps {
 interface ProductViewProps extends ProductViewOwnProps, ThemeProps {}
 
 class ProductView extends Component<ProductViewProps> {
-  static Ingridients = styled("div")`
-    color: ${props => props.theme.lighterGrey};
-  `
-
   static Wrapper = styled("div")`
     color: white;
     text-transform: uppercase;
@@ -63,59 +59,57 @@ class ProductView extends Component<ProductViewProps> {
 
   render() {
     return (
-      <ProductView.Wrapper>
-        <ProductView.Link
-          to={`/${this.props.category.key}/${this.props.product.id}`}
-        >
-          <div className="my-2 font-weight-bold text-center">
+      <div className="flex-grow-1 row align-items-center">
+        <div className="col-12 col-md-7 py-2">
+          <img
+            className="d-block w-100"
+            src={
+              this.props.product.imageUrl
+                ? `${BASE_URL}/${this.props.product.imageUrl}`
+                : pizzaPlaceholder
+            }
+          />
+        </div>
+
+        <div className="col d-flex flex-column py-2">
+          <h3 className="my-2 font-weight-bold text-center">
             {this.props.product.name}
             {this.props.quantityInCart > 0 && (
               <span className={"badge badge-pill badge-success ml-2 bg-orange"}>
                 {this.props.quantityInCart}
               </span>
             )}
+          </h3>
+
+          <div className={"text-center my-2 text-lightergrey fw-medium"}>
+            {this.props.product.description}
           </div>
 
-          <div className="align-self-center my-2">
-            <img
-              className="d-block w-100"
-              src={
-                this.props.product.imageUrl
-                  ? `${BASE_URL}/${this.props.product.imageUrl}`
-                  : pizzaPlaceholder
-              }
-            />
-          </div>
+          <IndependentOptions
+            className="my-2"
+            options={this.props.product.options}
+            independentOptions={
+              this.props.currentProductState.independentOptions
+            }
+            changeCurrentProduct={this.props.changeCurrentProduct}
+          />
 
-          <ProductView.Ingridients className={"text-center my-2 flex-grow-1"}>
-            <small className="font-weight-bold">
-              {this.props.product.description}
-            </small>
-          </ProductView.Ingridients>
-        </ProductView.Link>
+          <DependentOptions
+            className={"mx-4 my-2 text-lightgreen w-50 mx-auto"}
+            options={this.props.product.options}
+            dependentOptions={this.props.currentProductState.dependentOptions}
+          />
 
-        <IndependentOptions
-          className="my-2"
-          options={this.props.product.options}
-          independentOptions={this.props.currentProductState.independentOptions}
-          changeCurrentProduct={this.props.changeCurrentProduct}
-        />
-
-        <DependentOptions
-          className={"mx-4 my-2 text-lightgreen"}
-          options={this.props.product.options}
-          dependentOptions={this.props.currentProductState.dependentOptions}
-        />
-
-        <PrimaryButton
-          className="my-2"
-          onClick={this.props.handleAddProductToCart}
-        >
-          {this.props.currentProductState.price.value}
-          <small>{this.props.currentProductState.price.currency}</small>
-          {" Заказать"}
-        </PrimaryButton>
-      </ProductView.Wrapper>
+          <PrimaryButton
+            className="my-2"
+            onClick={this.props.handleAddProductToCart}
+          >
+            {this.props.currentProductState.price.value}
+            <small>{this.props.currentProductState.price.currency}</small>
+            {" Заказать"}
+          </PrimaryButton>
+        </div>
+      </div>
     )
   }
 }
