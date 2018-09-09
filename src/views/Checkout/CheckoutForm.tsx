@@ -118,7 +118,8 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
 
             <CheckoutForm.FormGroupRow>
               <CheckoutForm.ColFormLabel htmlFor="phone">
-                Телефон<CheckoutForm.RequiredStar />
+                Телефон
+                <CheckoutForm.RequiredStar />
               </CheckoutForm.ColFormLabel>
 
               <div className="col-9">
@@ -139,7 +140,8 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
 
             <CheckoutForm.FormGroupRow>
               <CheckoutForm.ColFormLabel htmlFor="name">
-                Имя<CheckoutForm.RequiredStar />
+                Имя
+                <CheckoutForm.RequiredStar />
               </CheckoutForm.ColFormLabel>
 
               <div className="col-9">
@@ -159,7 +161,8 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
 
             <CheckoutForm.FormGroupRow>
               <CheckoutForm.ColFormLabel htmlFor="street">
-                Улица<CheckoutForm.RequiredStar />
+                Улица
+                <CheckoutForm.RequiredStar />
               </CheckoutForm.ColFormLabel>
 
               <div className="col-9">
@@ -179,7 +182,8 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
 
             <CheckoutForm.FormGroupRow>
               <CheckoutForm.ColFormLabel htmlFor="building">
-                Дом<CheckoutForm.RequiredStar />
+                Дом
+                <CheckoutForm.RequiredStar />
               </CheckoutForm.ColFormLabel>
 
               <div className="col">
@@ -199,7 +203,8 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
 
             <CheckoutForm.FormGroupRow>
               <CheckoutForm.ColFormLabel htmlFor="apartment">
-                Квартира<CheckoutForm.RequiredStar />
+                Квартира
+                <CheckoutForm.RequiredStar />
               </CheckoutForm.ColFormLabel>
 
               <div className="col">
@@ -274,7 +279,9 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
                     readOnly
                   />
                   <div className="input-group-append">
-                    <span className="input-group-text">JYP</span>
+                    <span className="input-group-text">
+                      {this.props.currency}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -298,6 +305,27 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
                 </div>
               </div>
             </CheckoutForm.FormGroupRow>
+            {this.state.paymentMethod === "cash" && (
+              <CheckoutForm.FormGroupRow>
+                <CheckoutForm.ColFormLabel htmlFor="apartment">
+                  Сдача с
+                </CheckoutForm.ColFormLabel>
+
+                <div className="col">
+                  <Field
+                    component={CustomInput}
+                    name="surrender"
+                    props={{
+                      id: "surrender",
+                      type: "text",
+                      placeholder: "Сдача",
+                      autoComplete: "surrender",
+                      className: "form-control-lg",
+                    }}
+                  />
+                </div>
+              </CheckoutForm.FormGroupRow>
+            )}
           </div>
         </div>
 
