@@ -1,7 +1,7 @@
 import React from "react"
 import {compose} from "redux"
 import {css, cx} from "emotion"
-import {Status, BASE_URL} from "../../constants"
+import {Status, API_URL} from "../../constants"
 import defaultImage from "../../assets/default_banner.png"
 import withPromotionBanner, {PromotionProps} from "../../containers/Promotions"
 
@@ -18,7 +18,7 @@ const PromotionBanner: React.StatelessComponent<PromotionProps> = props => {
             >
               <img
                 className="d-block w-100"
-                src={`${BASE_URL}/${img.imageUrl}`}
+                src={`${API_URL}/${img.imageUrl}`}
                 alt="Promotion slide"
               />
             </div>

@@ -6,7 +6,7 @@ import {
   OptionConcat,
   Price,
 } from "../../containers/Products/actions"
-import {BASE_URL} from "../../constants"
+import {API_URL} from "../../constants"
 import IndependentOptions from "../ProductCard/IndependentOptions"
 import DependentOptions from "../ProductCard/DependentOptions"
 import {PrimaryButton} from "../PrimaryButton"
@@ -65,7 +65,7 @@ class ProductView extends Component<ProductViewProps> {
             className="d-block w-100"
             src={
               this.props.product.imageUrl
-                ? `${BASE_URL}/${this.props.product.imageUrl}`
+                ? `${API_URL}/${this.props.product.imageUrl}`
                 : pizzaPlaceholder
             }
           />

@@ -2,7 +2,7 @@ import React from "react"
 import {styled} from "../App/emotion"
 import {withUser, UserStateProps} from "../../containers/UserSession"
 import PromotionCreation from "./PromotionCreation"
-import {Status, BASE_URL} from "../../constants"
+import {Status, API_URL} from "../../constants"
 import {compose} from "redux"
 import withPromotions, {PromotionProps} from "../../containers/Promotions"
 
@@ -24,7 +24,7 @@ const Promotions: React.StatelessComponent<
             className="col-12 col-md-6 mb-5 d-flex flex-column"
             key={promo.id}
           >
-            <Image src={`${BASE_URL}/${promo.imageUrl}`} />
+            <Image src={`${API_URL}/${promo.imageUrl}`} />
             <h2>{promo.name}</h2>
             <p className="h5 flex-grow-1 text-lightergrey">
               {promo.description}
