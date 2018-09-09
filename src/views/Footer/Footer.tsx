@@ -64,7 +64,7 @@ const BottomNavbar = styled("div")(({theme}) => ({
   letterSpacing: "0.125em",
 }))
 
-const BottomNavbarAnchor = styled("a")`
+const BottomNavbarAnchor = styled(Link)`
   color: ${props => props.theme.darkBlue};
 
   :hover,
@@ -88,7 +88,9 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
         <React.Fragment key={index}>
           {index > 0 && <BottomNavbarSeparator />}
           <div>
-            <BottomNavbarAnchor href="#">{category.name}</BottomNavbarAnchor>
+            <BottomNavbarAnchor to={category.key}>
+              {category.name}
+            </BottomNavbarAnchor>
           </div>
         </React.Fragment>
       ))}
