@@ -4,7 +4,7 @@ import sushi from "./assets/sushi.png"
 import snacks from "./assets/snacks.png"
 import {Category} from "./containers/Products/actions"
 
-export const API_URL = `${process.env.REACT_APP_BASE_URL}/api`
+export const API_URL = `${process.env.REACT_APP_BASE_URL || ""}/api`
 export const JS_HREF = "javascript:void(0);"
 
 export enum Status {
