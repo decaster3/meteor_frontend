@@ -60,6 +60,7 @@ class Cart extends React.Component<
                 product={product}
                 addProductToCart={this.props.addProductToCart}
                 removeProductFromCart={this.props.removeProductFromCart}
+                deleteProduct={this.props.deleteProduct}
               />
             ))}
           </div>

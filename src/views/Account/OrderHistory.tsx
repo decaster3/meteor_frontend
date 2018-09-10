@@ -7,10 +7,22 @@ import {
   orderStatusTranslation,
 } from "../../containers/UserSession/actions"
 import {Status} from "../../constants"
-import OrderHistoryProduct from "./OrderHistoryProduct"
+import {Link as ReactRouterLink} from "react-router-dom"
+import {ThemeProps, styled, withTheme} from "../App/emotion"
 import Order from "./Order"
 
-interface AccountOrderHistoryProps extends UserProps, CartProps {}
+interface AccountOrderHistoryProps extends UserProps, CartProps, ThemeProps {}
+
+const Link = styled(ReactRouterLink)`
+  color: ${props => props.theme.orange};
+  text-decoration: none;
+  :focus,
+  :hover,
+  :active {
+    color: ${props => props.theme.redOrange};
+    text-decoration: none;
+  }
+`
 
 class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
   render() {
@@ -18,7 +30,14 @@ class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
       case Status.LOADING:
         return <p>Loading...</p>
       case Status.LOADING_ERROR:
-        return <p>Loading error.</p>
+        return (
+          <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+            <p className="h2 mb-5">
+              Ошибка загрузки. Проверьте соединение с интернетом и
+              перезагрузите страницу
+            </p>
+          </div>
+        )
       case Status.LOADED:
         if (this.props.userInfo.orders.length > 0) {
           return this.props.userInfo.orders.map(order => (
@@ -29,15 +48,32 @@ class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
             />
           ))
         } else {
-          return <div>Здесь будет отображена история заказов</div>
+          return (
+            <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+              <p className="h2 mb-5">Здесь будет отображена история заказов</p>
+              <p>
+                <Link to="/" className="text-uppercase font-weight-bold">
+                  Перейти к меню
+                </Link>
+              </p>
+            </div>
+          )
         }
       default:
-        return <p>Something went wrong. Reload the page.</p>
+        return (
+          <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+            <p className="h2 mb-5">
+              Ошибка загрузки. Проверьте соединение с интернетом и
+              перезагрузите страницу
+            </p>
+          </div>
+        )
     }
   }
 }
 
 export default compose(
   withCart,
-  withUser
+  withUser,
+  withTheme
 )(AccountOrderHistory)

@@ -2,19 +2,35 @@ import React from "react"
 import {compose} from "redux"
 import {withUser, UserProps} from "../../containers/UserSession"
 import {Status} from "../../constants"
-import {css} from "emotion"
-import {ThemeProps} from "../App/emotion"
-import {withTheme} from "emotion-theming"
+import {Link as ReactRouterLink} from "react-router-dom"
+import {ThemeProps, styled, withTheme} from "../App/emotion"
 
 interface BonusHistoryProps extends UserProps, ThemeProps {}
 
+const Link = styled(ReactRouterLink)`
+  color: ${props => props.theme.orange};
+  text-decoration: none;
+  :focus,
+  :hover,
+  :active {
+    color: ${props => props.theme.redOrange};
+    text-decoration: none;
+  }
+`
 class BonusHistory extends React.Component<BonusHistoryProps> {
   render() {
     switch (this.props.userInfo.userInfoStatus) {
       case Status.LOADING:
         return <p>Загрузка...</p>
       case Status.LOADING_ERROR:
-        return <p>Ошибка загрузки. Перезагрузите страницу.</p>
+        return (
+          <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+            <p className="h2 mb-5">
+              Ошибка загрузки. Проверьте соединение с интернетом и перезагрузите
+              страницу
+            </p>
+          </div>
+        )
       case Status.LOADED:
         return this.props.userInfo.meteors.length > 0 ? (
           this.props.userInfo.meteors.map(meteor => (
@@ -28,10 +44,29 @@ class BonusHistory extends React.Component<BonusHistoryProps> {
             </div>
           ))
         ) : (
-          <div>Здесь будет отображена история начисления метеоров.</div>
+          <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+            <p className="h2 mb-5">
+              Здесь будет отображена история получения бонусов
+            </p>
+            <p>
+              <Link
+                to="/bonus-system"
+                className="text-uppercase font-weight-bold"
+              >
+                Как получить бонусы?
+              </Link>
+            </p>
+          </div>
         )
       default:
-        return <p>Что-то пошло не так. Перезагрузите страницу.</p>
+        return (
+          <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+            <p className="h2 mb-5">
+              Ошибка загрузки. Проверьте соединение с интернетом и перезагрузите
+              страницу
+            </p>
+          </div>
+        )
     }
   }
 }

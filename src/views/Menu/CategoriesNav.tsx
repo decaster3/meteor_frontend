@@ -1,7 +1,7 @@
 import React from "react"
 import {Category} from "../../containers/Products/actions"
 import {NavLink} from "react-router-dom"
-import {cx} from "emotion"
+import {cx, css} from "emotion"
 import {styled} from "../App/emotion"
 
 const LinkWrapper = styled("div")`
@@ -35,6 +35,20 @@ const LinkWrapper = styled("div")`
     }
   }
 `
+const Divider = styled("hr")`
+  background: ${props => props.theme.darkBlue};
+  margin-top: 30px;
+  margin-bottom: 0px;
+  width: 100%;
+  height: 1px;
+`
+const Menu = styled("h1")`
+  font-size: 3rem;
+  line-height: 4.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: ${props => props.theme.orange};
+`
 
 interface CategoriesNavProps extends React.HTMLProps<HTMLDivElement> {
   categories: Category[]
@@ -45,22 +59,25 @@ const CategoriesNav: React.SFC<CategoriesNavProps> = ({
   className,
   ...restOfProps
 }) => (
-  <div
-    className={cx(
-      "row align-items-center justify-content-around mt-4 mb-3 text-uppercase",
-      className
-    )}
-    {...restOfProps}
-  >
-    {categories.map(category => (
-      <LinkWrapper key={category.id}>
-        <NavLink to={`/${category.key}`}>
-          <img src={category.imgUrl} />
-          <span>{category.name}</span>
-        </NavLink>
-      </LinkWrapper>
-    ))}
-  </div>
+  <>
+    <Divider />
+    <div
+      className={cx(
+        "row align-items-center justify-content-around mt-4 mb-3 text-uppercase",
+        className
+      )}
+      {...restOfProps}
+    >
+      {categories.map(category => (
+        <LinkWrapper key={category.id}>
+          <NavLink to={`/${category.key}`}>
+            <img src={category.imgUrl} />
+            <span>{category.name}</span>
+          </NavLink>
+        </LinkWrapper>
+      ))}
+    </div>
+  </>
 )
 
 export default CategoriesNav

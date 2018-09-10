@@ -8,7 +8,7 @@ export interface CartProduct {
   options: Option[]
   instances: ProductInstance[]
   imageUrl?: string | null
-  count?: number
+  count: number
 }
 
 export const updateTotalCart = () => ({type: ActionType.UPDATE_TOTAL_CART})
@@ -31,6 +31,13 @@ export const removeProductFromCart = (product: CartProduct) => (
   dispatch({
     payload: product,
     type: ActionType.REMOVE_PRODUCT_FROM_CART,
+  })
+  dispatch(updateTotalCart())
+}
+export const deleteProduct = (product: CartProduct) => (dispatch: any) => {
+  dispatch({
+    payload: product,
+    type: ActionType.DELETE_PRODUCT,
   })
   dispatch(updateTotalCart())
 }

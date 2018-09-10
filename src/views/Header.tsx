@@ -265,6 +265,13 @@ class Header extends React.Component<
                     <small>{this.props.defaultCity.currency}</small>
                   </span>
                   <Icon name="shopping-cart" />
+                  <span
+                    className={"badge badge-pill badge-success ml-2 bg-orange"}
+                  >
+                    {this.props.products.reduce((acc, el) => {
+                      return acc + el.count
+                    }, 0)}
+                  </span>
                 </Header.NavLink>
               </li>
             </ul>

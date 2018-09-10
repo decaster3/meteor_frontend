@@ -63,6 +63,17 @@ const cartReducer = (state = initialState, action: AnyAction) => {
       }
       return state.set("products", fromJS(currentCartProducts))
     }
+    case ActionType.DELETE_PRODUCT: {
+      const currentCartProducts = state.get("products").toJS()
+      const potentialIndex = compareProducts(
+        currentCartProducts,
+        action.payload
+      )
+      if (potentialIndex !== -1) {
+        currentCartProducts.splice(potentialIndex, 1)
+      }
+      return state.set("products", fromJS(currentCartProducts))
+    }
     case ActionType.CLEAR_CART:
       return initialState
     case ActionType.UPDATE_TOTAL_CART:

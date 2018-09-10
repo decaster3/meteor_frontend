@@ -15,6 +15,7 @@ const Button = styled("button")`
 interface CartProductProps {
   product: CartProduct
   removeProductFromCart(product: CartProduct): void
+  deleteProduct(product: CartProduct): void
   addProductToCart(product: CartProduct): void
 }
 
@@ -66,6 +67,9 @@ class CartProductView extends React.Component<
 
   handleRemoveProduct = () => {
     this.props.removeProductFromCart(this.props.product)
+  }
+  handleDeleteProduct = () => {
+    this.props.deleteProduct(this.props.product)
   }
 
   handleAddProduct = () => {
@@ -121,9 +125,9 @@ class CartProductView extends React.Component<
         </div>
 
         <div className="col-4 col-md-2 h4 mb-0 text-center">
-          {this.props.product.instances[0].price.value}&nbsp;<small>
-            {this.props.product.instances[0].price.currency}
-          </small>
+          {this.props.product.instances[0].price.value}
+          &nbsp;
+          <small>{this.props.product.instances[0].price.currency}</small>
         </div>
 
         <div className="col-6 col-md-3">
@@ -160,7 +164,7 @@ class CartProductView extends React.Component<
 
         <div className="col-2 col-md-1 text-center">
           <span className="h5 mb-0 text-danger">
-            <Icon name="times" />
+            <Icon onClick={this.handleDeleteProduct} name="times" />
           </span>
         </div>
       </div>
