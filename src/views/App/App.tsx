@@ -1,7 +1,13 @@
 import {ThemeProvider} from "emotion-theming"
 import React from "react"
 import {compose} from "redux"
-import {Switch, Route, withRouter, RouteComponentProps} from "react-router-dom"
+import {
+  Switch,
+  Route,
+  withRouter,
+  RouteComponentProps,
+  Redirect,
+} from "react-router-dom"
 import "react-toastify/dist/ReactToastify.css"
 import {ToastContainer} from "react-toastify"
 import {transparentize} from "polished"
@@ -97,7 +103,11 @@ const App: React.StatelessComponent<AppProps> = props => (
               exact={true}
               component={MainPage}
             />
-            <Route path="/" exact={true} component={MainPage} />
+            <Route
+              path="/"
+              exact={true}
+              render={() => <Redirect to="/pizza" />}
+            />
 
             <Route
               path="/:category(pizza|burgers|sushi|snacks)"
