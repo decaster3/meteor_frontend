@@ -1,7 +1,9 @@
+import moment from "moment"
 import pizza from "./assets/pizza.png"
 import burger from "./assets/burger.png"
 import sushi from "./assets/sushi.png"
 import snacks from "./assets/snacks.png"
+
 import {Category} from "./containers/Products/actions"
 
 export const API_URL = `${process.env.REACT_APP_BASE_URL || ""}/api`
@@ -90,6 +92,123 @@ export const categoriesData: Category[] = [
         id: 3,
         isCharacteristic: true,
         name: "вес",
+      },
+    ],
+  },
+]
+
+export const citiesData = [
+  {
+    id: 1,
+    name: "Алматы",
+    phone: "+7 987 043 21 12",
+    currency: "тенге",
+    googleKey: "Almaty",
+    minimalOrderPrice: 3000,
+    schedule: [
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("6:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("3:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("3:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("6:00", "HH:mm"),
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: "Бишкек",
+    phone: "+7 987 043 21 12",
+    currency: "сом",
+    googleKey: "Bishkek",
+    minimalOrderPrice: 3000,
+    schedule: [
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Астана",
+    phone: "+7 987 043 21 12",
+    currency: "тенге",
+    googleKey: "Astana",
+    minimalOrderPrice: 3000,
+    schedule: [
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
+      },
+      {
+        opensAt: moment("07:00", "HH:mm"),
+        closesAt: moment("03:00", "HH:mm"),
       },
     ],
   },

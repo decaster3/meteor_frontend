@@ -1,5 +1,5 @@
 import {ActionType} from "./constants"
-import {Status, categoriesData} from "../../constants"
+import {Status, categoriesData, citiesData} from "../../constants"
 import moment from "moment"
 import {clearCart} from "../Cart/actions"
 
@@ -8,122 +8,6 @@ import Geocode from "react-geocode"
 import {getProducts, clearProducts} from "../Products/actions"
 
 Geocode.setApiKey("AIzaSyDeRt-ekVSI0anD_b1zE5Kl7WobsRGutvc")
-export const citiesData = [
-  {
-    id: 1,
-    name: "Алматы",
-    phone: "+7 987 043 21 12",
-    currency: "тенге",
-    googleKey: "Almaty",
-    minimalOrderPrice: 3000,
-    schedule: [
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("6:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("3:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("3:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("6:00", "HH:mm"),
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Бишкек",
-    phone: "+7 987 043 21 12",
-    currency: "сом",
-    googleKey: "Bishkek",
-    minimalOrderPrice: 3000,
-    schedule: [
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Астана",
-    phone: "+7 987 043 21 12",
-    currency: "тенге",
-    googleKey: "Astana",
-    minimalOrderPrice: 3000,
-    schedule: [
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-      {
-        opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
-      },
-    ],
-  },
-]
 
 export interface City {
   currency: string

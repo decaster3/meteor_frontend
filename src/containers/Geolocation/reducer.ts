@@ -1,9 +1,8 @@
 import {fromJS} from "immutable"
 
 import {ActionType} from "./constants"
-import {Status} from "../../constants"
+import {Status, citiesData} from "../../constants"
 import {AnyAction} from "redux"
-import {citiesData} from "./actions"
 
 const initialState = fromJS({
   cities: citiesData,
