@@ -14,30 +14,3 @@ export const selectTotal = createSelector(selectCartDomain, cart =>
 export const selectProducts = createSelector(selectCartDomain, cart =>
   cart.get("products").toJS()
 )
-
-export const selectPossibleMeteors = createSelector(selectState, state => {
-  if (
-    state
-      .get("userSession")
-      .get("userInfo")
-      .get("totalMeteors")
-  ) {
-    const possibleCityMeteors = state
-      .get("userSession")
-      .get("userInfo")
-      .get("totalMeteors")
-      .toJS()
-      .find(
-        (meteor: {cityId: number; value: number}) =>
-          meteor.cityId ===
-          state
-            .get("geolocation")
-            .get("defaultCity")
-            .get("id")
-      )
-    if (possibleCityMeteors) {
-      return possibleCityMeteors.value
-    }
-  }
-  return 0
-})

@@ -29,23 +29,19 @@ class ProductViewWrapperWrapper extends Component<
       this.props.categories,
       this.props.match.params.category
     )
-    switch (category.productsStatus) {
-      case Status.LOADING:
-        return <p>Loading...</p>
-      case Status.LOADING_ERROR:
-        return <p>Loading error.</p>
-      case Status.LOADED: {
-        const product = category.products.find(
-          x => x.id.toString() === this.props.match.params.productId
-        )
-        return product ? (
-          <ProductViewWrapper product={product} category={category} />
-        ) : (
-          <Route component={NotFound} />
-        )
-      }
-      default:
-        return <p>Something went wrong. Reload the page.</p>
+    if (category.products) {
+      const product = category.products.find(
+        x => x.id.toString() === this.props.match.params.productId
+      )
+      return product ? (
+        <ProductViewWrapper product={product} category={category} />
+      ) : (
+        <Route component={NotFound} />
+      )
+    } else if (category.productsStatus === Status.LOADING) {
+      return <p>Загрузка...</p>
+    } else {
+      return <p>Ошибка загрузки...</p>
     }
   }
 }

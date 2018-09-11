@@ -108,11 +108,13 @@ class Account extends React.Component<
               <div>На вашем счету</div>
               <div className={"text-white h3 mb-0 py-3"}>
                 {this.props.userInfoStatus === Status.LOADED
-                  ? this.props.userInfo.meteors
-                      .map(x => x.value)
-                      .reduce((prevVal, currentVal) => prevVal + currentVal, 0)
+                  ? this.props.possibleMeteors
                   : 0}
-                <small> метеоров - {this.props.defaultCity.currency}</small>
+                <small>
+                  {" "}
+                  метеоров(
+                  {this.props.defaultCity.name})
+                </small>
               </div>
               <div className="row justify-content-center">
                 <div className="col-auto">

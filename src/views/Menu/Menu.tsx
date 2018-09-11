@@ -59,34 +59,28 @@ export class Menu extends React.Component<MenuProps, MenuState> {
       this.props.categories,
       this.props.match.params.category
     )
-    switch (currentCategory.productsStatus) {
-      case Status.LOADING:
-        return <p>Loading...</p>
-      case Status.LOADING_ERROR:
-        return <p>Loading error.</p>
-      case Status.LOADED:
-        return (
-          <div className="row">
-            {currentCategory.products
-              .filter(
-                product =>
-                  this.state.currentSubcategory.name === "Все" ||
-                  _.includes(
-                    product.subcategories,
-                    this.state.currentSubcategory
-                  )
-              )
-              .map(product => (
-                <React.Fragment key={product.id}>
-                  <div className="col-6 col-md-4 col-lg-3 my-3">
-                    <ProductCard category={currentCategory} product={product} />
-                  </div>
-                </React.Fragment>
-              ))}
-          </div>
-        )
-      default:
-        return <p>Something went wrong. Reload the page.</p>
+    if (currentCategory.products) {
+      return (
+        <div className="row">
+          {currentCategory.products
+            .filter(
+              product =>
+                this.state.currentSubcategory.name === "Все" ||
+                _.includes(product.subcategories, this.state.currentSubcategory)
+            )
+            .map(product => (
+              <React.Fragment key={product.id}>
+                <div className="col-6 col-md-4 col-lg-3 my-3">
+                  <ProductCard category={currentCategory} product={product} />
+                </div>
+              </React.Fragment>
+            ))}
+        </div>
+      )
+    } else if (currentCategory.productsStatus === Status.LOADING) {
+      return <p>Загрузка...</p>
+    } else {
+      return <p>Ошибка загрузки...</p>
     }
   }
 

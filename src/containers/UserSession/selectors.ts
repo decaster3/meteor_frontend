@@ -4,6 +4,7 @@ import {createSelector} from "reselect"
  * Direct selector to the user state domain
  */
 export const selectUserDomain = (state: any) => state.get("userSession")
+export const selectState = (state: any) => state
 
 export const selectUserState = createSelector(selectUserDomain, userState =>
   userState.get("userState")
@@ -57,3 +58,30 @@ export const selectInviterToken = createSelector(
 export const selectPhone = createSelector(selectUserDomain, phone =>
   phone.get("registration").get("phone")
 )
+
+export const selectPossibleMeteors = createSelector(selectState, state => {
+  if (
+    state
+      .get("userSession")
+      .get("userInfo")
+      .get("totalMeteors")
+  ) {
+    const possibleCityMeteors = state
+      .get("userSession")
+      .get("userInfo")
+      .get("totalMeteors")
+      .toJS()
+      .find(
+        (meteor: {cityId: number; value: number}) =>
+          meteor.cityId ===
+          state
+            .get("geolocation")
+            .get("defaultCity")
+            .get("id")
+      )
+    if (possibleCityMeteors) {
+      return possibleCityMeteors.value
+    }
+  }
+  return 0
+})

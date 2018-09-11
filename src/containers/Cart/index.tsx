@@ -1,10 +1,5 @@
 import {connect} from "react-redux"
-import {
-  selectProducts,
-  selectMeteors,
-  selectTotal,
-  selectPossibleMeteors,
-} from "./selectors"
+import {selectProducts, selectMeteors, selectTotal} from "./selectors"
 import {
   addProductToCart,
   removeProductFromCart,
@@ -18,7 +13,6 @@ interface CartStateProps {
   products: CartProduct[]
   meteors: number
   total: number
-  possibleMeteors: number
 }
 
 interface CartDispatchProps {
@@ -35,7 +29,6 @@ const mapStateToProps = (state: any): CartStateProps => ({
   meteors: selectMeteors(state),
   total: selectTotal(state),
   products: selectProducts(state),
-  possibleMeteors: selectPossibleMeteors(state),
 })
 
 const mapDispatchToProps = (dispatch: any): CartDispatchProps => ({

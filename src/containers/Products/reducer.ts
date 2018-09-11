@@ -19,6 +19,9 @@ const menuReducer = (state = initialState, action: AnyAction) => {
       categories[injectingCategoryPos].products = action.payload.products
       return state.set("categories", fromJS(categories))
     }
+    case ActionType.CLEAR_PRODUCTS: {
+      return fromJS(initialState)
+    }
     case ActionType.SET_PRODUCTS_STATUS: {
       const categories = state.get("categories").toJS()
 

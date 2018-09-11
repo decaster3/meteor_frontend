@@ -23,10 +23,12 @@ import {
   selectInviterToken,
   selectUserInfoStatus,
   selectUserInfo,
+  selectPossibleMeteors,
 } from "./selectors"
 
 export interface UserStateProps {
   userState: string
+  possibleMeteors: number
   userInfoStatus: string
   userInfo: UserInfo
 }
@@ -41,6 +43,7 @@ export interface UserProps extends UserStateProps, UserDispatchProps {}
 
 const mapStateToUserProps = (state: any): UserStateProps => ({
   userState: selectUserState(state),
+  possibleMeteors: selectPossibleMeteors(state),
   userInfo: selectUserInfo(state),
   userInfoStatus: selectUserInfoStatus(state),
 })

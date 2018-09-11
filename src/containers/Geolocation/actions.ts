@@ -5,7 +5,7 @@ import {clearCart} from "../Cart/actions"
 
 // @ts-ignore
 import Geocode from "react-geocode"
-import {getProducts} from "../Products/actions"
+import {getProducts, clearProducts} from "../Products/actions"
 
 Geocode.setApiKey("AIzaSyDeRt-ekVSI0anD_b1zE5Kl7WobsRGutvc")
 export const citiesData = [
@@ -219,6 +219,7 @@ export const setDefaultCity = (city: City) => (
   })
   const currentKey = location.pathname.split("/").filter(x => x)[0]
   const currentCategory = findCategoryByKey(currentKey)
+  dispatch(clearProducts())
   dispatch(getProducts(currentCategory))
 }
 

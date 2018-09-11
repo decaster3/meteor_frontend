@@ -9,7 +9,7 @@ export interface Category {
   imgUrl: string
   optionNames: OptionName[]
   subcategories: Subcategory[]
-  products: Product[]
+  products: Product[] | null
   productsStatus: string
 }
 
@@ -63,6 +63,8 @@ export interface OptionName {
   isCharacteristic: boolean
   value?: string
 }
+
+export const clearProducts = () => ({type: ActionType.CLEAR_PRODUCTS})
 
 const setProductsStatus = (category: Category, productsStatus: string) => ({
   type: ActionType.SET_PRODUCTS_STATUS,
