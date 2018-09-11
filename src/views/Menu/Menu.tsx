@@ -34,6 +34,16 @@ export class Menu extends React.Component<MenuProps, MenuState> {
   state = {
     currentSubcategory: {id: 0, name: "Все"},
   }
+  componentDidUpdate(prevProps: MenuProps) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.props.getProducts(
+        findCategoryByKey(
+          this.props.categories,
+          this.props.match.params.category
+        )
+      )
+    }
+  }
 
   componentDidMount() {
     this.props.getProducts(
