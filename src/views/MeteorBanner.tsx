@@ -2,7 +2,7 @@ import React, {Component} from "react"
 import {compose} from "redux"
 import {css} from "emotion"
 import {Col, Row} from "reactstrap"
-
+import {Redirect} from "react-router-dom"
 import symbol from "../assets/logo_meteor.png"
 import {Status} from "../constants"
 import {UserInfo} from "../containers/UserSession/actions"
@@ -20,6 +20,7 @@ interface MeteorBannerProps {
 
 interface MeteorBannerState {
   authModalShown: boolean
+  isRedirect: boolean
 }
 
 class MeteorBanner extends Component<
@@ -28,11 +29,13 @@ class MeteorBanner extends Component<
 > {
   state: MeteorBannerState = {
     authModalShown: false,
+    isRedirect: false,
   }
 
   toggleAuthModal = () =>
     this.setState(prevState => ({authModalShown: !prevState.authModalShown}))
 
+  redirect = () => this.setState({isRedirect: true})
   render() {
     const {text, amount} =
       this.props.userState === UserState.ANONYMOUS
@@ -54,9 +57,14 @@ class MeteorBanner extends Component<
           height: 100%;
         `}
       >
+        {this.state.isRedirect ? <Redirect to="/bonus-system" /> : <div />}
         <Col>
           <button
-            onClick={this.toggleAuthModal}
+            onClick={
+              this.props.userState === UserState.ANONYMOUS
+                ? this.toggleAuthModal
+                : this.redirect
+            }
             className={css`
               background-color: ${this.props.theme.lightGreen};
               color: white;

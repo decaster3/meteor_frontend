@@ -76,7 +76,7 @@ const SignupForm: React.StatelessComponent<
           props={{
             id: "inviterToken",
             type: "text",
-            placeholder: "Токен пригласителя",
+            placeholder: "Код пригласителя",
             autoComplete: "inviterToken",
             readOnly: (props.initialValues as any).get("inviterToken")
               ? true
