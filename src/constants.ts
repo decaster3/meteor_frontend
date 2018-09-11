@@ -105,6 +105,8 @@ export const citiesData = [
     currency: "тенге",
     googleKey: "Almaty",
     minimalOrderPrice: 3000,
+    registrationBonus: 200,
+    inviteBonus: 150,
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
@@ -143,6 +145,8 @@ export const citiesData = [
     currency: "сом",
     googleKey: "Bishkek",
     minimalOrderPrice: 3000,
+    registrationBonus: 300,
+    inviteBonus: 100,
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
@@ -181,6 +185,8 @@ export const citiesData = [
     currency: "тенге",
     googleKey: "Astana",
     minimalOrderPrice: 3000,
+    registrationBonus: 400,
+    inviteBonus: 200,
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),

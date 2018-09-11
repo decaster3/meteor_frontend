@@ -9,6 +9,7 @@ import {UserInfo} from "../containers/UserSession/actions"
 import {UserState} from "../containers/UserSession/constants"
 import SignUp from "./AuthWrapper"
 import {withUser} from "../containers/UserSession"
+import withGeolocation, {GeolocationProps} from "../containers/Geolocation"
 import {ThemeProps, withTheme} from "./App/emotion"
 
 interface MeteorBannerProps {
@@ -22,7 +23,7 @@ interface MeteorBannerState {
 }
 
 class MeteorBanner extends Component<
-  MeteorBannerProps & ThemeProps,
+  MeteorBannerProps & ThemeProps & GeolocationProps,
   MeteorBannerState
 > {
   state: MeteorBannerState = {
@@ -35,8 +36,11 @@ class MeteorBanner extends Component<
   render() {
     const {text, amount} =
       this.props.userState === UserState.ANONYMOUS
-        ? {text: "Зарегестрируйся", amount: 500}
-        : {text: "Пригласи друга", amount: 200}
+        ? {
+            text: "Зарегестрируйся",
+            amount: this.props.defaultCity.registrationBonus,
+          }
+        : {text: "Пригласи друга", amount: this.props.defaultCity.inviteBonus}
     return (
       <Row
         className={css`
@@ -115,7 +119,8 @@ class MeteorBanner extends Component<
   }
 }
 
-export default compose(
+export default compose<any>(
   withUser,
-  withTheme
+  withTheme,
+  withGeolocation
 )(MeteorBanner)

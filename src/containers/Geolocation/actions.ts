@@ -16,6 +16,8 @@ export interface City {
   googleKey: string
   id: number
   minimalOrderPrice: number
+  registrationBonus: number
+  inviteBonus: number
   schedule: AvailableTime[]
 }
 export interface AvailableTime {
