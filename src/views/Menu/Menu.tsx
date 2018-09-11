@@ -77,10 +77,16 @@ export class Menu extends React.Component<MenuProps, MenuState> {
             ))}
         </div>
       )
-    } else if (currentCategory.productsStatus === Status.LOADING) {
-      return <p>Загрузка...</p>
+    } else if (currentCategory.error) {
+      return <p>Ошибка</p>
+    } else if (currentCategory.isLoading) {
+      return <p>Загрузка</p>
     } else {
-      return <p>Ошибка загрузки...</p>
+      return (
+        <p>
+          Неизвестная ошибка. Почистите кэш браузера и перезагрузите страницу.
+        </p>
+      )
     }
   }
 

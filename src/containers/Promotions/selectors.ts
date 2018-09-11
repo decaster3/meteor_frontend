@@ -3,8 +3,7 @@ import {createSelector} from "reselect"
 /*
  * Direct selector to the user state domain
  */
-export const selectPromotionBannerDomain = (state: any) =>
-  state.get("promotionBanner")
+export const selectPromotionsDomain = (state: any) => state.get("promotions")
 
 /*
  * Other specific selectors
@@ -15,12 +14,18 @@ export const selectPromotionBannerDomain = (state: any) =>
  */
 
 export const selectPromotions = createSelector(
-  selectPromotionBannerDomain,
+  selectPromotionsDomain,
   promotions => {
-    return promotions.get("promotions").toJS()
+    return promotions.get("promotions")
+      ? promotions.get("promotions").toJS()
+      : null
   }
 )
 export const selectPromotionsStatus = createSelector(
-  selectPromotionBannerDomain,
-  promotionsStatus => promotionsStatus.get("promotionsStatus")
+  selectPromotionsDomain,
+  isLoading => isLoading.get("isLoading")
+)
+export const selectPromotionsError = createSelector(
+  selectPromotionsDomain,
+  error => error.get("error")
 )

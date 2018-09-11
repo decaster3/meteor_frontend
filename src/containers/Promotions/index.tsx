@@ -3,13 +3,18 @@ import {compose} from "redux"
 import injectReducer from "../../utils/injectReducer"
 import {getPromotions, Promotion} from "./actions"
 import reducer from "./reducer"
-import {selectPromotions, selectPromotionsStatus} from "./selectors"
+import {
+  selectPromotions,
+  selectPromotionsStatus,
+  selectPromotionsError,
+} from "./selectors"
 import {Status} from "../../constants"
 import React, {ComponentType, Component} from "react"
 
 interface PromotionStateProps {
   promotions: Promotion[]
-  promotionsStatus: Status
+  isLoading: Status
+  error: Error | null
 }
 
 interface PromotionDispatchProps {
@@ -36,7 +41,8 @@ const withPromotions = <P extends PromotionProps>(
 const mapStateToProps = (state: any): PromotionStateProps => {
   return {
     promotions: selectPromotions(state),
-    promotionsStatus: selectPromotionsStatus(state),
+    error: selectPromotionsError(state),
+    isLoading: selectPromotionsStatus(state),
   }
 }
 
@@ -46,7 +52,7 @@ const mapDispatchToProps = (dispatch: any): PromotionDispatchProps => {
   }
 }
 
-const withReducer = injectReducer({key: "promotionBanner", reducer})
+const withReducer = injectReducer({key: "promotions", reducer})
 
 export default compose(
   withReducer,

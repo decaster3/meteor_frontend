@@ -9,13 +9,17 @@ export interface Promotion {
   name: string
 }
 
-const setPromotionsStatus = (PromotionsStatus: string) => ({
+const setIsLoading = (isLoading: boolean) => ({
   type: ActionType.SET_PROMOTIONS_STATUS,
-  payload: PromotionsStatus,
+  payload: isLoading,
+})
+const setError = (error: Error) => ({
+  type: ActionType.SET_ERROR,
+  payload: error,
 })
 
 export const getPromotions = () => (dispatch: any, getState: any) => {
-  dispatch(setPromotionsStatus(Status.LOADING))
+  dispatch(setIsLoading(true))
   const cityId =
     getState()
       .get("geolocation")
@@ -31,8 +35,11 @@ export const getPromotions = () => (dispatch: any, getState: any) => {
         type: ActionType.SET_PROMOTIONS,
         payload: data,
       })
-      dispatch(setPromotionsStatus(Status.LOADED))
+      dispatch(setIsLoading(false))
       return data
     })
-    .catch(() => dispatch(setPromotionsStatus(Status.LOADING_ERROR)))
+    .catch(error => {
+      dispatch(setIsLoading(false))
+      dispatch(setError(error))
+    })
 }

@@ -28,8 +28,16 @@ const menuReducer = (state = initialState, action: AnyAction) => {
       const injectingCategoryPos = categories
         .map((x: Category) => x.id)
         .indexOf(action.payload.category.id)
-      categories[injectingCategoryPos].productsStatus =
-        action.payload.productsStatus
+      categories[injectingCategoryPos].isLoading = action.payload.isLoading
+      return state.set("categories", fromJS(categories))
+    }
+    case ActionType.SET_ERROR: {
+      const categories = state.get("categories").toJS()
+
+      const injectingCategoryPos = categories
+        .map((x: Category) => x.id)
+        .indexOf(action.payload.category.id)
+      categories[injectingCategoryPos].error = action.payload.error
       return state.set("categories", fromJS(categories))
     }
     default:

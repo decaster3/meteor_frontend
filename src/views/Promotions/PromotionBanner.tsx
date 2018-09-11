@@ -9,7 +9,7 @@ const carouselId = "carousel"
 
 const PromotionBanner: React.StatelessComponent<PromotionProps> = props => {
   const {carouselItems, carouselIndicators} =
-    props.promotionsStatus === Status.LOADED && props.promotions.length > 0
+    props.promotions && props.promotions.length > 0
       ? {
           carouselItems: props.promotions.map((img, index) => (
             <div

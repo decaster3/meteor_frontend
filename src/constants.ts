@@ -19,8 +19,9 @@ export const categoriesData: Category[] = [
     id: 1,
     name: "Пицца",
     key: "pizza",
-    productsStatus: Status.NOT_LOADED,
+    isLoading: false,
     products: null,
+    error: null,
     subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     imgUrl: pizza,
     optionNames: [
@@ -46,8 +47,9 @@ export const categoriesData: Category[] = [
     name: "Бургеры",
     imgUrl: burger,
     key: "burgers",
-    productsStatus: Status.NOT_LOADED,
+    isLoading: false,
     products: null,
+    error: null,
     subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     optionNames: [
       {
@@ -62,8 +64,9 @@ export const categoriesData: Category[] = [
     name: "Суши",
     imgUrl: sushi,
     key: "sushi",
-    productsStatus: Status.NOT_LOADED,
+    isLoading: false,
     products: null,
+    error: null,
     subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     optionNames: [
       {
@@ -78,8 +81,9 @@ export const categoriesData: Category[] = [
     name: "Закуски",
     imgUrl: snacks,
     key: "snacks",
-    productsStatus: Status.NOT_LOADED,
+    isLoading: false,
     products: null,
+    error: null,
     subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
     optionNames: [
       {

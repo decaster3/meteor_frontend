@@ -38,10 +38,16 @@ class ProductViewWrapperWrapper extends Component<
       ) : (
         <Route component={NotFound} />
       )
-    } else if (category.productsStatus === Status.LOADING) {
-      return <p>Загрузка...</p>
+    } else if (category.error) {
+      return <p>Ошибка</p>
+    } else if (category.isLoading) {
+      return <p>Загрузка</p>
     } else {
-      return <p>Ошибка загрузки...</p>
+      return (
+        <p>
+          Неизвестная ошибка. Почистите кэш браузера и перезагрузите страницу.
+        </p>
+      )
     }
   }
 }

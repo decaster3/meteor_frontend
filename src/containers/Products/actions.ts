@@ -10,7 +10,8 @@ export interface Category {
   optionNames: OptionName[]
   subcategories: Subcategory[]
   products: Product[] | null
-  productsStatus: string
+  error: Error | null
+  isLoading: boolean
 }
 
 export interface Subcategory {
@@ -66,11 +67,19 @@ export interface OptionName {
 
 export const clearProducts = () => ({type: ActionType.CLEAR_PRODUCTS})
 
-const setProductsStatus = (category: Category, productsStatus: string) => ({
+const setProductsStatus = (category: Category, isLoading: boolean) => ({
   type: ActionType.SET_PRODUCTS_STATUS,
   payload: {
     category,
-    productsStatus,
+    isLoading,
+  },
+})
+
+const setProductsError = (category: Category, error: Error) => ({
+  type: ActionType.SET_ERROR,
+  payload: {
+    category,
+    error,
   },
 })
 
@@ -78,7 +87,7 @@ export const getProducts = (category: Category) => (
   dispatch: any,
   getState: any
 ) => {
-  dispatch(setProductsStatus(category, Status.LOADING))
+  dispatch(setProductsStatus(category, true))
   const currentCiytyId =
     (getState()
       .get("geolocation")
@@ -98,17 +107,20 @@ export const getProducts = (category: Category) => (
           products: data,
         },
       })
-      dispatch(setProductsStatus(category, Status.LOADED))
+      dispatch(setProductsStatus(category, false))
     })
-    .catch(() => dispatch(setProductsStatus(category, Status.LOADING_ERROR)))
+    .catch(error => {
+      dispatch(setProductsStatus(category, false))
+      dispatch(setProductsError(category, error))
+    })
 }
 
 // export const getProductsAfterCategoryClick = (category: Category) => (
 //   dispatch: any
 // ) => {
 //   if (
-//     category.productsStatus === Status.NOT_LOADED ||
-//     category.productsStatus === Status.LOADING_ERROR
+//     category.isLoading === Status.NOT_LOADED ||
+//     category.isLoading === Status.LOADING_ERROR
 //   ) {
 //     dispatch(getProducts(category))
 //   }
