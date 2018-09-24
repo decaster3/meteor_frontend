@@ -35,8 +35,10 @@ const Signup: React.StatelessComponent<SignupProps> = props => {
         isPhonePending={props.isPhonePending}
       />
       <div className="row align-items-center">
-        <div className={"col-auto"}>Есть аккаунт?</div>
-        <div className="col">
+        <div className={"col-12 col-sm-auto text-center text-sm-left"}>
+          Есть аккаунт?
+        </div>
+        <div className="col-12 col-sm">
           <button
             className="btn btn-block btn-outline-success"
             onClick={props.handleChangeTab}

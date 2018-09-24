@@ -1,15 +1,21 @@
 import React from "react"
 import Icon from "react-fa"
 
-import {Link as ReactRouterLink} from "react-router-dom"
+import {
+  Link as ReactRouterLink,
+  NavLink as ReactRouterNavLink,
+  withRouter,
+  RouteComponentProps,
+} from "react-router-dom"
 import {compose} from "redux"
+
 import withCategories from "../containers/Category"
 import {Status} from "../constants"
 import {Category} from "../containers/Products/actions"
 import logo from "../assets/logo.svg"
 import {styled} from "./App/emotion"
 
-interface FooterProps {
+interface FooterProps extends RouteComponentProps<{category?: string}> {
   categoriesStatus: Status
   categories: Category[]
 }
@@ -17,7 +23,6 @@ interface FooterProps {
 const Link = styled(ReactRouterLink)`
   color: white;
   text-decoration: none;
-
   :hover,
   :focus,
   :active {
@@ -38,7 +43,6 @@ const SocialMediaAnchor = styled("a")`
   color: ${props => props.theme.orange};
   font-size: 60px;
   text-decoration: none;
-
   :hover,
   :focus,
   :active {
@@ -57,64 +61,59 @@ const BottomNavbar = styled("div")(({theme}) => ({
   )`,
   justifyContent: "space-evenly",
   alignItems: "center",
-  height: "5rem",
   textTransform: "uppercase",
   fontWeight: 700,
   color: theme.darkBlue,
   letterSpacing: "0.125em",
+  margin: "0 -15px",
 }))
 
-const BottomNavbarAnchor = styled(Link)`
+const BottomNavbarNavLink = styled(ReactRouterNavLink)`
   color: ${props => props.theme.darkBlue};
-
+  text-decoration: none;
   :hover,
-  :focus {
+  :focus,
+  :focus,
+  &.active {
     color: white;
     text-decoration: none;
     text-shadow: 0 0 2rem white;
   }
 `
 
-const BottomNavbarSeparator = styled("div")`
-  height: 3rem;
-  width: 0.125rem;
-  background-color: ${props => props.theme.darkBlue};
+// const BottomNavbarSeparator = styled("div")`
+//   height: 3rem;
+//   width: 0.125rem;
+//   background-color: ${props => props.theme.darkBlue};
+// `
+
+const LogotypeImg = styled("img")`
+  max-height: 60px;
+  max-width: 100%;
+  margin: 0 auto;
+  display: block;
 `
 
 const Footer: React.StatelessComponent<FooterProps> = props => (
   <>
-    <BottomNavbar className={"row"}>
-      {props.categories.map((category, index) => (
-        <React.Fragment key={index}>
-          {index > 0 && <BottomNavbarSeparator />}
-          <div>
-            <BottomNavbarAnchor to={category.key}>
+    <BottomNavbar>
+      <div className="row text-center">
+        {props.categories.map(category => (
+          <div
+            key={category.id}
+            className="col-12 col-sm-6 col-md-4 col-xl-2 py-4"
+          >
+            <BottomNavbarNavLink to={`/${category.key}`}>
               {category.name}
-            </BottomNavbarAnchor>
+            </BottomNavbarNavLink>
           </div>
-        </React.Fragment>
-      ))}
+        ))}
+      </div>
     </BottomNavbar>
 
     <div className="row align-items-center mt-3 mb-2">
-      <FooterBlock className="col">
-        <p>
-          <Link to="/promotions">Обратная связь</Link>
-        </p>
-        <p>
-          <Link to="/promotions">Акции и предложения</Link>
-        </p>
-        <p>
-          <Link to="/delivery">Доставка и оплата</Link>
-        </p>
-        <p>
-          <Link to="/about-company">О компании</Link>
-        </p>
-      </FooterBlock>
-
-      <FooterBlock className="col">
-        <img className={"mw-100"} src={logo} />
-
+      <FooterBlock className="col-12 col-lg order-1 order-lg-2">
+        <LogotypeImg src={logo} />
         <div className="row mt-3">
           <div className="col text-center">
             <SocialMediaAnchor href="#">
@@ -134,7 +133,22 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
         </div>
       </FooterBlock>
 
-      <FooterBlock className="col">
+      <FooterBlock className="col-12 col-md-6 col-lg order-2 order-lg-1">
+        <p>
+          <Link to="/promotions">Обратная связь</Link>
+        </p>
+        <p>
+          <Link to="/promotions">Акции и предложения</Link>
+        </p>
+        <p>
+          <Link to="/delivery">Доставка и оплата</Link>
+        </p>
+        <p>
+          <Link to="/about-company">О компании</Link>
+        </p>
+      </FooterBlock>
+
+      <FooterBlock className="col-12 col-md-6 col-lg order-3">
         <p>
           Поддержка клиентов
           <br />
@@ -147,4 +161,7 @@ const Footer: React.StatelessComponent<FooterProps> = props => (
   </>
 )
 
-export default compose(withCategories)(Footer)
+export default compose(
+  withRouter,
+  withCategories
+)(Footer)

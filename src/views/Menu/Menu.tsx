@@ -70,7 +70,7 @@ export class Menu extends React.Component<MenuProps, MenuState> {
             )
             .map(product => (
               <React.Fragment key={product.id}>
-                <div className="col-6 col-md-4 col-lg-3 my-3">
+                <div className="col-12 col-sm-6 col-md-4 col-lg-3 my-3">
                   <ProductCard category={currentCategory} product={product} />
                 </div>
               </React.Fragment>

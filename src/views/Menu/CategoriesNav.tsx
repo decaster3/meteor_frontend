@@ -6,19 +6,15 @@ import {styled} from "../App/emotion"
 
 const LinkWrapper = styled("div")`
   font-weight: 500;
-  display: flex;
-  align-items: center;
-  height: 5rem;
   img {
     width: 3rem;
     height: 3rem;
     margin: 0.5rem;
     transition: all 0.25s;
   }
-  span {
-    margin: 0 0.5rem;
-  }
   a {
+    display: flex;
+    align-items: center;
     color: ${props => props.theme.lighterGrey};
     /* transition: all 0.25s; */
     :hover {
@@ -37,8 +33,7 @@ const LinkWrapper = styled("div")`
 `
 const Divider = styled("hr")`
   background: ${props => props.theme.darkBlue};
-  margin-top: 30px;
-  margin-bottom: 0px;
+  margin-top: 24px;
   width: 100%;
   height: 1px;
 `
@@ -63,16 +58,19 @@ const CategoriesNav: React.SFC<CategoriesNavProps> = ({
     <Divider />
     <div
       className={cx(
-        "row align-items-center justify-content-around mt-4 mb-3 text-uppercase",
+        "row no-gutters align-items-center justify-content-around mt-3 mb-3 text-uppercase",
         className
       )}
       {...restOfProps}
     >
       {categories.map(category => (
-        <LinkWrapper key={category.id}>
+        <LinkWrapper
+          className="col-12 col-sm-6 col-md-4 col-xl-2"
+          key={category.id}
+        >
           <NavLink to={`/${category.key}`}>
             <img src={category.imgUrl} />
-            <span>{category.name}</span>
+            <span className="mx-2">{category.name}</span>
           </NavLink>
         </LinkWrapper>
       ))}

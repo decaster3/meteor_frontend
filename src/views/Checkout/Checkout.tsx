@@ -37,6 +37,7 @@ class Checkout extends React.Component<CheckoutViewProps> {
       <CheckoutForm
         currency={this.props.defaultCity.currency}
         isOrderPending={this.props.isOrderPending}
+        isDeliveryAvailable={this.props.isDeliveryAvailable}
         streets={this.props.streets}
         meteors={this.props.meteors}
         userPhone={this.props.userInfo.phone}
@@ -51,11 +52,10 @@ class Checkout extends React.Component<CheckoutViewProps> {
   }
 }
 
-export default withRouter(
-  compose<any>(
-    withGeolocation,
-    withCheckout,
-    withUser,
-    withCart
-  )(Checkout)
-)
+export default compose(
+  withRouter,
+  withGeolocation,
+  withCheckout,
+  withUser,
+  withCart
+)(Checkout)

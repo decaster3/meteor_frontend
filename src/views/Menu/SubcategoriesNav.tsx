@@ -23,7 +23,7 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
   return (
     <div
       className={cx(
-        "row justify-content-center align-items-center text-uppercase my-3",
+        "row justify-content-center align-items-center text-uppercase my-3 text-center",
         className
       )}
       {...restOfProps}
@@ -31,7 +31,7 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
       {subcategories && currentSubcategory ? (
         <>
           {[{id: 0, name: "Все"}, ...subcategories].map(subcategory => (
-            <div className="col-auto" key={subcategory.id}>
+            <div className="col-12 col-sm-auto" key={subcategory.id}>
               <a
                 className={cx(
                   {active: currentSubcategory.name === subcategory.name},

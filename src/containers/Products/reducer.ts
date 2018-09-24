@@ -24,7 +24,6 @@ const menuReducer = (state = initialState, action: AnyAction) => {
     }
     case ActionType.SET_PRODUCTS_STATUS: {
       const categories = state.get("categories").toJS()
-
       const injectingCategoryPos = categories
         .map((x: Category) => x.id)
         .indexOf(action.payload.category.id)
@@ -33,11 +32,11 @@ const menuReducer = (state = initialState, action: AnyAction) => {
     }
     case ActionType.SET_ERROR: {
       const categories = state.get("categories").toJS()
-
-      const injectingCategoryPos = categories
-        .map((x: Category) => x.id)
-        .indexOf(action.payload.category.id)
-      categories[injectingCategoryPos].error = action.payload.error
+      // FIXME: action.payload.category is undefined, since an error occured
+      // const injectingCategoryPos = categories
+      //   .map((x: Category) => x.id)
+      //   .indexOf(action.payload.category.id)
+      // categories[injectingCategoryPos].error = action.payload.error
       return state.set("categories", fromJS(categories))
     }
     default:

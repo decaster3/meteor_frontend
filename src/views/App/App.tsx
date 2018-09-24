@@ -110,13 +110,13 @@ const App: React.StatelessComponent<AppProps> = props => (
             />
 
             <Route
-              path="/:category(pizza|burgers|sushi|snacks)"
+              path="/:category(pizza|burgers|sushi|snacks|sets|drinks)"
               exact={true}
               component={MainPage}
             />
 
             <Route
-              path="/:category(pizza|burgers|sushi|snacks)/:productId"
+              path="/:category(pizza|burgers|sushi|snacks|sets|drinks)/:productId"
               exact={true}
               component={ProductView}
             />

@@ -25,6 +25,7 @@ interface CheckoutFormOwnProps {
   total: number
   meteors: number
   currency: string
+  isDeliveryAvailable: boolean
 }
 
 interface CheckoutFormData {
@@ -92,7 +93,7 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
   static RequiredStar = () => <span className="text-danger mx-1">*</span>
 
   state: CheckoutFormState = {
-    isScheduledDelivery: false,
+    isScheduledDelivery: !this.props.isDeliveryAvailable,
   }
 
   handleChoosePaymentMethod = (
@@ -342,6 +343,7 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
                   id="scheduled-delivery"
                   checked={this.state.isScheduledDelivery}
                   onChange={this.toggleIsScheduledDelivery}
+                  disabled={!this.props.isDeliveryAvailable}
                 />
               </div>
 

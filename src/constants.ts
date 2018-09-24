@@ -95,6 +95,40 @@ export const categoriesData: Category[] = [
       },
     ],
   },
+  {
+    id: 5,
+    name: "Сэты",
+    imgUrl: snacks,
+    key: "sets",
+    isLoading: false,
+    products: null,
+    error: null,
+    subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
+    optionNames: [
+      {
+        id: 3,
+        isCharacteristic: true,
+        name: "количество",
+      },
+    ],
+  },
+  {
+    id: 6,
+    name: "Напитки",
+    imgUrl: snacks,
+    key: "drinks",
+    isLoading: false,
+    products: null,
+    error: null,
+    subcategories: [{name: "Вегатрианские", id: 1}, {name: "Мясные", id: 2}],
+    optionNames: [
+      {
+        id: 3,
+        isCharacteristic: true,
+        name: "количество",
+      },
+    ],
+  },
 ]
 
 export const citiesData = [

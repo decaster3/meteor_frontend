@@ -24,8 +24,10 @@ class Login extends React.Component<LoginProps> {
           onSubmit={this.handleLoginSubmit}
         />
         <div className="row align-items-center">
-          <div className={"col-auto"}>Нет аккаунта?</div>
-          <div className="col">
+          <div className={"col-12 col-sm-auto text-center text-sm-left"}>
+            Нет аккаунта?
+          </div>
+          <div className="col-12 col-sm">
             <button
               className="btn btn-block btn-outline-success"
               onClick={this.props.handleChangeTab}
