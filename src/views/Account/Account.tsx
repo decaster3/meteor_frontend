@@ -1,15 +1,15 @@
 import React from "react"
 import {compose} from "redux"
+import {Nav, NavItem, NavLink, TabContent, TabPane} from "reactstrap"
+import Icon from "react-fa"
+import {css, cx} from "emotion"
+
 import {withUser, UserProps} from "../../containers/UserSession"
 import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import BonusHistory from "./BonusHistory"
 import OrderHistory from "./OrderHistory"
-import {css, cx} from "emotion"
-import {ThemeProps, styled} from "../App/emotion"
-import {withTheme} from "emotion-theming"
+import {ThemeProps, styled, withTheme, mediaBreakpointUp} from "../App/emotion"
 import {PrimaryButtonAsLink} from "../PrimaryButton"
-import {Nav, NavItem, NavLink, TabContent, TabPane, Row, Col} from "reactstrap"
-import Icon from "react-fa"
 import {JS_HREF, Status} from "../../constants"
 
 interface AccountProps extends UserProps, ThemeProps {}
@@ -30,28 +30,32 @@ class Account extends React.Component<
     margin-top: 48px; /* mb-5 */
   `
 
-  static Icon = styled(Icon)`
-    font-size: 48px;
-    margin: 8px;
-    transition: all 200ms;
-  `
-
   static NavLink = styled(NavLink)`
     color: ${props => props.theme.lighterGrey};
     font-weight: 700;
-    padding: 16px;
-
+    padding: 16px 0;
     :hover,
     :focus {
       color: ${props => props.theme.lighterGrey};
     }
-
+    > .fa {
+      font-size: 32px;
+      margin: 8px;
+      transition: all 200ms;
+    }
     &.active {
       color: ${props => props.theme.lightestGrey};
-
       > .fa {
-        font-size: 64px;
+        font-size: 48px;
         margin: 0;
+      }
+    }
+    ${mediaBreakpointUp("lg")} {
+      > .fa {
+        font-size: 48px;
+      }
+      &.active > .fa {
+        font-size: 64px;
       }
     }
   `
@@ -83,14 +87,14 @@ class Account extends React.Component<
 
         <div className="text-lightergrey fw-medium">
           <div className={"row align-items-center mb-5"}>
-            <div className="col-4 text-center">
+            <div className="col-12 col-lg-4 text-center">
               <img
                 className="rounded-circle"
                 src={`http://via.placeholder.com/256x256`}
               />
             </div>
 
-            <div className="col-4">
+            <div className="col-12 col-lg-4">
               <Account.AccountInfoItem>
                 {this.props.userInfo.name}
               </Account.AccountInfoItem>
@@ -104,7 +108,7 @@ class Account extends React.Component<
               </Account.AccountInfoItem>
             </div>
 
-            <div className={"col-4 text-center"}>
+            <div className={"col-12 col-lg-4 text-center"}>
               <div>На вашем счету</div>
               <div className={"text-white h3 mb-0 py-3"}>
                 {this.props.userInfoStatus === Status.LOADED
@@ -131,6 +135,7 @@ class Account extends React.Component<
           className={css`
             background: ${this.props.theme.darkBlue};
             margin: 24px -32px;
+            padding: 0 15px;
           `}
         >
           <Nav className="row text-center">
@@ -142,7 +147,7 @@ class Account extends React.Component<
                 })}
                 onClick={() => this.toggle("order-history")}
               >
-                <Account.Icon name="history" />
+                <Icon name="history" />
                 <p className="mb-0">История заказов</p>
               </Account.NavLink>
             </NavItem>
@@ -155,7 +160,7 @@ class Account extends React.Component<
                 })}
                 onClick={() => this.toggle("meteor-history")}
               >
-                <Account.Icon name="gift" />
+                <Icon name="gift" />
                 <p className="mb-0">История бонусов</p>
               </Account.NavLink>
             </NavItem>
@@ -168,7 +173,7 @@ class Account extends React.Component<
                 })}
                 onClick={() => this.toggle("settings")}
               >
-                <Account.Icon name="cog" />
+                <Icon name="cog" />
                 <p className="mb-0">Настройки</p>
               </Account.NavLink>
             </NavItem>

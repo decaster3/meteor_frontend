@@ -53,43 +53,53 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
           className="row text-uppercase align-items-center"
           onClick={this.toggle}
         >
-          <div className="col-1 text-center font-weight-bold">
-            <span className="h1 mb-0">
-              <Icon name={this.state.collapsed ? "angle-down" : "angle-up"} />
-            </span>
+          <div className="col-6 col-sm-4 col-md-3">
+            <div className="row text-center text-sm-left">
+              <div className="col-12 col-sm-6 order-2 order-sm-1">
+                <span className="h1 mb-0 font-weight-bold">
+                  <Icon
+                    name={this.state.collapsed ? "angle-down" : "angle-up"}
+                  />
+                </span>
+              </div>
+
+              <div className="col-12 col-sm-6 order-1 order-sm-2">
+                <OrderView.Label>Заказ № </OrderView.Label>
+                <OrderView.Value>{order.id}</OrderView.Value>
+              </div>
+            </div>
           </div>
 
-          <div className="col-2 text-center">
-            <OrderView.Label>Заказ № </OrderView.Label>
-            <OrderView.Value>{order.id}</OrderView.Value>
-          </div>
+          <div className="col-6 col-sm">
+            <div className="row">
+              <div className="col-12 col-sm-6 col-md-3">
+                <OrderView.Label>Дата: </OrderView.Label>
+                <OrderView.Value>
+                  {new Date(order.createdAt).toLocaleDateString()}
+                </OrderView.Value>
+              </div>
 
-          <div className="col">
-            <OrderView.Label>Дата: </OrderView.Label>
-            <OrderView.Value>
-              {new Date(order.createdAt).toLocaleDateString()}
-            </OrderView.Value>
-          </div>
+              <div className="col-12 col-sm-6 col-md-3">
+                <OrderView.Label>Время: </OrderView.Label>
+                <OrderView.Value>
+                  {new Date(order.createdAt).toLocaleTimeString()}
+                </OrderView.Value>
+              </div>
 
-          <div className="col">
-            <OrderView.Label>Время: </OrderView.Label>
-            <OrderView.Value>
-              {new Date(order.createdAt).toLocaleTimeString()}
-            </OrderView.Value>
-          </div>
+              <div className="col-12 col-sm-6 col-md-3">
+                <OrderView.Label>Статус: </OrderView.Label>
+                <OrderView.Value>
+                  {orderStatusTranslation[order.status]}
+                </OrderView.Value>
+              </div>
 
-          <div className="col">
-            <OrderView.Label>Статус: </OrderView.Label>
-            <OrderView.Value>
-              {orderStatusTranslation[order.status]}
-            </OrderView.Value>
-          </div>
-
-          <div className="col">
-            <OrderView.Label>Метод оплаты: </OrderView.Label>
-            <OrderView.Value>
-              {paymentMethodTranslation[order.paymentMethod]}
-            </OrderView.Value>
+              <div className="col-12 col-sm-6 col-md-3">
+                <OrderView.Label>Метод оплаты: </OrderView.Label>
+                <OrderView.Value>
+                  {paymentMethodTranslation[order.paymentMethod]}
+                </OrderView.Value>
+              </div>
+            </div>
           </div>
         </div>
 

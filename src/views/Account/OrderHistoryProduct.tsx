@@ -27,7 +27,6 @@ class OrderHistoryProduct extends React.Component<
   `
 
   static Option = styled("div")`
-    margin-right: 16px; /* mr-3 */
     white-space: nowrap;
   `
 
@@ -74,8 +73,8 @@ class OrderHistoryProduct extends React.Component<
 
   render() {
     return (
-      <div className="row align-items-center mb-4 text-uppercase font-weight-bold">
-        <div className="col-4 col-md-auto my-2 text-center">
+      <div className="row align-items-center mb-4 text-uppercase font-weight-bold text-center text-md-left">
+        <div className="col-12 col-md-auto py-2 text-center">
           <img
             className={css`
               max-width: 100%;
@@ -85,34 +84,44 @@ class OrderHistoryProduct extends React.Component<
           />
         </div>
 
-        <div className="col-8 col-md mb-2 mb-md-0">
+        <div className="col-12 col-md-3 mb-2 mb-md-0">
           <div>{this.props.product.name}</div>
-          <div className={"d-flex flex-wrap text-lightgreen"}>
+          <div
+            className={
+              "d-flex flex-wrap justify-content-center justify-content-md-start text-lightgreen"
+            }
+          >
             {this.state.independentOptions.map((value, index) => (
-              <OrderHistoryProduct.Option key={index}>
+              <OrderHistoryProduct.Option
+                className="mx-2 mr-md-3 ml-md-0"
+                key={index}
+              >
                 {value}
               </OrderHistoryProduct.Option>
             ))}
 
             {this.state.dependentOptions.map((value, index) => (
-              <OrderHistoryProduct.Option key={index}>
+              <OrderHistoryProduct.Option
+                className="mx-2 mr-md-3 ml-md-0"
+                key={index}
+              >
                 {value}
               </OrderHistoryProduct.Option>
             ))}
           </div>
         </div>
 
-        <div className="col-4 col-md-2 h4 mb-0 text-center">
+        <div className="col-6 col-md-2 h4 mb-0 text-center">
           {this.props.product.instances[0].price.value}
           &nbsp;
           <small>{this.props.product.instances[0].price.currency}</small>
         </div>
 
-        <div className="col-1">
+        <div className="col-6 col-md-1 text-md-right">
           <span className="h4 mb-0">{this.props.product.count}</span>
         </div>
 
-        <div className="col-6 col-md-3">
+        <div className="col-12 col-md-3 py-3">
           <OrderHistoryProduct.AddToCartButton
             className="btn btn-outline-success"
             onClick={this.handleAddProduct}
