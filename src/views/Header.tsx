@@ -166,8 +166,7 @@ class Header extends React.Component<
                 "navbar-nav flex-grow-1 text-uppercase justify-content-lg-around"
               }
             >
-              {this.props.citiesStatus === Status.LOADED &&
-                this.props.cities.length > 0 &&
+              {this.props.cities.length > 0 &&
                 (this.props.cities.length > 1 ? (
                   <UncontrolledDropdown nav inNavbar>
                     <DropdownToggle
@@ -187,33 +186,30 @@ class Header extends React.Component<
                         }
                       `}
                     >
-                      {this.props.citiesStatus === Status.LOADED
-                        ? this.props.defaultCity.name
-                        : "Город"}
+                      {this.props.defaultCity.name}
                     </DropdownToggle>
 
                     <DropdownMenu right>
-                      {this.props.citiesStatus === Status.LOADED &&
-                        this.props.cities.map(city => (
-                          <DropdownItem
-                            onClick={() => this.handleCityClick(city)}
-                            key={city.id}
-                            className={css`
-                              font-weight: 500;
-                              text-transform: uppercase;
-                              :hover,
-                              :focus {
-                                background: ${this.props.theme.lightestGrey};
-                                outline: none;
-                              }
-                              :active {
-                                background: ${this.props.theme.lightBlue};
-                              }
-                            `}
-                          >
-                            {city.name}
-                          </DropdownItem>
-                        ))}
+                      {this.props.cities.map(city => (
+                        <DropdownItem
+                          onClick={() => this.handleCityClick(city)}
+                          key={city.id}
+                          className={css`
+                            font-weight: 500;
+                            text-transform: uppercase;
+                            :hover,
+                            :focus {
+                              background: ${this.props.theme.lightestGrey};
+                              outline: none;
+                            }
+                            :active {
+                              background: ${this.props.theme.lightBlue};
+                            }
+                          `}
+                        >
+                          {city.name}
+                        </DropdownItem>
+                      ))}
                     </DropdownMenu>
                   </UncontrolledDropdown>
                 ) : (

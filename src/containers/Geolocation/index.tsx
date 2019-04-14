@@ -4,28 +4,19 @@ import {compose} from "redux"
 import {
   selectCitiesStatus,
   selectCities,
-  selectShowModal,
-  selectIsNavigationAllowed,
-  selectProbableCityStatus,
-  selectProbableCity,
   selectDefaultCity,
   selectAvailableTime,
 } from "./selectors"
-import {configureGeolocation, setDefaultCity, City, checkTime} from "./actions"
+import {setDefaultCity, City, checkTime} from "./actions"
 
 interface GeolocationStateProps {
   cities: City[]
   citiesStatus: string
   defaultCity: City
-  probableCity: City
-  probableCityStatus: string
-  isNavigationAllowed: boolean
-  showModal: boolean
   isDeliveryAvailable: boolean
 }
 
 interface GeolocationDispatchProps {
-  configureGeolocation(): void
   setDefaultCity(city: City): void
   checkTime(): void
 }
@@ -41,7 +32,6 @@ const withGeolocation = <P extends object>(
     GeolocationProps & P
   > {
     componentDidMount() {
-      this.props.configureGeolocation()
       this.props.checkTime()
     }
 
@@ -55,10 +45,6 @@ const mapStateToProps = (state: any): GeolocationStateProps => {
   return {
     citiesStatus: selectCitiesStatus(state),
     cities: selectCities(state),
-    showModal: selectShowModal(state),
-    isNavigationAllowed: selectIsNavigationAllowed(state),
-    probableCityStatus: selectProbableCityStatus(state),
-    probableCity: selectProbableCity(state),
     defaultCity: selectDefaultCity(state),
     isDeliveryAvailable: selectAvailableTime(state),
   }
@@ -66,7 +52,6 @@ const mapStateToProps = (state: any): GeolocationStateProps => {
 
 const mapDispatchToProps = (dispatch: any): GeolocationDispatchProps => {
   return {
-    configureGeolocation: () => dispatch(configureGeolocation()),
     setDefaultCity: (city: City) => dispatch(setDefaultCity(city)),
     checkTime: () => dispatch(checkTime()),
   }

@@ -30,7 +30,7 @@ store.subscribe(() => {
     userSession: store.getState().get("userSession"),
     language: store.getState().get("language"),
     cart: store.getState().get("cart"),
-    geolocation: store.getState().get("geolocation"),
+    // geolocation: store.getState().get("geolocation"),
   })
 })
 

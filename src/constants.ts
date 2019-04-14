@@ -144,31 +144,31 @@ export const citiesData = [
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("6:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("3:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("3:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("6:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
     ],
   },
@@ -184,31 +184,31 @@ export const citiesData = [
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
     ],
   },
@@ -224,31 +224,31 @@ export const citiesData = [
     schedule: [
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("14:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("15:00", "HH:mm"),
       },
       {
         opensAt: moment("07:00", "HH:mm"),
-        closesAt: moment("03:00", "HH:mm"),
+        closesAt: moment("14:00", "HH:mm"),
       },
     ],
   },

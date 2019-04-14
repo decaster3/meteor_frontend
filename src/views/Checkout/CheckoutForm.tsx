@@ -94,6 +94,7 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
 
   state: CheckoutFormState = {
     isScheduledDelivery: !this.props.isDeliveryAvailable,
+    paymentMethod: "cash",
   }
 
   handleChoosePaymentMethod = (
@@ -246,7 +247,7 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
                 Наличные
               </CheckoutForm.PaymentMethodLabel>
 
-              <CheckoutForm.PaymentMethodLabel
+              {/* <CheckoutForm.PaymentMethodLabel
                 htmlFor="cashless"
                 className={cx("nav-item nav-link mb-0", {
                   active: this.state.paymentMethod === "cashless",
@@ -262,7 +263,7 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
                   onChange={this.handleChoosePaymentMethod}
                 />
                 Карта
-              </CheckoutForm.PaymentMethodLabel>
+              </CheckoutForm.PaymentMethodLabel> */}
             </nav>
 
             <CheckoutForm.FormGroupRow>
