@@ -3,20 +3,21 @@ import {compose} from "redux"
 import {withUser, UserProps} from "../../containers/UserSession"
 import {Status} from "../../constants"
 import {Link as ReactRouterLink} from "react-router-dom"
-import {ThemeProps, styled, withTheme} from "../App/emotion"
+import {styled, theme} from "../App/emotion"
 
-interface BonusHistoryProps extends UserProps, ThemeProps {}
+type BonusHistoryProps = UserProps
 
 const Link = styled(ReactRouterLink)`
-  color: ${props => props.theme.orange};
+  color: ${theme.orange};
   text-decoration: none;
   :focus,
   :hover,
   :active {
-    color: ${props => props.theme.redOrange};
+    color: ${theme.redOrange};
     text-decoration: none;
   }
 `
+
 class BonusHistory extends React.Component<BonusHistoryProps> {
   render() {
     switch (this.props.userInfo.userInfoStatus) {
@@ -71,7 +72,4 @@ class BonusHistory extends React.Component<BonusHistoryProps> {
   }
 }
 
-export default compose(
-  withUser,
-  withTheme
-)(BonusHistory)
+export default compose(withUser)(BonusHistory)

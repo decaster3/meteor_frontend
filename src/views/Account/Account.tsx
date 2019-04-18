@@ -9,11 +9,11 @@ import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import BonusHistory from "./BonusHistory"
 import OrderHistory from "./OrderHistory"
 import Settings from "./Settings"
-import {ThemeProps, styled, withTheme, mediaBreakpointUp} from "../App/emotion"
+import {styled, mediaBreakpointUp, theme} from "../App/emotion"
 import {PrimaryButtonAsLink} from "../PrimaryButton"
 import {JS_HREF, Status} from "../../constants"
 
-interface AccountProps extends UserProps, ThemeProps {}
+interface AccountProps extends UserProps, GeolocationProps {}
 
 type TabType = "order-history" | "meteor-history" | "settings"
 
@@ -21,23 +21,20 @@ interface AccountState {
   activeTab: TabType
 }
 
-class Account extends React.Component<
-  AccountProps & GeolocationProps,
-  AccountState
-> {
+class Account extends React.Component<AccountProps, AccountState> {
   static Subtitle = styled("h3")`
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
     margin-bottom: 24px; /* mb-4 */
     margin-top: 48px; /* mb-5 */
   `
 
   static NavLink = styled(NavLink)`
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
     font-weight: 700;
     padding: 16px 0;
     :hover,
     :focus {
-      color: ${props => props.theme.lighterGrey};
+      color: ${theme.lighterGrey};
     }
     > .fa {
       font-size: 32px;
@@ -45,7 +42,7 @@ class Account extends React.Component<
       transition: all 200ms;
     }
     &.active {
-      color: ${props => props.theme.lightestGrey};
+      color: ${theme.lightestGrey};
       > .fa {
         font-size: 48px;
         margin: 0;
@@ -65,7 +62,7 @@ class Account extends React.Component<
     padding: 16px 0;
 
     & + & {
-      border-top: 2px solid ${props => props.theme.lightGrey};
+      border-top: 2px solid ${theme.lightGrey};
     }
   `
 
@@ -96,7 +93,7 @@ class Account extends React.Component<
                     className={cx(
                       "col",
                       css`
-                        color: ${this.props.theme.orange};
+                        color: ${theme.orange};
                       `
                     )}
                   >
@@ -112,7 +109,7 @@ class Account extends React.Component<
                     className={cx(
                       "col",
                       css`
-                        color: ${this.props.theme.orange};
+                        color: ${theme.orange};
                       `
                     )}
                   >
@@ -128,7 +125,7 @@ class Account extends React.Component<
                     className={cx(
                       "col",
                       css`
-                        color: ${this.props.theme.orange};
+                        color: ${theme.orange};
                       `
                     )}
                   >
@@ -163,7 +160,7 @@ class Account extends React.Component<
 
         <div
           className={css`
-            background: ${this.props.theme.darkBlue};
+            background: ${theme.darkBlue};
             margin: 24px -32px;
             padding: 0 15px;
           `}
@@ -227,7 +224,6 @@ class Account extends React.Component<
 }
 
 export default compose(
-  withUser,
   withGeolocation,
-  withTheme
+  withUser
 )(Account)

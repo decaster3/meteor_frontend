@@ -1,24 +1,24 @@
+import {css} from "emotion"
 import React from "react"
 import {Link as ReactRouterLink, match} from "react-router-dom"
-import {withUser, UserStateProps} from "../containers/UserSession"
-import {withTheme, styled, ThemeProps} from "./App/emotion"
-import {css} from "emotion"
-import SignUp from "../views/AuthWrapper"
-import {UserState} from "../containers/UserSession/constants"
 import {compose} from "redux"
+import {UserStateProps, withUser} from "../containers/UserSession"
+import {UserState} from "../containers/UserSession/constants"
+import SignUp from "../views/AuthWrapper"
+import {styled, theme} from "./App/emotion"
 
 const Link = styled(ReactRouterLink)`
-  color: ${props => props.theme.orange};
+  color: ${theme.orange};
   text-decoration: none;
   :focus,
   :hover,
   :active {
-    color: ${props => props.theme.redOrange};
+    color: ${theme.redOrange};
     text-decoration: none;
   }
 `
 
-interface OrderCallbackProps extends UserStateProps, ThemeProps {
+interface OrderCallbackProps extends UserStateProps {
   match: match<{status?: string; id: number; phone: string}>
 }
 
@@ -51,7 +51,7 @@ class OrderCallback extends React.Component<
             <button
               onClick={this.toggle}
               className={css`
-                background-color: ${this.props.theme.lightGreen};
+                background-color: ${theme.lightGreen};
                 color: white;
                 text-transform: uppercase;
                 font-weight: 500;
@@ -62,7 +62,7 @@ class OrderCallback extends React.Component<
 
                 &:focus,
                 &:hover {
-                  background-color: ${this.props.theme.darkGreen};
+                  background-color: ${theme.darkGreen};
                 }
               `}
             >
@@ -88,7 +88,4 @@ class OrderCallback extends React.Component<
   }
 }
 
-export default compose(
-  withTheme,
-  withUser
-)(OrderCallback)
+export default compose(withUser)(OrderCallback)

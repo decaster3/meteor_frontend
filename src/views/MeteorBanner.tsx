@@ -10,7 +10,7 @@ import {UserState} from "../containers/UserSession/constants"
 import SignUp from "./AuthWrapper"
 import {withUser} from "../containers/UserSession"
 import withGeolocation, {GeolocationProps} from "../containers/Geolocation"
-import {ThemeProps, withTheme} from "./App/emotion"
+import {theme} from "./App/emotion"
 
 interface MeteorBannerProps {
   userState: UserState
@@ -24,7 +24,7 @@ interface MeteorBannerState {
 }
 
 class MeteorBanner extends Component<
-  MeteorBannerProps & ThemeProps & GeolocationProps,
+  MeteorBannerProps & GeolocationProps,
   MeteorBannerState
 > {
   state: MeteorBannerState = {
@@ -36,6 +36,7 @@ class MeteorBanner extends Component<
     this.setState(prevState => ({authModalShown: !prevState.authModalShown}))
 
   redirect = () => this.setState({isRedirect: true})
+
   render() {
     const {text, amount} =
       this.props.userState === UserState.ANONYMOUS
@@ -49,7 +50,7 @@ class MeteorBanner extends Component<
         className={css`
           flex: 1;
           padding: 1rem 0;
-          color: ${this.props.theme.lighterGrey};
+          color: ${theme.lighterGrey};
           font-weight: 500;
           line-height: 2;
           font-size: 1.25rem;
@@ -66,7 +67,7 @@ class MeteorBanner extends Component<
                 : this.redirect
             }
             className={css`
-              background-color: ${this.props.theme.lightGreen};
+              background-color: ${theme.lightGreen};
               color: white;
               text-transform: uppercase;
               font-weight: 500;
@@ -77,7 +78,7 @@ class MeteorBanner extends Component<
 
               &:focus,
               &:hover {
-                background-color: ${this.props.theme.darkGreen};
+                background-color: ${theme.darkGreen};
               }
             `}
           >
@@ -94,14 +95,14 @@ class MeteorBanner extends Component<
               font-size: 4rem;
               line-height: 4.5rem;
               font-weight: 700;
-              color: ${this.props.theme.orange};
+              color: ${theme.orange};
             `}
           >
             {amount}
           </div>
           <div
             className={css`
-              color: ${this.props.theme.orange};
+              color: ${theme.orange};
               font-size: 2rem;
               line-height: 3rem;
             `}
@@ -129,6 +130,5 @@ class MeteorBanner extends Component<
 
 export default compose<any>(
   withUser,
-  withTheme,
   withGeolocation
 )(MeteorBanner)

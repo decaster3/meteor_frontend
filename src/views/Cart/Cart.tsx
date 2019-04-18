@@ -1,32 +1,31 @@
+import {css} from "emotion"
 import React from "react"
-import {compose} from "redux"
 import {Link as ReactRouterLink} from "react-router-dom"
-
+import {Sticky, StickyContainer} from "react-sticky"
+import {compose} from "redux"
 import withCart, {CartProps} from "../../containers/Cart"
 import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
-import {withUser, UserProps} from "../../containers/UserSession"
-import CartProductView from "./CartProduct"
-import {css} from "emotion"
-import {ThemeProps, styled, withTheme} from "../App/emotion"
-import {StickyContainer, Sticky} from "react-sticky"
-import {PrimaryButtonAsLink, PrimaryButton} from "../PrimaryButton"
+import {UserProps, withUser} from "../../containers/UserSession"
 import {UserState} from "../../containers/UserSession/constants"
+import {styled, theme} from "../App/emotion"
+import {PrimaryButton, PrimaryButtonAsLink} from "../PrimaryButton"
+import CartProductView from "./CartProduct"
 
 interface CartState {
   choosenMeteors: number
 }
 
 class Cart extends React.Component<
-  UserProps & CartProps & ThemeProps & GeolocationProps,
+  UserProps & CartProps & GeolocationProps,
   CartState
 > {
   static Link = styled(ReactRouterLink)`
-    color: ${props => props.theme.orange};
+    color: ${theme.orange};
     text-decoration: none;
     :focus,
     :hover,
     :active {
-      color: ${props => props.theme.redOrange};
+      color: ${theme.redOrange};
       text-decoration: none;
     }
   `
@@ -119,7 +118,7 @@ class Cart extends React.Component<
                         <span
                           className={css`
                             line-height: 1.5;
-                            color: ${this.props.theme.lightGreen};
+                            color: ${theme.lightGreen};
                           `}
                         >
                           {this.props.total - this.state.choosenMeteors}
@@ -132,7 +131,7 @@ class Cart extends React.Component<
                           <span
                             className={css`
                               line-height: 1.5;
-                              color: ${this.props.theme.orange};
+                              color: ${theme.orange};
                             `}
                           >
                             {this.state.choosenMeteors}
@@ -199,6 +198,5 @@ class Cart extends React.Component<
 export default compose(
   withCart,
   withGeolocation,
-  withUser,
-  withTheme
+  withUser
 )(Cart)

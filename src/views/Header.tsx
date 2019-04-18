@@ -19,7 +19,7 @@ import {Status, JS_HREF} from "../constants"
 import {UserState} from "../containers/UserSession/constants"
 import PhoneCallbackForm from "./PhoneCallbackForm"
 import AuthWrapper from "./AuthWrapper"
-import {styled, withTheme, ThemeProps, mediaBreakpointUp} from "./App/emotion"
+import {styled, mediaBreakpointUp, theme} from "./App/emotion"
 import {City} from "../containers/Geolocation/actions"
 import CustomModal from "./CustomModal"
 
@@ -30,11 +30,7 @@ interface HeaderState {
 }
 
 class Header extends React.Component<
-  UserProps &
-    GeolocationProps &
-    ThemeProps &
-    CartProps &
-    RouteComponentProps<{}>,
+  UserProps & GeolocationProps & CartProps & RouteComponentProps<{}>,
   HeaderState
 > {
   static Anchor = styled("a")`
@@ -44,9 +40,9 @@ class Header extends React.Component<
       :hover,
       :focus,
       &.active {
-        color: ${props => props.theme.orange};
+        color: ${theme.orange};
         text-decoration: none;
-        text-shadow: 0 0 3em ${props => props.theme.orange};
+        text-shadow: 0 0 3em ${theme.orange};
       }
     }
   `
@@ -59,10 +55,10 @@ class Header extends React.Component<
   `
   static CallMeBack = styled("button")`
     background-color: transparent;
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
     font-weight: 700;
     text-transform: uppercase;
-    border: 2px solid ${props => props.theme.lighterGrey};
+    border: 2px solid ${theme.lighterGrey};
     border-radius: 4px;
     white-space: nowrap;
     line-height: 1.25;
@@ -74,14 +70,14 @@ class Header extends React.Component<
       font-size: 16px;
       :hover,
       :focus {
-        color: ${props => props.theme.lightestGrey};
-        border-color: ${props => props.theme.lightestGrey};
+        color: ${theme.lightestGrey};
+        border-color: ${theme.lightestGrey};
       }
     }
   `
   static Phone = styled("div")`
     line-height: 1.25;
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
     font-weight: 700;
     white-space: nowrap;
     ${mediaBreakpointUp("lg")} {
@@ -179,9 +175,9 @@ class Header extends React.Component<
                           :hover,
                           :focus,
                           &.active {
-                            color: ${this.props.theme.orange};
+                            color: ${theme.orange};
                             text-decoration: none;
-                            text-shadow: 0 0 3em ${this.props.theme.orange};
+                            text-shadow: 0 0 3em ${theme.orange};
                           }
                         }
                       `}
@@ -199,11 +195,11 @@ class Header extends React.Component<
                             text-transform: uppercase;
                             :hover,
                             :focus {
-                              background: ${this.props.theme.lightestGrey};
+                              background: ${theme.lightestGrey};
                               outline: none;
                             }
                             :active {
-                              background: ${this.props.theme.lightBlue};
+                              background: ${theme.lightBlue};
                             }
                           `}
                         >
@@ -282,6 +278,5 @@ export default compose(
   withRouter,
   withUser,
   withGeolocation,
-  withTheme,
   withCart
 )(Header)

@@ -1,6 +1,4 @@
 import styled, {ThemedReactEmotionInterface} from "react-emotion"
-import {withTheme} from "emotion-theming"
-import {Subtract} from "utility-types"
 
 export const theme = {
   darkGrey: "hsl(199, 20%, 16%)",
@@ -68,17 +66,6 @@ export const mediaBreakpointDown = (size: bottomBreakpointName) =>
 
 type Theme = typeof theme
 
-export interface ThemeProps {
-  theme: Theme
-}
-
 const customStyled = styled as ThemedReactEmotionInterface<Theme>
 
 export {customStyled as styled}
-
-const customWithTheme = <P extends ThemeProps>(
-  WrappedComponent: React.ComponentType<P>
-): React.ComponentType<Subtract<P, ThemeProps>> =>
-  withTheme<P, Theme>(WrappedComponent)
-
-export {customWithTheme as withTheme}

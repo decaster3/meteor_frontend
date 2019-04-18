@@ -2,11 +2,11 @@ import React from "react"
 import {withUser, UserStateProps} from "../containers/UserSession"
 import withGeolocation, {GeolocationProps} from "../containers/Geolocation"
 import {compose} from "redux"
-import {styled} from "./App/emotion"
+import {styled, theme} from "./App/emotion"
 
 const InviteLinkContainer = styled("div")`
   border-style: dashed;
-  border-color: ${props => props.theme.orange};
+  border-color: ${theme.orange};
   height: 100px;
   margin-top: 24px;
 
@@ -14,7 +14,7 @@ const InviteLinkContainer = styled("div")`
   border-radius: 5px;
 `
 const CopyButton = styled("button")`
-  background-color: ${props => props.theme.lightGreen};
+  background-color: ${theme.lightGreen};
   color: white;
   text-transform: uppercase;
   font-weight: 500;
@@ -25,11 +25,11 @@ const CopyButton = styled("button")`
 
   &:focus,
   &:hover {
-    background-color: ${props => props.theme.darkGreen};
+    background-color: ${theme.darkGreen};
   }
 `
 const OrangeSpan = styled("span")`
-  color: ${props => props.theme.orange};
+  color: ${theme.orange};
 `
 
 const BonusSystemDescription: React.StatelessComponent<

@@ -1,13 +1,13 @@
 import React from "react"
 import {Link as ReactRouterLink} from "react-router-dom"
-import {styled} from "./App/emotion"
+import {styled, theme} from "./App/emotion"
 
 const Link = styled(ReactRouterLink)`
-  color: ${props => props.theme.orange};
+  color: ${theme.orange};
   :focus,
   :hover,
   :active {
-    color: ${props => props.theme.redOrange};
+    color: ${theme.redOrange};
   }
 `
 

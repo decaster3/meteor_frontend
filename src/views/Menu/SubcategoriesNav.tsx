@@ -1,12 +1,10 @@
 import React from "react"
 import {Subcategory} from "../../containers/Products/actions"
-import {ThemeProps, withTheme} from "../App/emotion"
 import {css, cx} from "emotion"
 import {JS_HREF} from "../../constants"
+import {theme} from "../App/emotion"
 
-interface SubcategoriesNavProps
-  extends ThemeProps,
-    React.HTMLProps<HTMLDivElement> {
+interface SubcategoriesNavProps extends React.HTMLProps<HTMLDivElement> {
   subcategories?: Subcategory[]
   currentSubcategory?: Subcategory
   handleChangeSubcategory(subcategory: Subcategory): void
@@ -16,7 +14,6 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
   handleChangeSubcategory,
   currentSubcategory,
   subcategories,
-  theme,
   className,
   ...restOfProps
 }) => {
@@ -62,4 +59,4 @@ const SubcategoriesNav: React.SFC<SubcategoriesNavProps> = ({
   )
 }
 
-export default withTheme(SubcategoriesNav)
+export default SubcategoriesNav

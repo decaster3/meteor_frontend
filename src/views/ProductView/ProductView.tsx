@@ -1,19 +1,17 @@
-import React, {ComponentType, Component} from "react"
-import _ from "lodash"
+import React, {Component} from "react"
+import {Link} from "react-router-dom"
+import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
+import {API_URL} from "../../constants"
 import {
-  Product,
   Category,
   OptionConcat,
   Price,
+  Product,
 } from "../../containers/Products/actions"
-import {API_URL} from "../../constants"
-import IndependentOptions from "../ProductCard/IndependentOptions"
-import DependentOptions from "../ProductCard/DependentOptions"
+import {styled} from "../App/emotion"
 import {PrimaryButton} from "../PrimaryButton"
-import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
-import {compose} from "redux"
-import {ThemeProps, styled, withTheme} from "../App/emotion"
-import {Link} from "react-router-dom"
+import DependentOptions from "../ProductCard/DependentOptions"
+import IndependentOptions from "../ProductCard/IndependentOptions"
 
 interface ProductViewOwnProps {
   product: Product
@@ -28,7 +26,7 @@ interface ProductViewOwnProps {
   handleAddProductToCart(): void
 }
 
-interface ProductViewProps extends ProductViewOwnProps, ThemeProps {}
+type ProductViewProps = ProductViewOwnProps
 
 class ProductView extends Component<ProductViewProps> {
   static Wrapper = styled("div")`
@@ -113,6 +111,4 @@ class ProductView extends Component<ProductViewProps> {
     )
   }
 }
-export default compose<ComponentType<ProductViewOwnProps>>(withTheme)(
-  ProductView
-)
+export default ProductView

@@ -1,10 +1,8 @@
+import {css} from "emotion"
 import * as React from "react"
-import {css, cx} from "emotion"
-import Icon from "react-fa"
-
-import {CartProduct} from "../../containers/Cart/actions"
-import {ThemeProps, withTheme, styled} from "../App/emotion"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
+import {CartProduct} from "../../containers/Cart/actions"
+import {styled} from "../App/emotion"
 
 interface OrderHistoryProductProps {
   product: CartProduct
@@ -17,7 +15,7 @@ interface OrderHistoryProductState {
 }
 
 class OrderHistoryProduct extends React.Component<
-  OrderHistoryProductProps & ThemeProps,
+  OrderHistoryProductProps,
   OrderHistoryProductState
 > {
   static AddToCartButton = styled("button")`
@@ -30,7 +28,7 @@ class OrderHistoryProduct extends React.Component<
     white-space: nowrap;
   `
 
-  constructor(props: OrderHistoryProductProps & ThemeProps) {
+  constructor(props: OrderHistoryProductProps) {
     super(props)
 
     this.state = {
@@ -134,4 +132,4 @@ class OrderHistoryProduct extends React.Component<
   }
 }
 
-export default withTheme(OrderHistoryProduct)
+export default OrderHistoryProduct

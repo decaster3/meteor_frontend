@@ -1,7 +1,7 @@
 import React from "react"
 import {Option, OptionConcat} from "../../containers/Products/actions"
 import {cx} from "emotion"
-import {styled} from "../App/emotion"
+import {styled, theme} from "../App/emotion"
 import {transparentize} from "../../../node_modules/polished"
 
 interface IndependentOptionsProps extends React.HTMLProps<HTMLDivElement> {
@@ -14,7 +14,7 @@ const OptionValue = styled("button")`
   text-transform: uppercase;
   background: none;
   border: none;
-  color: ${props => props.theme.lighterGrey};
+  color: ${theme.lighterGrey};
   line-height: 2rem;
   padding: 0;
   transition: all 0.25s;
@@ -25,7 +25,7 @@ const OptionValue = styled("button")`
   ::after {
     content: "";
     display: block;
-    background: ${props => transparentize(0.5, props.theme.lighterGrey)};
+    background: ${transparentize(0.5, theme.lighterGrey)};
     border-radius: 0.125rem;
     height: 0.25rem;
     width: 100%;
@@ -37,7 +37,7 @@ const OptionValue = styled("button")`
     ::after {
       content: "";
       display: block;
-      background: ${props => props.theme.lightGreen};
+      background: ${theme.lightGreen};
       border-radius: 0.125rem;
       height: 0.25rem;
       width: 100%;
@@ -52,42 +52,44 @@ const IndependentOptions: React.SFC<IndependentOptionsProps> = ({
   ...restOfProps
 }) => (
   <div {...restOfProps}>
-    {options.filter(option => !option.isCharacteristic).map(option => {
-      const currentOptionValue = independentOptions.find(
-        currentOption => currentOption.optionId === option.id
-      )
-      return (
-        currentOptionValue && (
-          <div className={"row no-gutters my-2"} key={option.id}>
-            {option.optionValues
-              .sort((a, b) =>
-                a.value
-                  .toLocaleLowerCase()
-                  .localeCompare(b.value.toLocaleLowerCase())
-              )
-              .map(optionValue => (
-                <div className="col text-center" key={optionValue.id}>
-                  <OptionValue
-                    type="button"
-                    onClick={() =>
-                      changeCurrentProduct(
-                        option.id,
-                        optionValue.id,
-                        optionValue.value
-                      )
-                    }
-                    className={cx({
-                      active: currentOptionValue.valueId === optionValue.id,
-                    })}
-                  >
-                    {optionValue.value}
-                  </OptionValue>
-                </div>
-              ))}
-          </div>
+    {options
+      .filter(option => !option.isCharacteristic)
+      .map(option => {
+        const currentOptionValue = independentOptions.find(
+          currentOption => currentOption.optionId === option.id
         )
-      )
-    })}
+        return (
+          currentOptionValue && (
+            <div className={"row no-gutters my-2"} key={option.id}>
+              {option.optionValues
+                .sort((a, b) =>
+                  a.value
+                    .toLocaleLowerCase()
+                    .localeCompare(b.value.toLocaleLowerCase())
+                )
+                .map(optionValue => (
+                  <div className="col text-center" key={optionValue.id}>
+                    <OptionValue
+                      type="button"
+                      onClick={() =>
+                        changeCurrentProduct(
+                          option.id,
+                          optionValue.id,
+                          optionValue.value
+                        )
+                      }
+                      className={cx({
+                        active: currentOptionValue.valueId === optionValue.id,
+                      })}
+                    >
+                      {optionValue.value}
+                    </OptionValue>
+                  </div>
+                ))}
+            </div>
+          )
+        )
+      })}
   </div>
 )
 

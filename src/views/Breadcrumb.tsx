@@ -4,7 +4,7 @@ import {
   withRouter,
   RouteComponentProps,
 } from "react-router-dom"
-import {styled} from "./App/emotion"
+import {styled, theme} from "./App/emotion"
 import {cx, css} from "emotion"
 
 const BreadCrumbNav = styled("nav")`
@@ -15,7 +15,7 @@ const BreadCrumbNav = styled("nav")`
     padding: 0 5px;
   }
   .breadcrumb-item.active {
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
   }
 `
 const Ol = styled("ol")`
@@ -28,9 +28,9 @@ const Link = styled(ReactRouterLink)`
   :hover,
   :focus,
   :active {
-    color: ${props => props.theme.orange};
+    color: ${theme.orange};
     text-decoration: none;
-    text-shadow: 0 0 48px ${props => props.theme.orange};
+    text-shadow: 0 0 48px ${theme.orange};
   }
 `
 const breadCrumbKeys = [

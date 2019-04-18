@@ -1,9 +1,9 @@
+import {css} from "emotion"
 import React from "react"
-import {css, cx} from "emotion"
 import Icon from "react-fa"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {CartProduct} from "../../containers/Cart/actions"
-import {ThemeProps, withTheme, styled} from "../App/emotion"
+import {styled, theme} from "../App/emotion"
 
 const Button = styled("button")`
   line-height: 1;
@@ -25,10 +25,10 @@ interface CartProductState {
 }
 
 class CartProductView extends React.Component<
-  CartProductProps & ThemeProps,
+  CartProductProps,
   CartProductState
 > {
-  constructor(props: CartProductProps & ThemeProps) {
+  constructor(props: CartProductProps) {
     super(props)
 
     this.state = {
@@ -95,7 +95,7 @@ class CartProductView extends React.Component<
             className={css`
               display: flex;
               flex-flow: row wrap;
-              color: ${this.props.theme.lightGreen};
+              color: ${theme.lightGreen};
             `}
           >
             {this.state.independentOptions.map((value, index) => (
@@ -172,4 +172,4 @@ class CartProductView extends React.Component<
   }
 }
 
-export default withTheme(CartProductView)
+export default CartProductView

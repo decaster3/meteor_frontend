@@ -3,10 +3,7 @@ import {fromJS} from "immutable"
 export const loadState = () => {
   try {
     const serializedState = localStorage.getItem("state")
-    if (serializedState === null) {
-      return undefined
-    }
-    return fromJS(JSON.parse(serializedState))
+    return serializedState ? fromJS(JSON.parse(serializedState)) : undefined
   } catch (error) {
     return undefined
   }

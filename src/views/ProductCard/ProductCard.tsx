@@ -1,28 +1,27 @@
-import React, {ComponentType, Component} from "react"
 import _ from "lodash"
+import React, {Component, ComponentType} from "react"
+import {Link} from "react-router-dom"
+import {compose} from "redux"
+import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
+import {API_URL} from "../../constants"
+import withCart, {CartProps} from "../../containers/Cart"
 import {
+  Category,
+  OptionConcat,
   Product,
   ProductInstance,
-  OptionConcat,
-  Category,
 } from "../../containers/Products/actions"
-import withCart, {CartProps} from "../../containers/Cart"
-import {cx, css} from "emotion"
-import {API_URL} from "../../constants"
-import IndependentOptions from "./IndependentOptions"
-import DependentOptions from "./DependentOptions"
+import {styled, theme} from "../App/emotion"
 import {PrimaryButton} from "../PrimaryButton"
-import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
-import {compose} from "redux"
-import {ThemeProps, styled, withTheme} from "../App/emotion"
-import {Link} from "react-router-dom"
+import DependentOptions from "./DependentOptions"
+import IndependentOptions from "./IndependentOptions"
 
 interface ProductCardOwnProps {
   product: Product
   category: Category
 }
 
-interface ProductCardProps extends ProductCardOwnProps, CartProps, ThemeProps {}
+interface ProductCardProps extends ProductCardOwnProps, CartProps {}
 
 interface ProductCardState {
   currentProductState: ProductInstance
@@ -31,7 +30,7 @@ interface ProductCardState {
 
 class ProductCard extends Component<ProductCardProps, ProductCardState> {
   static Ingridients = styled("div")`
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
   `
 
   static Wrapper = styled("div")`
@@ -160,7 +159,6 @@ class ProductCard extends Component<ProductCardProps, ProductCardState> {
     )
   }
 }
-export default compose<ComponentType<ProductCardOwnProps>>(
-  withCart,
-  withTheme
-)(ProductCard)
+export default compose<ComponentType<ProductCardOwnProps>>(withCart)(
+  ProductCard
+)

@@ -1,17 +1,17 @@
+import {cx} from "emotion"
 import React from "react"
+import Icon from "react-fa"
+import {Collapse} from "reactstrap"
+import {CartProduct} from "../../containers/Cart/actions"
 import {
   Order,
-  paymentMethodTranslation,
   orderStatusTranslation,
+  paymentMethodTranslation,
 } from "../../containers/UserSession/actions"
+import {styled, theme} from "../App/emotion"
 import OrderHistoryProduct from "./OrderHistoryProduct"
-import {CartProduct} from "../../containers/Cart/actions"
-import {Collapse} from "reactstrap"
-import Icon from "react-fa"
-import {styled, ThemeProps, withTheme} from "../App/emotion"
-import {cx, css} from "emotion"
 
-interface OrderViewProps extends React.HTMLProps<HTMLDivElement>, ThemeProps {
+interface OrderViewProps extends React.HTMLProps<HTMLDivElement> {
   order: Order
   addProductToCart(poduct: CartProduct): void
 }
@@ -22,7 +22,7 @@ interface OrderViewState {
 
 class OrderView extends React.Component<OrderViewProps, OrderViewState> {
   static Label = styled("small")`
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
     white-space: nowrap;
   `
 
@@ -41,7 +41,6 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
       addProductToCart,
       children,
       className,
-      theme,
       ...restOfProps
     } = this.props
     return (
@@ -119,4 +118,4 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
   }
 }
 
-export default withTheme(OrderView)
+export default OrderView

@@ -1,8 +1,8 @@
+import {cx} from "emotion"
 import React from "react"
-import {Category} from "../../containers/Products/actions"
 import {NavLink} from "react-router-dom"
-import {cx, css} from "emotion"
-import {styled} from "../App/emotion"
+import {Category} from "../../containers/Products/actions"
+import {styled, theme} from "../App/emotion"
 
 const LinkWrapper = styled("div")`
   font-weight: 500;
@@ -15,7 +15,7 @@ const LinkWrapper = styled("div")`
   a {
     display: flex;
     align-items: center;
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
     /* transition: all 0.25s; */
     :hover {
       text-decoration: none;
@@ -32,7 +32,7 @@ const LinkWrapper = styled("div")`
   }
 `
 const Divider = styled("hr")`
-  background: ${props => props.theme.darkBlue};
+  background: ${theme.darkBlue};
   margin-top: 24px;
   width: 100%;
   height: 1px;
@@ -42,7 +42,7 @@ const Menu = styled("h1")`
   line-height: 4.5rem;
   font-weight: 700;
   text-align: center;
-  color: ${props => props.theme.orange};
+  color: ${theme.orange};
 `
 
 interface CategoriesNavProps extends React.HTMLProps<HTMLDivElement> {

@@ -13,7 +13,7 @@ import withCategories from "../containers/Category"
 import {Status} from "../constants"
 import {Category} from "../containers/Products/actions"
 import logo from "../assets/logo.svg"
-import {styled} from "./App/emotion"
+import {styled, theme} from "./App/emotion"
 
 interface FooterProps extends RouteComponentProps<{category?: string}> {
   categoriesStatus: Status
@@ -26,33 +26,33 @@ const Link = styled(ReactRouterLink)`
   :hover,
   :focus,
   :active {
-    color: ${props => props.theme.orange};
+    color: ${theme.orange};
     text-decoration: none;
-    text-shadow: 0 0 48px ${props => props.theme.orange};
+    text-shadow: 0 0 48px ${theme.orange};
   }
 `
 
 const FooterBlock = styled("div")`
   letter-spacing: 0.125em;
   font-weight: 500;
-  color: ${props => props.theme.lighterGrey};
+  color: ${theme.lighterGrey};
   padding: 0.5rem 2rem; /* py-2 px-4 */
 `
 
 const SocialMediaAnchor = styled("a")`
-  color: ${props => props.theme.orange};
+  color: ${theme.orange};
   font-size: 60px;
   text-decoration: none;
   :hover,
   :focus,
   :active {
-    color: ${props => props.theme.redOrange};
+    color: ${theme.redOrange};
     text-decoration: none;
-    text-shadow: 0 0 48px ${props => props.theme.redOrange};
+    text-shadow: 0 0 48px ${theme.redOrange};
   }
 `
 
-const BottomNavbar = styled("div")(({theme}) => ({
+const BottomNavbar = styled("div")({
   backgroundColor: theme.orange,
   backgroundImage: `radial-gradient(
     ${theme.orange},
@@ -66,10 +66,10 @@ const BottomNavbar = styled("div")(({theme}) => ({
   color: theme.darkBlue,
   letterSpacing: "0.125em",
   margin: "0 -15px",
-}))
+})
 
 const BottomNavbarNavLink = styled(ReactRouterNavLink)`
-  color: ${props => props.theme.darkBlue};
+  color: ${theme.darkBlue};
   text-decoration: none;
   :hover,
   :focus,
@@ -84,7 +84,7 @@ const BottomNavbarNavLink = styled(ReactRouterNavLink)`
 // const BottomNavbarSeparator = styled("div")`
 //   height: 3rem;
 //   width: 0.125rem;
-//   background-color: ${props => props.theme.darkBlue};
+//   background-color: ${theme.darkBlue};
 // `
 
 const LogotypeImg = styled("img")`

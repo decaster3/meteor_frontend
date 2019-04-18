@@ -1,22 +1,21 @@
-import React, {SFC, HTMLProps, SyntheticEvent, Component} from "react"
-import {reduxForm, Field} from "redux-form/immutable"
-import {PulseLoader} from "react-spinners"
-import {InjectedFormProps} from "redux-form"
+import {cx} from "emotion"
 import {Map as ImmutableMap} from "immutable"
-
-import {
-  validatePhone,
-  validatePresence,
-  validateIsUserPhone,
-} from "../../forms/validations"
+import React, {Component, HTMLProps, SFC, SyntheticEvent} from "react"
+import {PulseLoader} from "react-spinners"
+import {compose} from "redux"
+import {InjectedFormProps} from "redux-form"
+import {Field, reduxForm} from "redux-form/immutable"
 import CustomInput from "../../forms/CustomInput"
 import CustomSelect from "../../forms/CustomSelect"
-import {cx} from "emotion"
-import {compose} from "redux"
-import {ThemeProps, withTheme, styled} from "../App/emotion"
-import {PrimaryButton} from "../PrimaryButton"
 import {CustomTextarea} from "../../forms/CustomTextarea"
 import {normalizePhone} from "../../forms/normalizations"
+import {
+  validateIsUserPhone,
+  validatePhone,
+  validatePresence,
+} from "../../forms/validations"
+import {styled, theme} from "../App/emotion"
+import {PrimaryButton} from "../PrimaryButton"
 
 interface CheckoutFormOwnProps {
   isOrderPending: boolean
@@ -43,8 +42,7 @@ type ImmutableMapOfCheckoutFormData = ImmutableMap<
   string
 >
 
-type CheckoutFormProps = ThemeProps &
-  CheckoutFormOwnProps &
+type CheckoutFormProps = CheckoutFormOwnProps &
   InjectedFormProps<ImmutableMapOfCheckoutFormData, CheckoutFormOwnProps>
 
 interface CheckoutFormState {
@@ -56,11 +54,11 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
   static PaymentMethodLabel = styled("label")`
     padding-top: 11px;
     padding-bottom: 11px;
-    color: ${props => props.theme.lightGreen};
-    border: 1px solid ${props => props.theme.lightGreen};
+    color: ${theme.lightGreen};
+    border: 1px solid ${theme.lightGreen};
 
     &&.active {
-      background: ${props => props.theme.lightGreen};
+      background: ${theme.lightGreen};
     }
 
     & + label {
@@ -69,7 +67,7 @@ class CheckoutForm extends Component<CheckoutFormProps, CheckoutFormState> {
   `
 
   static Subtitle = styled("h3")`
-    color: ${props => props.theme.lighterGrey};
+    color: ${theme.lighterGrey};
     margin-bottom: 24px; /* mb-4 */
   `
 
@@ -447,6 +445,5 @@ export default compose(
     form: "checkout",
     warn: warningCheckoutForm,
     validate: validateCheckoutFrom,
-  }),
-  withTheme
+  })
 )(CheckoutForm)

@@ -1,30 +1,22 @@
 import React from "react"
-import {compose} from "redux"
-import {withUser, UserProps} from "../../containers/UserSession"
-import withCart, {CartProps} from "../../containers/Cart"
-import {
-  paymentMethodTranslation,
-  orderStatusTranslation,
-} from "../../containers/UserSession/actions"
-import {Status} from "../../constants"
 import {Link as ReactRouterLink} from "react-router-dom"
-import {ThemeProps, styled, withTheme} from "../App/emotion"
-import Order from "./Order"
+import {compose} from "redux"
+import {Status} from "../../constants"
+import withCart, {CartProps} from "../../containers/Cart"
 import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
+import {UserProps, withUser} from "../../containers/UserSession"
+import {styled, theme} from "../App/emotion"
+import Order from "./Order"
 
-interface AccountOrderHistoryProps
-  extends UserProps,
-    CartProps,
-    ThemeProps,
-    GeolocationProps {}
+type AccountOrderHistoryProps = UserProps & CartProps & GeolocationProps
 
 const Link = styled(ReactRouterLink)`
-  color: ${props => props.theme.orange};
+  color: ${theme.orange};
   text-decoration: none;
   :focus,
   :hover,
   :active {
-    color: ${props => props.theme.redOrange};
+    color: ${theme.redOrange};
     text-decoration: none;
   }
 `
@@ -80,6 +72,5 @@ class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
 export default compose(
   withGeolocation,
   withCart,
-  withUser,
-  withTheme
+  withUser
 )(AccountOrderHistory)
