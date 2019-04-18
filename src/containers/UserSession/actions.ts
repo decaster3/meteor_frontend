@@ -40,6 +40,7 @@ export const paymentMethodTranslation: {[K in paymentMethodType]: string} = {
 
 export interface Order {
   id: number
+  cityId: number
   paymentMethod: paymentMethodType
   status: orderStatusType
   createdAt: string

@@ -1,11 +1,14 @@
 import {css} from "emotion"
 import * as React from "react"
+import {toast, ToastPosition} from "../../../node_modules/react-toastify"
 import pizzaPlaceholder from "../../assets/pizza_placeholder.png"
 import {CartProduct} from "../../containers/Cart/actions"
 import {styled} from "../App/emotion"
+import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 
 interface OrderHistoryProductProps {
   product: CartProduct
+  orderCityId: number
   addProductToCart(product: CartProduct): void
 }
 
@@ -15,7 +18,7 @@ interface OrderHistoryProductState {
 }
 
 class OrderHistoryProduct extends React.Component<
-  OrderHistoryProductProps,
+  OrderHistoryProductProps & GeolocationProps,
   OrderHistoryProductState
 > {
   static AddToCartButton = styled("button")`
@@ -28,7 +31,7 @@ class OrderHistoryProduct extends React.Component<
     white-space: nowrap;
   `
 
-  constructor(props: OrderHistoryProductProps) {
+  constructor(props: OrderHistoryProductProps & GeolocationProps) {
     super(props)
 
     this.state = {
@@ -66,7 +69,21 @@ class OrderHistoryProduct extends React.Component<
   }
 
   handleAddProduct = () => {
-    this.props.addProductToCart(this.props.product)
+    if (this.props.orderCityId === this.props.defaultCity.id) {
+      this.props.addProductToCart(this.props.product)
+    } else {
+      toast.error(
+        "🦄 Вы не можете повторить заказ, который был сделан в другом городе!",
+        {
+          position: "top-right" as ToastPosition,
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+        }
+      )
+    }
   }
 
   render() {
@@ -124,7 +141,7 @@ class OrderHistoryProduct extends React.Component<
             className="btn btn-outline-success"
             onClick={this.handleAddProduct}
           >
-            Добавить в карзину
+            Добавить в корзину
           </OrderHistoryProduct.AddToCartButton>
         </div>
       </div>
@@ -132,4 +149,4 @@ class OrderHistoryProduct extends React.Component<
   }
 }
 
-export default OrderHistoryProduct
+export default withGeolocation(OrderHistoryProduct)

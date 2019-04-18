@@ -3,12 +3,11 @@ import {Link as ReactRouterLink} from "react-router-dom"
 import {compose} from "redux"
 import {Status} from "../../constants"
 import withCart, {CartProps} from "../../containers/Cart"
-import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import {UserProps, withUser} from "../../containers/UserSession"
 import {styled, theme} from "../App/emotion"
 import Order from "./Order"
 
-type AccountOrderHistoryProps = UserProps & CartProps & GeolocationProps
+type AccountOrderHistoryProps = UserProps & CartProps
 
 const Link = styled(ReactRouterLink)`
   color: ${theme.orange};
@@ -70,7 +69,6 @@ class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
 }
 
 export default compose(
-  withGeolocation,
   withCart,
   withUser
 )(AccountOrderHistory)

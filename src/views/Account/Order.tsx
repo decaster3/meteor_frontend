@@ -107,7 +107,9 @@ class OrderView extends React.Component<OrderViewProps, OrderViewState> {
             {order.orderProducts.map((orderProduct, index) => (
               <OrderHistoryProduct
                 key={index}
+                // @ts-ignore
                 product={orderProduct}
+                orderCityId={this.props.order.cityId}
                 addProductToCart={addProductToCart}
               />
             ))}
