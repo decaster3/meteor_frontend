@@ -1,25 +1,14 @@
-// tslint:disable-next-line:no-implicit-dependencies
-import createHistory from "history/createBrowserHistory"
+import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css.map"
+import "bootstrap/dist/js/bootstrap.bundle"
 import React from "react"
 import ReactDOM from "react-dom"
 import {Provider} from "react-redux"
-
-// Vendor styles
-import "bootstrap/dist/css/bootstrap.min.css"
-import "bootstrap/dist/css/bootstrap.min.css.map"
-
-// Vendor JS
-import "bootstrap/dist/js/bootstrap.bundle"
-
-// Own styles
-import "./main.scss"
-
-import configureStore from "./configureStore"
-import App from "./views/App"
-import LanguageProvider from "./containers/LanguageProvider"
-import {translationMessages} from "./i18n"
-import {saveState} from "./localStorage"
 import {BrowserRouter} from "react-router-dom"
+import configureStore from "./configureStore"
+import {saveState} from "./localStorage"
+import "./main.scss"
+import App from "./views/App"
 
 const initialState = {}
 export const store = configureStore(initialState)
@@ -34,14 +23,12 @@ store.subscribe(() => {
   })
 })
 
-const render = (messages: any) => {
+const renderAtMountNode = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </LanguageProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>,
     MOUNT_NODE
   )
@@ -53,7 +40,7 @@ if ((module as any).hot) {
   // have to be constants at compile-time
   ;(module as any).hot.accept(["./i18n", "./views/App"], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE as HTMLElement)
-    render(translationMessages)
+    renderAtMountNode()
   })
 }
 
@@ -62,9 +49,9 @@ if (!(window as any).Intl) {
   import("intl")
     // @ts-ignore
     .then(() => Promise.all([import("intl/locale-data/jsonp/en")]))
-    .then(() => render(translationMessages))
+    .then(() => renderAtMountNode())
 } else {
-  render(translationMessages)
+  renderAtMountNode()
 }
 
 // Install ServiceWorker and AppCache in the end since
