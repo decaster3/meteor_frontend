@@ -10,8 +10,13 @@ import {Status} from "../../constants"
 import {Link as ReactRouterLink} from "react-router-dom"
 import {ThemeProps, styled, withTheme} from "../App/emotion"
 import Order from "./Order"
+import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 
-interface AccountOrderHistoryProps extends UserProps, CartProps, ThemeProps {}
+interface AccountOrderHistoryProps
+  extends UserProps,
+    CartProps,
+    ThemeProps,
+    GeolocationProps {}
 
 const Link = styled(ReactRouterLink)`
   color: ${props => props.theme.orange};
@@ -33,8 +38,8 @@ class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
         return (
           <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
             <p className="h2 mb-5">
-              Ошибка загрузки. Проверьте соединение с интернетом и
-              перезагрузите страницу
+              Ошибка загрузки. Проверьте соединение с интернетом и перезагрузите
+              страницу
             </p>
           </div>
         )
@@ -63,8 +68,8 @@ class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
         return (
           <div className="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
             <p className="h2 mb-5">
-              Ошибка загрузки. Проверьте соединение с интернетом и
-              перезагрузите страницу
+              Ошибка загрузки. Проверьте соединение с интернетом и перезагрузите
+              страницу
             </p>
           </div>
         )
@@ -73,6 +78,7 @@ class AccountOrderHistory extends React.Component<AccountOrderHistoryProps> {
 }
 
 export default compose(
+  withGeolocation,
   withCart,
   withUser,
   withTheme

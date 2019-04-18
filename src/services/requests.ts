@@ -1,6 +1,7 @@
 import {API_URL} from "../constants"
 import {store} from "../"
 import {logout} from "../containers/UserSession/actions"
+import {toast, ToastPosition} from "../../node_modules/react-toastify"
 
 const setToken = (token: string | null) => {
   if (token) {
@@ -42,6 +43,17 @@ const request = (
           if (response.status === 401) {
             store.dispatch(logout())
             localStorage.removeItem("token")
+            toast.error(
+              "🦄 Сессия устарела, пожалуйста, повторно авторизируйтесь",
+              {
+                position: "top-right" as ToastPosition,
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+              }
+            )
           }
           return Promise.reject({
             status: response.status,

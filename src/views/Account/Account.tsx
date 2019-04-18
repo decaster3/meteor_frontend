@@ -8,6 +8,7 @@ import {withUser, UserProps} from "../../containers/UserSession"
 import withGeolocation, {GeolocationProps} from "../../containers/Geolocation"
 import BonusHistory from "./BonusHistory"
 import OrderHistory from "./OrderHistory"
+import Settings from "./Settings"
 import {ThemeProps, styled, withTheme, mediaBreakpointUp} from "../App/emotion"
 import {PrimaryButtonAsLink} from "../PrimaryButton"
 import {JS_HREF, Status} from "../../constants"
@@ -87,28 +88,57 @@ class Account extends React.Component<
 
         <div className="text-lightergrey fw-medium">
           <div className={"row align-items-center mb-5"}>
-            <div className="col-12 col-lg-4 text-center">
-              <img
-                className="rounded-circle"
-                src={`http://via.placeholder.com/256x256`}
-              />
+            <div className="col-12 col-lg-6">
+              <Account.AccountInfoItem>
+                <div className="row">
+                  <span className="col">Имя:</span>{" "}
+                  <span
+                    className={cx(
+                      "col",
+                      css`
+                        color: ${this.props.theme.orange};
+                      `
+                    )}
+                  >
+                    {this.props.userInfo.name}
+                  </span>
+                </div>
+              </Account.AccountInfoItem>
+
+              <Account.AccountInfoItem>
+                <div className="row">
+                  <span className="col">Телефон:</span>{" "}
+                  <span
+                    className={cx(
+                      "col",
+                      css`
+                        color: ${this.props.theme.orange};
+                      `
+                    )}
+                  >
+                    {this.props.userInfo.phone}
+                  </span>
+                </div>
+              </Account.AccountInfoItem>
+
+              <Account.AccountInfoItem>
+                <div className="row">
+                  <span className="col">Код для приглашения:</span>{" "}
+                  <span
+                    className={cx(
+                      "col",
+                      css`
+                        color: ${this.props.theme.orange};
+                      `
+                    )}
+                  >
+                    {this.props.userInfo.token}
+                  </span>
+                </div>
+              </Account.AccountInfoItem>
             </div>
 
-            <div className="col-12 col-lg-4">
-              <Account.AccountInfoItem>
-                {this.props.userInfo.name}
-              </Account.AccountInfoItem>
-
-              <Account.AccountInfoItem>
-                {this.props.userInfo.phone}
-              </Account.AccountInfoItem>
-
-              <Account.AccountInfoItem>
-                {this.props.userInfo.token}
-              </Account.AccountInfoItem>
-            </div>
-
-            <div className={"col-12 col-lg-4 text-center"}>
+            <div className={"col-12 col-lg-6 text-center"}>
               <div>На вашем счету</div>
               <div className={"text-white h3 mb-0 py-3"}>
                 {this.props.userInfoStatus === Status.LOADED
@@ -187,7 +217,9 @@ class Account extends React.Component<
           <TabPane tabId="meteor-history">
             <BonusHistory />
           </TabPane>
-          <TabPane tabId="settings" />
+          <TabPane tabId="settings">
+            <Settings />
+          </TabPane>
         </TabContent>
       </div>
     )

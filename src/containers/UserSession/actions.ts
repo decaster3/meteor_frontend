@@ -131,6 +131,7 @@ export const login = (password: string, phone: string) => (dispatch: any) => {
     .catch(err => {
       dispatch(changeUserStatus(UserState.ANONYMOUS))
       dispatch(changeLoginPendingState(false))
+      console.log(err)
       if (
         err.body.error === "Invalid Phone or password." &&
         err.body.error === "Invalid segment encoding"
@@ -148,7 +149,7 @@ export const login = (password: string, phone: string) => (dispatch: any) => {
 export const logout = () => (dispatch: any) => {
   dispatch(changeUserStatus(UserState.ANONYMOUS))
   dispatch(clearSession())
-  toast.error("🦄 Сессия устарела, пожалуйста, повторно авторизируйтесь", {
+  toast.error("🦄 Вы успешно вышли из аккаунта", {
     position: "top-right" as ToastPosition,
     autoClose: false,
     hideProgressBar: false,

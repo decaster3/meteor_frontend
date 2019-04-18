@@ -80,6 +80,7 @@ export class Categories extends React.Component<
     })
     const product = {
       name: values.get("name"),
+      barcode: "123",
       description: values.get("description"),
       isTopping: false,
       categoryId: currentCategory.id,
