@@ -2,14 +2,11 @@
  * Combine all reducers in this file and export the combined reducers.
  */
 
-import {fromJS} from "immutable"
-import {combineReducers} from "redux-immutable"
 import {reducer as formReducer} from "redux-form/immutable"
-
-import languageProviderReducer from "./containers/LanguageProvider/reducer"
-import userSessionReducer from "./containers/UserSession/reducer"
+import {combineReducers} from "redux-immutable"
 import cartReducer from "./containers/Cart/reducer"
 import geolocationReducer from "./containers/Geolocation/reducer"
+import userSessionReducer from "./containers/UserSession/reducer"
 
 /**
  * Creates the main reducer with the dynamically injected ones
@@ -17,7 +14,6 @@ import geolocationReducer from "./containers/Geolocation/reducer"
 const createReducer = (injectedReducers: any) => {
   // tslint:disable-next-line:no-console
   return combineReducers({
-    language: languageProviderReducer,
     userSession: userSessionReducer,
     cart: cartReducer,
     form: formReducer,

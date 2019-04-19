@@ -17,7 +17,6 @@ const MOUNT_NODE = document.getElementById("root")
 store.subscribe(() => {
   saveState({
     userSession: store.getState().get("userSession"),
-    language: store.getState().get("language"),
     cart: store.getState().get("cart"),
     // geolocation: store.getState().get("geolocation"),
   })
@@ -38,7 +37,7 @@ if ((module as any).hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  ;(module as any).hot.accept(["./i18n", "./views/App"], () => {
+  ;(module as any).hot.accept(["./views/App"], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE as HTMLElement)
     renderAtMountNode()
   })
